@@ -30,21 +30,21 @@ end note
 ENTREGADA --> EN_REVISION : procesarEjecucionAutomatica()
 note on link
   TestRunner ejecuta linter y tests base
-  Pasa a cola de revisión de Tutores Senior
+  Pasa a cola de revisión de Tech Leaders (TL)
 end note
 
 EXPIRADA --> EN_REVISION : calificarRespuestasDisponibles()
 
 EN_REVISION --> CALIFICADA : completarRubricaManual()
 note on link
-  Evaluador Senior califica criterios de código
+  Tech Leader (TL) califica criterios de código
   Se consolida la nota final (teoría + práctica)
 end note
 
 CALIFICADA --> [*] : emitirDictamen()
 note on link
   Dictamen: Apto Directo / Apto con Refuerzo / No Apto
-  Si es Apto, habilita admisión como Becario
+  Si es Apto, habilita admisión como Alumno PROFER
 end note
 
 @enduml

@@ -18,14 +18,14 @@ package "Gestión Institucional y Convocatorias" {
 package "Usuarios y Roles del Sistema" {
   abstract class Usuario
   class Candidato
-  class Becario
-  class TutorSenior
-  class CoordinadorAdmin
+  class AlumnoProfer
+  class TechLeader
+  class GestorProfer
 
   Usuario <|-- Candidato
-  Usuario <|-- Becario
-  Usuario <|-- TutorSenior
-  Usuario <|-- CoordinadorAdmin
+  Usuario <|-- AlumnoProfer
+  Usuario <|-- TechLeader
+  Usuario <|-- GestorProfer
 }
 
 package "Admisión y Evaluación Técnica" {
@@ -60,7 +60,7 @@ package "Admisión y Evaluación Técnica" {
   BancoReactivos "1" *-- "*" EjercicioPractico : cataloga
 
   EntregaPractica "1" ..> "1" TestRunner : ejecuta en sandbox
-  TutorSenior "1" ..> "*" CalificacionCriterio : califica manualmente
+  TechLeader "1" ..> "*" CalificacionCriterio : califica manualmente
 }
 
 package "CTS Academy (Formación On-Site)" {
@@ -69,7 +69,7 @@ package "CTS Academy (Formación On-Site)" {
   class RecursoFormativo
   class LaboratorioOnSite
   class EntregaLaboratorio
-  class RevisionTutor
+  class RevisionTechLeader
   class SeguimientoPeriodico
 
   PerfilBuscado "1" -- "0..1" RutaAprendizaje : orienta
@@ -77,15 +77,15 @@ package "CTS Academy (Formación On-Site)" {
   ModuloFormativo "1" *-- "*" RecursoFormativo : provee
   ModuloFormativo "1" *-- "*" LaboratorioOnSite : programa
 
-  Becario "1" -- "1" RutaAprendizaje : cursa
+  AlumnoProfer "1" -- "1" RutaAprendizaje : cursa
   LaboratorioOnSite "1" -- "*" EntregaLaboratorio : genera
-  Becario "1" *-- "*" EntregaLaboratorio : entrega
-  EntregaLaboratorio "1" *-- "0..*" RevisionTutor : recibe
-  TutorSenior "1" -- "*" RevisionTutor : emite
+  AlumnoProfer "1" *-- "*" EntregaLaboratorio : entrega
+  EntregaLaboratorio "1" *-- "0..*" RevisionTechLeader : recibe
+  TechLeader "1" -- "*" RevisionTechLeader : emite
 
-  Becario "1" *-- "*" SeguimientoPeriodico : registra
-  TutorSenior "1" -- "*" SeguimientoPeriodico : supervisa
-  TutorSenior "1" -- "*" Becario : tutoriza
+  AlumnoProfer "1" *-- "*" SeguimientoPeriodico : registra
+  TechLeader "1" -- "*" SeguimientoPeriodico : supervisa
+  TechLeader "1" -- "*" AlumnoProfer : tutoriza
 }
 
 @enduml

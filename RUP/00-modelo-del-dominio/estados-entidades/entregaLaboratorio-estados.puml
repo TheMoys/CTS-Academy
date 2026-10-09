@@ -7,27 +7,27 @@ skinparam state {
   ArrowColor Black
 }
 
-[*] --> ASIGNADO : asignarLaboratorio(becario)
+[*] --> ASIGNADO : asignarLaboratorio(alumnoProfer)
 
 ASIGNADO --> EN_DESARROLLO : iniciarTrabajo()
 note on link
-  Becario clona plantilla e inicia rama de trabajo
+  Alumno PROFER clona plantilla e inicia rama de trabajo
 end note
 
 EN_DESARROLLO --> ENTREGADO : enviarPullRequest()
 note on link
-  Becario registra URL del PR y artefactos
+  Alumno PROFER registra URL del PR y artefactos
 end note
 
-ENTREGADO --> EN_REVISION : tomarRevision(tutor)
+ENTREGADO --> EN_REVISION : tomarRevision(techLeader)
 note on link
-  Tutor Senior inicia revisión de código (Code Review)
+  Tech Leader (TL) inicia revisión de código (Code Review)
 end note
 
 EN_REVISION --> REQUIERE_CAMBIOS : solicitarCorrecciones()
 note on link
-  Tutor añade comentarios de mejora
-  Se reabre el flujo para el becario
+  Tech Leader añade comentarios de mejora
+  Se reabre el flujo para el Alumno PROFER
 end note
 
 REQUIERE_CAMBIOS --> EN_DESARROLLO : iterarSolucion()

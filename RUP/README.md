@@ -57,17 +57,17 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo y a la mat
 |**PK02 - Admisión**|`entregarEjercicioPractico()`|`Candidato`|—|—|—|—|
 |**PK02 - Admisión**|`ejecutarCodigoSandbox()`|`Candidato` / `TestRunner`|—|—|—|—|
 |**PK02 - Admisión**|`finalizarPruebaTecnica()`|`Candidato`|—|—|—|—|
-|**PK02 - Admisión**|`calificarPruebaManual()`|`TutorSenior`|—|—|—|—|
-|**PK02 - Admisión**|`emitirDictamenCandidato()`|`TutorSenior` / `CoordinadorAdmin`|—|—|—|—|
-|**PK03 - Academy**|`abrirRutaAprendizaje()`|`Becario`|—|—|—|—|
-|**PK03 - Academy**|`entregarLaboratorioOnSite()`|`Becario`|—|—|—|—|
-|**PK03 - Academy**|`revisarCodigoLaboratorio()`|`TutorSenior`|—|—|—|—|
-|**PK03 - Academy**|`registrarSeguimientoSemanal()`|`TutorSenior`|—|—|—|—|
-|**PK04 - Convocatorias**|`crearConvocatoria()`|`CoordinadorAdmin`|—|—|—|—|
-|**PK04 - Convocatorias**|`matricularCandidato()`|`CoordinadorAdmin`|—|—|—|—|
-|**PK04 - Convocatorias**|`asignarTutorABecario()`|`CoordinadorAdmin`|—|—|—|—|
-|**PK05 - Reactivos**|`crearReactivoTeorico()`|`TutorSenior`|—|—|—|—|
-|**PK05 - Reactivos**|`crearEjercicioPractico()`|`TutorSenior`|—|—|—|—|
-|**PK05 - Reactivos**|`configurarRubricaEvaluacion()`|`TutorSenior`|—|—|—|—|
+|**PK02 - Admisión**|`calificarPruebaManual()`|`TechLeader`|—|—|—|—|
+|**PK02 - Admisión**|`emitirDictamenCandidato()`|`TechLeader` / `GestorProfer`|—|—|—|—|
+|**PK03 - Academy**|`abrirRutaAprendizaje()`|`AlumnoProfer`|—|—|—|—|
+|**PK03 - Academy**|`entregarLaboratorioOnSite()`|`AlumnoProfer`|—|—|—|—|
+|**PK03 - Academy**|`revisarCodigoLaboratorio()`|`TechLeader`|—|—|—|—|
+|**PK03 - Academy**|`registrarSeguimientoSemanal()`|`TechLeader`|—|—|—|—|
+|**PK04 - Convocatorias**|`crearConvocatoria()`|`GestorProfer`|—|—|—|—|
+|**PK04 - Convocatorias**|`matricularCandidato()`|`GestorProfer`|—|—|—|—|
+|**PK04 - Convocatorias**|`asignarTLAlumnoProfer()`|`GestorProfer`|—|—|—|—|
+|**PK05 - Reactivos**|`crearReactivoTeorico()`|`TechLeader`|—|—|—|—|
+|**PK05 - Reactivos**|`crearEjercicioPractico()`|`TechLeader`|—|—|—|—|
+|**PK05 - Reactivos**|`configurarRubricaEvaluacion()`|`TechLeader`|—|—|—|—|
 
 </div>

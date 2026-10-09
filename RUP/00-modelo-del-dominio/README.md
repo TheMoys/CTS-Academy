@@ -34,9 +34,9 @@ classDiagram
     <<abstract>>
   }
   class Candidato
-  class Becario
-  class TutorSenior
-  class CoordinadorAdmin
+  class AlumnoProfer
+  class TechLeader
+  class GestorProfer
 
   class PruebaTecnica
   class BancoReactivos
@@ -54,16 +54,16 @@ classDiagram
   class RecursoFormativo
   class LaboratorioOnSite
   class EntregaLaboratorio
-  class RevisionTutor
+  class RevisionTechLeader
   class SeguimientoPeriodico
 
   Universidad "1" *-- "*" Convocatoria : oferta
   Convocatoria "1" o-- "*" PerfilBuscado : requiere
 
   Usuario <|-- Candidato
-  Usuario <|-- Becario
-  Usuario <|-- TutorSenior
-  Usuario <|-- CoordinadorAdmin
+  Usuario <|-- AlumnoProfer
+  Usuario <|-- TechLeader
+  Usuario <|-- GestorProfer
 
   Convocatoria "1" *-- "*" Candidato : postula
   Candidato "1" *-- "1..*" PruebaTecnica : rinde
@@ -85,22 +85,22 @@ classDiagram
   BancoReactivos "1" *-- "*" EjercicioPractico : cataloga
 
   EntregaPractica "1" ..> "1" TestRunner : ejecuta en sandbox
-  TutorSenior "1" ..> "*" CalificacionCriterio : califica manualmente
+  TechLeader "1" ..> "*" CalificacionCriterio : califica manualmente
 
   PerfilBuscado "1" -- "0..1" RutaAprendizaje : orienta
   RutaAprendizaje "1" *-- "1..*" ModuloFormativo : compone
   ModuloFormativo "1" *-- "*" RecursoFormativo : provee
   ModuloFormativo "1" *-- "*" LaboratorioOnSite : programa
 
-  Becario "1" -- "1" RutaAprendizaje : cursa
+  AlumnoProfer "1" -- "1" RutaAprendizaje : cursa
   LaboratorioOnSite "1" -- "*" EntregaLaboratorio : genera
-  Becario "1" *-- "*" EntregaLaboratorio : entrega
-  EntregaLaboratorio "1" *-- "0..*" RevisionTutor : recibe
-  TutorSenior "1" -- "*" RevisionTutor : emite
+  AlumnoProfer "1" *-- "*" EntregaLaboratorio : entrega
+  EntregaLaboratorio "1" *-- "0..*" RevisionTechLeader : recibe
+  TechLeader "1" -- "*" RevisionTechLeader : emite
 
-  Becario "1" *-- "*" SeguimientoPeriodico : registra
-  TutorSenior "1" -- "*" SeguimientoPeriodico : supervisa
-  TutorSenior "1" -- "*" Becario : tutoriza
+  AlumnoProfer "1" *-- "*" SeguimientoPeriodico : registra
+  TechLeader "1" -- "*" SeguimientoPeriodico : supervisa
+  TechLeader "1" -- "*" AlumnoProfer : tutoriza
 ```
 
 ---
@@ -122,15 +122,15 @@ classDiagram
 * **`CalificacionCriterio`**: Asignación de puntos y notas de retroalimentación otorgadas por un evaluador senior a un criterio específico de la rúbrica.
 * **`TestRunner`**: Entorno sandbox aislado (contenedor efímero sin salida a red externa) responsable de ejecutar pruebas unitarias automáticas, formateadores y análisis estático sobre el código entregado por el candidato.
 * **`DictamenFinal`**: Resolución colegiada sobre la prueba técnica del candidato (`Apto Directo`, `Apto con Refuerzo`, `No Apto`).
-* **`Becario`**: Candidato apto que ha formalizado su incorporación al centro de desarrollo e inicia su estancia de prácticas formativas on-site.
+* **`AlumnoProfer`**: Candidato apto que ha formalizado su incorporación a CTS dentro del programa PROFER e inicia su estancia de formación y prácticas on-site.
 * **`RutaAprendizaje`**: Itinerario curricular estructurado diseñado por CTS para guiar la capacitación técnica y la adaptación a los estándares de producción de la empresa.
 * **`ModuloFormativo`**: Bloque temático secuencial dentro de una ruta de aprendizaje (ej. *Arquitectura Limpia y Patrones*, *Gestión de Estado*, *Testing y CI/CD*).
-* **`LaboratorioOnSite`**: Ticket o tarea técnica de dificultad progresiva que el becario debe implementar en su estación de trabajo local y someter a revisión mediante Pull Request.
-* **`EntregaLaboratorio`**: Instancia de entrega de un laboratorio formativo por parte del becario, enlazada al repositorio interno de control de versiones.
-* **`RevisionTutor`**: Sesión y registro de revisión de código (*Code Review*) realizada por un tutor senior, emitiendo retroalimentación formativa y dictamen de aprobación o solicitud de cambios.
-* **`SeguimientoPeriodico`**: Registro periódico (semanal/quincenal) de la evolución formativa, horas dedicadas, cumplimiento de hitos y aspectos actitudinales del becario.
-* **`TutorSenior`**: Desarrollador senior de CTS responsable de diseñar pruebas, evaluar candidatos técnicos y guiar a los becarios durante su estancia on-site.
-* **`CoordinadorAdmin`**: Responsable institucional de CTS encargado de gestionar convocatorias, convenios con universidades y asignación de tutores.
+* **`LaboratorioOnSite`**: Ticket o tarea técnica de dificultad progresiva que el Alumno PROFER debe implementar en su estación de trabajo local y someter a revisión mediante Pull Request.
+* **`EntregaLaboratorio`**: Instancia de entrega de un laboratorio formativo por parte del Alumno PROFER, enlazada al repositorio interno de control de versiones.
+* **`RevisionTechLeader`**: Sesión y registro de revisión de código (*Code Review*) realizada por un Tech Leader (TL), emitiendo retroalimentación formativa y dictamen de aprobación o solicitud de cambios.
+* **`SeguimientoPeriodico`**: Registro periódico (semanal/quincenal) de la evolución formativa, horas dedicadas, cumplimiento de hitos y aspectos actitudinales del Alumno PROFER.
+* **`TechLeader` (TL)**: Ingeniero/líder técnico senior de CTS responsable de diseñar pruebas, evaluar reactivos prácticos, realizar code reviews y guiar a los Alumnos PROFER durante su estancia on-site.
+* **`GestorProfer`**: Responsable institucional y administrativo de CTS encargado de gestionar convocatorias, convenios con universidades y asignación de Tech Leaders a Alumnos PROFER.
 
 ---
 
@@ -187,10 +187,10 @@ Replica el flujo real de trabajo en equipo ágil de CTS mediante Pull Requests y
    * La calificación total se desglosa estrictamente en:
      $$\text{CalificacionTotal} = \text{CalificacionTeorica} + \text{CalificacionPractica}$$
    * La parte teórica es objetiva (evaluada al 100% por reglas automáticas).
-   * La parte práctica combina métricas automáticas del `TestRunner` (pass/fail de tests) con la puntuación asignada por el `TutorSenior` en base a los criterios ponderados de la `RubricaEvaluacion`.
-4. **Transición Estricta de Candidato a Becario**:
-   * Un `Candidato` **nunca** puede convertirse directamente en `Becario` sin una `PruebaTecnica` en estado `CALIFICADA` con `dictamen in {AptoDirecto, AptoConRefuerzo}`.
-   * La formalización del alta como `Becario` requiere asignación obligatoria de al menos un `TutorSenior` y una `RutaAprendizaje`.
+   * La parte práctica combina métricas automáticas del `TestRunner` (pass/fail de tests) con la puntuación asignada por el `TechLeader` en base a los criterios ponderados de la `RubricaEvaluacion`.
+4. **Transición Estricta de Candidato a Alumno PROFER**:
+   * Un `Candidato` **nunca** puede convertirse directamente en `AlumnoProfer` sin una `PruebaTecnica` en estado `CALIFICADA` con `dictamen in {AptoDirecto, AptoConRefuerzo}`.
+   * La formalización del alta como `AlumnoProfer` requiere asignación obligatoria de al menos un `TechLeader` y una `RutaAprendizaje`.
 5. **Aislamiento y Seguridad en Sandbox (`TestRunner`)**:
    * El código entregado por los candidatos se evalúa en contenedores Docker efímeros, con límites estrictos de memoria RAM (máx. 256MB), tiempo de CPU (máx. 10s) y red externa totalmente inhabilitada (`--network none`).
 6. **Inmutabilidad y Preservación Histórica**:

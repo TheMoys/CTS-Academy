@@ -1,14 +1,14 @@
 # CTS Academy & Evaluator
 
-> Plataforma integral para la evaluación técnica de admisión de becarios y la gestión formativa on-site del Centro Tecnológico de Desarrollo (CTS).
+> Plataforma integral para la evaluación técnica de admisión y la gestión formativa on-site de los Alumnos PROFER en el Centro Tecnológico de Desarrollo (CTS).
 
 ---
 
 ## 🎯 Propósito del Sistema
 
-El proyecto moderniza y profesionaliza dos procesos neurálgicos de CTS:
-1. **Evaluación de Admisión Técnica**: Sustituye las pruebas manuales (PDFs estáticos y carpetas de código desconectadas) por una plataforma interactiva con banco de reactivos teóricos objetivos, retos prácticos de código (Vanilla JS, CSS Grid/Flexbox, maquetación, APIs), temporizador en servidor, ejecución segura en sandbox (Docker) y rúbricas estandarizadas para los evaluadores senior.
-2. **CTS Academy (Formación On-Site)**: Provee un entorno estructurado para los becarios admitidos durante su estancia presencial en CTS, con rutas de aprendizaje por perfiles (Frontend, Backend, Fullstack, DevOps), módulos temáticos, laboratorios prácticos basados en tickets/Pull Requests y acompañamiento tutorial con revisiones de código y seguimiento periódico.
+El proyecto moderniza y profesionaliza dos procesos neurálgicos de CTS y el programa PROFER:
+1. **Evaluación de Admisión Técnica**: Sustituye las pruebas manuales (PDFs estáticos y carpetas de código desconectadas) por una plataforma interactiva con banco de reactivos teóricos objetivos, retos prácticos de código (Vanilla JS, CSS Grid/Flexbox, maquetación, APIs), temporizador en servidor, ejecución segura en sandbox (Docker) y rúbricas estandarizadas para los Tech Leaders (TL).
+2. **CTS Academy (Formación On-Site)**: Provee un entorno estructurado para los Alumnos PROFER durante su estancia formativa on-site en CTS, con rutas de aprendizaje por perfiles (Frontend, Backend, Fullstack, DevOps), módulos temáticos, laboratorios prácticos basados en tickets/Pull Requests y acompañamiento de los Tech Leaders con revisiones de código y seguimiento periódico gestionado por el Gestor PROFER.
 
 ---
 
