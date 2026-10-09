@@ -6,13 +6,17 @@ hide circle
 skinparam linetype polyline
 left to right direction
 
-package "Gestión Institucional y Convocatorias" {
+package "Estructura Institucional y Equipos CTS" {
   class Universidad
-  class Convocatoria
-  class PerfilBuscado
+  class CentroTecnologico
+  class ConvocatoriaProfer
+  class Equipo
+  class RolEquipo
 
-  Universidad "1" *-- "*" Convocatoria : oferta
-  Convocatoria "1" o-- "*" PerfilBuscado : requiere
+  Universidad "1" *-- "1" CentroTecnologico : alberga
+  Universidad "1" *-- "*" ConvocatoriaProfer : convoca
+  CentroTecnologico "1" *-- "6" Equipo : organiza
+  Equipo "1" *-- "1..*" RolEquipo : define
 }
 
 package "Usuarios y Roles del Sistema" {
@@ -26,9 +30,13 @@ package "Usuarios y Roles del Sistema" {
   Usuario <|-- AlumnoProfer
   Usuario <|-- TechLeader
   Usuario <|-- GestorProfer
+
+  TechLeader "1" -- "1" Equipo : lidera
+  AlumnoProfer "1" -- "1" Equipo : integra
+  AlumnoProfer "1" -- "1" RolEquipo : desempeña
 }
 
-package "Admisión y Evaluación Técnica" {
+package "Admisión, Test de Aptitudes y Selección" {
   class PruebaTecnica
   class BancoReactivos
   class ReactivoTeorico
@@ -39,9 +47,12 @@ package "Admisión y Evaluación Técnica" {
   class EntregaPractica
   class CalificacionCriterio
   class TestRunner
+  class PerfilAptitudes
+  class Entrevista
+  class DictamenAdmision
 
-  Convocatoria "1" *-- "*" Candidato : postula
-  Candidato "1" *-- "1..*" PruebaTecnica : rinde
+  ConvocatoriaProfer "1" *-- "*" Candidato : postula
+  Candidato "1" *-- "1" PruebaTecnica : rinde (primer filtro)
   PruebaTecnica "1" o-- "*" ReactivoTeorico : incluye
   PruebaTecnica "1" o-- "1..*" EjercicioPractico : asigna
 
@@ -61,31 +72,42 @@ package "Admisión y Evaluación Técnica" {
 
   EntregaPractica "1" ..> "1" TestRunner : ejecuta en sandbox
   TechLeader "1" ..> "*" CalificacionCriterio : califica manualmente
+
+  PruebaTecnica "1" --> "1" PerfilAptitudes : genera diagnóstico
+  PerfilAptitudes "1" ..> "1" Equipo : sugiere afinidad
+  PerfilAptitudes "1" ..> "1" RolEquipo : sugiere adecuación
+
+  Candidato "1" *-- "0..1" Entrevista : realiza (segundo filtro)
+  TechLeader "1" -- "*" Entrevista : evalúa
+  GestorProfer "1" -- "*" Entrevista : coordina
+
+  Candidato "1" *-- "1" DictamenAdmision : resuelve
+  DictamenAdmision "1" --> "1" Equipo : asigna
+  DictamenAdmision "1" --> "1" RolEquipo : asigna
 }
 
-package "CTS Academy (Formación On-Site)" {
-  class RutaAprendizaje
+package "Capacitación Interna por Equipo (CTS Academy)" {
+  class CapacitacionEquipo
   class ModuloFormativo
   class RecursoFormativo
-  class LaboratorioOnSite
+  class LaboratorioEquipo
   class EntregaLaboratorio
   class RevisionTechLeader
-  class SeguimientoPeriodico
+  class SeguimientoDesempeno
 
-  PerfilBuscado "1" -- "0..1" RutaAprendizaje : orienta
-  RutaAprendizaje "1" *-- "1..*" ModuloFormativo : compone
+  Equipo "1" *-- "1" CapacitacionEquipo : diseña según necesidades
+  CapacitacionEquipo "1" *-- "1..*" ModuloFormativo : compone
   ModuloFormativo "1" *-- "*" RecursoFormativo : provee
-  ModuloFormativo "1" *-- "*" LaboratorioOnSite : programa
+  ModuloFormativo "1" *-- "*" LaboratorioEquipo : programa
 
-  AlumnoProfer "1" -- "1" RutaAprendizaje : cursa
-  LaboratorioOnSite "1" -- "*" EntregaLaboratorio : genera
+  AlumnoProfer "1" -- "1" CapacitacionEquipo : cursa
+  LaboratorioEquipo "1" -- "*" EntregaLaboratorio : genera
   AlumnoProfer "1" *-- "*" EntregaLaboratorio : entrega
   EntregaLaboratorio "1" *-- "0..*" RevisionTechLeader : recibe
-  TechLeader "1" -- "*" RevisionTechLeader : emite
+  TechLeader "1" -- "*" RevisionTechLeader : revisa
 
-  AlumnoProfer "1" *-- "*" SeguimientoPeriodico : registra
-  TechLeader "1" -- "*" SeguimientoPeriodico : supervisa
-  TechLeader "1" -- "*" AlumnoProfer : tutoriza
+  AlumnoProfer "1" *-- "*" SeguimientoDesempeno : registra
+  TechLeader "1" -- "*" SeguimientoDesempeno : supervisa
 }
 
 @enduml

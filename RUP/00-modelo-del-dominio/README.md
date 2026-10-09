@@ -6,11 +6,25 @@
 
 # Modelo del Dominio
 
-El modelo del dominio formaliza el vocabulario, las entidades conceptuales, las relaciones estructurales y las invariantes de negocio de la plataforma **CTS Academy & Evaluator**. 
+El modelo del dominio formaliza el vocabulario, las entidades conceptuales, las relaciones estructurales y las invariantes de negocio de la plataforma **CTS Academy & Evaluator**.
 
-El sistema cubre dos fases interconectadas del ciclo de vida del talento técnico en el Centro Tecnológico (CTS):
-1. **Admisión y Evaluación Técnica**: Convocatoria, aplicación, ejecución de pruebas teóricas/prácticas en sandbox y calificación basada en rúbricas por evaluadores senior.
-2. **CTS Academy (Formación On-Site)**: Incorporación como becario, itinerario por rutas de aprendizaje personalizadas, entregas de laboratorios prácticos tipo ticket/PR y mentoría continua.
+---
+
+## 🏛️ Contexto Institucional y del Negocio
+
+En la Universidad (UNEATLANTICO) opera un programa formativo y de becas para estudiantes del Grado en Ingeniería Informática denominado **Programa PROFER**. A través de este programa, los estudiantes seleccionados obtienen una reducción porcentual en su matrícula y colegiatura a cambio de integrarse en las actividades prácticas del **Centro Tecnológico de Desarrollo (CTS)**.
+
+El sistema digitaliza y gobierna las dos fases del ciclo de vida del talento:
+
+1. **Embudo de Admisión y Selección (Filtro en 2 Fases)**:
+   * **Fase 1 (Test de Aptitudes Técnicas - Núcleo de la plataforma)**: Es el primer filtro eliminatorio. Evalúa de forma estandarizada los conocimientos previos de los candidatos mediante reactivos teóricos y desafíos prácticos de código (maquetación CSS Grid/Flexbox, Vanilla JS, asincronía, Git). La plataforma genera un **Perfil de Aptitudes** que diagnostica las destrezas concretas del aspirante (Frontend, Backend, Algoritmia, Diseño).
+   * **Fase 2 (Entrevista Personal y Técnica)**: Los candidatos que superan el umbral del test son convocados a una entrevista con los Tech Leaders (TL) y el Gestor PROFER.
+   * **Asignación Estratégica**: Con base en los resultados del test y la entrevista, el candidato apto es formalizado como **Alumno PROFER** y asignado a uno de los **6 Equipos** de desarrollo del centro tecnológico, definiendo además su **Rol específico** en dicho equipo (ej. Desarrollador Frontend, Backend, QA/DevOps).
+
+2. **Capacitación Interna por Equipo (CTS Academy)**:
+   * Los 6 equipos tienen áreas de responsabilidad y stacks tecnológicos distintos dentro del centro y la universidad.
+   * Cada equipo cuenta con un plan de **Capacitación propio** adaptado a sus necesidades y al rol del alumno.
+   * El Alumno PROFER cursa módulos formativos y resuelve **laboratorios prácticos en formato de tickets/Pull Requests**, los cuales son revisados y retroalimentados por el Tech Leader (TL) del equipo.
 
 ---
 
@@ -27,8 +41,10 @@ classDiagram
   direction LR
 
   class Universidad
-  class Convocatoria
-  class PerfilBuscado
+  class CentroTecnologico
+  class ConvocatoriaProfer
+  class Equipo
+  class RolEquipo
 
   class Usuario {
     <<abstract>>
@@ -48,25 +64,34 @@ classDiagram
   class EntregaPractica
   class CalificacionCriterio
   class TestRunner
+  class PerfilAptitudes
+  class Entrevista
+  class DictamenAdmision
 
-  class RutaAprendizaje
+  class CapacitacionEquipo
   class ModuloFormativo
   class RecursoFormativo
-  class LaboratorioOnSite
+  class LaboratorioEquipo
   class EntregaLaboratorio
   class RevisionTechLeader
-  class SeguimientoPeriodico
+  class SeguimientoDesempeno
 
-  Universidad "1" *-- "*" Convocatoria : oferta
-  Convocatoria "1" o-- "*" PerfilBuscado : requiere
+  Universidad "1" *-- "1" CentroTecnologico : alberga
+  Universidad "1" *-- "*" ConvocatoriaProfer : convoca
+  CentroTecnologico "1" *-- "6" Equipo : organiza
+  Equipo "1" *-- "1..*" RolEquipo : define
 
   Usuario <|-- Candidato
   Usuario <|-- AlumnoProfer
   Usuario <|-- TechLeader
   Usuario <|-- GestorProfer
 
-  Convocatoria "1" *-- "*" Candidato : postula
-  Candidato "1" *-- "1..*" PruebaTecnica : rinde
+  TechLeader "1" -- "1" Equipo : lidera
+  AlumnoProfer "1" -- "1" Equipo : integra
+  AlumnoProfer "1" -- "1" RolEquipo : desempeña
+
+  ConvocatoriaProfer "1" *-- "*" Candidato : postula
+  Candidato "1" *-- "1" PruebaTecnica : rinde
   PruebaTecnica "1" o-- "*" ReactivoTeorico : incluye
   PruebaTecnica "1" o-- "1..*" EjercicioPractico : asigna
 
@@ -87,57 +112,83 @@ classDiagram
   EntregaPractica "1" ..> "1" TestRunner : ejecuta en sandbox
   TechLeader "1" ..> "*" CalificacionCriterio : califica manualmente
 
-  PerfilBuscado "1" -- "0..1" RutaAprendizaje : orienta
-  RutaAprendizaje "1" *-- "1..*" ModuloFormativo : compone
-  ModuloFormativo "1" *-- "*" RecursoFormativo : provee
-  ModuloFormativo "1" *-- "*" LaboratorioOnSite : programa
+  PruebaTecnica "1" --> "1" PerfilAptitudes : genera diagnóstico
+  PerfilAptitudes "1" ..> "1" Equipo : sugiere afinidad
+  PerfilAptitudes "1" ..> "1" RolEquipo : sugiere adecuación
 
-  AlumnoProfer "1" -- "1" RutaAprendizaje : cursa
-  LaboratorioOnSite "1" -- "*" EntregaLaboratorio : genera
+  Candidato "1" *-- "0..1" Entrevista : realiza
+  TechLeader "1" -- "*" Entrevista : evalúa
+  GestorProfer "1" -- "*" Entrevista : coordina
+
+  Candidato "1" *-- "1" DictamenAdmision : resuelve
+  DictamenAdmision "1" --> "1" Equipo : asigna
+  DictamenAdmision "1" --> "1" RolEquipo : asigna
+
+  Equipo "1" *-- "1" CapacitacionEquipo : diseña
+  CapacitacionEquipo "1" *-- "1..*" ModuloFormativo : compone
+  ModuloFormativo "1" *-- "*" RecursoFormativo : provee
+  ModuloFormativo "1" *-- "*" LaboratorioEquipo : programa
+
+  AlumnoProfer "1" -- "1" CapacitacionEquipo : cursa
+  LaboratorioEquipo "1" -- "*" EntregaLaboratorio : genera
   AlumnoProfer "1" *-- "*" EntregaLaboratorio : entrega
   EntregaLaboratorio "1" *-- "0..*" RevisionTechLeader : recibe
-  TechLeader "1" -- "*" RevisionTechLeader : emite
+  TechLeader "1" -- "*" RevisionTechLeader : revisa
 
-  AlumnoProfer "1" *-- "*" SeguimientoPeriodico : registra
-  TechLeader "1" -- "*" SeguimientoPeriodico : supervisa
-  TechLeader "1" -- "*" AlumnoProfer : tutoriza
+  AlumnoProfer "1" *-- "*" SeguimientoDesempeno : registra
+  TechLeader "1" -- "*" SeguimientoDesempeno : supervisa
 ```
 
 ---
 
 ## Glosario de Términos del Dominio
 
-* **`Universidad`**: Institución de educación superior con la que CTS mantiene un convenio marco o específico para la recepción de estudiantes en prácticas curriculares o extracurriculares.
-* **`Convocatoria`**: Proceso formal y temporalizado de captación y selección de candidatos para un periodo formativo determinado (ej. semestre académico o temporada de verano).
-* **`PerfilBuscado`**: Especialidad técnica requerida por el centro de desarrollo (ej. *Frontend Web (Vue/React)*, *Backend API (Python/FastAPI/PHP)*, *Fullstack*, *QA & DevOps*).
-* **`Candidato`**: Estudiante o egresado que se postula a una convocatoria y es sujeto del proceso de evaluación de aptitudes.
-* **`PruebaTecnica`**: Instancia de evaluación generada para un candidato particular. Combina una sección teórica objetiva y una sección práctica de desarrollo de software con tiempo límite.
-* **`BancoReactivos`**: Catálogo centralizado y versionado de preguntas teóricas y retos de código mantenidos por los ingenieros senior de CTS.
-* **`ReactivoTeorico`**: Ítem de evaluación conceptual (HTML semántico, selectores CSS/Flexbox, asincronía en JavaScript, operaciones Git, arquitectura web, bases de datos). Puede ser de opción múltiple o respuesta corta estructurada.
-* **`RespuestaTeorica`**: Registro de la respuesta suministrada por el candidato para un reactivo teórico concreto, incluyendo corrección y puntuación.
-* **`EjercicioPractico`**: Desafío práctico de programación o maquetación (ej. replicar un componente UI responsivo, implementar interacción asíncrona con API Fetch o resolver una estructura de datos algorítmica). Contiene repositorio base o plantilla.
-* **`RubricaEvaluacion`**: Instrumento formal de evaluación cualitativa y cuantitativa asociado a un ejercicio práctico. Establece estándares objetivos de corrección.
-* **`CriterioEvaluacion`**: Dimensión evaluable dentro de una rúbrica (ej. *Semántica y Accesibilidad*, *Fidelidad al diseño y CSS limpio*, *Calidad del código JS y separación de responsabilidades*, *Buenas prácticas y uso de Git*).
-* **`EntregaPractica`**: Solución de código remitida por el candidato (rama, pull request o archivo comprimido con código fuente).
-* **`CalificacionCriterio`**: Asignación de puntos y notas de retroalimentación otorgadas por un evaluador senior a un criterio específico de la rúbrica.
-* **`TestRunner`**: Entorno sandbox aislado (contenedor efímero sin salida a red externa) responsable de ejecutar pruebas unitarias automáticas, formateadores y análisis estático sobre el código entregado por el candidato.
-* **`DictamenFinal`**: Resolución colegiada sobre la prueba técnica del candidato (`Apto Directo`, `Apto con Refuerzo`, `No Apto`).
-* **`AlumnoProfer`**: Candidato apto que ha formalizado su incorporación a CTS dentro del programa PROFER e inicia su estancia de formación y prácticas on-site.
-* **`RutaAprendizaje`**: Itinerario curricular estructurado diseñado por CTS para guiar la capacitación técnica y la adaptación a los estándares de producción de la empresa.
-* **`ModuloFormativo`**: Bloque temático secuencial dentro de una ruta de aprendizaje (ej. *Arquitectura Limpia y Patrones*, *Gestión de Estado*, *Testing y CI/CD*).
-* **`LaboratorioOnSite`**: Ticket o tarea técnica de dificultad progresiva que el Alumno PROFER debe implementar en su estación de trabajo local y someter a revisión mediante Pull Request.
-* **`EntregaLaboratorio`**: Instancia de entrega de un laboratorio formativo por parte del Alumno PROFER, enlazada al repositorio interno de control de versiones.
-* **`RevisionTechLeader`**: Sesión y registro de revisión de código (*Code Review*) realizada por un Tech Leader (TL), emitiendo retroalimentación formativa y dictamen de aprobación o solicitud de cambios.
-* **`SeguimientoPeriodico`**: Registro periódico (semanal/quincenal) de la evolución formativa, horas dedicadas, cumplimiento de hitos y aspectos actitudinales del Alumno PROFER.
-* **`TechLeader` (TL)**: Ingeniero/líder técnico senior de CTS responsable de diseñar pruebas, evaluar reactivos prácticos, realizar code reviews y guiar a los Alumnos PROFER durante su estancia on-site.
-* **`GestorProfer`**: Responsable institucional y administrativo de CTS encargado de gestionar convocatorias, convenios con universidades y asignación de Tech Leaders a Alumnos PROFER.
+* **`Universidad`**: Institución educativa matriz (UNEATLANTICO) que convoca el programa PROFER para estudiantes del Grado en Ingeniería Informática.
+* **`CentroTecnologico` (CTS)**: Centro de investigación y desarrollo tecnológico de la universidad donde se ejecutan los proyectos de software y se integran los alumnos becados.
+* **`ConvocatoriaProfer`**: Convocatoria periódica (semestral/anual) que define el número de plazas, condiciones y el porcentaje de reducción en matrícula y colegiatura.
+* **`Equipo`**: Una de las **6 unidades técnicas de trabajo** en las que se estructura el centro tecnológico. Cada equipo tiene proyectos, responsabilidades y stack tecnológico propios.
+* **`RolEquipo`**: Especialidad o posición técnica asignada al alumno dentro de su equipo (ej. *Frontend Web Developer*, *Backend API Developer*, *QA/Testing Engineer*, *DevOps/Sistemas*).
+* **`Candidato`**: Alumno de informática que se postula a la convocatoria PROFER y participa en el proceso de selección.
+* **`PruebaTecnica` (Primer Filtro)**: Evaluación técnica cronometrada en servidor que combina preguntas teóricas objetivas con ejercicios prácticos de desarrollo de software.
+* **`BancoReactivos`**: Repositorio centralizado de reactivos teóricos y retos prácticos clasificados por tecnologías y niveles de dificultad.
+* **`ReactivoTeorico`**: Pregunta conceptual (HTML semántico, selectores CSS, flexbox, grid, asincronía en JS, Git, APIs, bases de datos).
+* **`RespuestaTeorica`**: Opción o solución aportada por el candidato para un reactivo teórico.
+* **`EjercicioPractico`**: Desafío de desarrollo de software con código base o plantilla (ej. maquetación responsive, consumo asíncrono de APIs, manipulación de DOM).
+* **`RubricaEvaluacion`**: Conjunto formal de criterios ponderados para valorar objetivamente el código de un ejercicio práctico.
+* **`CriterioEvaluacion`**: Dimensión técnica evaluable (semántica, limpieza de estilos, modularidad JS, control de errores, uso de Git).
+* **`EntregaPractica`**: Código fuente solución enviado por el candidato.
+* **`TestRunner`**: Sandbox en contenedor Docker aislado sin conexión a red donde se ejecutan pruebas automatizadas y linters sobre el código entregado.
+* **`PerfilAptitudes`**: Matriz diagnóstica de destrezas generada a partir de los resultados de la prueba técnica, identificando fortalezas por área para recomendar la asignación a un equipo y rol.
+* **`Entrevista` (Segundo Filtro)**: Sesión de valoración competencial, actitudinal y de encaje técnico realizada con los Tech Leaders y el Gestor PROFER.
+* **`DictamenAdmision`**: Resolución formal del proceso de selección (`Apto` / `No Apto`), que en caso favorable formaliza la beca y fija el equipo y rol de destino.
+* **`AlumnoProfer`**: Estudiante de informática admitido en el programa PROFER con beca de matrícula activa, integrado formalmente en un equipo de CTS.
+* **`TechLeader` (TL)**: Líder técnico responsable de uno de los 6 equipos de CTS, encargado de evaluar pruebas técnicas, realizar entrevistas, conducir revisiones de código y tutorizar al Alumno PROFER.
+* **`GestorProfer`**: Responsable administrativo e institucional de CTS encargado de la gestión de convocatorias, actas de selección, asignación de plazas y seguimiento de becas.
+* **`CapacitacionEquipo`**: Plan formativo estructurado diseñado por el equipo para nivelar y capacitar al Alumno PROFER en su stack y flujos internos.
+* **`ModuloFormativo`**: Unidad temático-práctica dentro del itinerario de capacitación del equipo.
+* **`LaboratorioEquipo`**: Ticket o tarea técnica formativa en el repositorio del equipo que el alumno debe resolver en entorno local y entregar mediante Pull Request.
+* **`EntregaLaboratorio`**: Pull Request o entrega de solución de laboratorio remitida por el Alumno PROFER.
+* **`RevisionTechLeader`**: Sesión de Code Review con comentarios y dictamen (`Aprobado` / `Requiere Cambios`) emitida por el TL.
+* **`SeguimientoDesempeno`**: Registro periódico de horas, progreso en tickets formativos y desempeño del alumno en el equipo.
 
 ---
 
 ## Máquinas de Estados de Entidades Clave
 
-### 1. Ciclo de Vida de la Prueba Técnica (`PruebaTecnica`)
-Una prueba técnica no puede ser reabierta una vez consumido el tiempo o enviada la entrega:
+### 1. Embudo del Proceso de Selección del Candidato (`Candidatura`)
+Gobierna el paso por los dos filtros eliminatorios y la asignación a equipo:
+
+<div align=center>
+
+|Diagrama de Estados del Proceso de Selección|
+|:-:|
+|![](/images/RUP/00-modelo-del-dominio/estados-entidades/candidatura-estados.svg)|
+|<sup><i>Código fuente: [candidatura-estados.puml](estados-entidades/candidatura-estados.puml)</i></sup>|
+
+</div>
+
+### 2. Ciclo de Vida de la Prueba Técnica (`PruebaTecnica` - Primer Filtro)
+Controla la ejecución inmutable con cronómetro y corrección en sandbox:
 
 <div align=center>
 
@@ -148,20 +199,8 @@ Una prueba técnica no puede ser reabierta una vez consumido el tiempo o enviada
 
 </div>
 
-### 2. Ciclo de Vida de la Convocatoria (`Convocatoria`)
-Controla el periodo de postulaciones y la fase de dictamen:
-
-<div align=center>
-
-|Diagrama de Estados de Convocatoria|
-|:-:|
-|![](/images/RUP/00-modelo-del-dominio/estados-entidades/convocatoria-estados.svg)|
-|<sup><i>Código fuente: [convocatoria-estados.puml](estados-entidades/convocatoria-estados.puml)</i></sup>|
-
-</div>
-
-### 3. Ciclo de Vida del Laboratorio en Academy (`EntregaLaboratorio`)
-Replica el flujo real de trabajo en equipo ágil de CTS mediante Pull Requests y Code Review:
+### 3. Ciclo de Vida del Ticket Formativo (`EntregaLaboratorio`)
+Simula el flujo ágil de producción en CTS con Pull Requests y Code Review:
 
 <div align=center>
 
@@ -176,22 +215,16 @@ Replica el flujo real de trabajo en equipo ágil de CTS mediante Pull Requests y
 
 ## Invariantes y Reglas del Dominio
 
-1. **Unicidad y caducidad del Token de Prueba Técnica**:
-   * Cada instancia de `PruebaTecnica` posee un `tokenAcceso` único e intransferible.
-   * El token solo es válido dentro del rango de fechas de la convocatoria activa.
-   * La primera invocación con dicho token inicia el cronómetro del servidor de forma irreversible.
-2. **Cronometraje Inmutable en Servidor**:
-   * El cómputo del tiempo límite (`tiempoLimiteMinutos`) se gestiona exclusivamente en el backend (`fechaInicio + duracion`). Ninguna manipulación del cliente frontend puede alterar o extender el tiempo límite restante.
-   * Si el tiempo expira sin confirmación explícita del candidato, el sistema ejecuta la transición automática a `EXPIRADA`, congelando el último estado persistido de las respuestas.
-3. **Composición de Calificaciones de Admisión**:
-   * La calificación total se desglosa estrictamente en:
-     $$\text{CalificacionTotal} = \text{CalificacionTeorica} + \text{CalificacionPractica}$$
-   * La parte teórica es objetiva (evaluada al 100% por reglas automáticas).
-   * La parte práctica combina métricas automáticas del `TestRunner` (pass/fail de tests) con la puntuación asignada por el `TechLeader` en base a los criterios ponderados de la `RubricaEvaluacion`.
-4. **Transición Estricta de Candidato a Alumno PROFER**:
-   * Un `Candidato` **nunca** puede convertirse directamente en `AlumnoProfer` sin una `PruebaTecnica` en estado `CALIFICADA` con `dictamen in {AptoDirecto, AptoConRefuerzo}`.
-   * La formalización del alta como `AlumnoProfer` requiere asignación obligatoria de al menos un `TechLeader` y una `RutaAprendizaje`.
-5. **Aislamiento y Seguridad en Sandbox (`TestRunner`)**:
-   * El código entregado por los candidatos se evalúa en contenedores Docker efímeros, con límites estrictos de memoria RAM (máx. 256MB), tiempo de CPU (máx. 10s) y red externa totalmente inhabilitada (`--network none`).
-6. **Inmutabilidad y Preservación Histórica**:
-   * Las evaluaciones, entregas de código, revisiones y notas históricas **nunca** sufren borrado físico en base de datos. Se conservan para auditoría de convocatorias y trazabilidad de convenios universitarios.
+1. **Estructura Organizativa Cerrada de Equipos**:
+   * El `CentroTecnologico` está conformado por exactamente **6 Equipos** de desarrollo permanentes. Cada equipo tiene asignado un único `TechLeader` como responsable técnico.
+2. **Asignación Única y Coherente**:
+   * Un `AlumnoProfer` pertenece en todo momento a exactamente un `Equipo` y desempeña un único `RolEquipo`.
+   * La asignación es determinada en el `DictamenAdmision` teniendo como criterio vinculante el `PerfilAptitudes` obtenido en el primer filtro.
+3. **Condición de Acceso a Entrevista (Filtro 1)**:
+   * Solo los candidatos cuya `PruebaTecnica` alcance o supere el umbral mínimo de corte establecido por la convocatoria son habilitados para la fase de `Entrevista`. Los candidatos por debajo del umbral pasan directamente a estado no seleccionado.
+4. **Cronometraje Inmutable en Servidor**:
+   * El tiempo límite de la prueba técnica se calcula en backend a partir de `fechaInicio + tiempoLimiteMinutos`. Si expira, la prueba se congela automáticamente.
+5. **Aislamiento Seguro en Sandbox (`TestRunner`)**:
+   * Las pruebas de código de los candidatos se compilan y testean en contenedores Docker efímeros sin acceso a red exterior (`--network none`) y con límites de memoria y tiempo.
+6. **Capacitación Desacoplada por Equipo**:
+   * Cada `Equipo` define sus propios itinerarios de `CapacitacionEquipo` y `LaboratorioEquipo` acorde a su stack (ej. Fénix, MLS, Sistemas internos). El progreso del Alumno PROFER se computa dentro del itinerario de su equipo asignado.

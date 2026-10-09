@@ -1,0 +1,59 @@
+@startuml candidatura-estados
+
+!theme plain
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+[*] --> REGISTRADO : postularConvocatoria()
+
+REGISTRADO --> TEST_ASIGNADO : emitirTokenPrueba()
+note on link
+  Gestor PROFER habilita el acceso
+  al Test de Aptitudes (Filtro 1)
+end note
+
+TEST_ASIGNADO --> TEST_EN_CURSO : iniciarPruebaTecnica()
+
+TEST_EN_CURSO --> TEST_EVALUADO : entregarPrueba() / expirarTiempo()
+note on link
+  TestRunner evalúa tests automáticos
+  Tech Leader califica rúbrica de código
+  Se computa PerfilAptitudes
+end note
+
+state c_filtro1 <<choice>>
+TEST_EVALUADO --> c_filtro1
+
+c_filtro1 --> CONVOCADO_ENTREVISTA : [notaTotal >= umbralCorte]
+note on link
+  Supera el primer filtro
+  Se genera informe de aptitudes recomendando Equipo y Rol
+end note
+
+c_filtro1 --> NO_SELECCIONADO : [notaTotal < umbralCorte]
+
+CONVOCADO_ENTREVISTA --> ENTREVISTA_REALIZADA : ejecutarEntrevista()
+note on link
+  Entrevista personal y técnica (Filtro 2)
+  con Tech Leader y Gestor PROFER
+end note
+
+state c_filtro2 <<choice>>
+ENTREVISTA_REALIZADA --> c_filtro2
+
+c_filtro2 --> ADMITIDO_PROFER : [dictamen == Apto]
+note on link
+  Se formaliza la beca de matrícula
+  Se asigna a 1 de los 6 Equipos y se fija su Rol
+  Pasa a ser AlumnoProfer
+end note
+
+c_filtro2 --> NO_SELECCIONADO : [dictamen == NoApto]
+
+ADMITIDO_PROFER --> [*]
+NO_SELECCIONADO --> [*]
+
+@enduml
