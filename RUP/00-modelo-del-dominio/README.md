@@ -26,172 +26,81 @@ El sistema cubre dos fases interconectadas del ciclo de vida del talento técnic
 classDiagram
   direction LR
 
-  class Universidad {
-    +String nombre
-    +String sigla
-    +String contactoConvenio
-    +Boolean activa
-  }
-
-  class Convocatoria {
-    +String codigo
-    +String nombre
-    +Date fechaInicio
-    +Date fechaFin
-    +Integer plazasOfertadas
-    +EstadoConvocatoria estado
-  }
-
-  class PerfilBuscado {
-    +String codigo
-    +String nombre
-    +String descripcion
-  }
+  class Universidad
+  class Convocatoria
+  class PerfilBuscado
 
   class Usuario {
     <<abstract>>
-    +String email
-    +String nombreCompleto
-    +Boolean activo
-    +DateTime fechaCreacion
   }
+  class Candidato
+  class Becario
+  class TutorSenior
+  class CoordinadorAdmin
 
-  class Candidato {
-    +String telefono
-    +String githubUrl
-    +String linkedinUrl
-    +EstadoCandidato estado
-  }
+  class PruebaTecnica
+  class BancoReactivos
+  class ReactivoTeorico
+  class RespuestaTeorica
+  class EjercicioPractico
+  class RubricaEvaluacion
+  class CriterioEvaluacion
+  class EntregaPractica
+  class CalificacionCriterio
+  class TestRunner
 
-  class Becario {
-    +Date fechaIncorporacion
-    +Integer horasConvenio
-    +Integer horasCompletadas
-    +EstadoBecario estado
-  }
+  class RutaAprendizaje
+  class ModuloFormativo
+  class RecursoFormativo
+  class LaboratorioOnSite
+  class EntregaLaboratorio
+  class RevisionTutor
+  class SeguimientoPeriodico
 
-  class TutorSenior {
-    +String especialidad
-    +String departamento
-    +Boolean activo
-  }
+  Universidad "1" *-- "*" Convocatoria : oferta
+  Convocatoria "1" o-- "*" PerfilBuscado : requiere
 
-  class CoordinadorAdmin {
-    +String cargo
-  }
-
-  class PruebaTecnica {
-    +UUID tokenAcceso
-    +DateTime fechaInicio
-    +DateTime fechaFin
-    +Integer tiempoLimiteMinutos
-    +Float calificacionTeorica
-    +Float calificacionPractica
-    +Float calificacionTotal
-    +DictamenFinal dictamen
-    +EstadoPrueba estado
-  }
-
-  class ReactivoTeorico {
-    +String codigo
-    +String enunciado
-    +Categoria categoria
-    +TipoPregunta tipoRespuesta
-    +JSON opcionesJson
-    +Float puntosMaximos
-  }
-
-  class EjercicioPractico {
-    +String codigo
-    +String titulo
-    +String stackTecnologico
-    +Integer tiempoEstimadoMin
-    +Float puntosMaximos
-    +String archivosBaseUrl
-  }
-
-  class RubricaEvaluacion {
-    +String titulo
-    +String descripcion
-  }
-
-  class CriterioEvaluacion {
-    +String nombre
-    +Float pesoPuntos
-  }
-
-  class EntregaPractica {
-    +String repoForkUrl
-    +DateTime fechaEntrega
-    +Float calificacionAutomatica
-    +Float calificacionManual
-    +Float calificacionFinal
-    +EstadoEntrega estado
-  }
-
-  class RutaAprendizaje {
-    +String codigo
-    +String titulo
-    +NivelRuta nivel
-  }
-
-  class ModuloFormativo {
-    +Integer orden
-    +String titulo
-    +Integer duracionDias
-  }
-
-  class LaboratorioOnSite {
-    +String codigo
-    +String titulo
-    +String criteriosAceptacion
-    +String repoPlantillaUrl
-  }
-
-  class EntregaLaboratorio {
-    +String pullRequestUrl
-    +DateTime fechaEntrega
-    +EstadoLaboratorio estado
-  }
-
-  class RevisionTutor {
-    +DateTime fechaRevision
-    +String comentariosCodeReview
-    +ResultadoRevision resultado
-  }
-
-  class SeguimientoPeriodico {
-    +Date fecha
-    +Integer semanaNumero
-    +Integer horasRegistradas
-    +String feedbackCualitativo
-  }
-
-  Universidad "1" *-- "*" Convocatoria
-  Convocatoria "1" o-- "*" PerfilBuscado
   Usuario <|-- Candidato
   Usuario <|-- Becario
   Usuario <|-- TutorSenior
   Usuario <|-- CoordinadorAdmin
-  Convocatoria "1" *-- "*" Candidato
-  Candidato "1" *-- "1..*" PruebaTecnica
-  PruebaTecnica "1" o-- "*" ReactivoTeorico
-  PruebaTecnica "1" o-- "1..*" EjercicioPractico
-  EjercicioPractico "1" *-- "1" RubricaEvaluacion
-  RubricaEvaluacion "1" *-- "1..*" CriterioEvaluacion
-  EjercicioPractico "1" -- "*" EntregaPractica
-  PruebaTecnica "1" *-- "*" EntregaPractica
-  PerfilBuscado "1" -- "0..1" RutaAprendizaje
-  RutaAprendizaje "1" *-- "1..*" ModuloFormativo
-  ModuloFormativo "1" *-- "*" LaboratorioOnSite
-  Becario "1" -- "1" RutaAprendizaje
-  LaboratorioOnSite "1" -- "*" EntregaLaboratorio
-  Becario "1" *-- "*" EntregaLaboratorio
-  EntregaLaboratorio "1" *-- "*" RevisionTutor
-  TutorSenior "1" -- "*" RevisionTutor
-  Becario "1" *-- "*" SeguimientoPeriodico
-  TutorSenior "1" -- "*" SeguimientoPeriodico
-  TutorSenior "1" -- "*" Becario
+
+  Convocatoria "1" *-- "*" Candidato : postula
+  Candidato "1" *-- "1..*" PruebaTecnica : rinde
+  PruebaTecnica "1" o-- "*" ReactivoTeorico : incluye
+  PruebaTecnica "1" o-- "1..*" EjercicioPractico : asigna
+
+  ReactivoTeorico "1" -- "*" RespuestaTeorica : genera
+  PruebaTecnica "1" *-- "*" RespuestaTeorica : contiene
+
+  EjercicioPractico "1" *-- "1" RubricaEvaluacion : define
+  RubricaEvaluacion "1" *-- "1..*" CriterioEvaluacion : desglosa
+  EjercicioPractico "1" -- "*" EntregaPractica : produce
+  PruebaTecnica "1" *-- "*" EntregaPractica : recopila
+
+  EntregaPractica "1" *-- "*" CalificacionCriterio : evalúa
+  CriterioEvaluacion "1" -- "*" CalificacionCriterio : referencia
+
+  BancoReactivos "1" *-- "*" ReactivoTeorico : almacena
+  BancoReactivos "1" *-- "*" EjercicioPractico : cataloga
+
+  EntregaPractica "1" ..> "1" TestRunner : ejecuta en sandbox
+  TutorSenior "1" ..> "*" CalificacionCriterio : califica manualmente
+
+  PerfilBuscado "1" -- "0..1" RutaAprendizaje : orienta
+  RutaAprendizaje "1" *-- "1..*" ModuloFormativo : compone
+  ModuloFormativo "1" *-- "*" RecursoFormativo : provee
+  ModuloFormativo "1" *-- "*" LaboratorioOnSite : programa
+
+  Becario "1" -- "1" RutaAprendizaje : cursa
+  LaboratorioOnSite "1" -- "*" EntregaLaboratorio : genera
+  Becario "1" *-- "*" EntregaLaboratorio : entrega
+  EntregaLaboratorio "1" *-- "0..*" RevisionTutor : recibe
+  TutorSenior "1" -- "*" RevisionTutor : emite
+
+  Becario "1" *-- "*" SeguimientoPeriodico : registra
+  TutorSenior "1" -- "*" SeguimientoPeriodico : supervisa
+  TutorSenior "1" -- "*" Becario : tutoriza
 ```
 
 ---
