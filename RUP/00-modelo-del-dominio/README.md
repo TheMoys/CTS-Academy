@@ -18,7 +18,7 @@ El sistema digitaliza y gobierna las dos fases del ciclo de vida del talento:
 
 1. **Embudo de Admisión y Selección (Filtro en 2 Fases)**:
    * **Fase 1 (Test de Aptitudes Técnicas - Núcleo de la plataforma)**: Es el primer filtro eliminatorio. Evalúa de forma estandarizada los conocimientos previos de los candidatos mediante reactivos teóricos y desafíos prácticos de código (maquetación CSS Grid/Flexbox, Vanilla JS, asincronía, Git). La plataforma genera un **Perfil de Aptitudes** que diagnostica las destrezas concretas del aspirante (Frontend, Backend, Algoritmia, Diseño).
-   * **Fase 2 (Entrevista Personal y Técnica)**: Los candidatos que superan el umbral del test son convocados a una entrevista con los Tech Leaders (TL) y el Gestor PROFER.
+   * **Fase 2 (Entrevista Personal y de Encaje)**: Los candidatos que superan el umbral del test son convocados a una entrevista conducida exclusivamente por el **Gestor PROFER**. El Tech Leader no participa en las entrevistas; su labor de selección se enfoca en calificar los desafíos prácticos del test técnico y consultar el perfil de aptitudes, CV y repositorios de los aspirantes.
    * **Asignación Estratégica**: Con base en los resultados del test y la entrevista, el candidato apto es formalizado como **Alumno PROFER** y asignado a uno de los **6 Equipos** de desarrollo del centro tecnológico, definiendo además su **Rol específico** en dicho equipo (ej. Desarrollador Frontend, Backend, QA/DevOps).
 
 2. **Capacitación Interna por Equipo (CTS Academy)**:
@@ -115,10 +115,10 @@ classDiagram
   PruebaTecnica "1" --> "1" PerfilAptitudes : genera diagnóstico
   PerfilAptitudes "1" ..> "1" Equipo : sugiere afinidad
   PerfilAptitudes "1" ..> "1" RolEquipo : sugiere adecuación
+  TechLeader "1" ..> "*" PerfilAptitudes : consulta perfil y repositorio
 
   Candidato "1" *-- "0..1" Entrevista : realiza
-  TechLeader "1" -- "*" Entrevista : evalúa
-  GestorProfer "1" -- "*" Entrevista : coordina
+  GestorProfer "1" -- "*" Entrevista : conduce
 
   Candidato "1" *-- "1" DictamenAdmision : resuelve
   DictamenAdmision "1" --> "1" Equipo : asigna
@@ -158,12 +158,12 @@ classDiagram
 * **`CriterioEvaluacion`**: Dimensión técnica evaluable (semántica, limpieza de estilos, modularidad JS, control de errores, uso de Git).
 * **`EntregaPractica`**: Código fuente solución enviado por el candidato.
 * **`TestRunner`**: Sandbox en contenedor Docker aislado sin conexión a red donde se ejecutan pruebas automatizadas y linters sobre el código entregado.
-* **`PerfilAptitudes`**: Matriz diagnóstica de destrezas generada a partir de los resultados de la prueba técnica, identificando fortalezas por área para recomendar la asignación a un equipo y rol.
-* **`Entrevista` (Segundo Filtro)**: Sesión de valoración competencial, actitudinal y de encaje técnico realizada con los Tech Leaders y el Gestor PROFER.
+* **`PerfilAptitudes`**: Matriz diagnóstica de destrezas generada a partir de los resultados de la prueba técnica, identificando fortalezas por área para recomendar la asignación a un equipo y rol. Visible para el Gestor PROFER y accesible para consulta por parte de los Tech Leaders.
+* **`Entrevista` (Segundo Filtro)**: Sesión de valoración personal, actitudinal y de encaje conducida exclusivamente por el Gestor PROFER.
 * **`DictamenAdmision`**: Resolución formal del proceso de selección (`Apto` / `No Apto`), que en caso favorable formaliza la beca y fija el equipo y rol de destino.
 * **`AlumnoProfer`**: Estudiante de informática admitido en el programa PROFER con beca de matrícula activa, integrado formalmente en un equipo de CTS.
-* **`TechLeader` (TL)**: Líder técnico responsable de uno de los 6 equipos de CTS, encargado de evaluar pruebas técnicas, realizar entrevistas, conducir revisiones de código y tutorizar al Alumno PROFER.
-* **`GestorProfer`**: Responsable administrativo e institucional de CTS encargado de la gestión de convocatorias, actas de selección, asignación de plazas y seguimiento de becas.
+* **`TechLeader` (TL)**: Líder técnico responsable de uno de los 6 equipos de CTS, encargado de evaluar pruebas técnicas prácticas, consultar los perfiles de aptitudes y repositorios de los candidatos/profers, conducir revisiones de código (Code Reviews) y tutorizar al Alumno PROFER en su equipo. No interviene en la fase de entrevistas.
+* **`GestorProfer`**: Responsable administrativo e institucional de CTS encargado de la gestión de convocatorias, conducción de entrevistas, actas de selección, asignación de plazas a equipos/roles y seguimiento de becas.
 * **`CapacitacionEquipo`**: Plan formativo estructurado diseñado por el equipo para nivelar y capacitar al Alumno PROFER en su stack y flujos internos.
 * **`ModuloFormativo`**: Unidad temático-práctica dentro del itinerario de capacitación del equipo.
 * **`LaboratorioEquipo`**: Ticket o tarea técnica formativa en el repositorio del equipo que el alumno debe resolver en entorno local y entregar mediante Pull Request.
@@ -228,3 +228,5 @@ Simula el flujo ágil de producción en CTS con Pull Requests y Code Review:
    * Las pruebas de código de los candidatos se compilan y testean en contenedores Docker efímeros sin acceso a red exterior (`--network none`) y con límites de memoria y tiempo.
 6. **Capacitación Desacoplada por Equipo**:
    * Cada `Equipo` define sus propios itinerarios de `CapacitacionEquipo` y `LaboratorioEquipo` acorde a su stack (ej. Fénix, MLS, Sistemas internos). El progreso del Alumno PROFER se computa dentro del itinerario de su equipo asignado.
+7. **Segregación de Responsabilidades en Selección**:
+   * La conducción, moderación y dictamen de la `Entrevista` recae en exclusividad en el `GestorProfer`. El `TechLeader` no interviene en las entrevistas; únicamente evalúa reactivos prácticos y dispone de acceso de consulta al `PerfilAptitudes`, CV y enlaces a repositorios de los candidatos asignados a su equipo o disponibles en la convocatoria.

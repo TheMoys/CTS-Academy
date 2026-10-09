@@ -76,10 +76,10 @@ package "Admisión, Test de Aptitudes y Selección" {
   PruebaTecnica "1" --> "1" PerfilAptitudes : genera diagnóstico
   PerfilAptitudes "1" ..> "1" Equipo : sugiere afinidad
   PerfilAptitudes "1" ..> "1" RolEquipo : sugiere adecuación
+  TechLeader "1" ..> "*" PerfilAptitudes : consulta perfil y repositorio
 
   Candidato "1" *-- "0..1" Entrevista : realiza (segundo filtro)
-  TechLeader "1" -- "*" Entrevista : evalúa
-  GestorProfer "1" -- "*" Entrevista : coordina
+  GestorProfer "1" -- "*" Entrevista : conduce
 
   Candidato "1" *-- "1" DictamenAdmision : resuelve
   DictamenAdmision "1" --> "1" Equipo : asigna

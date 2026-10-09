@@ -37,8 +37,8 @@ c_filtro1 --> NO_SELECCIONADO : [notaTotal < umbralCorte]
 
 CONVOCADO_ENTREVISTA --> ENTREVISTA_REALIZADA : ejecutarEntrevista()
 note on link
-  Entrevista personal y técnica (Filtro 2)
-  con Tech Leader y Gestor PROFER
+  Entrevista personal y de encaje (Filtro 2)
+  conducida por el Gestor PROFER
 end note
 
 state c_filtro2 <<choice>>
