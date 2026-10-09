@@ -6,15 +6,20 @@ hide circle
 skinparam linetype polyline
 left to right direction
 
-package "Estructura Institucional y Equipos CTS" {
+package "Estructura Institucional y Gobernanza CTS" {
   class Universidad
+  class GerenciaUniversidad
+  class ProgramaProfer
   class CentroTecnologico
   class ConvocatoriaProfer
   class Equipo
   class RolEquipo
 
-  Universidad "1" *-- "1" CentroTecnologico : alberga
-  Universidad "1" *-- "*" ConvocatoriaProfer : convoca
+  Universidad "1" *-- "1" GerenciaUniversidad : gobierna
+  ProgramaProfer "1" -- "1" Universidad : mantiene convenio con
+  GerenciaUniversidad "1" ..> "1" CentroTecnologico : supervisa
+  ProgramaProfer "1" *-- "1" CentroTecnologico : gestiona y opera
+  ProgramaProfer "1" *-- "*" ConvocatoriaProfer : abre y convoca
   CentroTecnologico "1" *-- "6" Equipo : organiza
   Equipo "1" *-- "1..*" RolEquipo : define
 }
@@ -31,6 +36,7 @@ package "Usuarios y Roles del Sistema" {
   Usuario <|-- TechLeader
   Usuario <|-- GestorProfer
 
+  GestorProfer "1" -- "1" ProgramaProfer : coordina
   TechLeader "1" -- "1" Equipo : lidera
   AlumnoProfer "1" -- "1" Equipo : integra
   AlumnoProfer "1" -- "1" RolEquipo : desempeña
