@@ -1,0 +1,50 @@
+@startuml pruebaTecnica-estados
+
+!theme plain
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+[*] --> PENDIENTE : crearPruebaTecnica()
+
+PENDIENTE --> EN_CURSO : iniciarPrueba(token)
+note on link
+  Inicia cronómetro de tiempo límite
+  Bloquea apertura en múltiples sesiones
+end note
+
+EN_CURSO --> ENTREGADA : entregarPrueba()
+note on link
+  Candidato confirma envío
+  Se congelan respuestas teóricas y commits
+end note
+
+EN_CURSO --> EXPIRADA : [tiempoRestante == 0] / autoentrega()
+note on link
+  El temporizador finaliza
+  El sistema guarda el estado actual
+end note
+
+ENTREGADA --> EN_REVISION : procesarEjecucionAutomatica()
+note on link
+  TestRunner ejecuta linter y tests base
+  Pasa a cola de revisión de Tutores Senior
+end note
+
+EXPIRADA --> EN_REVISION : calificarRespuestasDisponibles()
+
+EN_REVISION --> CALIFICADA : completarRubricaManual()
+note on link
+  Evaluador Senior califica criterios de código
+  Se consolida la nota final (teoría + práctica)
+end note
+
+CALIFICADA --> [*] : emitirDictamen()
+note on link
+  Dictamen: Apto Directo / Apto con Refuerzo / No Apto
+  Si es Apto, habilita admisión como Becario
+end note
+
+@enduml

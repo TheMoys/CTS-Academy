@@ -1,0 +1,43 @@
+@startuml entregaLaboratorio-estados
+
+!theme plain
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+[*] --> ASIGNADO : asignarLaboratorio(becario)
+
+ASIGNADO --> EN_DESARROLLO : iniciarTrabajo()
+note on link
+  Becario clona plantilla e inicia rama de trabajo
+end note
+
+EN_DESARROLLO --> ENTREGADO : enviarPullRequest()
+note on link
+  Becario registra URL del PR y artefactos
+end note
+
+ENTREGADO --> EN_REVISION : tomarRevision(tutor)
+note on link
+  Tutor Senior inicia revisión de código (Code Review)
+end note
+
+EN_REVISION --> REQUIERE_CAMBIOS : solicitarCorrecciones()
+note on link
+  Tutor añade comentarios de mejora
+  Se reabre el flujo para el becario
+end note
+
+REQUIERE_CAMBIOS --> EN_DESARROLLO : iterarSolucion()
+
+EN_REVISION --> APROBADO : aprobarEntrega()
+note on link
+  Cumple criterios de aceptación
+  Se computa el progreso en el módulo formativo
+end note
+
+APROBADO --> [*]
+
+@enduml

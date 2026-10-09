@@ -1,0 +1,37 @@
+@startuml convocatoria-estados
+
+!theme plain
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+[*] --> PLANIFICADA : crearConvocatoria()
+
+PLANIFICADA --> ABIERTA : publicarConvocatoria()
+note on link
+  Se habilita la postulación de candidatos
+  y la recepción de candidaturas universitarias
+end note
+
+PLANIFICADA --> CANCELADA : cancelarConvocatoria()
+
+ABIERTA --> EN_EVALUACION : cerrarRecepcionPostulaciones()
+note on link
+  Se cierran las postulaciones
+  Se generan y envían las pruebas técnicas a candidatos
+end note
+
+ABIERTA --> CANCELADA : cancelarConvocatoria()
+
+EN_EVALUACION --> FINALIZADA : concluirEvaluaciones()
+note on link
+  Todas las pruebas técnicas han sido calificadas
+  Se emite acta de admisión y asignación de plazas
+end note
+
+FINALIZADA --> [*]
+CANCELADA --> [*]
+
+@enduml

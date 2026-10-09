@@ -1,0 +1,246 @@
+@startuml modeloDominio
+
+!theme plain
+hide empty members
+hide circle
+skinparam linetype polyline
+left to right direction
+
+package "Gestión Institucional y Convocatorias" {
+  class Universidad {
+    nombre
+    sigla
+    contactoConvenio
+    activa
+  }
+
+  class Convocatoria {
+    codigo
+    nombre
+    descripcion
+    fechaInicio
+    fechaFin
+    plazasOfertadas
+    estado
+  }
+
+  class PerfilBuscado {
+    codigo
+    nombre
+    descripcion
+  }
+
+  Universidad "1" *-- "*" Convocatoria : oferta
+  Convocatoria "1" o-- "*" PerfilBuscado : requiere
+}
+
+package "Usuarios y Roles del Sistema" {
+  abstract class Usuario {
+    email
+    nombreCompleto
+    activo
+    fechaCreacion
+  }
+
+  class Candidato {
+    telefono
+    githubUrl
+    linkedinUrl
+    cvUrl
+    estado
+  }
+
+  class Becario {
+    fechaIncorporacion
+    horasConvenio
+    horasCompletadas
+    estado
+  }
+
+  class TutorSenior {
+    especialidad
+    departamento
+    activo
+  }
+
+  class CoordinadorAdmin {
+    cargo
+  }
+
+  Usuario <|-- Candidato
+  Usuario <|-- Becario
+  Usuario <|-- TutorSenior
+  Usuario <|-- CoordinadorAdmin
+}
+
+package "Admisión y Evaluación Técnica" {
+  class PruebaTecnica {
+    tokenAcceso
+    fechaAsignacion
+    fechaInicio
+    fechaFin
+    tiempoLimiteMinutos
+    calificacionTeorica
+    calificacionPractica
+    calificacionTotal
+    dictamen
+    estado
+  }
+
+  class BancoReactivos {
+    nombre
+    version
+  }
+
+  class ReactivoTeorico {
+    codigo
+    enunciado
+    categoria
+    tipoRespuesta
+    opcionesJson
+    respuestaCorrecta
+    puntosMaximos
+    dificultad
+  }
+
+  class RespuestaTeorica {
+    respuestaDada
+    esCorrecta
+    puntosObtenidos
+  }
+
+  class EjercicioPractico {
+    codigo
+    titulo
+    descripcion
+    stackTecnologico
+    tiempoEstimadoMin
+    puntosMaximos
+    dificultad
+    archivosBaseUrl
+  }
+
+  class RubricaEvaluacion {
+    titulo
+    descripcion
+  }
+
+  class CriterioEvaluacion {
+    nombre
+    descripcion
+    pesoPuntos
+  }
+
+  class EntregaPractica {
+    repoForkUrl
+    fechaEntrega
+    calificacionAutomatica
+    calificacionManual
+    calificacionFinal
+    observaciones
+    estado
+  }
+
+  class CalificacionCriterio {
+    puntosOtorgados
+    feedback
+  }
+
+  class TestRunner {
+    imagenDocker
+    timeoutSegundos
+    salidaEjecucion
+    resultadoTests
+  }
+
+  Candidato "1" *-- "1..*" PruebaTecnica : rinde
+  Convocatoria "1" *-- "*" Candidato : postula
+  PruebaTecnica "1" o-- "*" ReactivoTeorico : incluye
+  PruebaTecnica "1" o-- "1..*" EjercicioPractico : asigna
+
+  ReactivoTeorico "1" -- "*" RespuestaTeorica : genera
+  PruebaTecnica "1" *-- "*" RespuestaTeorica : contiene
+
+  EjercicioPractico "1" *-- "1" RubricaEvaluacion : define
+  RubricaEvaluacion "1" *-- "1..*" CriterioEvaluacion : desglosa
+  EjercicioPractico "1" -- "*" EntregaPractica : produce
+  PruebaTecnica "1" *-- "*" EntregaPractica : recopila
+
+  EntregaPractica "1" *-- "*" CalificacionCriterio : evalúa
+  CriterioEvaluacion "1" -- "*" CalificacionCriterio : referencia
+
+  BancoReactivos "1" *-- "*" ReactivoTeorico : almacena
+  BancoReactivos "1" *-- "*" EjercicioPractico : cataloga
+
+  EntregaPractica "1" ..> "1" TestRunner : ejecuta en sandbox
+  TutorSenior "1" ..> "*" CalificacionCriterio : califica manualmente
+}
+
+package "CTS Academy (Formación On-Site)" {
+  class RutaAprendizaje {
+    codigo
+    titulo
+    descripcion
+    nivel
+  }
+
+  class ModuloFormativo {
+    orden
+    titulo
+    descripcion
+    duracionDias
+  }
+
+  class RecursoFormativo {
+    titulo
+    tipo
+    urlContenido
+  }
+
+  class LaboratorioOnSite {
+    codigo
+    titulo
+    enunciado
+    criteriosAceptacion
+    repoPlantillaUrl
+    dificultad
+  }
+
+  class EntregaLaboratorio {
+    pullRequestUrl
+    fechaEntrega
+    estado
+  }
+
+  class RevisionTutor {
+    fechaRevision
+    comentariosCodeReview
+    resultado
+  }
+
+  class SeguimientoPeriodico {
+    fecha
+    semanaNumero
+    horasRegistradas
+    objetivosAlcanzados
+    dificultades
+    feedbackCualitativo
+  }
+
+  PerfilBuscado "1" -- "0..1" RutaAprendizaje : orienta
+  RutaAprendizaje "1" *-- "1..*" ModuloFormativo : compone
+  ModuloFormativo "1" *-- "*" RecursoFormativo : provee
+  ModuloFormativo "1" *-- "*" LaboratorioOnSite : programa
+
+  Becario "1" -- "1" RutaAprendizaje : cursa
+  LaboratorioOnSite "1" -- "*" EntregaLaboratorio : genera
+  Becario "1" *-- "*" EntregaLaboratorio : entrega
+  EntregaLaboratorio "1" *-- "0..*" RevisionTutor : recibe
+  TutorSenior "1" -- "*" RevisionTutor : emite
+
+  Becario "1" *-- "*" SeguimientoPeriodico : registra
+  TutorSenior "1" -- "*" SeguimientoPeriodico : supervisa
+  TutorSenior "1" -- "*" Becario : tutoriza
+}
+
+@enduml
