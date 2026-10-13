@@ -12,14 +12,14 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
 
 ## 📋 Índice de Decisiones (ADR - Architectural Decision Records)
 
-| ID | Fecha | Título | Estado |
-| :---: | :---: | :--- | :---: |
-| **[ADR-001](#adr-001-adopción-de-la-metodología-rup-estándar-uneatlantico)** | 2026-10-09 | Adopción de la metodología RUP estándar UNEATLANTICO | Aprobado |
-| **[ADR-002](#adr-002-diagramas-conceptuales-limpios-sin-atributos)** | 2026-10-09 | Diagramas conceptuales limpios sin atributos de entidad | Aprobado |
-| **[ADR-003](#adr-003-adopción-de-nomenclatura-institucional-programa-profer)** | 2026-10-09 | Adopción de nomenclatura institucional del Programa PROFER | Aprobado |
-| **[ADR-004](#adr-004-embudo-en-2-fases-y-asignación-a-los-6-equipos-de-cts)** | 2026-10-09 | Embudo de admisión en 2 fases y asignación a los 6 equipos de CTS | Aprobado |
-| **[ADR-005](#adr-005-gobernanza-institucional-convenio-programa-profer--universidad)** | 2026-10-09 | Gobernanza institucional: convenio Programa PROFER – Universidad | Aprobado |
-| **[ADR-006](#adr-006-descomposición-arquitectónica-en-3-microservicios)** | 2026-10-13 | Descomposición arquitectónica en 3 microservicios independientes | Aprobado |
+| ID | Fecha | Título | Estado | Discusión en GitHub |
+| :---: | :---: | :--- | :---: | :---: |
+| **[ADR-001](#adr-001-adopción-de-la-metodología-rup-estándar-uneatlantico)** | 2026-10-09 | Adopción de la metodología RUP estándar UNEATLANTICO | Aprobado | [💬 Discussion #1](https://github.com/TheMoys/CTS-Academy/discussions/1) |
+| **[ADR-002](#adr-002-diagramas-conceptuales-limpios-sin-atributos)** | 2026-10-09 | Diagramas conceptuales limpios sin atributos de entidad | Aprobado | [💬 Discussion #2](https://github.com/TheMoys/CTS-Academy/discussions/2) |
+| **[ADR-003](#adr-003-adopción-de-nomenclatura-institucional-programa-profer)** | 2026-10-09 | Adopción de nomenclatura institucional del Programa PROFER | Aprobado | [💬 Discussion #3](https://github.com/TheMoys/CTS-Academy/discussions/3) |
+| **[ADR-004](#adr-004-embudo-en-2-fases-y-asignación-a-los-6-equipos-de-cts)** | 2026-10-09 | Embudo de admisión en 2 fases y asignación a los 6 equipos de CTS | Aprobado | [💬 Discussion #4](https://github.com/TheMoys/CTS-Academy/discussions/4) |
+| **[ADR-005](#adr-005-gobernanza-institucional-convenio-programa-profer--universidad)** | 2026-10-09 | Gobernanza institucional: convenio Programa PROFER – Universidad | Aprobado | [💬 Discussion #5](https://github.com/TheMoys/CTS-Academy/discussions/5) |
+| **[ADR-006](#adr-006-descomposición-arquitectónica-en-3-microservicios)** | 2026-10-13 | Descomposición arquitectónica en 3 microservicios independientes | Aprobado | [💬 Discussion #6](https://github.com/TheMoys/CTS-Academy/discussions/6) |
 
 ---
 
