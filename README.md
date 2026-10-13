@@ -18,7 +18,8 @@ Este proyecto sigue estrictamente la metodología **RUP (Rational Unified Proces
 
 Toda la documentación arquitectónica y de requisitos se encuentra centralizada en el directorio [`/RUP`](/RUP/README.md):
 
-* 📚 **[Fase 00: Modelo del Dominio](/RUP/00-modelo-del-dominio/README.md)** — Glosario, entidades conceptuales, diagramas de estados e invariantes de negocio.
+* 📜 **[Bitácora RUP (Registro de Decisiones - ADR)](/RUP/BITACORA.md)** — Historial de decisiones arquitectónicas y acuerdos de refinamiento.
+* 📚 **[Fase 00: Modelo del Dominio](/RUP/00-modelo-del-dominio/README.md)** — Descomposición en 3 microservicios (`MotorEquipos`, `MotorEvaluacion`, `MotorFormacion`), glosario e invariantes.
 * 📋 **[Fase 01: Requisitos](/RUP/01-requisitos/01-actores-casos-uso/README.md)** — Catálogo de actores, diagramas de contexto y especificación formal de casos de uso (máquinas de estados y wireframes).
 * 🔍 **[Fase 02: Análisis](/RUP/02-analisis/README.md)** — Clases de análisis (Frontera, Control, Entidad) y realizaciones.
 * 🎨 **[Fase 03: Diseño](/RUP/03-diseño/README.md)** — Diagramas de secuencia, DER, contratos de API REST y arquitectura de despliegue.
@@ -31,7 +32,8 @@ Toda la documentación arquitectónica y de requisitos se encuentra centralizada
 ```text
 cts-academy/
 ├── RUP/                          # Artefactos del Proceso Unificado
-│   ├── 00-modelo-del-dominio/    # Entidades y reglas de negocio
+│   ├── BITACORA.md               # Bitácora formal de decisiones (ADR)
+│   ├── 00-modelo-del-dominio/    # Entidades y reglas de negocio (3 microservicios)
 │   │   ├── estados-entidades/    # Ciclos de vida en PlantUML
 │   │   ├── modeloDominio.puml
 │   │   └── README.md

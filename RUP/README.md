@@ -1,6 +1,6 @@
 <div align=right>
 
-<sub>[Al inicio](/README.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / [Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md) / [Detalle](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / [Análisis](/RUP/02-analisis/README.md) / [Diseño](/RUP/03-diseño/README.md) / [Desarrollo](/RUP/04-desarrollo/README.md)</sub>
+<sub>[Al inicio](/README.md) / [Bitácora RUP](/RUP/BITACORA.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / [Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md) / [Detalle](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / [Análisis](/RUP/02-analisis/README.md) / [Diseño](/RUP/03-diseño/README.md) / [Desarrollo](/RUP/04-desarrollo/README.md)</sub>
 
 </div>
 
@@ -8,7 +8,7 @@
 
 Página concentradora de artefactos de ingeniería de software bajo la metodología RUP (Rational Unified Process) para la plataforma **CTS Academy & Evaluator**.
 
-Desde aquí se accede a cada una de las fases del ciclo de desarrollo y a la matriz de trazabilidad integral caso por caso.
+Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al registro de decisiones arquitectónicas y a la matriz de trazabilidad integral caso por caso.
 
 ---
 
@@ -16,11 +16,11 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo y a la mat
 
 <div align=center>
 
-|Modelo del dominio|Requisitos|Análisis|Diseño|Despliegue|
+|Seguimiento y Decisiones|Modelo del dominio|Requisitos|Análisis|Diseño|
 |:-:|:-:|:-:|:-:|:-:|
-|[Modelo del dominio](/RUP/00-modelo-del-dominio/README.md)|[Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md)|[Clases de análisis](/RUP/02-analisis/clases-analisis.puml)|[Clases de diseño](/RUP/03-diseño/clases-diseño.puml)|[Diagrama de despliegue](/RUP/03-diseño/despliegue/README.md)|
-|[Glosario e invariantes](/RUP/00-modelo-del-dominio/README.md#glosario-de-términos-del-dominio)|[Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md)|[Colaboraciones de análisis](/RUP/02-analisis/casos-uso/README.md)|[Diagrama Entidad-Relación](/RUP/03-diseño/modelo-datos/README.md)|Protocolo de seguridad sandbox|
-|[Estados de entidades](/RUP/00-modelo-del-dominio/README.md#máquinas-de-estados-de-entidades-clave)|Wireframes de interfaz||[Diccionario de datos](/RUP/03-diseño/modelo-datos/diccionario-datos.md)|Contenedores y Runner|
+|**[Bitácora RUP (ADR)](/RUP/BITACORA.md)**|[Modelo del dominio](/RUP/00-modelo-del-dominio/README.md)|[Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md)|[Clases de análisis](/RUP/02-analisis/clases-analisis.puml)|[Clases de diseño](/RUP/03-diseño/clases-diseño.puml)|
+|Historial de refinamientos|[Glosario de entidades](/RUP/00-modelo-del-dominio/README.md#glosario-de-entidades-por-microservicio)|[Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md)|[Colaboraciones de análisis](/RUP/02-analisis/casos-uso/README.md)|[Diagrama Entidad-Relación](/RUP/03-diseño/modelo-datos/README.md)|
+|Registro de acuerdos RUP|[3 Microservicios](/RUP/00-modelo-del-dominio/README.md#1-los-3-microservicios-del-sistema)|Wireframes de interfaz||[Despliegue Docker](/RUP/03-diseño/despliegue/README.md)|
 
 </div>
 

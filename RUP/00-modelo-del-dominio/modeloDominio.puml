@@ -2,118 +2,62 @@
 
 !theme plain
 hide empty members
-hide circle
+hide circles
 skinparam linetype polyline
 left to right direction
 
-package "Estructura Institucional y Gobernanza CTS" {
-  class Universidad
-  class GerenciaUniversidad
-  class ProgramaProfer
-  class CentroTecnologico
-  class ConvocatoriaProfer
-  class Equipo
-  class RolEquipo
+package MotorEquipos {
+  class Programa
+  class Equipo 
+  class Alumno
+  class LiderEquipo
+  class Gestor
 
-  Universidad "1" *-- "1" GerenciaUniversidad : gobierna
-  ProgramaProfer "1" -- "1" Universidad : mantiene convenio con
-  GerenciaUniversidad "1" ..> "1" CentroTecnologico : supervisa
-  ProgramaProfer "1" *-- "1" CentroTecnologico : gestiona y opera
-  ProgramaProfer "1" *-- "*" ConvocatoriaProfer : abre y convoca
-  CentroTecnologico "1" *-- "6" Equipo : organiza
-  Equipo "1" *-- "1..*" RolEquipo : define
+  Programa *-- Equipo
+  Equipo *-- Alumno
+  Equipo --> LiderEquipo : posee
+  Programa --> Gestor : es organizado
 }
 
-package "Usuarios y Roles del Sistema" {
-  abstract class Usuario
+package MotorEvaluacion {
+  class Convocatoria
   class Candidato
-  class AlumnoProfer
-  class TechLeader
-  class GestorProfer
+  class Test
+  class Resultado
 
-  Usuario <|-- Candidato
-  Usuario <|-- AlumnoProfer
-  Usuario <|-- TechLeader
-  Usuario <|-- GestorProfer
-
-  GestorProfer "1" -- "1" ProgramaProfer : coordina
-  TechLeader "1" -- "1" Equipo : lidera
-  AlumnoProfer "1" -- "1" Equipo : integra
-  AlumnoProfer "1" -- "1" RolEquipo : desempeña
+  Convocatoria o-- Candidato
+  Candidato --> Test : realiza
+  Test o-- Resultado
 }
 
-package "Admisión, Test de Aptitudes y Selección" {
-  class PruebaTecnica
-  class BancoReactivos
-  class ReactivoTeorico
-  class RespuestaTeorica
-  class EjercicioPractico
-  class RubricaEvaluacion
-  class CriterioEvaluacion
-  class EntregaPractica
-  class CalificacionCriterio
-  class TestRunner
-  class PerfilAptitudes
-  class Entrevista
-  class DictamenAdmision
+package MotorFormacion {
+  class Capacitacion
+  class Modulo
+  class Material
+  class Entregable
+  class Pregunta
+  class PreguntaTeorica
+  class PreguntaPractica
 
-  ConvocatoriaProfer "1" *-- "*" Candidato : postula
-  Candidato "1" *-- "1" PruebaTecnica : rinde (primer filtro)
-  PruebaTecnica "1" o-- "*" ReactivoTeorico : incluye
-  PruebaTecnica "1" o-- "1..*" EjercicioPractico : asigna
+  Pregunta <|-- PreguntaTeorica
+  Pregunta <|-- PreguntaPractica
 
-  ReactivoTeorico "1" -- "*" RespuestaTeorica : genera
-  PruebaTecnica "1" *-- "*" RespuestaTeorica : contiene
-
-  EjercicioPractico "1" *-- "1" RubricaEvaluacion : define
-  RubricaEvaluacion "1" *-- "1..*" CriterioEvaluacion : desglosa
-  EjercicioPractico "1" -- "*" EntregaPractica : produce
-  PruebaTecnica "1" *-- "*" EntregaPractica : recopila
-
-  EntregaPractica "1" *-- "*" CalificacionCriterio : evalúa
-  CriterioEvaluacion "1" -- "*" CalificacionCriterio : referencia
-
-  BancoReactivos "1" *-- "*" ReactivoTeorico : almacena
-  BancoReactivos "1" *-- "*" EjercicioPractico : cataloga
-
-  EntregaPractica "1" ..> "1" TestRunner : ejecuta en sandbox
-  TechLeader "1" ..> "*" CalificacionCriterio : califica manualmente
-
-  PruebaTecnica "1" --> "1" PerfilAptitudes : genera diagnóstico
-  PerfilAptitudes "1" ..> "1" Equipo : sugiere afinidad
-  PerfilAptitudes "1" ..> "1" RolEquipo : sugiere adecuación
-  TechLeader "1" ..> "*" PerfilAptitudes : consulta perfil y repositorio
-
-  Candidato "1" *-- "0..1" Entrevista : realiza (segundo filtro)
-  GestorProfer "1" -- "*" Entrevista : conduce
-
-  Candidato "1" *-- "1" DictamenAdmision : resuelve
-  DictamenAdmision "1" --> "1" Equipo : asigna
-  DictamenAdmision "1" --> "1" RolEquipo : asigna
+  Capacitacion o-- Modulo
+  Modulo *-- Material
+  Modulo o-- Entregable
+  Modulo o-- Pregunta
 }
 
-package "Capacitación Interna por Equipo (CTS Academy)" {
-  class CapacitacionEquipo
-  class ModuloFormativo
-  class RecursoFormativo
-  class LaboratorioEquipo
-  class EntregaLaboratorio
-  class RevisionTechLeader
-  class SeguimientoDesempeno
+' --- Relaciones Inter-Microservicios ---
 
-  Equipo "1" *-- "1" CapacitacionEquipo : diseña según necesidades
-  CapacitacionEquipo "1" *-- "1..*" ModuloFormativo : compone
-  ModuloFormativo "1" *-- "*" RecursoFormativo : provee
-  ModuloFormativo "1" *-- "*" LaboratorioEquipo : programa
+Programa --> Convocatoria : abre
+Gestor --> Resultado : evalua
 
-  AlumnoProfer "1" -- "1" CapacitacionEquipo : cursa
-  LaboratorioEquipo "1" -- "*" EntregaLaboratorio : genera
-  AlumnoProfer "1" *-- "*" EntregaLaboratorio : entrega
-  EntregaLaboratorio "1" *-- "0..*" RevisionTechLeader : recibe
-  TechLeader "1" -- "*" RevisionTechLeader : revisa
+Test ... Pregunta
+Alumno ---> Test : realiza
 
-  AlumnoProfer "1" *-- "*" SeguimientoDesempeno : registra
-  TechLeader "1" -- "*" SeguimientoDesempeno : supervisa
-}
+Alumno --> Capacitacion : realiza
+LiderEquipo --> Modulo : configura
+LiderEquipo --> Capacitacion : evalua
 
 @enduml
