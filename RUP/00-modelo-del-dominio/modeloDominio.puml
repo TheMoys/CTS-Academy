@@ -48,8 +48,6 @@ package MotorFormacion {
   Modulo o-- Pregunta
 }
 
-' --- Relaciones Inter-Microservicios ---
-
 Programa --> Convocatoria : abre
 Gestor --> Resultado : evalua
 
