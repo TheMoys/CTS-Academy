@@ -21,13 +21,28 @@ package MotorEquipos {
 
 package MotorEvaluacion {
   class Convocatoria
+  class CursoAcademico
+  class Semestre
   class Candidato
   class Test
+  class TestActitud
+  class TestAptitud
+  class TestTecnico
   class Resultado
+  class Entrevista
 
+  CursoAcademico *-- Semestre
+  Convocatoria --> Semestre : organiza por
   Convocatoria o-- Candidato
+
   Candidato --> Test : realiza
+  Test <|-- TestActitud
+  Test <|-- TestAptitud
+  Test <|-- TestTecnico
   Test o-- Resultado
+
+  Candidato --> Entrevista : agenda
+  Gestor --> Entrevista : realiza
 }
 
 package MotorFormacion {
@@ -48,11 +63,11 @@ package MotorFormacion {
   Modulo o-- Pregunta
 }
 
-Programa --> Convocatoria : abre
-Gestor --> Resultado : evalua
+Programa --> Convocatoria : mantiene abierta
+Gestor --> Resultado : consulta
 
-Test ... Pregunta
-Alumno ---> Test : realiza
+TestTecnico ... Pregunta
+Alumno ---> TestTecnico : realiza
 
 Alumno --> Capacitacion : realiza
 LiderEquipo --> Modulo : configura

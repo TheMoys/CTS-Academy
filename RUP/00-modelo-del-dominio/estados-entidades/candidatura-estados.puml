@@ -8,50 +8,54 @@ skinparam state {
 }
 
 [*] --> REGISTRADO : postularConvocatoria()
-
-REGISTRADO --> TEST_ASIGNADO : emitirTokenPrueba()
 note on link
-  Gestor PROFER habilita el acceso
-  al Test de Aptitudes (Filtro 1)
+  Postulación abierta 365 días al año
+  Asociada al Curso Académico y Semestre activo
 end note
 
-TEST_ASIGNADO --> TEST_EN_CURSO : iniciarPruebaTecnica()
-
-TEST_EN_CURSO --> TEST_EVALUADO : entregarPrueba() / expirarTiempo()
+REGISTRADO --> BATERIA_TESTS_HABILITADA : habilitarBateriaTests()
 note on link
-  TestRunner evalúa tests automáticos
-  Tech Leader califica rúbrica de código
-  Se computa PerfilAptitudes
+  Se habilita el acceso a los 3 tests:
+  Actitud, Aptitud y Técnico
 end note
 
-state c_filtro1 <<choice>>
-TEST_EVALUADO --> c_filtro1
-
-c_filtro1 --> CONVOCADO_ENTREVISTA : [notaTotal >= umbralCorte]
+BATERIA_TESTS_HABILITADA --> TESTS_COMPLETADOS : completarBateriaTests()
 note on link
-  Supera el primer filtro
-  Se genera informe de aptitudes recomendando Equipo y Rol
+  Se consolidan los indicadores de los 3 tests
+  El candidato adquiere derecho a agendar entrevista
 end note
 
-c_filtro1 --> NO_SELECCIONADO : [notaTotal < umbralCorte]
-
-CONVOCADO_ENTREVISTA --> ENTREVISTA_REALIZADA : ejecutarEntrevista()
+' Transición estándar por derecho
+TESTS_COMPLETADOS --> ENTREVISTA_AGENDADA : agendarEntrevista()
 note on link
-  Entrevista personal y de encaje (Filtro 2)
-  conducida por el Gestor PROFER
+  Derecho garantizado al finalizar
+  la totalidad de la batería de tests
 end note
 
-state c_filtro2 <<choice>>
-ENTREVISTA_REALIZADA --> c_filtro2
-
-c_filtro2 --> ADMITIDO_PROFER : [dictamen == Apto]
+' Transición por excepción concedida por el Gestor
+BATERIA_TESTS_HABILITADA --> ENTREVISTA_AGENDADA : agendarEntrevista() [dispensaGestor]
 note on link
-  Se formaliza la beca de matrícula
+  Excepción autorizada por el Gestor PROFER
+  para agendar con algún test pendiente
+end note
+
+ENTREVISTA_AGENDADA --> ENTREVISTA_REALIZADA : realizarEntrevista()
+note on link
+  Entrevista personal conducida por el Gestor PROFER
+  contrastando el informe de indicadores de los tests
+end note
+
+state c_dictamen <<choice>>
+ENTREVISTA_REALIZADA --> c_dictamen
+
+c_dictamen --> ADMITIDO_PROFER : [dictamen == Apto]
+note on link
+  Se formaliza la beca de reducción de matrícula
   Se asigna a 1 de los 6 Equipos y se fija su Rol
-  Pasa a ser AlumnoProfer
+  Pasa a ser Alumno en MotorEquipos
 end note
 
-c_filtro2 --> NO_SELECCIONADO : [dictamen == NoApto]
+c_dictamen --> NO_SELECCIONADO : [dictamen == NoApto]
 
 ADMITIDO_PROFER --> [*]
 NO_SELECCIONADO --> [*]

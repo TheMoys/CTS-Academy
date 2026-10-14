@@ -1,0 +1,46 @@
+@startuml test-estados
+
+!theme plain
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+[*] --> PENDIENTE : asignarTest()
+
+PENDIENTE --> EN_CURSO : iniciarTest(token)
+note on link
+  Inicia cronómetro de tiempo en servidor
+  Bloquea ejecuciones concurrentes
+end note
+
+EN_CURSO --> ENTREGADO : entregarTest()
+note on link
+  Candidato confirma envío
+  Se congelan reactivos y código
+end note
+
+EN_CURSO --> EXPIRADO : [tiempoRestante == 0] / autoentrega()
+note on link
+  Temporizador en servidor finaliza
+  El sistema consolida el estado alcanzado
+end note
+
+ENTREGADO --> EN_PROCESAMIENTO : procesarRespuestas()
+note on link
+  - Actitud / Aptitud: baremación psicométrica y analítica automática
+  - Técnico: TestRunner ejecuta linters y tests; TL califica rúbrica
+end note
+
+EXPIRADO --> EN_PROCESAMIENTO : procesarRespuestas()
+
+EN_PROCESAMIENTO --> INDICADORES_GENERADOS : consolidarIndicadores()
+note on link
+  Se computa el informe de indicadores y afinidades por disciplina
+  No emite nota de corte ni dictámenes excluyentes
+end note
+
+INDICADORES_GENERADOS --> [*]
+
+@enduml

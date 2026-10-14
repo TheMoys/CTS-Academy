@@ -15,7 +15,7 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 | Microservicio | Propósito y Responsabilidad | Entidades Propias |
 | :--- | :--- | :--- |
 | **`MotorEquipos`** | **Estructura Organizativa y Gobernanza**<br>Controla los programas, los equipos del centro tecnológico, los alumnos que los integran, el liderazgo técnico y la coordinación general. | `Programa`, `Equipo`, `Alumno`, `LiderEquipo`, `Gestor` |
-| **`MotorEvaluacion`** | **Filtro de Admisión y Motor de Tests**<br>Gestiona las convocatorias de selección, el acceso de candidatos, la ejecución de tests cronometrados y la consolidación de resultados evaluados por el gestor. | `Convocatoria`, `Candidato`, `Test`, `Resultado` |
+| **`MotorEvaluacion`** | **Admisión Continua, Batería de Tests y Entrevistas**<br>Canaliza las postulaciones abiertas todo el año, la división por cursos académicos y semestres, la ejecución de la batería de 3 tests (actitud, aptitud y técnico) como indicadores competenciales, y la agenda de entrevistas con el gestor. | `Convocatoria`, `CursoAcademico`, `Semestre`, `Candidato`, `Test`, `TestActitud`, `TestAptitud`, `TestTecnico`, `Resultado`, `Entrevista` |
 | **`MotorFormacion`** | **Academy On-Site y Banco de Conocimiento**<br>LMS interno donde se crean capacitaciones divididas en módulos, material de estudio, entregables prácticos y reactivos (teóricos y prácticos). | `Capacitacion`, `Modulo`, `Material`, `Entregable`, `Pregunta`, `PreguntaTeorica`, `PreguntaPractica` |
 
 ---
@@ -38,13 +38,19 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 * **`Equipo`**: Una de las unidades técnicas de trabajo de CTS donde los alumnos desarrollan proyectos reales.
 * **`Alumno`**: Estudiante incorporado formalmente a un equipo dentro del programa PROFER.
 * **`LiderEquipo` (TL)**: Ingeniero senior responsable de liderar un equipo, configurar sus módulos formativos y evaluar la capacitación de sus alumnos.
-* **`Gestor`**: Coordinador institucional del programa que organiza las convocatorias y evalúa los resultados de admisión.
+* **`Gestor`**: Coordinador institucional del programa que organiza las admisiones, conduce las entrevistas y asigna alumnos a los equipos.
 
 ### 2. `MotorEvaluacion`
-* **`Convocatoria`**: Proceso formal y temporalizado de captación de talento abierto por el programa.
-* **`Candidato`**: Aspirante que postula a una convocatoria y rinde la prueba técnica de ingreso (primer filtro).
-* **`Test`**: Evaluación objetiva y práctica con temporizador en servidor. Puede ser ejecutado por un `Candidato` (admisión) o por un `Alumno` (evaluación periódica/fin de módulo).
-* **`Resultado`**: Calificación e informe diagnóstico emitido tras la realización del test, evaluado por el gestor para la toma de decisiones.
+* **`Convocatoria`**: Canal de postulación continua (abierto los 365 días del año) que recibe y gestiona los aspirantes.
+* **`CursoAcademico`**: Marco anual (ej. *2024-2025*, *2025-2026*) que organiza la admisión e incorporaciones a los equipos.
+* **`Semestre`**: Periodo semestral (*Semestre 1* / *Semestre 2*) en el que se estructuran los cortes de ingreso y formalización de becas.
+* **`Candidato`**: Aspirante que postula al programa en cualquier momento del año y rinde la batería diagnóstica de tests.
+* **`Test`**: Evaluación objetiva y estructurada de indicadores de desempeño. Se especializa en:
+  * **`TestActitud`**: Mide competencias blandas, compromiso, motivación, proactividad y encaje en cultura de equipo.
+  * **`TestAptitud`**: Mide razonamiento lógico, agilidad analítica y capacidad de resolución de problemas.
+  * **`TestTecnico`**: Mide conocimientos técnicos aplicados, nutriéndose de preguntas de los módulos de los 6 equipos de CTS.
+* **`Resultado`**: Informe diagnóstico y métricas de afinidad técnica/actitudinal emitidas tras la realización de los tests (sin notas de corte excluyentes).
+* **`Entrevista`**: Sesión personal conducida por el `Gestor` a la que todo candidato tiene derecho al completar la batería (o por dispensa excepcional), donde se decide la admisión definitiva.
 
 ### 3. `MotorFormacion`
 * **`Capacitacion`**: Itinerario formativo on-site cursado por el alumno y evaluado por el líder de su equipo.
@@ -60,15 +66,19 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 ## Invariantes y Reglas del Dominio
 
 1. **Desacoplamiento de Servicios**:
-   * Cada motor es autónomo en su persistencia y lógica de negocio. La comunicación entre `MotorEvaluacion` y `MotorFormacion` (para componer tests a partir de preguntas) se produce a través de contratos de API REST interna.
-2. **Reutilización del Motor de Evaluación**:
-   * El `Test` es agnóstico al rol de quien lo rinde: tanto un `Candidato` en fase de ingreso como un `Alumno` activo en formación pueden rendir tests.
-3. **El Alumno se Capacita en su Equipo**:
+   * Cada motor es autónomo en su persistencia y lógica de negocio. La comunicación entre `MotorEvaluacion` y `MotorFormacion` (para componer el `TestTecnico` a partir de preguntas de los módulos de los 6 equipos) se produce a través de contratos de API REST interna.
+2. **Postulación Continua y Estructuración Académica**:
+   * La postulación está abierta los 365 días del año. Las candidaturas no caducan por convocatorias cerradas, sino que se agrupan en el `CursoAcademico` (ej. 2024-2025) y `Semestre` activo para coordinar los cortes de incorporación.
+3. **Batería de Tests como Indicadores (Sin Nota de Corte)**:
+   * Los 3 tests (`TestActitud`, `TestAptitud`, `TestTecnico`) no actúan como guillotina o filtro eliminatorio por nota mínima. Producen un mapa de indicadores competenciales y de afinidad de equipo para orientar la decisión.
+4. **Derecho a Entrevista y Vía Excepcional**:
+   * Completar la batería de tests otorga automáticamente al candidato el derecho a agendar su entrevista personal. Excepcionalmente, el `Gestor` puede autorizar la agenda con algún test pendiente.
+5. **Decisión de Admisión y Asignación de Plazas**:
+   * La decisión definitiva de admisión a la beca PROFER la toma el `Gestor` en la `Entrevista`, contrastando la entrevista con el informe de indicadores de los tests, formalizando la reducción de matrícula y asignando al alumno a uno de los 6 equipos con su rol específico.
+6. **El Alumno se Capacita en su Equipo**:
    * No existe vínculo directo entre la entidad `Equipo` y `Capacitacion`; la capacitación es una actividad propia del `Alumno` dentro del equipo, supervisada y evaluada por el `LiderEquipo`.
-4. **Evaluación Integral por el Líder Técnico**:
-   * Al configurar el `Modulo` y evaluar la `Capacitacion`, el `LiderEquipo` evalúa implícitamente tanto los `Entregable`s de código como los tests de fin de módulo rendidos por los alumnos de su equipo.
-5. **Decisión de Admisión**:
-   * La evaluación del `Resultado` del test por parte del `Gestor` determina el paso del `Candidato` a `Alumno` y su asignación a un `Equipo`.
+7. **Evaluación Integral por el Líder Técnico**:
+   * Al configurar el `Modulo` y evaluar la `Capacitacion`, el `LiderEquipo` evalúa implícitamente tanto los `Entregable`s de código como los tests técnicos de nivelación rendidos por los alumnos de su equipo.
 
 ---
 
@@ -78,9 +88,9 @@ Las entidades puramente estructurales (`Programa`, `Equipo`, `Material`, `Pregun
 
 ---
 
-### 1. Candidatura — Embudo de Selección en 2 Filtros
+### 1. Candidatura — Admisión Continua, Batería de Tests y Entrevista
 
-Representa la evolución del aspirante desde su registro público hasta su eventual admisión como alumno becario en uno de los 6 equipos, pasando por los dos filtros eliminatorios:
+Representa la evolución del aspirante desde su registro público hasta su eventual admisión como alumno becario en uno de los 6 equipos:
 
 <div align=center>
 
@@ -89,25 +99,27 @@ Representa la evolución del aspirante desde su registro público hasta su event
 
 </div>
 
-* **Filtro 1 (`PruebaTecnica`)**: Evaluación objetiva de reactivos teóricos y reto práctico con sandbox Docker (`TestRunner`) y rúbrica del TL, generando el `PerfilAptitudes`.
-* **Filtro 2 (`Entrevista`)**: Realizada exclusivamente por el `GestorProfer` para validar encaje institucional y motivación.
-* **Resolución**: Al admitirse, se formaliza la reducción de matrícula/colegiatura y se asigna al estudiante a 1 de los 6 Equipos con su Rol específico.
+* **Postulación 365**: La candidatura ingresa en cualquier momento del año adscrita al curso académico y semestre activo.
+* **Batería de 3 Tests**: Habilita la realización de los tests de Actitud, Aptitud y Técnico, consolidando el perfil de indicadores.
+* **Acceso a Entrevista**: Concedido por derecho al finalizar todos los tests, o por dispensa expresa del Gestor si queda alguno pendiente.
+* **Dictamen Final**: La entrevista personal con el `Gestor` concluye en admisión (con asignación a equipo y rol) o no admisión.
 
 ---
 
-### 2. PruebaTécnica — Ciclo del Test de Aptitudes y Sandbox
+### 2. Test — Ciclo de Ejecución y Consolidación de Indicadores
 
-Controla la ejecución de la prueba técnica en servidor, garantizando la inmutabilidad temporal y la ejecución segura de código:
+Controla la ejecución de cualquiera de los tests (actitudinal, aptitudinal o técnico) garantizando la inmutabilidad temporal y la consolidación de métricas:
 
 <div align=center>
 
-![](/images/RUP/00-modelo-del-dominio/estados-entidades/pruebaTecnica-estados.svg)
-<sup><i>[Código fuente PlantUML](estados-entidades/pruebaTecnica-estados.puml)</i></sup>
+![](/images/RUP/00-modelo-del-dominio/estados-entidades/test-estados.svg)
+<sup><i>[Código fuente PlantUML](estados-entidades/test-estados.puml)</i></sup>
 
 </div>
 
 * **Control de tiempo inmutable**: El cronómetro corre en el backend. Al llegar a cero, el test se autoentrega y se congelan las respuestas.
-* **Corrección híbrida**: El `TestRunner` valida linters y pruebas unitarias automáticas, y el `TechLeader` completa la rúbrica manual.
+* **Procesamiento de resultados**: Baremación automatizada para actitud/aptitud; ejecución en sandbox Docker (`TestRunner`) y rúbrica del TL para el reto técnico.
+* **Generación de indicadores**: Emite métricas de afinidad y desempeño sin emitir notas de corte excluyentes.
 
 ---
 
@@ -126,9 +138,9 @@ Modela el flujo de trabajo ágil dentro del equipo formativo entre el `Alumno` y
 
 ---
 
-### 4. Convocatoria — Ciclo de Plazas y Becas
+### 4. Convocatoria — Admisión Continua 365 Días y Cortes Semestrales
 
-Gobierna el proceso de apertura y resolución de plazas abierto por el programa PROFER:
+Gobierna el marco de admisión permanente y los hitos de corte periódico:
 
 <div align=center>
 
@@ -137,4 +149,5 @@ Gobierna el proceso de apertura y resolución de plazas abierto por el programa 
 
 </div>
 
-* **Gestión temporal de plazas**: En `ABIERTA` se reciben postulaciones; al pasar a `EN_EVALUACION` se bloquean nuevas candidaturas y se inician las pruebas; en `FINALIZADA` se emiten las actas de admisión definitivas.
+* **Admisión activa permanente**: No existen cancelaciones ni plazos fatales de postulación; las recepciones se mantienen vivas todo el año.
+* **Corte semestral**: En cada cambio de semestre se consolidan los alumnos que se incorporan a los 6 equipos de CTS y se da paso al siguiente semestre lectivo.

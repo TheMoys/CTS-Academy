@@ -7,31 +7,30 @@ skinparam state {
   ArrowColor Black
 }
 
-[*] --> PLANIFICADA : crearConvocatoria()
-
-PLANIFICADA --> ABIERTA : publicarConvocatoria()
+[*] --> ACTIVA_PERMANENTE : inicializarAdmision()
 note on link
-  Se habilita la postulación de candidatos
-  y la recepción de candidaturas universitarias
+  Convocatoria abierta los 365 días del año.
+  No existe fecha de cierre para postulaciones.
 end note
 
-PLANIFICADA --> CANCELADA : cancelarConvocatoria()
-
-ABIERTA --> EN_EVALUACION : cerrarRecepcionPostulaciones()
+ACTIVA_PERMANENTE --> ACTIVA_PERMANENTE : recibirPostulacion()
 note on link
-  Se cierran las postulaciones
-  Se generan y envían las pruebas técnicas a candidatos
+  El candidato postula en cualquier fecha.
+  La candidatura se adscribe al Curso Académico
+  y Semestre activo correspondiente.
 end note
 
-ABIERTA --> CANCELADA : cancelarConvocatoria()
-
-EN_EVALUACION --> FINALIZADA : concluirEvaluaciones()
+ACTIVA_PERMANENTE --> CIERRE_SEMESTRAL : ejecutarCorteSemestre()
 note on link
-  Todas las pruebas técnicas han sido calificadas
-  Se emite acta de admisión y asignación de plazas
+  Hito de corte administrativo:
+  Se consolidan las admisiones e incorporaciones a los
+  6 equipos para el semestre que va a comenzar.
 end note
 
-FINALIZADA --> [*]
-CANCELADA --> [*]
+CIERRE_SEMESTRAL --> ACTIVA_PERMANENTE : activarSiguienteSemestre()
+note on link
+  Se avanza el periodo académico.
+  El flujo de recepción de candidatos continúa sin interrupción.
+end note
 
 @enduml

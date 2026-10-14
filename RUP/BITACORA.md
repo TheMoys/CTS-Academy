@@ -23,6 +23,7 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
 | **[ADR-004](#adr-004-embudo-en-2-fases-y-asignación-a-los-6-equipos-de-cts)** | 2026-10-09 | Embudo de admisión en 2 fases y asignación a los 6 equipos de CTS | Aprobado | [📋 Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
 | **[ADR-005](#adr-005-gobernanza-institucional-convenio-programa-profer--universidad)** | 2026-10-09 | Gobernanza institucional: convenio Programa PROFER – Universidad | Aprobado | [📋 Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
 | **[ADR-006](#adr-006-descomposición-arquitectónica-en-3-microservicios)** | 2026-10-13 | Descomposición arquitectónica en 3 microservicios independientes | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
+| **[ADR-007](#adr-007-admisión-continua-por-ciclos-académicos-batería-de-3-tests-e-inclusión-de-entrevista)** | 2026-10-14 | Admisión continua por ciclos académicos, batería de 3 tests e inclusión de entrevista | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
 
 ---
 
@@ -85,3 +86,19 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
   * **Test transversal**: El `Test` de `MotorEvaluacion` es agnóstico y es ejecutado tanto por el `Candidato` (admisión) como por el `Alumno` (nivelación o cierre de módulo formativo).
   * La composición de `Test` a partir de `Pregunta` se realiza mediante API REST inter-servicios (`Test ... Pregunta`).
 * **Artefactos afectados**: `RUP/00-modelo-del-dominio/modeloDominio.puml`, `RUP/00-modelo-del-dominio/README.md`, `RUP/README.md`.
+
+---
+
+### ADR-007: Admisión continua por ciclos académicos, batería de 3 tests e inclusión de entrevista
+* **Fecha**: 2026-10-14
+* **Contexto**: El proceso de selección real de los Alumnos PROFER no sigue un calendario rígido con convocatorias que expiran ni aplica una nota de corte eliminatoria sobre un único examen técnico. La captación de talento está abierta todo el año y se estructura para alimentar a los 6 equipos de CTS de forma continua.
+* **Decisión**:
+  * **Temporalidad y Postulación Continua**: Incorporar las entidades `CursoAcademico` y `Semestre`. La postulación no se cierra (365 días al año); las candidaturas se canalizan y agrupan según el `(CursoAcademico, Semestre)` activo para los cortes de asignación.
+  * **Especialización de Tests como Indicadores**: Especializar `Test` en `TestActitud` (competencias blandas y compromiso), `TestAptitud` (lógica y resolución) y `TestTecnico` (habilidades prácticas nutriéndose de reactivos de los módulos de los 6 equipos: `TestTecnico ... Pregunta`). Los tests no eliminan por nota de corte, sino que consolidan un perfil de indicadores y afinidades competenciales.
+  * **Formalización de `Entrevista`**: Incorporar la entidad `Entrevista` en `MotorEvaluacion`.
+  * **Reglas de Acceso a Entrevista**:
+    * *Por derecho*: Todo candidato que completa la batería de 3 tests adquiere el derecho a agendar su entrevista personal.
+    * *Por excepción*: El `Gestor` puede autorizar manualmente la agenda a un candidato con algún test pendiente o incompleto.
+  * **Dictamen Final**: La entrevista personal con el `GestorProfer` es el hito resolutorio donde se decide la admisión definitiva y la asignación a uno de los 6 equipos con su rol de equipo.
+* **Artefactos afectados**: `RUP/00-modelo-del-dominio/modeloDominio.puml`, `estados-entidades/candidatura-estados.puml`, `estados-entidades/test-estados.puml`, `estados-entidades/convocatoria-estados.puml`, `RUP/00-modelo-del-dominio/README.md`.
+
