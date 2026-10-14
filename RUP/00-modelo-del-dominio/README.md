@@ -67,8 +67,8 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 
 1. **Desacoplamiento de Servicios**:
    * Cada motor es autónomo en su persistencia y lógica de negocio. La comunicación entre `MotorEvaluacion` y `MotorFormacion` (para componer el `TestTecnico` a partir de preguntas de los módulos de los 6 equipos) se produce a través de contratos de API REST interna.
-2. **Postulación Continua y Estructuración Académica**:
-   * La postulación está abierta los 365 días del año. Las candidaturas no caducan por convocatorias cerradas, sino que se agrupan en el `CursoAcademico` (ej. 2024-2025) y `Semestre` activo para coordinar los cortes de incorporación.
+2. **Canalización por Sedes Internacionales y Admisión Continua**:
+   * No existe registro público anónimo ni auto-postulación en la plataforma. La captación y recepción de solicitudes es responsabilidad de las sedes en cada país, que recopilan los aspirantes y los remiten al `GestorProfer`. El gestor los da de alta en el sistema (`registrarCandidato()`), agrupándolos en el `CursoAcademico` (ej. 2024-2025) y `Semestre` activo para coordinar las pruebas y los cortes semestrales.
 3. **Batería de Tests como Indicadores (Sin Nota de Corte)**:
    * Los 3 tests (`TestActitud`, `TestAptitud`, `TestTecnico`) no actúan como guillotina o filtro eliminatorio por nota mínima. Producen un mapa de indicadores competenciales y de afinidad de equipo para orientar la decisión.
 4. **Derecho a Entrevista y Vía Excepcional**:
@@ -90,7 +90,7 @@ Las entidades puramente estructurales (`Programa`, `Equipo`, `Material`, `Pregun
 
 ### 1. Candidatura — Admisión Continua, Batería de Tests y Entrevista
 
-Representa la evolución del aspirante desde su registro público hasta su eventual admisión como alumno becario en uno de los 6 equipos:
+Representa la evolución del aspirante desde su alta en el sistema tras ser remitido por las sedes hasta su eventual admisión como alumno becario en uno de los 6 equipos:
 
 <div align=center>
 
@@ -99,7 +99,7 @@ Representa la evolución del aspirante desde su registro público hasta su event
 
 </div>
 
-* **Postulación 365**: La candidatura ingresa en cualquier momento del año adscrita al curso académico y semestre activo.
+* **Remisión por Sedes Internacionales**: El candidato es dado de alta en la plataforma por el Gestor PROFER a partir de las listas remitidas por las sedes de cada país, vinculado al curso académico y semestre activo.
 * **Batería de 3 Tests**: Habilita la realización de los tests de Actitud, Aptitud y Técnico, consolidando el perfil de indicadores.
 * **Acceso a Entrevista**: Concedido por derecho al finalizar todos los tests, o por dispensa expresa del Gestor si queda alguno pendiente.
 * **Dictamen Final**: La entrevista personal con el `Gestor` concluye en admisión (con asignación a equipo y rol) o no admisión.

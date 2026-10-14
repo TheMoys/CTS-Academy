@@ -24,6 +24,7 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
 | **[ADR-005](#adr-005-gobernanza-institucional-convenio-programa-profer--universidad)** | 2026-10-09 | Gobernanza institucional: convenio Programa PROFER – Universidad | Aprobado | [📋 Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
 | **[ADR-006](#adr-006-descomposición-arquitectónica-en-3-microservicios)** | 2026-10-13 | Descomposición arquitectónica en 3 microservicios independientes | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
 | **[ADR-007](#adr-007-admisión-continua-por-ciclos-académicos-batería-de-3-tests-e-inclusión-de-entrevista)** | 2026-10-14 | Admisión continua por ciclos académicos, batería de 3 tests e inclusión de entrevista | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
+| **[ADR-008](#adr-008-canalización-de-candidatos-por-sedes-internacionales-y-eliminación-de-usuarionologueado)** | 2026-10-14 | Canalización de candidatos por sedes internacionales y eliminación de UsuarioNoLogueado | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
 
 ---
 
@@ -101,4 +102,16 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
     * *Por excepción*: El `Gestor` puede autorizar manualmente la agenda a un candidato con algún test pendiente o incompleto.
   * **Dictamen Final**: La entrevista personal con el `GestorProfer` es el hito resolutorio donde se decide la admisión definitiva y la asignación a uno de los 6 equipos con su rol de equipo.
 * **Artefactos afectados**: `RUP/00-modelo-del-dominio/modeloDominio.puml`, `estados-entidades/candidatura-estados.puml`, `estados-entidades/test-estados.puml`, `estados-entidades/convocatoria-estados.puml`, `RUP/00-modelo-del-dominio/README.md`.
+
+---
+
+### ADR-008: Canalización de candidatos por sedes internacionales y eliminación de UsuarioNoLogueado
+* **Fecha**: 2026-10-14
+* **Contexto**: Se había asumido inicialmente que la plataforma contaba con un portal público de auto-registro donde cualquier persona anónima postulaba desde internet. La realidad operativa es que las sedes de la universidad/fundación en cada país son las encargadas de recepcionar, cribar y recopilar las solicitudes de los alumnos interesados, remitiéndolas por lotes al Gestor del programa.
+* **Decisión**:
+  * **Eliminación del Actor `UsuarioNoLogueado`**: El sistema no expone casos de uso para usuarios anónimos ni registro libre en la web.
+  * **Ingreso Controlado por el Gestor**: El `GestorProfer` da de alta o importa a los candidatos remitidos por las sedes de cada país (`registrarCandidato()`), lo que genera sus credenciales/enlace de acceso.
+  * **Los 4 Actores Autenticados**: El alcance de actores del sistema queda estrictamente delimitado a 4 perfiles autenticados: `Candidato`, `Alumno`, `LiderEquipo` y `Gestor`.
+* **Artefactos afectados**: `estados-entidades/candidatura-estados.puml`, `estados-entidades/convocatoria-estados.puml`, `RUP/00-modelo-del-dominio/README.md`, catálogo de actores en `RUP/01-requisitos/01-actores-casos-uso/`.
+
 

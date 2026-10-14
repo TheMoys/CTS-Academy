@@ -13,11 +13,10 @@ note on link
   No existe fecha de cierre para postulaciones.
 end note
 
-ACTIVA_PERMANENTE --> ACTIVA_PERMANENTE : recibirPostulacion()
+ACTIVA_PERMANENTE --> ACTIVA_PERMANENTE : registrarCandidatosSede()
 note on link
-  El candidato postula en cualquier fecha.
-  La candidatura se adscribe al Curso Académico
-  y Semestre activo correspondiente.
+  El Gestor registra o importa por lotes a los aspirantes
+  remitidos continuamente por las sedes de cada país.
 end note
 
 ACTIVA_PERMANENTE --> CIERRE_SEMESTRAL : ejecutarCorteSemestre()

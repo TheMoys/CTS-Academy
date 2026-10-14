@@ -7,10 +7,11 @@ skinparam state {
   ArrowColor Black
 }
 
-[*] --> REGISTRADO : postularConvocatoria()
+[*] --> REGISTRADO : registrarCandidato()
 note on link
-  Postulación abierta 365 días al año
-  Asociada al Curso Académico y Semestre activo
+  Aspirantes recopilados por las sedes en cada país
+  y remitidos al Gestor para su alta en el sistema
+  (adscritos a Curso Académico y Semestre activo)
 end note
 
 REGISTRADO --> BATERIA_TESTS_HABILITADA : habilitarBateriaTests()
