@@ -80,7 +80,7 @@ classDiagram
   Programa --> Convocatoria : abre
   Gestor --> Resultado : evalua
   Test ..> Pregunta : compone reactivos de
-  Alumno ---> Test : realiza
+  Alumno --> Test : realiza
   Alumno --> Capacitacion : realiza
   LiderEquipo --> Modulo : configura
   LiderEquipo --> Capacitacion : evalua
@@ -126,3 +126,129 @@ classDiagram
    * Al configurar el `Modulo` y evaluar la `Capacitacion`, el `LiderEquipo` evalúa implícitamente tanto los `Entregable`s de código como los tests de fin de módulo rendidos por los alumnos de su equipo.
 5. **Decisión de Admisión**:
    * La evaluación del `Resultado` del test por parte del `Gestor` determina el paso del `Candidato` a `Alumno` y su asignación a un `Equipo`.
+
+---
+
+## 🔄 Ciclos de Vida y Máquinas de Estados del Dominio
+
+Las entidades puramente estructurales (`Programa`, `Equipo`, `Material`, `Pregunta`) se gestionan mediante operaciones CRUD sin transiciones de estado complejas. Sin embargo, la lógica de negocio y la dinámica temporal del sistema están gobernadas por **4 máquinas de estados críticas**:
+
+---
+
+### 1. Candidatura — Embudo de Selección en 2 Filtros
+
+Representa la evolución del aspirante desde su registro público hasta su eventual admisión como alumno becario en uno de los 6 equipos, pasando por los dos filtros eliminatorios:
+
+```mermaid
+stateDiagram-v2
+  [*] --> REGISTRADO : postularConvocatoria()
+  REGISTRADO --> TEST_ASIGNADO : emitirTokenPrueba()
+  TEST_ASIGNADO --> TEST_EN_CURSO : iniciarPruebaTecnica()
+  TEST_EN_CURSO --> TEST_EVALUADO : entregarPrueba() o expirarTiempo()
+  
+  TEST_EVALUADO --> CONVOCADO_ENTREVISTA : [Supera Filtro 1 (Test Técnico)]
+  TEST_EVALUADO --> NO_SELECCIONADO : [Nota inferior al corte]
+  
+  CONVOCADO_ENTREVISTA --> ENTREVISTA_REALIZADA : ejecutarEntrevista()
+  
+  ENTREVISTA_REALIZADA --> ADMITIDO_PROFER : [Apto en Filtro 2 (Gestor)]
+  ENTREVISTA_REALIZADA --> NO_SELECCIONADO : [No Apto]
+  
+  ADMITIDO_PROFER --> [*]
+  NO_SELECCIONADO --> [*]
+```
+
+<div align=right>
+
+<sup><i>Código fuente PlantUML: [candidatura-estados.puml](estados-entidades/candidatura-estados.puml)</i></sup>
+
+</div>
+
+* **Filtro 1 (`PruebaTecnica`)**: Evaluación objetiva de reactivos teóricos y reto práctico con sandbox Docker (`TestRunner`) y rúbrica del TL, generando el `PerfilAptitudes`.
+* **Filtro 2 (`Entrevista`)**: Realizada exclusivamente por el `GestorProfer` para validar encaje institucional y motivación.
+* **Resolución**: Al admitirse, se formaliza la reducción de matrícula/colegiatura y se asigna al estudiante a 1 de los 6 Equipos con su Rol específico.
+
+---
+
+### 2. PruebaTécnica — Ciclo del Test de Aptitudes y Sandbox
+
+Controla la ejecución de la prueba técnica en servidor, garantizando la inmutabilidad temporal y la ejecución segura de código:
+
+```mermaid
+stateDiagram-v2
+  [*] --> PENDIENTE : crearPruebaTecnica()
+  PENDIENTE --> EN_CURSO : iniciarPrueba(token)
+  EN_CURSO --> ENTREGADA : entregarPrueba()
+  EN_CURSO --> EXPIRADA : [tiempoRestante == 0] / autoentrega()
+  
+  ENTREGADA --> EN_REVISION : procesarEjecucionAutomatica()
+  EXPIRADA --> EN_REVISION : calificarRespuestasDisponibles()
+  
+  EN_REVISION --> CALIFICADA : completarRubricaManual()
+  CALIFICADA --> [*] : emitirDictamen()
+```
+
+<div align=right>
+
+<sup><i>Código fuente PlantUML: [pruebaTecnica-estados.puml](estados-entidades/pruebaTecnica-estados.puml)</i></sup>
+
+</div>
+
+* **Control de tiempo inmutable**: El cronómetro corre en el backend. Al llegar a cero, el test se autoentrega y se congelan las respuestas.
+* **Corrección híbrida**: El `TestRunner` valida linters y pruebas unitarias automáticas, y el `TechLeader` completa la rúbrica manual.
+
+---
+
+### 3. EntregaLaboratorio — Formación Continua y Code Reviews
+
+Modela el flujo de trabajo ágil dentro del equipo formativo entre el `Alumno` y su `LiderEquipo`:
+
+```mermaid
+stateDiagram-v2
+  [*] --> ASIGNADO : asignarLaboratorio()
+  ASIGNADO --> EN_DESARROLLO : iniciarTrabajo()
+  EN_DESARROLLO --> ENTREGADO : enviarPullRequest()
+  ENTREGADO --> EN_REVISION : tomarRevision(TL)
+  
+  EN_REVISION --> REQUIERE_CAMBIOS : solicitarCorrecciones()
+  REQUIERE_CAMBIOS --> EN_DESARROLLO : iterarSolucion()
+  
+  EN_REVISION --> APROBADO : aprobarEntrega()
+  APROBADO --> [*]
+```
+
+<div align=right>
+
+<sup><i>Código fuente PlantUML: [entregaLaboratorio-estados.puml](estados-entidades/entregaLaboratorio-estados.puml)</i></sup>
+
+</div>
+
+* **Ciclo de Code Review**: El alumno clona el repositorio del ejercicio, abre rama y somete su Pull Request. El TL revisa el código e interactúa hasta la aprobación formal.
+
+---
+
+### 4. Convocatoria — Ciclo de Plazas y Becas
+
+Gobierna el proceso de apertura y resolución de plazas abierto por el programa PROFER:
+
+```mermaid
+stateDiagram-v2
+  [*] --> PLANIFICADA : crearConvocatoria()
+  PLANIFICADA --> ABIERTA : publicarConvocatoria()
+  PLANIFICADA --> CANCELADA : cancelarConvocatoria()
+  
+  ABIERTA --> EN_EVALUACION : cerrarRecepcionPostulaciones()
+  ABIERTA --> CANCELADA : cancelarConvocatoria()
+  
+  EN_EVALUACION --> FINALIZADA : concluirEvaluaciones()
+  FINALIZADA --> [*]
+  CANCELADA --> [*]
+```
+
+<div align=right>
+
+<sup><i>Código fuente PlantUML: [convocatoria-estados.puml](estados-entidades/convocatoria-estados.puml)</i></sup>
+
+</div>
+
+* **Gestión temporal de plazas**: En `ABIERTA` se reciben postulaciones; al pasar a `EN_EVALUACION` se bloquean nuevas candidaturas y se inician las pruebas; en `FINALIZADA` se emiten las actas de admisión definitivas.
