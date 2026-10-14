@@ -8,6 +8,9 @@
 
 Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y evolución del proyecto **CTS Academy & Evaluator** bajo la metodología RUP (Rational Unified Process).
 
+> [!NOTE]
+> 🤡 **Hall of Fame de Cagadas y Redundancias**: Para consultar el registro informal, autocrítico y sin filtros de todas las pifias, incoherencias y fiascos de modelado rectificados sobre la marcha, visita la discusión oficial: [💬 Discussion #9: El Muro de los Despropósitos](https://github.com/TheMoys/CTS-Academy/discussions/9).
+
 ---
 
 ## 📋 Índice de Decisiones (ADR - Architectural Decision Records)
