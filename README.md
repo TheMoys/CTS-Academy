@@ -31,6 +31,7 @@ Toda la documentación arquitectónica y de requisitos se encuentra centralizada
 
 ```text
 cts-academy/
+├── images/                       # Renderizado SVG de todos los diagramas PlantUML
 ├── RUP/                          # Artefactos del Proceso Unificado
 │   ├── BITACORA.md               # Bitácora formal de decisiones (ADR)
 │   ├── 00-modelo-del-dominio/    # Entidades y reglas de negocio (3 microservicios)
@@ -41,6 +42,6 @@ cts-academy/
 │   ├── 02-analisis/              # Modelo y colaboraciones de análisis
 │   ├── 03-diseño/                # Modelo de datos, secuencia y despliegue
 │   └── 04-desarrollo/            # Trazabilidad a implementación
-├── scripts/                      # Utilidades de compilación y validación
+├── scripts/                      # Utilidades de compilación (render_puml.py)
 └── README.md                     # Entrada principal
 ```

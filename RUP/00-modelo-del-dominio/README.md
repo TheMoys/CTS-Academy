@@ -24,67 +24,10 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 
 <div align=center>
 
-<sup><i>Código fuente: [modeloDominio.puml](modeloDominio.puml)</i></sup>
+![](/images/RUP/00-modelo-del-dominio/modeloDominio.svg)
+<sup><i>[Código fuente PlantUML](modeloDominio.puml)</i></sup>
 
 </div>
-
-```mermaid
-classDiagram
-  direction LR
-
-  namespace MotorEquipos {
-    class Programa
-    class Equipo 
-    class Alumno
-    class LiderEquipo
-    class Gestor
-  }
-
-  namespace MotorEvaluacion {
-    class Convocatoria
-    class Candidato
-    class Test
-    class Resultado
-  }
-
-  namespace MotorFormacion {
-    class Capacitacion
-    class Modulo
-    class Material
-    class Entregable
-    class Pregunta
-    class PreguntaTeorica
-    class PreguntaPractica
-  }
-
-  %% MotorEquipos
-  Programa *-- Equipo
-  Equipo *-- Alumno
-  Equipo --> LiderEquipo : posee
-  Programa --> Gestor : es organizado
-
-  %% MotorEvaluacion
-  Convocatoria o-- Candidato
-  Candidato --> Test : realiza
-  Test o-- Resultado
-
-  %% MotorFormacion
-  Pregunta <|-- PreguntaTeorica
-  Pregunta <|-- PreguntaPractica
-  Capacitacion o-- Modulo
-  Modulo *-- Material
-  Modulo o-- Entregable
-  Modulo o-- Pregunta
-
-  %% Relaciones Inter-Microservicios
-  Programa --> Convocatoria : abre
-  Gestor --> Resultado : evalua
-  Test ..> Pregunta : compone reactivos de
-  Alumno --> Test : realiza
-  Alumno --> Capacitacion : realiza
-  LiderEquipo --> Modulo : configura
-  LiderEquipo --> Capacitacion : evalua
-```
 
 ---
 
@@ -139,28 +82,10 @@ Las entidades puramente estructurales (`Programa`, `Equipo`, `Material`, `Pregun
 
 Representa la evolución del aspirante desde su registro público hasta su eventual admisión como alumno becario en uno de los 6 equipos, pasando por los dos filtros eliminatorios:
 
-```mermaid
-stateDiagram-v2
-  [*] --> REGISTRADO : postularConvocatoria()
-  REGISTRADO --> TEST_ASIGNADO : emitirTokenPrueba()
-  TEST_ASIGNADO --> TEST_EN_CURSO : iniciarPruebaTecnica()
-  TEST_EN_CURSO --> TEST_EVALUADO : entregarPrueba() o expirarTiempo()
-  
-  TEST_EVALUADO --> CONVOCADO_ENTREVISTA : [Supera Filtro 1 (Test Técnico)]
-  TEST_EVALUADO --> NO_SELECCIONADO : [Nota inferior al corte]
-  
-  CONVOCADO_ENTREVISTA --> ENTREVISTA_REALIZADA : ejecutarEntrevista()
-  
-  ENTREVISTA_REALIZADA --> ADMITIDO_PROFER : [Apto en Filtro 2 (Gestor)]
-  ENTREVISTA_REALIZADA --> NO_SELECCIONADO : [No Apto]
-  
-  ADMITIDO_PROFER --> [*]
-  NO_SELECCIONADO --> [*]
-```
+<div align=center>
 
-<div align=right>
-
-<sup><i>Código fuente PlantUML: [candidatura-estados.puml](estados-entidades/candidatura-estados.puml)</i></sup>
+![](/images/RUP/00-modelo-del-dominio/estados-entidades/candidatura-estados.svg)
+<sup><i>[Código fuente PlantUML](estados-entidades/candidatura-estados.puml)</i></sup>
 
 </div>
 
@@ -174,23 +99,10 @@ stateDiagram-v2
 
 Controla la ejecución de la prueba técnica en servidor, garantizando la inmutabilidad temporal y la ejecución segura de código:
 
-```mermaid
-stateDiagram-v2
-  [*] --> PENDIENTE : crearPruebaTecnica()
-  PENDIENTE --> EN_CURSO : iniciarPrueba(token)
-  EN_CURSO --> ENTREGADA : entregarPrueba()
-  EN_CURSO --> EXPIRADA : [tiempoRestante == 0] / autoentrega()
-  
-  ENTREGADA --> EN_REVISION : procesarEjecucionAutomatica()
-  EXPIRADA --> EN_REVISION : calificarRespuestasDisponibles()
-  
-  EN_REVISION --> CALIFICADA : completarRubricaManual()
-  CALIFICADA --> [*] : emitirDictamen()
-```
+<div align=center>
 
-<div align=right>
-
-<sup><i>Código fuente PlantUML: [pruebaTecnica-estados.puml](estados-entidades/pruebaTecnica-estados.puml)</i></sup>
+![](/images/RUP/00-modelo-del-dominio/estados-entidades/pruebaTecnica-estados.svg)
+<sup><i>[Código fuente PlantUML](estados-entidades/pruebaTecnica-estados.puml)</i></sup>
 
 </div>
 
@@ -203,23 +115,10 @@ stateDiagram-v2
 
 Modela el flujo de trabajo ágil dentro del equipo formativo entre el `Alumno` y su `LiderEquipo`:
 
-```mermaid
-stateDiagram-v2
-  [*] --> ASIGNADO : asignarLaboratorio()
-  ASIGNADO --> EN_DESARROLLO : iniciarTrabajo()
-  EN_DESARROLLO --> ENTREGADO : enviarPullRequest()
-  ENTREGADO --> EN_REVISION : tomarRevision(TL)
-  
-  EN_REVISION --> REQUIERE_CAMBIOS : solicitarCorrecciones()
-  REQUIERE_CAMBIOS --> EN_DESARROLLO : iterarSolucion()
-  
-  EN_REVISION --> APROBADO : aprobarEntrega()
-  APROBADO --> [*]
-```
+<div align=center>
 
-<div align=right>
-
-<sup><i>Código fuente PlantUML: [entregaLaboratorio-estados.puml](estados-entidades/entregaLaboratorio-estados.puml)</i></sup>
+![](/images/RUP/00-modelo-del-dominio/estados-entidades/entregaLaboratorio-estados.svg)
+<sup><i>[Código fuente PlantUML](estados-entidades/entregaLaboratorio-estados.puml)</i></sup>
 
 </div>
 
@@ -231,23 +130,10 @@ stateDiagram-v2
 
 Gobierna el proceso de apertura y resolución de plazas abierto por el programa PROFER:
 
-```mermaid
-stateDiagram-v2
-  [*] --> PLANIFICADA : crearConvocatoria()
-  PLANIFICADA --> ABIERTA : publicarConvocatoria()
-  PLANIFICADA --> CANCELADA : cancelarConvocatoria()
-  
-  ABIERTA --> EN_EVALUACION : cerrarRecepcionPostulaciones()
-  ABIERTA --> CANCELADA : cancelarConvocatoria()
-  
-  EN_EVALUACION --> FINALIZADA : concluirEvaluaciones()
-  FINALIZADA --> [*]
-  CANCELADA --> [*]
-```
+<div align=center>
 
-<div align=right>
-
-<sup><i>Código fuente PlantUML: [convocatoria-estados.puml](estados-entidades/convocatoria-estados.puml)</i></sup>
+![](/images/RUP/00-modelo-del-dominio/estados-entidades/convocatoria-estados.svg)
+<sup><i>[Código fuente PlantUML](estados-entidades/convocatoria-estados.puml)</i></sup>
 
 </div>
 
