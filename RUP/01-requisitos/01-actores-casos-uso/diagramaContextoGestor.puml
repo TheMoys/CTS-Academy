@@ -1,0 +1,46 @@
+@startuml diagramaContextoGestor
+
+!theme plain
+left to right direction
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+state SESION_CERRADA
+state PANEL_ADMISIONES_ABIERTO
+state REGISTRO_CANDIDATO_ABIERTO
+state INDICADORES_CANDIDATO_ABIERTO
+state ENTREVISTA_SELECCION_ABIERTO
+state GESTION_CICLOS_ABIERTO
+
+[*] --> SESION_CERRADA
+
+SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
+SESION_CERRADA --> PANEL_ADMISIONES_ABIERTO : iniciarSesion()
+PANEL_ADMISIONES_ABIERTO --> SESION_CERRADA : cerrarSesion()
+
+' Recepción y registro de candidatos remitidos por sedes
+PANEL_ADMISIONES_ABIERTO --> REGISTRO_CANDIDATO_ABIERTO : registrarCandidato()
+REGISTRO_CANDIDATO_ABIERTO --> REGISTRO_CANDIDATO_ABIERTO : importarCandidatosSede()
+REGISTRO_CANDIDATO_ABIERTO --> PANEL_ADMISIONES_ABIERTO : abrirPanelAdmisiones()
+
+' Evaluación de indicadores diagnósticos y dispensas
+PANEL_ADMISIONES_ABIERTO --> INDICADORES_CANDIDATO_ABIERTO : consultarIndicadoresCandidato()
+INDICADORES_CANDIDATO_ABIERTO --> INDICADORES_CANDIDATO_ABIERTO : concederDispensaEntrevista()
+INDICADORES_CANDIDATO_ABIERTO --> INDICADORES_CANDIDATO_ABIERTO : agendarEntrevistaManual()
+INDICADORES_CANDIDATO_ABIERTO --> PANEL_ADMISIONES_ABIERTO : abrirPanelAdmisiones()
+
+' Conducción de entrevistas y dictamen final
+PANEL_ADMISIONES_ABIERTO --> ENTREVISTA_SELECCION_ABIERTO : realizarEntrevista()
+ENTREVISTA_SELECCION_ABIERTO --> PANEL_ADMISIONES_ABIERTO : admitirAlumnoProfer()
+ENTREVISTA_SELECCION_ABIERTO --> PANEL_ADMISIONES_ABIERTO : rechazarCandidatura()
+
+' Gestión de periodos y cortes semestrales
+PANEL_ADMISIONES_ABIERTO --> GESTION_CICLOS_ABIERTO : abrirPeriodoIngreso()
+GESTION_CICLOS_ABIERTO --> GESTION_CICLOS_ABIERTO : cerrarCorteSemestral()
+GESTION_CICLOS_ABIERTO --> GESTION_CICLOS_ABIERTO : asignarEquipoYRol()
+GESTION_CICLOS_ABIERTO --> PANEL_ADMISIONES_ABIERTO : abrirPanelAdmisiones()
+
+@enduml

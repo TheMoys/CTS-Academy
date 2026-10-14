@@ -1,0 +1,53 @@
+@startuml actoresCasosUsoGestor
+
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+
+actor Gestor
+
+package "Acceso e Inicio" {
+  usecase iniciarSesion as "iniciarSesion()"
+  usecase cerrarSesion as "cerrarSesion()"
+  usecase abrirPanelAdmisiones as "abrirPanelAdmisiones()"
+}
+
+package "Onboarding y Candidaturas" {
+  usecase registrarCandidato as "registrarCandidato()"
+  usecase importarCandidatosSede as "importarCandidatosSede()"
+  usecase consultarIndicadoresCandidato as "consultarIndicadoresCandidato()"
+}
+
+package "Entrevistas y Selección" {
+  usecase concederDispensaEntrevista as "concederDispensaEntrevista()"
+  usecase agendarEntrevistaManual as "agendarEntrevistaManual()"
+  usecase realizarEntrevista as "realizarEntrevista()"
+  usecase admitirAlumnoProfer as "admitirAlumnoProfer()"
+  usecase rechazarCandidatura as "rechazarCandidatura()"
+}
+
+package "Gobernanza y Ciclos" {
+  usecase abrirPeriodoIngreso as "abrirPeriodoIngreso()"
+  usecase cerrarCorteSemestral as "cerrarCorteSemestral()"
+  usecase asignarEquipoYRol as "asignarEquipoYRol()"
+}
+
+Gestor -- iniciarSesion
+Gestor -- cerrarSesion
+Gestor -- abrirPanelAdmisiones
+
+Gestor -- registrarCandidato
+Gestor -- importarCandidatosSede
+Gestor -- consultarIndicadoresCandidato
+
+Gestor -- concederDispensaEntrevista
+Gestor -- agendarEntrevistaManual
+Gestor -- realizarEntrevista
+Gestor -- admitirAlumnoProfer
+Gestor -- rechazarCandidatura
+
+Gestor -- abrirPeriodoIngreso
+Gestor -- cerrarCorteSemestral
+Gestor -- asignarEquipoYRol
+
+@enduml

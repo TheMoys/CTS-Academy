@@ -1,0 +1,42 @@
+@startuml diagramaContextoCandidato
+
+!theme plain
+left to right direction
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+state SESION_CERRADA
+state PANEL_POSTULACION_ABIERTO
+state TEST_EN_EJECUCION
+state INFORME_INDICADORES_ABIERTO
+state AGENDA_ENTREVISTA_ABIERTO
+state DETALLE_ENTREVISTA_ABIERTO
+
+[*] --> SESION_CERRADA
+
+SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
+SESION_CERRADA --> PANEL_POSTULACION_ABIERTO : iniciarSesion()
+PANEL_POSTULACION_ABIERTO --> SESION_CERRADA : cerrarSesion()
+
+' Ejecución de cualquiera de los 3 tests
+PANEL_POSTULACION_ABIERTO --> TEST_EN_EJECUCION : iniciarTest()
+TEST_EN_EJECUCION --> TEST_EN_EJECUCION : responderPreguntaTeorica()
+TEST_EN_EJECUCION --> TEST_EN_EJECUCION : entregarPreguntaPractica()
+TEST_EN_EJECUCION --> PANEL_POSTULACION_ABIERTO : finalizarTest()
+
+' Consulta del informe de indicadores
+PANEL_POSTULACION_ABIERTO --> INFORME_INDICADORES_ABIERTO : consultarInformeIndicadores()
+INFORME_INDICADORES_ABIERTO --> PANEL_POSTULACION_ABIERTO : abrirPanelPostulacion()
+
+' Agenda de entrevista (habilitada al completar batería o con dispensa del Gestor)
+PANEL_POSTULACION_ABIERTO --> AGENDA_ENTREVISTA_ABIERTO : agendarEntrevista()
+AGENDA_ENTREVISTA_ABIERTO --> DETALLE_ENTREVISTA_ABIERTO : agendarEntrevista()
+AGENDA_ENTREVISTA_ABIERTO --> PANEL_POSTULACION_ABIERTO : abrirPanelPostulacion()
+
+PANEL_POSTULACION_ABIERTO --> DETALLE_ENTREVISTA_ABIERTO : consultarDetalleEntrevista()
+DETALLE_ENTREVISTA_ABIERTO --> PANEL_POSTULACION_ABIERTO : abrirPanelPostulacion()
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml diagramaContextoAlumno
+
+!theme plain
+left to right direction
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+state SESION_CERRADA
+state INICIO_ALUMNO_ABIERTO
+state CAPACITACION_ABIERTO
+state MODULO_ABIERTO
+state ENTREGABLE_ABIERTO
+state TEST_NIVELACION_EN_EJECUCION
+
+[*] --> SESION_CERRADA
+
+SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
+SESION_CERRADA --> INICIO_ALUMNO_ABIERTO : iniciarSesion()
+INICIO_ALUMNO_ABIERTO --> SESION_CERRADA : cerrarSesion()
+
+INICIO_ALUMNO_ABIERTO --> CAPACITACION_ABIERTO : abrirCapacitacion()
+CAPACITACION_ABIERTO --> INICIO_ALUMNO_ABIERTO : abrirInicio()
+CAPACITACION_ABIERTO --> CAPACITACION_ABIERTO : consultarProgresoFormativo()
+
+CAPACITACION_ABIERTO --> MODULO_ABIERTO : abrirModulo()
+MODULO_ABIERTO --> CAPACITACION_ABIERTO : abrirCapacitacion()
+MODULO_ABIERTO --> MODULO_ABIERTO : consultarMaterial()
+
+' Flujo de entregables y code reviews
+MODULO_ABIERTO --> ENTREGABLE_ABIERTO : enviarEntregable()
+ENTREGABLE_ABIERTO --> ENTREGABLE_ABIERTO : consultarFeedbackEntregable()
+ENTREGABLE_ABIERTO --> MODULO_ABIERTO : abrirModulo()
+
+' Test técnico de nivelación y fin de módulo
+MODULO_ABIERTO --> TEST_NIVELACION_EN_EJECUCION : iniciarTestTecnicoNivelacion()
+TEST_NIVELACION_EN_EJECUCION --> TEST_NIVELACION_EN_EJECUCION : responderPreguntaTeorica()
+TEST_NIVELACION_EN_EJECUCION --> TEST_NIVELACION_EN_EJECUCION : entregarPreguntaPractica()
+TEST_NIVELACION_EN_EJECUCION --> MODULO_ABIERTO : finalizarTestTecnicoNivelacion()
+
+@enduml

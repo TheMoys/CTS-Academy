@@ -1,0 +1,41 @@
+@startuml actoresCasosUsoCandidato
+
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+
+actor Candidato
+
+package "Acceso e Inicio" {
+  usecase iniciarSesion as "iniciarSesion()"
+  usecase cerrarSesion as "cerrarSesion()"
+  usecase abrirPanelPostulacion as "abrirPanelPostulacion()"
+}
+
+package "Batería de Tests" {
+  usecase iniciarTest as "iniciarTest()"
+  usecase responderPreguntaTeorica as "responderPreguntaTeorica()"
+  usecase entregarPreguntaPractica as "entregarPreguntaPractica()"
+  usecase finalizarTest as "finalizarTest()"
+  usecase consultarInformeIndicadores as "consultarInformeIndicadores()"
+}
+
+package "Entrevista de Admisión" {
+  usecase agendarEntrevista as "agendarEntrevista()"
+  usecase consultarDetalleEntrevista as "consultarDetalleEntrevista()"
+}
+
+Candidato -- iniciarSesion
+Candidato -- cerrarSesion
+Candidato -- abrirPanelPostulacion
+
+Candidato -- iniciarTest
+Candidato -- responderPreguntaTeorica
+Candidato -- entregarPreguntaPractica
+Candidato -- finalizarTest
+Candidato -- consultarInformeIndicadores
+
+Candidato -- agendarEntrevista
+Candidato -- consultarDetalleEntrevista
+
+@enduml

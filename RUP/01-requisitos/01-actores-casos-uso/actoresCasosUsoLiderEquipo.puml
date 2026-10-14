@@ -1,0 +1,65 @@
+@startuml actoresCasosUsoLiderEquipo
+
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+
+actor LiderEquipo
+
+package "Acceso e Inicio" {
+  usecase iniciarSesion as "iniciarSesion()"
+  usecase cerrarSesion as "cerrarSesion()"
+  usecase abrirPanelLider as "abrirPanelLider()"
+}
+
+package "Gestión de Equipo y Módulos" {
+  usecase abrirEquipoPropio as "abrirEquipoPropio()"
+  usecase configurarModulo as "configurarModulo()"
+  usecase crearMaterial as "crearMaterial()"
+  usecase editarMaterial as "editarMaterial()"
+  usecase eliminarMaterial as "eliminarMaterial()"
+}
+
+package "Banco de Preguntas Técnicas" {
+  usecase crearPregunta as "crearPregunta()"
+  usecase editarPregunta as "editarPregunta()"
+  usecase eliminarPregunta as "eliminarPregunta()"
+}
+
+package "Code Reviews y Evaluación" {
+  usecase abrirEntregablesPendientes as "abrirEntregablesPendientes()"
+  usecase revisarEntregable as "revisarEntregable()"
+  usecase aprobarEntregable as "aprobarEntregable()"
+  usecase solicitarCambiosEntregable as "solicitarCambiosEntregable()"
+  usecase evaluarCapacitacionAlumno as "evaluarCapacitacionAlumno()"
+}
+
+package "Consulta de Aspirantes" {
+  usecase consultarPerfilesCandidatos as "consultarPerfilesCandidatos()"
+  usecase consultarDetalleCandidato as "consultarDetalleCandidato()"
+}
+
+LiderEquipo -- iniciarSesion
+LiderEquipo -- cerrarSesion
+LiderEquipo -- abrirPanelLider
+
+LiderEquipo -- abrirEquipoPropio
+LiderEquipo -- configurarModulo
+LiderEquipo -- crearMaterial
+LiderEquipo -- editarMaterial
+LiderEquipo -- eliminarMaterial
+
+LiderEquipo -- crearPregunta
+LiderEquipo -- editarPregunta
+LiderEquipo -- eliminarPregunta
+
+LiderEquipo -- abrirEntregablesPendientes
+LiderEquipo -- revisarEntregable
+LiderEquipo -- aprobarEntregable
+LiderEquipo -- solicitarCambiosEntregable
+LiderEquipo -- evaluarCapacitacionAlumno
+
+LiderEquipo -- consultarPerfilesCandidatos
+LiderEquipo -- consultarDetalleCandidato
+
+@enduml
