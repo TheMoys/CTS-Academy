@@ -48,26 +48,42 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 
 <div align=center>
 
-|Paquete|Caso de uso|Actor Principal|Requisito|Análisis|Diseño|Desarrollo|
+|Subsistema / Paquete|Caso de uso|Actor Principal|Requisito|Análisis|Diseño|Desarrollo|
 |:-|:-|:-:|:-:|:-:|:-:|:-:|
-|**PK01 - Sesión**|`iniciarSesion()`|`UsuarioNoLogueado`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarSesion/README.md)|—|—|—|
-|**PK01 - Sesión**|`cerrarSesion()`|`Usuario`|—|—|—|—|
-|**PK02 - Admisión**|`iniciarPruebaTecnica()`|`Candidato`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarPruebaTecnica/README.md)|—|—|—|
-|**PK02 - Admisión**|`responderReactivoTeorico()`|`Candidato`|—|—|—|—|
-|**PK02 - Admisión**|`entregarEjercicioPractico()`|`Candidato`|—|—|—|—|
-|**PK02 - Admisión**|`ejecutarCodigoSandbox()`|`Candidato` / `TestRunner`|—|—|—|—|
-|**PK02 - Admisión**|`finalizarPruebaTecnica()`|`Candidato`|—|—|—|—|
-|**PK02 - Admisión**|`calificarPruebaManual()`|`TechLeader`|—|—|—|—|
-|**PK02 - Admisión**|`emitirDictamenCandidato()`|`TechLeader` / `GestorProfer`|—|—|—|—|
-|**PK03 - Academy**|`abrirRutaAprendizaje()`|`AlumnoProfer`|—|—|—|—|
-|**PK03 - Academy**|`entregarLaboratorioOnSite()`|`AlumnoProfer`|—|—|—|—|
-|**PK03 - Academy**|`revisarCodigoLaboratorio()`|`TechLeader`|—|—|—|—|
-|**PK03 - Academy**|`registrarSeguimientoSemanal()`|`TechLeader`|—|—|—|—|
-|**PK04 - Convocatorias**|`crearConvocatoria()`|`GestorProfer`|—|—|—|—|
-|**PK04 - Convocatorias**|`matricularCandidato()`|`GestorProfer`|—|—|—|—|
-|**PK04 - Convocatorias**|`asignarTLAlumnoProfer()`|`GestorProfer`|—|—|—|—|
-|**PK05 - Reactivos**|`crearReactivoTeorico()`|`TechLeader`|—|—|—|—|
-|**PK05 - Reactivos**|`crearEjercicioPractico()`|`TechLeader`|—|—|—|—|
-|**PK05 - Reactivos**|`configurarRubricaEvaluacion()`|`TechLeader`|—|—|—|—|
+|**PK01 - Acceso**|`iniciarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarSesion/README.md)|—|—|—|
+|**PK01 - Acceso**|`cerrarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`abrirPanelPostulacion()`|`Candidato`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`iniciarTest()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarTest/README.md)|—|—|—|
+|**PK02 - MotorEvaluacion**|`responderPreguntaTeorica()`|`Candidato`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`entregarPreguntaPractica()`|`Candidato`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`finalizarTest()`|`Candidato`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`abrirPerfilCandidato()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPerfilCandidato/README.md)|—|—|—|
+|**PK02 - MotorEvaluacion**|`agendarEntrevistaGoogleMeet()`|`Gestor`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`registrarAnotacionesEntrevista()`|`Gestor`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`admitirAlumnoProfer()`|`Gestor`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`rechazarCandidatura()`|`Gestor`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`registrarCandidato()`|`Gestor`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`importarCandidatosSede()`|`Gestor`|—|—|—|—|
+|**PK03 - MotorFormacion**|`abrirPanelAlumno()`|`Alumno`|—|—|—|—|
+|**PK03 - MotorFormacion**|`consultarCapacitacion()`|`Alumno`|—|—|—|—|
+|**PK03 - MotorFormacion**|`consultarModulo()`|`Alumno`|—|—|—|—|
+|**PK03 - MotorFormacion**|`consultarMaterial()`|`Alumno`|—|—|—|—|
+|**PK03 - MotorFormacion**|`enviarEntregable()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/enviarEntregable/README.md)|—|—|—|
+|**PK03 - MotorFormacion**|`consultarFeedbackEntregable()`|`Alumno`|—|—|—|—|
+|**PK03 - MotorFormacion**|`crearMaterial()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`editarMaterial()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`eliminarMaterial()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`crearPregunta()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`editarPregunta()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`eliminarPregunta()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`abrirEntregablesPendientes()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`revisarEntregable()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`aprobarEntregable()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`solicitarCambiosEntregable()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`evaluarCapacitacionAlumno()`|`LiderEquipo`|—|—|—|—|
+|**PK04 - MotorEquipos**|`abrirPanelLider()`|`LiderEquipo`|—|—|—|—|
+|**PK04 - MotorEquipos**|`abrirPanelAdmisiones()`|`Gestor`|—|—|—|—|
+|**PK04 - MotorEquipos**|`abrirPeriodoIngreso()`|`Gestor`|—|—|—|—|
+|**PK04 - MotorEquipos**|`cerrarCorteSemestral()`|`Gestor`|—|—|—|—|
 
 </div>
