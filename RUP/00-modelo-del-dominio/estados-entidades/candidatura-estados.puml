@@ -23,27 +23,27 @@ end note
 BATERIA_TESTS_HABILITADA --> TESTS_COMPLETADOS : completarBateriaTests()
 note on link
   Se consolidan los indicadores de los 3 tests
-  El candidato adquiere derecho a agendar entrevista
+  en el perfil del candidato visible para el Gestor
 end note
 
-' Transición estándar por derecho
-TESTS_COMPLETADOS --> ENTREVISTA_AGENDADA : agendarEntrevista()
+' El Gestor agenda la sesión de Google Meet desde el perfil del candidato
+TESTS_COMPLETADOS --> ENTREVISTA_AGENDADA : agendarEntrevistaGoogleMeet()
 note on link
-  Derecho garantizado al finalizar
-  la totalidad de la batería de tests
+  El Gestor agenda la entrevista en Google Meet
+  tras revisar los resultados de los tests
 end note
 
-' Transición por excepción concedida por el Gestor
-BATERIA_TESTS_HABILITADA --> ENTREVISTA_AGENDADA : agendarEntrevista() [dispensaGestor]
+' El Gestor también puede agendar anticipadamente con tests en curso a su criterio
+BATERIA_TESTS_HABILITADA --> ENTREVISTA_AGENDADA : agendarEntrevistaGoogleMeet()
 note on link
-  Excepción autorizada por el Gestor PROFER
-  para agendar con algún test pendiente
+  El Gestor puede agendar la Meet a su discreción
+  incluso si algún test está pendiente
 end note
 
-ENTREVISTA_AGENDADA --> ENTREVISTA_REALIZADA : realizarEntrevista()
+ENTREVISTA_AGENDADA --> ENTREVISTA_REALIZADA : registrarAnotacionesEntrevista()
 note on link
-  Entrevista personal conducida por el Gestor PROFER
-  contrastando el informe de indicadores de los tests
+  Tras la Google Meet, el Gestor registra
+  sus anotaciones, impresiones y dictamen en el perfil
 end note
 
 state c_dictamen <<choice>>
@@ -51,8 +51,8 @@ ENTREVISTA_REALIZADA --> c_dictamen
 
 c_dictamen --> ADMITIDO_PROFER : [dictamen == Apto]
 note on link
-  Se formaliza la beca de reducción de matrícula
-  Se asigna a 1 de los 6 Equipos y se fija su Rol
+  El Gestor formaliza la beca (admitirAlumnoProfer)
+  Asigna a 1 de los 6 Equipos y fija su Rol
   Pasa a ser Alumno en MotorEquipos
 end note
 

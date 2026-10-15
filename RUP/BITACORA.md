@@ -114,4 +114,19 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
   * **Los 4 Actores Autenticados**: El alcance de actores del sistema queda estrictamente delimitado a 4 perfiles autenticados: `Candidato`, `Alumno`, `LiderEquipo` y `Gestor`.
 * **Artefactos afectados**: `estados-entidades/candidatura-estados.puml`, `estados-entidades/convocatoria-estados.puml`, `RUP/00-modelo-del-dominio/README.md`, catálogo de actores en `RUP/01-requisitos/01-actores-casos-uso/`.
 
+---
+
+### ADR-009: Delimitación de actores: opacidad de tests para el Candidato, entrevistas Google Meet en el Perfil por el Gestor y aislamiento del TL
+* **Fecha**: 2026-10-14
+* **Contexto**: Durante la revisión de los casos de uso y diagramas de contexto de la Fase 01, se detectaron desajustes respecto a la operativa real de selección:
+  1. El `Candidato` tenía casos de uso para consultar informes de resultados y auto-agendar entrevistas, cuando los resultados son estrictamente confidenciales para el Gestor y la convocatoria a entrevistas es iniciativa unilateral del evaluador.
+  2. En el `Gestor`, la realización de entrevistas y la concesión de dispensas figuraban como procesos desarticulados, cuando operativamente el Gestor revisa el expediente en el perfil del candidato, agenda una reunión virtual en Google Meet y registra allí sus notas y dictamen.
+  3. El `LiderEquipo` (TL) tenía casos de uso de búsqueda de candidatos, desdibujando su responsabilidad técnica centrada en su propio equipo.
+* **Decisión**:
+  * **Candidato Estrictamente Evaluado**: El aspirante solo ejecuta los 3 tests (`iniciarTest()`, `responderPreguntaTeorica()`, `entregarPreguntaPractica()`, `finalizarTest()`). No tiene acceso a métricas ni a gestión de citas.
+  * **Perfil Unificado del Candidato en el Gestor**: El `GestorProfer` visualiza directamente los indicadores en el perfil del aspirante (`abrirPerfilCandidato()`), agenda la sesión virtual (`agendarEntrevistaGoogleMeet()`), registra anotaciones cualitativas (`registrarAnotacionesEntrevista()`) y dictamina la resolución (`admitirAlumnoProfer()`, `rechazarCandidatura()`).
+  * **Aislamiento del Líder de Equipo**: El TL queda enfocado exclusivamente en los alumnos de su equipo, sus módulos y sus entregables de código.
+* **Artefactos afectados**: `RUP/00-modelo-del-dominio/modeloDominio.puml`, `estados-entidades/candidatura-estados.puml`, `RUP/00-modelo-del-dominio/README.md`, catálogo de casos de uso y diagramas de contexto en `RUP/01-requisitos/01-actores-casos-uso/` (`actoresCasosUsoCandidato.puml`, `diagramaContextoCandidato.puml`, `actoresCasosUsoGestor.puml`, `diagramaContextoGestor.puml`, `actoresCasosUsoLiderEquipo.puml`, `diagramaContextoLiderEquipo.puml`, `README.md`).
+
+
 

@@ -26,7 +26,7 @@ package "Banco de Preguntas Técnicas" {
   usecase eliminarPregunta as "eliminarPregunta()"
 }
 
-package "Code Reviews y Evaluación" {
+package "Code Reviews y Evaluación de Alumnos" {
   usecase abrirEntregablesPendientes as "abrirEntregablesPendientes()"
   usecase revisarEntregable as "revisarEntregable()"
   usecase aprobarEntregable as "aprobarEntregable()"
@@ -34,10 +34,8 @@ package "Code Reviews y Evaluación" {
   usecase evaluarCapacitacionAlumno as "evaluarCapacitacionAlumno()"
 }
 
-package "Consulta de Aspirantes" {
-  usecase consultarPerfilesCandidatos as "consultarPerfilesCandidatos()"
-  usecase consultarDetalleCandidato as "consultarDetalleCandidato()"
-}
+' Nota: La consulta de candidatos queda excluida del TL (pendiente de confirmación),
+' limitando su alcance estrictamente a los alumnos y artefactos de su propio equipo.
 
 LiderEquipo -- iniciarSesion
 LiderEquipo -- cerrarSesion
@@ -58,8 +56,5 @@ LiderEquipo -- revisarEntregable
 LiderEquipo -- aprobarEntregable
 LiderEquipo -- solicitarCambiosEntregable
 LiderEquipo -- evaluarCapacitacionAlumno
-
-LiderEquipo -- consultarPerfilesCandidatos
-LiderEquipo -- consultarDetalleCandidato
 
 @enduml

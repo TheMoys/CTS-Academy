@@ -18,7 +18,7 @@ En esta fase se formalizan los actores que interactúan con **CTS Academy & Eval
 
 <div align=center>
 
-| Candidato — Batería de Tests y Agenda | Alumno PROFER — LMS On-Site y Prácticas |
+| Candidato — Batería de Tests Diagnósticos | Alumno PROFER — LMS On-Site y Prácticas |
 | :---: | :---: |
 | ![](/images/RUP/01-requisitos/01-actores-casos-uso/actoresCasosUsoCandidato.svg) | ![](/images/RUP/01-requisitos/01-actores-casos-uso/actoresCasosUsoAlumno.svg) |
 | <sup><i>[Código fuente PlantUML](actoresCasosUsoCandidato.puml)</i></sup> | <sup><i>[Código fuente PlantUML](actoresCasosUsoAlumno.puml)</i></sup> |
@@ -42,7 +42,7 @@ Los estados en estos diagramas **no deben verse simplemente como pantallas**, si
 
 ### 1. Diagrama de Contexto: `Candidato`
 
-Modela la navegación del aspirante desde su primer acceso hasta la culminación de la batería diagnóstica y la agenda de su entrevista:
+Modela la navegación del aspirante desde su acceso mediante las credenciales generadas por el Gestor hasta la culminación de su batería de tests:
 
 <div align=center>
 
@@ -51,9 +51,9 @@ Modela la navegación del aspirante desde su primer acceso hasta la culminación
 
 </div>
 
-* **Ejecución de Tests**: El candidato rinde cualquiera de los 3 tests (`iniciarTest()`), respondiendo teoría o retos prácticos. El cronómetro corre en el backend y el test se entrega o autoentrega con `finalizarTest()`.
-* **Derecho a Entrevista**: Al completar los 3 tests, la acción `agendarEntrevista()` queda disponible por derecho.
-* **Vía Excepcional**: Si el `Gestor` otorga dispensa, `agendarEntrevista()` se habilita inmediatamente aunque existan tests pendientes.
+* **Panel de Postulación**: Acceso a su panel (`abrirPanelPostulacion()`) donde visualiza el estado de disponibilidad de sus 3 tests diagnósticos (`TestActitud`, `TestAptitud`, `TestTecnico`).
+* **Ejecución de Tests**: El candidato rinde cualquiera de los 3 tests (`iniciarTest()`), respondiendo preguntas conceptuales (`responderPreguntaTeorica()`) o retos prácticos de código (`entregarPreguntaPractica()`). El cronómetro corre en el backend y el test se entrega manualmente o se autoentrega por expiración con `finalizarTest()`.
+* **Opacidad de Resultados y Agenda**: El candidato **no** consulta informes de resultados (los indicadores son de uso exclusivo del Gestor) y **no** agenda ni visualiza entrevistas en su interfaz (la convocatoria y enlace de Google Meet son coordinados enteramente por el Gestor).
 
 ---
 
@@ -76,7 +76,7 @@ Gobierna la interacción diaria del becario dentro de su equipo de trabajo asign
 
 ### 3. Diagrama de Contexto: `LiderEquipo` (`TechLeader` - TL)
 
-Modela el gobierno formativo y técnico ejercido por el TL sobre los alumnos y módulos de su equipo:
+Modela el gobierno formativo y técnico ejercido por el TL sobre los alumnos, módulos y entregables de su propio equipo asignado:
 
 <div align=center>
 
@@ -85,16 +85,17 @@ Modela el gobierno formativo y técnico ejercido por el TL sobre los alumnos y m
 
 </div>
 
-* **Configuración del Módulo**: Gestión de materiales didácticos (`crearMaterial()`, `editarMaterial()`, `eliminarMaterial()`).
-* **Banco de Conocimiento**: Alta y afinado de preguntas teóricas y retos de código que alimentarán el motor de evaluación (`crearPregunta()`, `editarPregunta()`).
-* **Code Reviews**: El TL inspecciona los PRs pendientes (`revisarEntregable()`), solicitando correcciones o aprobando la entrega.
-* **Consulta de Aspirantes**: Inspecciona los repositorios, CVs e indicadores de candidatos para valorar su encaje en el equipo (sin intervenir en la entrevista).
+* **Configuración de Módulos**: Gestión de materiales didácticos de su área (`crearMaterial()`, `editarMaterial()`, `eliminarMaterial()`).
+* **Banco de Conocimiento Técnico**: Alta y afinado de preguntas teóricas y retos de código vinculados a su módulo (`crearPregunta()`, `editarPregunta()`, `eliminarPregunta()`), que alimentan tanto los tests de fin de módulo como el test técnico de admisión.
+* **Code Reviews de Alumnos**: El TL inspecciona los Pull Requests pendientes de los alumnos de su equipo (`abrirEntregablesPendientes()`, `revisarEntregable()`), solicitando correcciones (`solicitarCambiosEntregable()`) o aprobando la entrega (`aprobarEntregable()`).
+* **Evaluación Integral**: Calificación de la capacitación del alumno al completar el ciclo (`evaluarCapacitacionAlumno()`).
+* **Aislamiento de Candidatos**: El TL **no** tiene acceso a la cartera global de candidatos (acotado estrictamente a su equipo).
 
 ---
 
 ### 4. Diagrama de Contexto: `Gestor` (`GestorProfer`)
 
-Gobierna la admisión continua, la coordinación de las sedes internacionales y la asignación final de plazas:
+Gobierna la admisión continua, la recepción desde las sedes internacionales, la evaluación en el perfil del candidato y la gobernanza académica:
 
 <div align=center>
 
@@ -103,10 +104,11 @@ Gobierna la admisión continua, la coordinación de las sedes internacionales y 
 
 </div>
 
-* **Recepción desde Sedes**: Alta individual o importación por lotes de los candidatos remitidos internacionalmente (`registrarCandidato()`, `importarCandidatosSede()`).
-* **Monitoreo de Indicadores**: Consulta de radares de aptitud y actitud (`consultarIndicadoresCandidato()`) y concesión de dispensas para agendar entrevistas con tests incompletos.
-* **Entrevista y Asignación**: El gestor conduce la entrevista personal (`realizarEntrevista()`) y dictamina la admisión a la beca formalizando la asignación a uno de los 6 equipos de CTS y su rol técnico (`admitirAlumnoProfer()`).
-* **Corte Semestral**: Avanza administrativamente el periodo académico consolidando cohortes.
+* **Recepción desde Sedes**: Alta individual (`registrarCandidato()`) o importación masiva (`importarCandidatosSede()`) de los aspirantes recopilados por las sedes de cada país.
+* **Perfil Unificado del Candidato**: Centro operativo (`abrirPerfilCandidato()`) donde el Gestor examina directamente los resultados de la batería de tests (radares de aptitud, actitud y habilidades técnicas).
+* **Entrevistas Google Meet y Anotaciones**: El Gestor agenda la reunión virtual (`agendarEntrevistaGoogleMeet()`) tras constatar los tests (o anticipadamente a su criterio) y registra sus notas cualitativas e impresiones (`registrarAnotacionesEntrevista()`) directamente en el perfil.
+* **Dictamen de Admisión**: Formaliza la beca PROFER asignando al aspirante a uno de los 6 equipos y fijando su rol técnico (`admitirAlumnoProfer()`), o descarta la postulación (`rechazarCandidatura()`).
+* **Gobernanza Académica**: Apertura de nuevos periodos anuales (`abrirPeriodoIngreso()`) y ejecución de cortes semestrales para consolidar cohortes (`cerrarCorteSemestral()`).
 
 ---
 

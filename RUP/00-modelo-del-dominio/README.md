@@ -48,9 +48,8 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 * **`Test`**: Evaluación objetiva y estructurada de indicadores de desempeño. Se especializa en:
   * **`TestActitud`**: Mide competencias blandas, compromiso, motivación, proactividad y encaje en cultura de equipo.
   * **`TestAptitud`**: Mide razonamiento lógico, agilidad analítica y capacidad de resolución de problemas.
-  * **`TestTecnico`**: Mide conocimientos técnicos aplicados, nutriéndose de preguntas de los módulos de los 6 equipos de CTS.
-* **`Resultado`**: Informe diagnóstico y métricas de afinidad técnica/actitudinal emitidas tras la realización de los tests (sin notas de corte excluyentes).
-* **`Entrevista`**: Sesión personal conducida por el `Gestor` a la que todo candidato tiene derecho al completar la batería (o por dispensa excepcional), donde se decide la admisión definitiva.
+* **`Resultado`**: Informe diagnóstico y métricas de afinidad técnica/actitudinal emitidas tras la realización de los tests (sin notas de corte excluyentes), consultables de forma exclusiva por el `Gestor`.
+* **`Entrevista`**: Sesión en Google Meet agendada y registrada por el `Gestor` desde el perfil del candidato una vez completada la batería de tests (o a su discreción con tests en curso), donde se registran notas cualitativas y se formaliza el dictamen de admisión.
 
 ### 3. `MotorFormacion`
 * **`Capacitacion`**: Itinerario formativo on-site cursado por el alumno y evaluado por el líder de su equipo.
@@ -70,11 +69,11 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 2. **Canalización por Sedes Internacionales y Admisión Continua**:
    * No existe registro público anónimo ni auto-postulación en la plataforma. La captación y recepción de solicitudes es responsabilidad de las sedes en cada país, que recopilan los aspirantes y los remiten al `GestorProfer`. El gestor los da de alta en el sistema (`registrarCandidato()`), agrupándolos en el `CursoAcademico` (ej. 2024-2025) y `Semestre` activo para coordinar las pruebas y los cortes semestrales.
 3. **Batería de Tests como Indicadores (Sin Nota de Corte)**:
-   * Los 3 tests (`TestActitud`, `TestAptitud`, `TestTecnico`) no actúan como guillotina o filtro eliminatorio por nota mínima. Producen un mapa de indicadores competenciales y de afinidad de equipo para orientar la decisión.
-4. **Derecho a Entrevista y Vía Excepcional**:
-   * Completar la batería de tests otorga automáticamente al candidato el derecho a agendar su entrevista personal. Excepcionalmente, el `Gestor` puede autorizar la agenda con algún test pendiente.
+   * Los 3 tests (`TestActitud`, `TestAptitud`, `TestTecnico`) no actúan como guillotina o filtro eliminatorio por nota mínima. Producen un mapa de indicadores competenciales y de afinidad de equipo para orientar la decisión. Los resultados son estrictamente de consumo interno para el `Gestor` y no se publican al candidato.
+4. **Gestión de Entrevistas vía Google Meet y Anotaciones**:
+   * El candidato no agenda ni visualiza entrevistas en el sistema. Es el `Gestor` quien, desde el perfil unificado del aspirante, agenda el enlace de Google Meet al verificar los indicadores de los tests (o anticipadamente a su criterio). Tras celebrar la reunión, el Gestor vuelca sus impresiones y anotaciones directamente en el perfil.
 5. **Decisión de Admisión y Asignación de Plazas**:
-   * La decisión definitiva de admisión a la beca PROFER la toma el `Gestor` en la `Entrevista`, contrastando la entrevista con el informe de indicadores de los tests, formalizando la reducción de matrícula y asignando al alumno a uno de los 6 equipos con su rol específico.
+   * La decisión definitiva de admisión a la beca PROFER la formaliza el `Gestor` en el perfil del candidato (`admitirAlumnoProfer()`), contrastando las anotaciones de la entrevista con los indicadores de los tests, asignando al alumno a uno de los 6 equipos con su rol técnico específico, o dictaminando el descarte (`rechazarCandidatura()`).
 6. **El Alumno se Capacita en su Equipo**:
    * No existe vínculo directo entre la entidad `Equipo` y `Capacitacion`; la capacitación es una actividad propia del `Alumno` dentro del equipo, supervisada y evaluada por el `LiderEquipo`.
 7. **Evaluación Integral por el Líder Técnico**:
@@ -101,8 +100,8 @@ Representa la evolución del aspirante desde su alta en el sistema tras ser remi
 
 * **Remisión por Sedes Internacionales**: El candidato es dado de alta en la plataforma por el Gestor PROFER a partir de las listas remitidas por las sedes de cada país, vinculado al curso académico y semestre activo.
 * **Batería de 3 Tests**: Habilita la realización de los tests de Actitud, Aptitud y Técnico, consolidando el perfil de indicadores.
-* **Acceso a Entrevista**: Concedido por derecho al finalizar todos los tests, o por dispensa expresa del Gestor si queda alguno pendiente.
-* **Dictamen Final**: La entrevista personal con el `Gestor` concluye en admisión (con asignación a equipo y rol) o no admisión.
+* **Agenda de Google Meet y Anotaciones**: El Gestor agenda la reunión de Google Meet al verificar la finalización de los tests (o anticipadamente a su criterio) y registra sus notas y observaciones en el perfil del aspirante.
+* **Dictamen Final**: La evaluación culmina en admisión formal a la beca PROFER (`admitirAlumnoProfer()`), asignando equipo y rol, o en no admisión (`rechazarCandidatura()`).
 
 ---
 

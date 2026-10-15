@@ -12,16 +12,15 @@ package "Acceso e Inicio" {
   usecase abrirPanelAdmisiones as "abrirPanelAdmisiones()"
 }
 
-package "Onboarding y Candidaturas" {
+package "Recepción y Registro de Candidatos" {
   usecase registrarCandidato as "registrarCandidato()"
   usecase importarCandidatosSede as "importarCandidatosSede()"
-  usecase consultarIndicadoresCandidato as "consultarIndicadoresCandidato()"
 }
 
-package "Entrevistas y Selección" {
-  usecase concederDispensaEntrevista as "concederDispensaEntrevista()"
-  usecase agendarEntrevistaManual as "agendarEntrevistaManual()"
-  usecase realizarEntrevista as "realizarEntrevista()"
+package "Gestión del Perfil del Candidato" {
+  usecase abrirPerfilCandidato as "abrirPerfilCandidato()"
+  usecase agendarEntrevistaGoogleMeet as "agendarEntrevistaGoogleMeet()"
+  usecase registrarAnotacionesEntrevista as "registrarAnotacionesEntrevista()"
   usecase admitirAlumnoProfer as "admitirAlumnoProfer()"
   usecase rechazarCandidatura as "rechazarCandidatura()"
 }
@@ -29,7 +28,6 @@ package "Entrevistas y Selección" {
 package "Gobernanza y Ciclos" {
   usecase abrirPeriodoIngreso as "abrirPeriodoIngreso()"
   usecase cerrarCorteSemestral as "cerrarCorteSemestral()"
-  usecase asignarEquipoYRol as "asignarEquipoYRol()"
 }
 
 Gestor -- iniciarSesion
@@ -38,16 +36,14 @@ Gestor -- abrirPanelAdmisiones
 
 Gestor -- registrarCandidato
 Gestor -- importarCandidatosSede
-Gestor -- consultarIndicadoresCandidato
 
-Gestor -- concederDispensaEntrevista
-Gestor -- agendarEntrevistaManual
-Gestor -- realizarEntrevista
+Gestor -- abrirPerfilCandidato
+Gestor -- agendarEntrevistaGoogleMeet
+Gestor -- registrarAnotacionesEntrevista
 Gestor -- admitirAlumnoProfer
 Gestor -- rechazarCandidatura
 
 Gestor -- abrirPeriodoIngreso
 Gestor -- cerrarCorteSemestral
-Gestor -- asignarEquipoYRol
 
 @enduml

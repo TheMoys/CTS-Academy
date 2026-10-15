@@ -41,8 +41,8 @@ package MotorEvaluacion {
   Test <|-- TestTecnico
   Test o-- Resultado
 
-  Candidato --> Entrevista : agenda
-  Gestor --> Entrevista : realiza
+  Candidato o-- Entrevista
+  Gestor --> Entrevista : agenda
 }
 
 package MotorFormacion {
