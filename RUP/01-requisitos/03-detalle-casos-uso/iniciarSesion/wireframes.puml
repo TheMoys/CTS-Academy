@@ -1,0 +1,18 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY & EVALUATOR — ACCESO</b>
+    ====
+    {
+        <b>Correo institucional / usuario:</b>
+        "candidato.profer@ctdesarrollo.org                   "
+        <b>Contraseña:</b>
+        "••••••••••••••••                                   "
+        --
+        [ ] Recordar sesión en este equipo
+        --
+        [ Iniciar Sesión ]
+    }
+    --
+    <color:gray>Acceso restringido a personal autorizado y candidatos convocados.</color>
+}
+@endsalt

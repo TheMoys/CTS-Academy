@@ -1,0 +1,25 @@
+@startsalt wireframes
+{
+    <b>ENTREGA DE PRÁCTICA DE LABORATORIO — ALUMNO PROFER</b>
+    ====
+    <b>Módulo:</b> M02 — Microservicios y APIs REST | <b>Equipo:</b> Equipo 01 (Backend)
+    --
+    {
+        <b>Práctica / Ticket:</b> | LAB-02: Implementación de Endpoints y Middleware de Autenticación JWT
+        <b>Repositorio Base:</b>     | https://github.com/CTS-Academy/lab-backend-auth
+        --
+        <b>URL del Pull Request (*):</b>
+        "https://github.com/CTS-Academy/lab-backend-auth/pull/14              "
+        <b>Rama de Trabajo (*):</b>
+        "feature/jwt-middleware-cmendoza                                      "
+        <b>Notas y Observaciones para el Tech Leader:</b>
+        "Se completó la implementación del middleware con tests unitarios     "
+        "cubriendo el 94% de branches. Se agregaron validaciones de expiración"
+        "de token y pruebas en contenedor Docker local.                       "
+        --
+        <i>(*) Campos obligatorios</i>
+    }
+    --
+    [ Enviar Entregable a Revisión ] | [ Cancelar ]
+}
+@endsalt

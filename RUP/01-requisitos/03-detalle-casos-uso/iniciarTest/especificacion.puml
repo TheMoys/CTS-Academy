@@ -1,0 +1,52 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_POSTULACION_ABIERTO
+state PANEL_POSTULACION_ABIERTO_SALIDA as "PANEL_POSTULACION_ABIERTO"
+state TEST_EN_EJECUCION_SALIDA as "TEST_EN_EJECUCION"
+
+PANEL_POSTULACION_ABIERTO -[#green]-> iniciarTest
+note on link
+<b>Candidato</b> selecciona test de la batería
+<b>Candidato</b> solicita iniciar test
+end note
+
+state iniciarTest as "iniciarTest()" {
+
+    state c_disponibilidad <<choice>>
+    state " " as PresentandoInstrucciones
+
+    [*] -[#green]-> c_disponibilidad
+
+    c_disponibilidad -[#green]-> PresentandoInstrucciones
+    note on link
+    [test disponible y pendiente]
+    <b>Sistema</b> presenta instrucciones y tiempo límite
+    <b>Sistema</b> permite solicitar confirmación de inicio
+    end note
+
+    c_disponibilidad -[#red]-> [*]
+    note on link
+    [test ya completado o bloqueado]
+    <b>Sistema</b> presenta mensaje de test ya completado
+    end note
+
+    PresentandoInstrucciones -[#green]-> [*]
+    note on link
+    <b>Candidato</b> solicita confirmar inicio
+    <b>Sistema</b> presenta primera pregunta
+    end note
+}
+
+iniciarTest -[#green]-> TEST_EN_EJECUCION_SALIDA
+note on link
+cronómetro activado en backend, evaluación en curso
+end note
+
+iniciarTest -[#red]-> PANEL_POSTULACION_ABIERTO_SALIDA
+note on link
+bloqueo por estado no elegible
+end note
+
+@enduml

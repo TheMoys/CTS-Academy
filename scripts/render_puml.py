@@ -34,20 +34,39 @@ def encode_plantuml(text):
         i += 3
     return res
 
-def render_file(puml_path, repo_root):
-    rel_path = puml_path.relative_to(repo_root)
-    svg_path = repo_root / "images" / rel_path.with_suffix(".svg")
-    svg_path.parent.mkdir(parents=True, exist_ok=True)
-    
-    content = puml_path.read_text(encoding="utf-8")
-    enc = encode_plantuml(content)
+import re
+
+def render_plantuml_code(code_str, target_svg_path, repo_root):
+    target_svg_path.parent.mkdir(parents=True, exist_ok=True)
+    enc = encode_plantuml(code_str)
     url = f"http://www.plantuml.com/plantuml/svg/{enc}"
-    
     req = urllib.request.Request(url, headers={"User-Agent": "CTS-Academy-Compiler"})
     with urllib.request.urlopen(req) as resp:
         svg_data = resp.read()
-        svg_path.write_bytes(svg_data)
-        print(f"✓ Renderizado: {svg_path.relative_to(repo_root)} ({len(svg_data)} bytes)")
+        target_svg_path.write_bytes(svg_data)
+        print(f"✓ Renderizado: {target_svg_path.relative_to(repo_root)} ({len(svg_data)} bytes)")
+
+def render_file(puml_path, repo_root):
+    rel_path = puml_path.relative_to(repo_root)
+    content = puml_path.read_text(encoding="utf-8")
+    
+    blocks = re.findall(r"(@start(?:uml|salt)[^\n]*\n.*?@end(?:uml|salt))", content, re.DOTALL)
+    if not blocks:
+        blocks = [content]
+        
+    if len(blocks) == 1:
+        svg_path = repo_root / "images" / rel_path.with_suffix(".svg")
+        render_plantuml_code(blocks[0], svg_path, repo_root)
+    else:
+        for idx, block in enumerate(blocks):
+            first_line = block.splitlines()[0]
+            m = re.match(r"@start(?:uml|salt)\s+([A-Za-z0-9_-]+)", first_line)
+            if m:
+                name = m.group(1)
+                svg_path = repo_root / "images" / rel_path.parent / f"{name}.svg"
+            else:
+                svg_path = repo_root / "images" / rel_path.parent / f"{puml_path.stem}-{idx+1}.svg"
+            render_plantuml_code(block, svg_path, repo_root)
 
 def main():
     repo_root = pathlib.Path(__file__).resolve().parent.parent

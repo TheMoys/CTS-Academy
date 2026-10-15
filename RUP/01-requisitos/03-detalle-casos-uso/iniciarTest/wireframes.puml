@@ -1,0 +1,21 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — CONFIRMACIÓN DE INICIO DE TEST</b>
+    ====
+    <b>Evaluación Seleccionada:</b> Test Técnico de Admisión (CTS-TECH-01)
+    --
+    {
+        <b>Tipo de Test:</b>      | Test Técnico Multidisciplinar (Módulos de los 6 Equipos)
+        <b>Duración Límite:</b>  | 60 minutos (Cronómetro continuo en servidor)
+        <b>Número de Ítems:</b>   | 15 preguntas teóricas objetivas + 2 retos prácticos de código
+        <b>Indicador:</b>         | Nivel de afinidad competencial por equipo
+    }
+    --
+    <color:red><b>ATENCIÓN IMPORTANTE:</b></color>
+    * El cronómetro se ejecuta en el servidor y <b>no se detiene</b> si recarga la página o cierra el navegador.
+    * Al expirar el tiempo límite, el test se autoentregará con las respuestas guardadas hasta ese instante.
+    * Dispone de un único intento para rendir este test diagnóstico.
+    --
+    [ Iniciar Test Ahora ] | [ Volver al Panel de Postulación ]
+}
+@endsalt

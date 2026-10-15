@@ -1,0 +1,48 @@
+@startsalt wireframes
+{
+    <b>EXPEDIENTE UNIFICADO DEL CANDIDATO — GESTOR PROFER</b>
+    ====
+    <b>Candidato:</b> Carlos Mendoza Rivas | <b>Email:</b> c.mendoza@alumnos.uneatlantico.es
+    <b>Sede Remitente:</b> Sede Santander (España) | <b>Periodo:</b> Curso 2024-2025 (Semestre 1)
+    --
+    {+
+        <b>1. RESULTADOS DE LA BATERÍA DIAGNÓSTICA DE TESTS (INDICADORES)</b>
+        --
+        {
+            <b>Test de Actitud:</b> | [========..] 82% (Alta proactividad, trabajo en equipo y liderazgo)
+            <b>Test de Aptitud:</b> | [=========.] 90% (Fuerte razonamiento analítico y lógica estructurada)
+            <b>Test Técnico:</b>    | [=======...] 74% (Afinidad multidisciplinar por equipos CTS)
+        }
+        --
+        <b>Afinidad Detectada por Disciplina:</b>
+        * <b>Backend / Microservicios (Equipo 01):</b> 88% (Recomendado)
+        * <b>Cloud / DevOps (Equipo 03):</b> 76%
+        * <b>Frontend / React (Equipo 02):</b> 65%
+    }
+    --
+    {+
+        <b>2. GESTIÓN DE ENTREVISTA EN GOOGLE MEET</b>
+        --
+        <b>Enlace Google Meet:</b> https://meet.google.com/cts-profer-adm24
+        [ Sincronizar Google Calendar ] | [ Reenviar Enlace al Candidato ]
+    }
+    --
+    {+
+        <b>3. REGISTRO DE ANOTACIONES Y OBSERVACIONES QUALITATIVAS</b>
+        --
+        "El candidato demostró gran madurez en la entrevista por Google Meet. Tiene bases   "
+        "sólidas en arquitectura de backend y disposición total para incorporarse al turno  "
+        "intensivo de desarrollo on-site. Encaja de forma óptima en el Equipo 01.          "
+        [ Guardar Anotaciones ]
+    }
+    --
+    {+
+        <b>4. RESOLUCIÓN Y DICTAMEN DE ADMISIÓN</b>
+        --
+        <b>Asignar a Equipo (*):</b>  | ^Equipo 01 - Backend & Arquitectura^Equipo 02 - Frontend Apps^Equipo 03 - Cloud & DevOps^
+        <b>Fijar Rol Técnico (*):</b> | ^Desarrollador Junior^QA Automation^Ingeniero Cloud Junior^
+        --
+        [ Admitir como Alumno PROFER ] | [ Rechazar Candidatura ] | [ Volver al Panel ]
+    }
+}
+@endsalt

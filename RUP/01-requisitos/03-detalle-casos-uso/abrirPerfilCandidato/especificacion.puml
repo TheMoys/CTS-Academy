@@ -1,0 +1,55 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_ADMISIONES_ABIERTO
+state PANEL_ADMISIONES_ABIERTO_SALIDA as "PANEL_ADMISIONES_ABIERTO"
+state PERFIL_CANDIDATO_ABIERTO_SALIDA as "PERFIL_CANDIDATO_ABIERTO"
+
+PANEL_ADMISIONES_ABIERTO -[#green]-> abrirPerfilCandidato
+note on link
+<b>Gestor</b> selecciona candidato del listado
+<b>Gestor</b> solicita abrir perfil de candidato
+end note
+
+state abrirPerfilCandidato as "abrirPerfilCandidato()" {
+
+    state c_existencia <<choice>>
+    state " " as PresentandoPerfil
+
+    [*] -[#green]-> c_existencia
+
+    c_existencia -[#green]-> PresentandoPerfil
+    note on link
+    [candidato existe]
+    <b>Sistema</b> presenta datos del candidato y sede de origen
+    <b>Sistema</b> presenta resultados de batería de tests
+    <b>Sistema</b> presenta estado de entrevista Google Meet y anotaciones
+    <b>Sistema</b> permite solicitar agendar Google Meet
+    <b>Sistema</b> permite solicitar registrar anotaciones
+    <b>Sistema</b> permite solicitar admitir o rechazar
+    end note
+
+    c_existencia -[#red]-> [*]
+    note on link
+    [candidato no encontrado]
+    <b>Sistema</b> presenta mensaje de error de expediente
+    end note
+
+    PresentandoPerfil -[#green]-> [*]
+    note on link
+    perfil consolidado en pantalla
+    end note
+}
+
+abrirPerfilCandidato -[#green]-> PERFIL_CANDIDATO_ABIERTO_SALIDA
+note on link
+perfil unificado abierto con opciones operativas
+end note
+
+abrirPerfilCandidato -[#red]-> PANEL_ADMISIONES_ABIERTO_SALIDA
+note on link
+retorno por expediente no disponible
+end note
+
+@enduml

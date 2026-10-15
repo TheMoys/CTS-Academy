@@ -1,0 +1,60 @@
+<div align=right>
+
+<sub>[Al inicio](/README.md) / [Bitácora RUP](/RUP/BITACORA.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / [Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md) / [Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / **enviarEntregable()**</sub>
+
+</div>
+
+# Caso de Uso: `enviarEntregable()`
+
+> | [Inicio](/README.md) | [Diagrama de Contexto Alumno](/images/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoAlumno.svg) | **Detalle** | [Análisis](/RUP/02-analisis/README.md) | [Diseño](/RUP/03-diseño/README.md) |
+> | :-: | :-: | :-: | :-: | :-: |
+
+<div align=center>
+
+| Especificación del Caso de Uso |
+| :---: |
+| ![](/images/RUP/01-requisitos/03-detalle-casos-uso/enviarEntregable/especificacion.svg) |
+| <sup><i>[Código fuente PlantUML](especificacion.puml)</i></sup> |
+
+| Wireframe de la Interfaz |
+| :---: |
+| ![](/images/RUP/01-requisitos/03-detalle-casos-uso/enviarEntregable/wireframes.svg) |
+| <sup><i>[Código fuente PlantUML](wireframes.puml)</i></sup> |
+
+</div>
+
+---
+
+## 📋 Información del Caso de Uso
+
+<div align=center>
+
+| Atributo | Valor |
+| :--- | :--- |
+| **Actor Principal** | `Alumno` (`AlumnoProfer`) |
+| **Objetivo** | Enviar la solución en código fuente (Pull Request en repositorio Git) de una práctica de laboratorio o ticket asignado en un módulo formativo para su revisión técnica |
+| **Tipo** | Primario, esencial |
+| **Nivel** | Objetivo de usuario |
+| **Precondición** | El Alumno está autenticado e integrado en un equipo de CTS; el módulo formativo está en curso y la práctica se encuentra en estado inicial o solicitada de cambios (`REQUIERE_CAMBIOS`) |
+| **Postcondición Éxito** | Entregable registrado en estado `PENDIENTE_REVISION`; notificación encolada para el `LiderEquipo` (TL) en `abrirEntregablesPendientes()` |
+| **Postcondición Fallo** | Si la URL del Pull Request no es válida o no pertenece al repositorio institucional, el sistema rechaza la entrega y permanece en el formulario |
+
+</div>
+
+---
+
+## 📑 Reglas de Negocio Asociadas
+
+1. **Flujo Ágil Basado en Pull Requests (ADR-003)**:
+   * Los entregables no se suben como archivos comprimidos (ZIP) ni mediante formularios estáticos. El alumno trabaja con ramas de Git y envía el enlace a su Pull Request para permitir una revisión de código real.
+2. **Ciclo de Revisión Interactiva con el TL**:
+   * Tras la entrega, el Tech Leader del equipo puede ejecutar `aprobarEntregable()` o `solicitarCambiosEntregable()`. En este último caso, el alumno realiza nuevos commits sobre la misma rama y reitera `enviarEntregable()`.
+3. **Pertenencia al Módulo del Equipo**:
+   * Solo los alumnos pertenecientes al equipo correspondiente pueden someter entregables a los módulos configurados por el TL de ese equipo.
+
+---
+
+## 🔗 Referencias
+
+* [Diagrama de Estados de Entrega de Laboratorio](/RUP/00-modelo-del-dominio/estados-entidades/entregaLaboratorio-estados.puml)
+* [Diagrama de Contexto de Alumno](/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoAlumno.puml)

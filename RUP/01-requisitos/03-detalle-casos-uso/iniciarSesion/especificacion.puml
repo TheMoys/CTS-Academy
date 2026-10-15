@@ -1,0 +1,63 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state SESION_CERRADA
+state SESION_CERRADA_SALIDA as "SESION_CERRADA"
+state PANEL_POSTULACION_ABIERTO as "PANEL_POSTULACION_ABIERTO"
+state INICIO_ALUMNO_ABIERTO as "INICIO_ALUMNO_ABIERTO"
+state PANEL_LIDER_ABIERTO as "PANEL_LIDER_ABIERTO"
+state PANEL_ADMISIONES_ABIERTO as "PANEL_ADMISIONES_ABIERTO"
+
+SESION_CERRADA -[#green]-> iniciarSesion
+note on link
+<b>Actor</b> solicita iniciar sesión
+end note
+
+state iniciarSesion as "iniciarSesion()" {
+
+    state " " as SolicitandoCredenciales
+    state c_auth <<choice>>
+
+    [*] -[#green]-> SolicitandoCredenciales
+    note on link
+    <b>Sistema</b> permite introducir credenciales
+    <b>Sistema</b> permite solicitar inicio de sesión
+    end note
+
+    SolicitandoCredenciales -[#green]-> c_auth
+    note on link
+    <b>Actor</b> introduce email
+    <b>Actor</b> introduce contraseña
+    <b>Actor</b> solicita inicio de sesión
+    end note
+
+    c_auth -[#green]-> [*]
+    note on link
+    [credenciales válidas]
+    end note
+
+    c_auth -[#red]-> SolicitandoCredenciales
+    note on link
+    [credenciales inválidas]
+    <b>Sistema</b> muestra mensaje de error de autenticación
+    end note
+}
+
+state c_rol <<choice>>
+iniciarSesion -[#green]-> c_rol
+note on link
+autenticación correcta
+end note
+
+c_rol -[#green]-> PANEL_POSTULACION_ABIERTO : [rol == Candidato]
+c_rol -[#green]-> INICIO_ALUMNO_ABIERTO : [rol == Alumno]
+c_rol -[#green]-> PANEL_LIDER_ABIERTO : [rol == LiderEquipo]
+c_rol -[#green]-> PANEL_ADMISIONES_ABIERTO : [rol == Gestor]
+
+iniciarSesion -[#red]-> SESION_CERRADA_SALIDA
+note on link
+abandono o fallo persistente
+end note
+
+@enduml

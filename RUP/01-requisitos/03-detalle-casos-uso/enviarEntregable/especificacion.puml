@@ -1,0 +1,52 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state INICIO_ALUMNO_ABIERTO
+state INICIO_ALUMNO_ABIERTO_SALIDA as "INICIO_ALUMNO_ABIERTO"
+
+INICIO_ALUMNO_ABIERTO -[#green]-> enviarEntregable
+note on link
+<b>Alumno</b> selecciona práctica del módulo
+<b>Alumno</b> solicita enviar entregable
+end note
+
+state enviarEntregable as "enviarEntregable()" {
+
+    state " " as SolicitandoDatosEntregable
+    state c_url <<choice>>
+
+    [*] -[#green]-> SolicitandoDatosEntregable
+    note on link
+    <b>Sistema</b> presenta formulario de entrega de laboratorio
+    <b>Sistema</b> permite introducir URL del Pull Request
+    <b>Sistema</b> permite introducir rama de trabajo y notas
+    <b>Sistema</b> permite solicitar registrar entrega
+    end note
+
+    SolicitandoDatosEntregable -[#green]-> c_url
+    note on link
+    <b>Alumno</b> introduce URL del Pull Request
+    <b>Alumno</b> introduce notas técnicas de la entrega
+    <b>Alumno</b> solicita registrar entrega
+    end note
+
+    c_url -[#green]-> [*]
+    note on link
+    [formato de URL y rama válidos]
+    <b>Sistema</b> registra entregable en estado PENDIENTE_REVISION
+    end note
+
+    c_url -[#red]-> SolicitandoDatosEntregable
+    note on link
+    [URL de Pull Request no válida]
+    <b>Sistema</b> presenta mensaje de error en enlace de repositorio
+    end note
+}
+
+enviarEntregable -[#green]-> INICIO_ALUMNO_ABIERTO_SALIDA
+note on link
+entregable registrado, notificación enviada al Tech Leader para Code Review
+end note
+
+@enduml
