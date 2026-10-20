@@ -1,0 +1,92 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_POSTULACION_ABIERTO
+state INICIO_ALUMNO_ABIERTO
+state PANEL_LIDER_ABIERTO
+state PANEL_ADMISIONES_ABIERTO
+
+state SESION_CERRADA_SALIDA as "SESION_CERRADA"
+state PANEL_POSTULACION_ABIERTO_SALIDA as "PANEL_POSTULACION_ABIERTO"
+state INICIO_ALUMNO_ABIERTO_SALIDA as "INICIO_ALUMNO_ABIERTO"
+state PANEL_LIDER_ABIERTO_SALIDA as "PANEL_LIDER_ABIERTO"
+state PANEL_ADMISIONES_ABIERTO_SALIDA as "PANEL_ADMISIONES_ABIERTO"
+
+PANEL_POSTULACION_ABIERTO -[#green]-> cerrarSesion
+INICIO_ALUMNO_ABIERTO -[#green]-> cerrarSesion
+PANEL_LIDER_ABIERTO -[#green]-> cerrarSesion
+PANEL_ADMISIONES_ABIERTO -[#green]-> cerrarSesion
+note on link
+<b>Actor</b> solicita cerrar sesión
+end note
+
+state cerrarSesion as "cerrarSesion()" {
+
+    state c_tarea <<choice>>
+    state " " as PresentandoAdvertencia
+    state c_confirmacion <<choice>>
+    state c_revocacion <<choice>>
+
+    [*] -[#green]-> c_tarea
+
+    c_tarea -[#green]-> PresentandoAdvertencia
+    note on link
+    [con evaluación o tarea activa en curso]
+    <b>Sistema</b> presenta advertencia de proceso activo en servidor
+    <b>Sistema</b> permite solicitar confirmar cierre
+    <b>Sistema</b> permite solicitar cancelar cierre
+    end note
+
+    c_tarea -[#green]-> c_revocacion
+    note on link
+    [sin procesos activos]
+    end note
+
+    PresentandoAdvertencia -[#green]-> c_confirmacion
+    note on link
+    <b>Actor</b> selecciona opción
+    end note
+
+    c_confirmacion -[#blue]-> [*]
+    note on link
+    [actor selecciona cancelar cierre]
+    end note
+
+    c_confirmacion -[#green]-> c_revocacion
+    note on link
+    [actor selecciona confirmar cierre]
+    end note
+
+    c_revocacion -[#green]-> [*]
+    note on link
+    [servicio de autenticación disponible]
+    <b>Sistema</b> presenta confirmación de sesión cerrada
+    <b>Sistema</b> presenta pantalla de inicio de sesión
+    end note
+
+    c_revocacion -[#red]-> [*]
+    note on link
+    [fallo transitorio de comunicación con autenticación]
+    <b>Sistema</b> presenta notificación de cierre seguro local
+    <b>Sistema</b> presenta pantalla de inicio de sesión
+    end note
+}
+
+cerrarSesion -[#green]-> SESION_CERRADA_SALIDA
+note on link
+sesión invalidada, credenciales revocadas
+end note
+
+state c_retorno <<choice>>
+cerrarSesion -[#blue]-> c_retorno
+note on link
+cancelación voluntaria, retorno al panel
+end note
+
+c_retorno -[#blue]-> PANEL_POSTULACION_ABIERTO_SALIDA : [rol == Candidato]
+c_retorno -[#blue]-> INICIO_ALUMNO_ABIERTO_SALIDA : [rol == Alumno]
+c_retorno -[#blue]-> PANEL_LIDER_ABIERTO_SALIDA : [rol == LiderEquipo]
+c_retorno -[#blue]-> PANEL_ADMISIONES_ABIERTO_SALIDA : [rol == Gestor]
+
+@enduml

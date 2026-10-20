@@ -51,7 +51,7 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 |Subsistema / Paquete|Caso de uso|Actor Principal|Requisito|Análisis|Diseño|Desarrollo|
 |:-|:-|:-:|:-:|:-:|:-:|:-:|
 |**PK01 - Acceso**|`iniciarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarSesion/README.md)|—|—|—|
-|**PK01 - Acceso**|`cerrarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|—|—|—|—|
+|**PK01 - Acceso**|`cerrarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/cerrarSesion/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`abrirPanelPostulacion()`|`Candidato`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelPostulacion/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`iniciarTest()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarTest/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`responderPreguntaTeorica()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/responderPreguntaTeorica/README.md)|—|—|—|

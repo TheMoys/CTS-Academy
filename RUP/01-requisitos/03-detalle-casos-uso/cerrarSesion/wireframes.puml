@@ -1,0 +1,20 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — CONFIRMACIÓN DE CIERRE DE SESIÓN</b>
+    ====
+    <b>Usuario Autenticado:</b> Juan Pérez (Candidato — Sede Bogotá)
+    --
+    <color:orange><b>ADVERTENCIA DE PROCESO ACTIVO EN SERVIDOR:</b></color>
+    {
+        Dispone de una evaluación técnica en estado <b>EN CURSO</b> (Test Técnico Multidisciplinar).
+        --
+        * El cronómetro se ejecuta en el servidor y <b>no se pausará</b> al cerrar su sesión.
+        * El tiempo límite continuará corriendo conforme a la política del programa (ADR-007).
+        * Para reanudar el test, deberá volver a iniciar sesión antes de que el cronómetro llegue a cero.
+    }
+    --
+    <b>¿Está seguro de que desea cerrar la sesión ahora?</b>
+    --
+    [ Cancelar y Permanecer en el Panel ] | <b>[ Confirmar y Cerrar Sesión ]</b>
+}
+@endsalt

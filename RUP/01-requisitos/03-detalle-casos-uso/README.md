@@ -68,6 +68,7 @@ A continuación se indexan las especificaciones de los casos de uso nucleares es
 | Subsistema / Paquete | Caso de Uso | Actor Principal | Especificación | Wireframe | Ficha RUP |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | **PK01 - Acceso** | `iniciarSesion()` | Común (4 Actores) | [especificacion.puml](iniciarSesion/especificacion.puml) | [wireframes.puml](iniciarSesion/wireframes.puml) | [Detalle](iniciarSesion/README.md) |
+| **PK01 - Acceso** | `cerrarSesion()` | Común (4 Actores) | [especificacion.puml](cerrarSesion/especificacion.puml) | [wireframes.puml](cerrarSesion/wireframes.puml) | [Detalle](cerrarSesion/README.md) |
 | **PK02 - MotorEvaluacion** | `abrirPanelPostulacion()` | `Candidato` | [especificacion.puml](abrirPanelPostulacion/especificacion.puml) | [wireframes.puml](abrirPanelPostulacion/wireframes.puml) | [Detalle](abrirPanelPostulacion/README.md) |
 | **PK02 - MotorEvaluacion** | `iniciarTest()` | `Candidato` / `Alumno` | [especificacion.puml](iniciarTest/especificacion.puml) | [wireframes.puml](iniciarTest/wireframes.puml) | [Detalle](iniciarTest/README.md) |
 | **PK02 - MotorEvaluacion** | `responderPreguntaTeorica()` | `Candidato` / `Alumno` | [especificacion.puml](responderPreguntaTeorica/especificacion.puml) | [wireframes.puml](responderPreguntaTeorica/wireframes.puml) | [Detalle](responderPreguntaTeorica/README.md) |
