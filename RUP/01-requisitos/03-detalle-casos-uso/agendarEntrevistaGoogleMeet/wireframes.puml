@@ -1,0 +1,43 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — AGENDAR ENTREVISTA GOOGLE MEET</b>
+    ====
+    <b>Candidato:</b> Carlos Mendoza Rivas | <b>Email:</b> c.mendoza@alumnos.uneatlantico.es
+    <b>Sede Remitente:</b> Sede Santander (España) | <b>Expediente:</b> CTS-2026-SDR-014
+    --
+    {
+        <b>1. PROGRAMACIÓN TEMPORAL Y HUSOS HORARIOS:</b>
+        --
+        <b>Fecha de la Entrevista (*):</b> | "2026-11-05              "
+        <b>Hora de Inicio (*):</b>         | "10:30                    " | <b>Huso Santander (Base):</b> Europe/Madrid (CET / UTC+1)
+        <b>Hora Equivalente Candidato:</b> | 04:30 (Madrugada)   | <b>Huso Candidato:</b> America/Bogota (UTC-5)
+        --
+        Aviso de Huso Horario: La hora seleccionada corresponde a madrugada en la sede remitente del candidato.
+        --
+        <b>Duración Estimada (*):</b>       | ^30 minutos^45 minutos (Recomendado)^60 minutos^
+        <b>Evaluador / Cuenta Host (*):</b> | ^admisiones.profer@uneatlantico.es (Gestor PROFER)^coordinacion.cts@uneatlantico.es^
+    }
+    --
+    {
+        <b>2. INTEGRACIÓN CON GOOGLE WORKSPACE:</b>
+        --
+        [X] <b>Generar automáticamente sala Google Meet en Google Calendar</b>
+        [X] <b>Sincronizar evento en calendario institucional del evaluador</b>
+        <b>Enlace de Contingencia (Opcional):</b> | "https://meet.google.com/cts-contingencia-01                     "
+    }
+    --
+    {
+        <b>3. CONVOCATORIA Y NOTIFICACIÓN AL CANDIDATO:</b>
+        --
+        <b>Plantilla de Correo:</b> | ^Convocatoria a Entrevista Técnica Cualitativa (PROFER)^Recordatorio de Entrevista^
+        <b>Notas Adicionales para el Candidato:</b>
+        "Por favor conectarse 5 minutos antes con cámara encendida y entorno silencioso.       "
+        "La entrevista tendrá una duración aproximada de 45 minutos y abordará su afinidad     "
+        "técnica y disponibilidad de incorporación on-site.                                    "
+        --
+        <i>Conforme a ADR-009, la convocatoria y enlace se remiten por correo transaccional.</i>
+    }
+    --
+    [ Cancelar ] | <b>[ Sincronizar Google Calendar y Enviar Convocatoria ]</b>
+}
+@endsalt

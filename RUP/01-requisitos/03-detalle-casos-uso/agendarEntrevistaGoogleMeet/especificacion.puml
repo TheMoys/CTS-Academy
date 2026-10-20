@@ -1,0 +1,82 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PERFIL_CANDIDATO_ABIERTO
+state PERFIL_CANDIDATO_ABIERTO_SALIDA as "PERFIL_CANDIDATO_ABIERTO"
+
+PERFIL_CANDIDATO_ABIERTO -[#green]-> agendarEntrevistaGoogleMeet
+note on link
+<b>Gestor</b> selecciona opción de agendar entrevista
+<b>Gestor</b> solicita agendar entrevista
+end note
+
+state agendarEntrevistaGoogleMeet as "agendarEntrevistaGoogleMeet()" {
+
+    state " " as SolicitandoDatosEntrevista
+    state c_validacion <<choice>>
+    state c_google_api <<choice>>
+    state c_notificacion <<choice>>
+
+    [*] -[#green]-> SolicitandoDatosEntrevista
+    note on link
+    <b>Sistema</b> presenta formulario de agendamiento de entrevista Google Meet
+    <b>Sistema</b> presenta huso horario de sede Santander y huso de sede remitente
+    <b>Sistema</b> permite introducir fecha, hora, duración y evaluador responsable
+    <b>Sistema</b> permite introducir notas de convocatoria
+    <b>Sistema</b> permite solicitar sincronizar y convocar entrevista
+    end note
+
+    SolicitandoDatosEntrevista -[#green]-> c_validacion
+    note on link
+    <b>Gestor</b> introduce fecha, hora y duración de entrevista
+    <b>Gestor</b> introduce notas de convocatoria
+    <b>Gestor</b> solicita sincronizar y convocar entrevista
+    end note
+
+    c_validacion -[#red]-> SolicitandoDatosEntrevista
+    note on link
+    [datos de fecha u hora no válidos o en pasado]
+    <b>Sistema</b> presenta mensaje de error en fecha de agendamiento
+    end note
+
+    c_validacion -[#green]-> c_google_api
+    note on link
+    [datos de agendamiento válidos]
+    end note
+
+    c_google_api -[#red]-> SolicitandoDatosEntrevista
+    note on link
+    [fallo de comunicación con Google Calendar API]
+    <b>Sistema</b> presenta advertencia de fallo de integración con Google Workspace
+    end note
+
+    c_google_api -[#green]-> c_notificacion
+    note on link
+    [evento y enlace Google Meet generados correctamente]
+    end note
+
+    c_notificacion -[#green]-> [*]
+    note on link
+    [notificación por correo electrónico enviada]
+    <b>Sistema</b> presenta confirmación de entrevista agendada y notificada
+    end note
+
+    c_notificacion -[#red]-> [*]
+    note on link
+    [fallo en servicio de correo saliente]
+    <b>Sistema</b> presenta aviso de entrevista agendada con notificación pendiente de reenvío
+    end note
+}
+
+agendarEntrevistaGoogleMeet -[#green]-> PERFIL_CANDIDATO_ABIERTO_SALIDA
+note on link
+entrevista registrada en perfil, enlace Google Meet generado
+end note
+
+agendarEntrevistaGoogleMeet -[#red]-> PERFIL_CANDIDATO_ABIERTO_SALIDA
+note on link
+operación cancelada o rechazada
+end note
+
+@enduml
