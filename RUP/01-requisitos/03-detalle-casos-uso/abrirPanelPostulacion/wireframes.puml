@@ -1,0 +1,30 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — PANEL DE POSTULACIÓN DEL CANDIDATO</b>
+    ====
+    <b>Candidato:</b> Juan Carlos Pérez Gómez | <b>Expediente:</b> CTS-2026-BOG-042 | [ Cerrar Sesión ]
+    --
+    {
+        <b>Convocatoria Activa:</b> | Becas Talento Internacional — Ciclo 2026-I
+        <b>Sede Internacional:</b>   | Sede Bogotá (Colombia)
+        <b>Fecha Límite Global:</b>  | 15 de Noviembre de 2026 a las 23:59 UTC
+        <b>Progreso de Batería:</b>  | <b>2 de 3 tests diagnósticos completados (67%)</b>
+    }
+    --
+    <b>BATERÍA DE TESTS DIAGNÓSTICOS (ADR-007):</b>
+    <i>Puede rendir los tests pendientes en el orden que prefiera. Dispone de un único intento ininterrumpido por test.</i>
+    --
+    {
+        <b>Test Diagnóstico</b>            | <b>Duración Máx.</b> | <b>Contenido</b>                    | <b>Estado Actual</b>                   | <b>Acción</b>
+        --
+        <b>1. Test de Actitud</b>          | 20 minutos          | Escala Likert (Perfil conductual)   | <color:green><b>Completado</b></color> (18/10 10:14) | [ Test Entregado ]
+        <b>2. Test de Aptitud</b>          | 30 minutos          | Razonamiento lógico y psicotécnico | <color:green><b>Completado</b></color> (19/10 16:45) | [ Test Entregado ]
+        <b>3. Test Técnico Multidisciplinar</b>| 60 minutos      | 15 teóricas + 2 retos de código     | <color:orange><b>Pendiente</b></color> (Sin iniciar) | <b>[ Iniciar Test Ahora ]</b>
+    }
+    --
+    <color:blue><b>INFORMACIÓN INSTITUCIONAL PARA EL ASPIRANTE:</b></color>
+    * El cronómetro corre en el servidor en cuanto confirma el inicio del test.
+    * Conforme a la política del programa (ADR-007), los tests no emiten nota de corte excluyente.
+    * Una vez completados los 3 tests, su expediente pasará a la revisión cualitativa del equipo de admisiones.
+}
+@endsalt

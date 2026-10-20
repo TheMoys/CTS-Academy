@@ -1,0 +1,63 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_POSTULACION_ABIERTO
+state PANEL_POSTULACION_ABIERTO_SALIDA as "PANEL_POSTULACION_ABIERTO"
+
+PANEL_POSTULACION_ABIERTO -[#green]-> abrirPanelPostulacion
+note on link
+<b>Candidato</b> solicita abrir panel de postulación
+end note
+
+state abrirPanelPostulacion as "abrirPanelPostulacion()" {
+
+    state c_convocatoria <<choice>>
+    state c_test_activo <<choice>>
+    state " " as PresentandoPanelCerrado
+    state " " as PresentandoPanelConReanudacion
+    state " " as PresentandoPanelBateria
+
+    [*] -[#green]-> c_convocatoria
+
+    c_convocatoria -[#red]-> PresentandoPanelCerrado
+    note on link
+    [convocatoria cerrada o plazo concluido]
+    <b>Sistema</b> presenta datos de la postulación
+    <b>Sistema</b> presenta aviso de convocatoria concluida
+    <b>Sistema</b> presenta estado final de tests sin opciones de inicio
+    end note
+
+    c_convocatoria -[#green]-> c_test_activo
+    note on link
+    [convocatoria vigente]
+    end note
+
+    c_test_activo -[#green]-> PresentandoPanelConReanudacion
+    note on link
+    [test en curso con tiempo remanente en servidor]
+    <b>Sistema</b> presenta datos de la postulación y fecha límite
+    <b>Sistema</b> presenta test activo con tiempo restante en servidor
+    <b>Sistema</b> permite solicitar reanudar test activo
+    <b>Sistema</b> presenta bloqueo preventivo en tests restantes
+    end note
+
+    c_test_activo -[#green]-> PresentandoPanelBateria
+    note on link
+    [sin test en curso o batería disponible]
+    <b>Sistema</b> presenta datos de la postulación y fecha límite
+    <b>Sistema</b> presenta estado de la batería de 3 tests diagnósticos
+    <b>Sistema</b> permite seleccionar test disponible para iniciar
+    end note
+
+    PresentandoPanelCerrado -[#green]-> [*]
+    PresentandoPanelConReanudacion -[#green]-> [*]
+    PresentandoPanelBateria -[#green]-> [*]
+}
+
+abrirPanelPostulacion -[#green]-> PANEL_POSTULACION_ABIERTO_SALIDA
+note on link
+panel de postulación consolidado en pantalla
+end note
+
+@enduml

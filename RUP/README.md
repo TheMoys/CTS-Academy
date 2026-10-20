@@ -52,7 +52,7 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 |:-|:-|:-:|:-:|:-:|:-:|:-:|
 |**PK01 - Acceso**|`iniciarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarSesion/README.md)|—|—|—|
 |**PK01 - Acceso**|`cerrarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|—|—|—|—|
-|**PK02 - MotorEvaluacion**|`abrirPanelPostulacion()`|`Candidato`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`abrirPanelPostulacion()`|`Candidato`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelPostulacion/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`iniciarTest()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarTest/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`responderPreguntaTeorica()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/responderPreguntaTeorica/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`entregarPreguntaPractica()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/entregarPreguntaPractica/README.md)|—|—|—|

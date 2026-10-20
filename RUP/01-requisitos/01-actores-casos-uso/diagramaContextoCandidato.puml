@@ -17,6 +17,7 @@ state TEST_EN_EJECUCION
 SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
 SESION_CERRADA --> PANEL_POSTULACION_ABIERTO : iniciarSesion()
 PANEL_POSTULACION_ABIERTO --> SESION_CERRADA : cerrarSesion()
+PANEL_POSTULACION_ABIERTO --> PANEL_POSTULACION_ABIERTO : abrirPanelPostulacion()
 
 ' Ejecución de la batería de tests (Actitud, Aptitud y Técnico)
 PANEL_POSTULACION_ABIERTO --> TEST_EN_EJECUCION : iniciarTest()
