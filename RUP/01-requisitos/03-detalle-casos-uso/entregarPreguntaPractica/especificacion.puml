@@ -1,0 +1,77 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state TEST_EN_EJECUCION
+state TEST_EN_EJECUCION_SALIDA as "TEST_EN_EJECUCION"
+
+TEST_EN_EJECUCION -[#green]-> entregarPreguntaPractica
+note on link
+<b>Actor</b> selecciona reto práctico
+<b>Actor</b> solicita entregar solución práctica
+end note
+
+state entregarPreguntaPractica as "entregarPreguntaPractica()" {
+
+    state " " as PresentandoEditorReto
+    state c_tiempo <<choice>>
+    state c_contenido <<choice>>
+    state c_sandbox <<choice>>
+
+    [*] -[#green]-> PresentandoEditorReto
+    note on link
+    <b>Sistema</b> presenta enunciado del reto, criterios y plantilla de código
+    <b>Sistema</b> presenta tiempo restante y cuota de ejecución en sandbox
+    <b>Sistema</b> permite introducir código de solución o enlace de repositorio
+    <b>Sistema</b> permite solicitar probar código en sandbox
+    <b>Sistema</b> permite solicitar registrar entrega
+    end note
+
+    PresentandoEditorReto -[#green]-> c_tiempo
+    note on link
+    <b>Actor</b> introduce código de solución
+    <b>Actor</b> solicita registrar entrega
+    end note
+
+    c_tiempo -[#green]-> c_contenido
+    note on link
+    [tiempo en servidor vigente]
+    end note
+
+    c_tiempo -[#red]-> PresentandoEditorReto
+    note on link
+    [tiempo límite de evaluación agotado en servidor]
+    <b>Sistema</b> presenta mensaje de tiempo límite expirado
+    end note
+
+    c_contenido -[#green]-> c_sandbox
+    note on link
+    [código modificado y dentro de límite de tamaño]
+    end note
+
+    c_contenido -[#red]-> PresentandoEditorReto
+    note on link
+    [código idéntico a plantilla inicial o vacío]
+    <b>Sistema</b> presenta advertencia de código no modificado
+    end note
+
+    c_sandbox -[#green]-> [*]
+    note on link
+    [cuota de sandbox disponible]
+    <b>Sistema</b> presenta resultado de ejecución en TestRunner
+    <b>Sistema</b> presenta confirmación de versión entregada
+    end note
+
+    c_sandbox -[#green]-> [*]
+    note on link
+    [cuota de sandbox agotada]
+    <b>Sistema</b> presenta aviso de entrega registrada para evaluación por rúbrica
+    end note
+}
+
+entregarPreguntaPractica -[#green]-> TEST_EN_EJECUCION_SALIDA
+note on link
+solución práctica consolidada, evaluación en curso
+end note
+
+@enduml

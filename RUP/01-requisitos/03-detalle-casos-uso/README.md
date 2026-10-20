@@ -70,6 +70,7 @@ A continuación se indexan las especificaciones de los casos de uso nucleares es
 | **PK01 - Acceso** | `iniciarSesion()` | Común (4 Actores) | [especificacion.puml](iniciarSesion/especificacion.puml) | [wireframes.puml](iniciarSesion/wireframes.puml) | [Detalle](iniciarSesion/README.md) |
 | **PK02 - MotorEvaluacion** | `iniciarTest()` | `Candidato` / `Alumno` | [especificacion.puml](iniciarTest/especificacion.puml) | [wireframes.puml](iniciarTest/wireframes.puml) | [Detalle](iniciarTest/README.md) |
 | **PK02 - MotorEvaluacion** | `responderPreguntaTeorica()` | `Candidato` / `Alumno` | [especificacion.puml](responderPreguntaTeorica/especificacion.puml) | [wireframes.puml](responderPreguntaTeorica/wireframes.puml) | [Detalle](responderPreguntaTeorica/README.md) |
+| **PK02 - MotorEvaluacion** | `entregarPreguntaPractica()` | `Candidato` / `Alumno` | [especificacion.puml](entregarPreguntaPractica/especificacion.puml) | [wireframes.puml](entregarPreguntaPractica/wireframes.puml) | [Detalle](entregarPreguntaPractica/README.md) |
 | **PK02 - MotorEvaluacion** | `abrirPerfilCandidato()` | `Gestor` | [especificacion.puml](abrirPerfilCandidato/especificacion.puml) | [wireframes.puml](abrirPerfilCandidato/wireframes.puml) | [Detalle](abrirPerfilCandidato/README.md) |
 | **PK03 - MotorFormacion** | `enviarEntregable()` | `Alumno` | [especificacion.puml](enviarEntregable/especificacion.puml) | [wireframes.puml](enviarEntregable/wireframes.puml) | [Detalle](enviarEntregable/README.md) |
 
