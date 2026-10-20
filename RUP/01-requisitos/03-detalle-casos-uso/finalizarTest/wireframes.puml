@@ -1,0 +1,30 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — CONFIRMACIÓN DE ENTREGA DE EVALUACIÓN</b>
+    ====
+    <b>Evaluación Activa:</b> Test Técnico de Admisión (CTS-TECH-01) — <b>Candidato:</b> Juan Pérez (Sede Bogotá)
+    --
+    {
+        <b>Tiempo Restante en Servidor:</b> | <color:green><b>00:14:22</b></color> (Cronómetro activo)
+        <b>Estado de Sesión:</b>           | En curso (Pendiente de cierre formal)
+    }
+    --
+    <b>BALANCE CUANTITATIVO DE LA EVALUACIÓN:</b>
+    {
+        <b>Categoría de Reactivos</b>           | <b>Total</b> | <b>Respondidas</b> | <b>Pendientes</b> | <b>Estado</b>
+        --
+        Preguntas Teóricas Objetivas         | 15          | 14                 | 1                 | <color:orange>Incompleto</color>
+        Retos Prácticos de Código (Sandbox)  | 2           | 2                  | 0                 | <color:green>Completado</color>
+        --
+        <b>Total Global de Reactivos</b>     | <b>17</b>   | <b>16</b>          | <b>1</b>          | <b>94% completado</b>
+    }
+    --
+    <color:red><b>ATENCIÓN IMPORTANTE ANTES DE CONFIRMAR:</b></color>
+    * Dispone de <b>1 pregunta teórica sin responder</b> (Pregunta 12).
+    * Al confirmar la entrega, se congelarán de inmediato todas las respuestas y el código del sandbox.
+    * No podrá volver a ingresar ni modificar ningún dato de esta evaluación diagnóstica.
+    * Conforme a la política institucional (ADR-007), los resultados serán procesados por el equipo evaluador.
+    --
+    [ Cancelar y Volver al Test ] | <b>[ Confirmar y Entregar Evaluación Definitiva ]</b>
+}
+@endsalt

@@ -1,0 +1,85 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state TEST_EN_EJECUCION
+state TEST_EN_EJECUCION_SALIDA as "TEST_EN_EJECUCION"
+state PANEL_POSTULACION_ABIERTO_SALIDA as "PANEL_POSTULACION_ABIERTO"
+state INICIO_ALUMNO_ABIERTO_SALIDA as "INICIO_ALUMNO_ABIERTO"
+
+TEST_EN_EJECUCION -[#green]-> finalizarTest
+note on link
+<b>Actor</b> solicita finalizar test
+end note
+
+state finalizarTest as "finalizarTest()" {
+
+    state c_disparo <<choice>>
+    state " " as PresentandoBalance
+    state c_confirmacion <<choice>>
+    state c_tiempo <<choice>>
+
+    [*] -[#green]-> c_disparo
+
+    c_disparo -[#green]-> PresentandoBalance
+    note on link
+    [solicitud manual voluntaria]
+    <b>Sistema</b> presenta balance cuantitativo de preguntas respondidas y pendientes
+    <b>Sistema</b> presenta advertencia de inmutabilidad definitiva
+    <b>Sistema</b> permite solicitar confirmar entrega
+    <b>Sistema</b> permite solicitar cancelar entrega
+    end note
+
+    c_disparo -[#red]-> [*]
+    note on link
+    [tiempo límite agotado en servidor]
+    <b>Sistema</b> presenta notificación de tiempo límite finalizado
+    <b>Sistema</b> consolida respuestas registradas hasta el instante de expiración
+    end note
+
+    PresentandoBalance -[#green]-> c_confirmacion
+    note on link
+    <b>Actor</b> selecciona opción de entrega
+    end note
+
+    c_confirmacion -[#blue]-> [*]
+    note on link
+    [actor selecciona cancelar entrega]
+    end note
+
+    c_confirmacion -[#green]-> c_tiempo
+    note on link
+    [actor selecciona confirmar entrega]
+    end note
+
+    c_tiempo -[#green]-> [*]
+    note on link
+    [tiempo en servidor vigente]
+    <b>Sistema</b> presenta acuse de recibo de evaluación entregada
+    end note
+
+    c_tiempo -[#red]-> [*]
+    note on link
+    [tiempo en servidor expirado durante confirmación]
+    <b>Sistema</b> presenta notificación de entrega forzada por expiración
+    end note
+}
+
+state c_salida <<choice>>
+finalizarTest -[#green]-> c_salida
+note on link
+evaluación cerrada y congelada
+end note
+
+finalizarTest -[#blue]-> TEST_EN_EJECUCION_SALIDA
+note on link
+cancelación voluntaria, reanudación del test
+end note
+
+state c_rol <<choice>>
+c_salida -[#green]-> c_rol
+
+c_rol -[#green]-> PANEL_POSTULACION_ABIERTO_SALIDA : [rol == Candidato]
+c_rol -[#green]-> INICIO_ALUMNO_ABIERTO_SALIDA : [rol == Alumno]
+
+@enduml
