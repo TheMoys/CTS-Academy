@@ -1,0 +1,64 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state TEST_EN_EJECUCION
+state TEST_EN_EJECUCION_SALIDA as "TEST_EN_EJECUCION"
+
+TEST_EN_EJECUCION -[#green]-> responderPreguntaTeorica
+note on link
+<b>Actor</b> selecciona pregunta teórica
+<b>Actor</b> solicita responder pregunta
+end note
+
+state responderPreguntaTeorica as "responderPreguntaTeorica()" {
+
+    state " " as PresentandoPregunta
+    state c_tiempo <<choice>>
+    state c_inmutabilidad <<choice>>
+
+    [*] -[#green]-> PresentandoPregunta
+    note on link
+    <b>Sistema</b> presenta enunciado de pregunta y opciones
+    <b>Sistema</b> presenta tiempo restante
+    <b>Sistema</b> permite seleccionar opción
+    <b>Sistema</b> permite solicitar registrar respuesta
+    end note
+
+    PresentandoPregunta -[#green]-> c_tiempo
+    note on link
+    <b>Actor</b> selecciona opción
+    <b>Actor</b> solicita registrar respuesta
+    end note
+
+    c_tiempo -[#green]-> c_inmutabilidad
+    note on link
+    [tiempo en servidor vigente]
+    end note
+
+    c_tiempo -[#red]-> PresentandoPregunta
+    note on link
+    [tiempo en servidor expirado]
+    <b>Sistema</b> presenta mensaje de tiempo límite finalizado
+    end note
+
+    c_inmutabilidad -[#green]-> [*]
+    note on link
+    [respuesta registrable]
+    <b>Sistema</b> presenta confirmación de respuesta registrada
+    <b>Sistema</b> presenta siguiente ítem de evaluación
+    end note
+
+    c_inmutabilidad -[#red]-> PresentandoPregunta
+    note on link
+    [test psicométrico con respuesta previamente consolidada]
+    <b>Sistema</b> presenta mensaje de respuesta inmutable
+    end note
+}
+
+responderPreguntaTeorica -[#green]-> TEST_EN_EJECUCION_SALIDA
+note on link
+respuesta registrada, evaluación en curso
+end note
+
+@enduml

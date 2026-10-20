@@ -1,0 +1,36 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — EVALUACIÓN EN CURSO</b>
+    ====
+    <b>Evaluación Activa:</b> Test Técnico de Admisión (CTS-TECH-01) | <b>Candidato:</b> Juan Pérez (Sede Bogotá)
+    --
+    {
+        <b>Tiempo Restante:</b> | <color:green><b>00:42:15</b></color> (Sincronizado con servidor) | [ Finalizar Evaluación ]
+        <b>Progreso General:</b> | [=========>    ] 8 de 15 preguntas completadas (53%)
+    }
+    --
+    {/ <b>1. Fundamentos</b> | <b>2. Backend & BD</b> | 3. Frontend | 4. DevOps }
+    --
+    <b>Índice de Preguntas:</b>
+    { [1 ✓] | [2 ✓] | [3 ✓] | [4 ✓] | [5 ✓] | [6 ✓] | [7 ✓] | [8 ✓] | <b>[ 9 • ]</b> | [10 ] | [11 ] | [12 ] | [13 ] | [14 ] | [15 ] }
+    --
+    {
+        <b>Pregunta 09 / 15:</b> | <color:blue><b>[Área: Backend & Arquitectura — Team Fénix]</b></color>
+        --
+        <b>Enunciado:</b>
+        ¿Cuál de los siguientes patrones arquitectónicos garantiza que los eventos de dominio
+        se propaguen de forma atómica y consistente hacia los consumidores sin depender de 
+        transacciones distribuidas 2PC?
+        --
+        <b>Opciones de Respuesta:</b>
+        () A. Active Record con consultas SQL directas sobre múltiples tablas
+        () B. Shared Database Pattern compartiendo el esquema relacional
+        (X) C. Transactional Outbox Pattern combinado con Change Data Capture (CDC)
+        () D. Invocación síncrona HTTP/REST encadenada entre servicios
+        --
+        [ < Pregunta Anterior ] | <b>[ Registrar Respuesta ]</b> | [ Siguiente Pregunta > ]
+    }
+    --
+    <color:gray><i>Nota: En tests técnicos las respuestas pueden modificarse antes de la entrega final. En tests de actitud cada ítem es definitivo.</i></color>
+}
+@endsalt

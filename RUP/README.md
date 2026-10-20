@@ -54,7 +54,7 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 |**PK01 - Acceso**|`cerrarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|—|—|—|—|
 |**PK02 - MotorEvaluacion**|`abrirPanelPostulacion()`|`Candidato`|—|—|—|—|
 |**PK02 - MotorEvaluacion**|`iniciarTest()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarTest/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`responderPreguntaTeorica()`|`Candidato`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`responderPreguntaTeorica()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/responderPreguntaTeorica/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`entregarPreguntaPractica()`|`Candidato`|—|—|—|—|
 |**PK02 - MotorEvaluacion**|`finalizarTest()`|`Candidato`|—|—|—|—|
 |**PK02 - MotorEvaluacion**|`abrirPerfilCandidato()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPerfilCandidato/README.md)|—|—|—|
