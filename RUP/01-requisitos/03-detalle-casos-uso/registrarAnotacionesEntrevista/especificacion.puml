@@ -1,0 +1,67 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PERFIL_CANDIDATO_ABIERTO
+state PERFIL_CANDIDATO_ABIERTO_SALIDA as "PERFIL_CANDIDATO_ABIERTO"
+
+PERFIL_CANDIDATO_ABIERTO -[#green]-> registrarAnotacionesEntrevista
+note on link
+<b>Gestor</b> selecciona opción de registrar anotaciones
+<b>Gestor</b> solicita registrar anotaciones
+end note
+
+state registrarAnotacionesEntrevista as "registrarAnotacionesEntrevista()" {
+
+    state c_estado_expediente <<choice>>
+    state " " as SolicitandoAnotaciones
+    state c_validacion <<choice>>
+
+    [*] -[#green]-> c_estado_expediente
+
+    c_estado_expediente -[#red]-> [*]
+    note on link
+    [expediente con dictamen definitivo emitido o cerrado]
+    <b>Sistema</b> presenta mensaje de expediente cerrado en modo de solo lectura
+    end note
+
+    c_estado_expediente -[#green]-> SolicitandoAnotaciones
+    note on link
+    [expediente abierto y entrevista editable]
+    <b>Sistema</b> presenta formulario de rúbrica cualitativa y bitácora de anotaciones
+    <b>Sistema</b> presenta dimensiones de evaluación y momentos de registro
+    <b>Sistema</b> permite introducir puntuaciones de rúbrica y observaciones
+    <b>Sistema</b> permite solicitar registrar anotación
+    end note
+
+    SolicitandoAnotaciones -[#green]-> c_validacion
+    note on link
+    <b>Gestor</b> selecciona momento de registro y dimensión evaluada
+    <b>Gestor</b> introduce valoración y observaciones cualitativas
+    <b>Gestor</b> solicita registrar anotación
+    end note
+
+    c_validacion -[#red]-> SolicitandoAnotaciones
+    note on link
+    [dimensiones obligatorias incompletas u observaciones vacías]
+    <b>Sistema</b> presenta advertencia de campos requeridos
+    end note
+
+    c_validacion -[#green]-> [*]
+    note on link
+    [anotación y rúbrica válidas]
+    <b>Sistema</b> presenta confirmación de anotación registrada en bitácora
+    end note
+}
+
+registrarAnotacionesEntrevista -[#green]-> PERFIL_CANDIDATO_ABIERTO_SALIDA
+note on link
+anotación consolidada en expediente
+end note
+
+registrarAnotacionesEntrevista -[#red]-> PERFIL_CANDIDATO_ABIERTO_SALIDA
+note on link
+retorno por expediente cerrado
+end note
+
+@enduml

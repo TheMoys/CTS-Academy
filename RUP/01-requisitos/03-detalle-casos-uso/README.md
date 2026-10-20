@@ -76,6 +76,7 @@ A continuación se indexan las especificaciones de los casos de uso nucleares es
 | **PK02 - MotorEvaluacion** | `finalizarTest()` | `Candidato` / `Alumno` | [especificacion.puml](finalizarTest/especificacion.puml) | [wireframes.puml](finalizarTest/wireframes.puml) | [Detalle](finalizarTest/README.md) |
 | **PK02 - MotorEvaluacion** | `abrirPerfilCandidato()` | `Gestor` | [especificacion.puml](abrirPerfilCandidato/especificacion.puml) | [wireframes.puml](abrirPerfilCandidato/wireframes.puml) | [Detalle](abrirPerfilCandidato/README.md) |
 | **PK02 - MotorEvaluacion** | `agendarEntrevistaGoogleMeet()` | `Gestor` | [especificacion.puml](agendarEntrevistaGoogleMeet/especificacion.puml) | [wireframes.puml](agendarEntrevistaGoogleMeet/wireframes.puml) | [Detalle](agendarEntrevistaGoogleMeet/README.md) |
+| **PK02 - MotorEvaluacion** | `registrarAnotacionesEntrevista()` | `Gestor` | [especificacion.puml](registrarAnotacionesEntrevista/especificacion.puml) | [wireframes.puml](registrarAnotacionesEntrevista/wireframes.puml) | [Detalle](registrarAnotacionesEntrevista/README.md) |
 | **PK03 - MotorFormacion** | `enviarEntregable()` | `Alumno` | [especificacion.puml](enviarEntregable/especificacion.puml) | [wireframes.puml](enviarEntregable/wireframes.puml) | [Detalle](enviarEntregable/README.md) |
 
 </div>

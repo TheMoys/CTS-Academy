@@ -1,0 +1,43 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — REGISTRO DE ANOTACIONES CUALITATIVAS DE ENTREVISTA</b>
+    ====
+    <b>Candidato:</b> Carlos Mendoza Rivas | <b>Expediente:</b> CTS-2026-SDR-014 | <b>Gestor:</b> Diego Moys (TL / Gestor PROFER)
+    <b>Entrevista Vinculada:</b> Google Meet (05/11/2026 10:30 CET) | <b>Estado:</b> Realizada / En deliberación
+    --
+    {
+        <b>1. BITÁCORA HISTÓRICA DE ANOTACIONES (ENTRADAS PREVIAS):</b>
+        --
+        <b>[18/10/2026 11:20] Pre-Entrevista — Gestor PROFER:</b>
+        "Revisión de portfolio y perfil GitHub. Fuerte afinidad técnica en Node.js y Docker. Candidato remitido por sede Santander."
+        --
+        <b>[05/11/2026 11:15] En Sesión Meet — Gestor PROFER:</b>
+        "Excelente desenvolvimiento verbal. Explica con claridad el ciclo de vida de un microservicio y la justificación de DDD."
+    }
+    --
+    {
+        <b>2. NUEVA ENTRADA DE EVALUACIÓN CUALITATIVA:</b>
+        --
+        <b>Momento de Registro (*):</b> | ^Pre-Entrevista^En Sesión Google Meet^Post-Deliberación (Recomendado)^
+        --
+        <b>Dimensiones de la Rúbrica Cualitativa (ADR-007):</b>
+        {
+            <b>Dimensión</b>                                | <b>Valoración (1 a 5)</b> | <b>Criterio Cualitativo</b>
+            --
+            Comunicación y Argumentación Técnica         | ( ) 1  ( ) 2  ( ) 3  ( ) 4  (X) 5 | Excepcional claridad y precisión
+            Fit Cultural y Trabajo en Equipo (CTS)       | ( ) 1  ( ) 2  ( ) 3  (X) 4  ( ) 5 | Alta afinidad con dinámicas ágiles
+            Actitud Profesional y Resolución             | ( ) 1  ( ) 2  ( ) 3  ( ) 4  (X) 5 | Proactivo y receptivo al feedback
+            Compromiso con Estancia On-Site / Movilidad  | ( ) 1  ( ) 2  ( ) 3  (X) 4  ( ) 5 | Disponibilidad confirmada para turno
+        }
+        --
+        <b>Observaciones Detalladas y Evidencias Observadas (*):</b>
+        "El candidato demostró gran madurez durante la sesión por Google Meet. Tiene bases sólidas en arquitectura   "
+        "backend y disposición total para incorporarse al turno intensivo de desarrollo on-site. Encaja de forma     "
+        "óptima en el Equipo 01 (Backend & Arquitectura). Se recomienda proceder con su admisión formal.            "
+        --
+        <b>Dictamen Preliminar Sugerido:</b> | ^Favorable (Recomendado para Admisión)^Favorable con Reservas^Desfavorable^
+    }
+    --
+    [ Cancelar ] | <b>[ Registrar Anotación en Bitácora ]</b>
+}
+@endsalt
