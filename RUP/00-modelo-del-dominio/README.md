@@ -1,6 +1,7 @@
-<div align=right>
+<div align="center">
 
-<sub>[Al inicio](/README.md) / [Bitácora RUP](/RUP/BITACORA.md) / **Modelo del dominio** / [Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md) / [Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / [Análisis](/RUP/02-analisis/README.md) / [Diseño](/RUP/03-diseño/README.md) / [Desarrollo](/RUP/04-desarrollo/README.md)</sub>
+| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [📜 Bitácora ADR](/RUP/BITACORA.md) | **🏛️ 00 Dominio** | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | [🎨 03 Diseño](/RUP/03-diseño/README.md) | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
 
@@ -150,3 +151,11 @@ Gobierna el marco de admisión permanente y los hitos de corte periódico:
 
 * **Admisión activa permanente**: No existen cancelaciones ni plazos fatales de postulación; las recepciones se mantienen vivas todo el año.
 * **Corte semestral**: En cada cambio de semestre se consolidan los alumnos que se incorporan a los 6 equipos de CTS y se da paso al siguiente semestre lectivo.
+
+---
+
+<div align="center">
+
+[⬅️ Volver a la Bitácora ADR](/RUP/BITACORA.md) • [Avanzar a Fase 01: Requisitos ➡️](/RUP/01-requisitos/README.md)
+
+</div>

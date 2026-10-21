@@ -1,4 +1,14 @@
+<div align="center">
+
+| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+
+<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `consultarMaterial()`</sub>
+
+</div>
+
 # Caso de Uso: `consultarMaterial()`
+
 
 ## 1. Identificación y Metadatos
 
@@ -57,3 +67,10 @@ Permite al alumno abrir y leer un material didáctico (guía técnica en Markdow
 
 ## 6. Reglas de Negocio Vinculadas
 - **RN-FORM-05 (Computo de Lectura Requerida):** Para considerar un módulo listo para evaluación de fin de módulo, el alumno debe haber registrado la lectura del 100% de los materiales catalogados como obligatorios por el Tech Leader.
+---
+
+<div align="center">
+
+[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+
+</div>

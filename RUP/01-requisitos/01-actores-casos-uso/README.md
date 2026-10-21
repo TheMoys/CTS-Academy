@@ -1,6 +1,9 @@
-<div align=right>
+<div align="center">
 
-<sub>[Al inicio](/README.md) / [Bitácora RUP](/RUP/BITACORA.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / **Actores y casos de uso** / [Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / [Análisis](/RUP/02-analisis/README.md) / [Diseño](/RUP/03-diseño/README.md) / [Desarrollo](/RUP/04-desarrollo/README.md)</sub>
+| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [📜 Bitácora ADR](/RUP/BITACORA.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | [🎨 03 Diseño](/RUP/03-diseño/README.md) | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+
+**Fase 01 Requisitos:** **👥 Actores y Contexto** • [📋 Catálogo y Detalle de Casos de Uso (35)](/RUP/01-requisitos/03-detalle-casos-uso/README.md)
 
 </div>
 
@@ -120,3 +123,11 @@ Gobierna la admisión continua, la recepción desde las sedes internacionales, l
    * Se define un caso de uso independiente por cada alta, baja, actualización o transición distinguible, evitando casos de uso monolíticos ambiguos.
 3. **Desacoplamiento de Roles**:
    * El `Candidato` y el `Alumno` tienen espacios de trabajo y casos de uso totalmente separados; la transición de uno a otro se produce únicamente tras la acción `admitirAlumnoProfer()` del `Gestor`.
+
+---
+
+<div align="center">
+
+[⬅️ Volver a Hub de Requisitos](/RUP/01-requisitos/README.md) • [Explorar Catálogo y Detalle de Casos de Uso (35) ➡️](/RUP/01-requisitos/03-detalle-casos-uso/README.md)
+
+</div>

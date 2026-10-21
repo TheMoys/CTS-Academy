@@ -1,13 +1,14 @@
-<div align=right>
+<div align="center">
 
-<sub>[Al inicio](/README.md) / [Bitácora RUP](/RUP/BITACORA.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / [Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md) / [Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / **abrirPanelAdmisiones()**</sub>
+| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+
+<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `abrirPanelAdmisiones()`</sub>
 
 </div>
 
 # Caso de Uso: `abrirPanelAdmisiones()`
 
-> | [Inicio](/README.md) | [Diagrama de Contexto Gestor](/images/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoGestor.svg) | [Perfil del Candidato](/RUP/01-requisitos/03-detalle-casos-uso/abrirPerfilCandidato/README.md) | **Detalle** | [Análisis](/RUP/02-analisis/README.md) | [Diseño](/RUP/03-diseño/README.md) |
-> | :-: | :-: | :-: | :-: | :-: | :-: |
 
 <div align=center>
 
@@ -56,3 +57,10 @@
 * [Modelo del Dominio: `Gestor`, `Convocatoria`, `Equipo`](/RUP/00-modelo-del-dominio/README.md)
 * [Diagrama de Contexto Gestor](/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoGestor.puml)
 * [Caso de Uso: `abrirPerfilCandidato()`](/RUP/01-requisitos/03-detalle-casos-uso/abrirPerfilCandidato/README.md)
+---
+
+<div align="center">
+
+[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+
+</div>

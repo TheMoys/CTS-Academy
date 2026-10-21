@@ -1,6 +1,7 @@
-<div align=right>
+<div align="center">
 
-<sub>[Al inicio](/README.md) / [Bitácora RUP](/RUP/BITACORA.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / [Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md) / [Detalle](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / [Análisis](/RUP/02-analisis/README.md) / [Diseño](/RUP/03-diseño/README.md) / [Desarrollo](/RUP/04-desarrollo/README.md)</sub>
+| [🏠 Inicio](/README.md) | **📖 RUP Hub** | [📜 Bitácora ADR](/RUP/BITACORA.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | [🎨 03 Diseño](/RUP/03-diseño/README.md) | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
 
@@ -18,9 +19,9 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 
 |Seguimiento y Decisiones|Modelo del dominio|Requisitos|Análisis|Diseño|
 |:-:|:-:|:-:|:-:|:-:|
-|**[Bitácora RUP (ADR)](/RUP/BITACORA.md)**|[Modelo del dominio](/RUP/00-modelo-del-dominio/README.md)|[Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md)|[Clases de análisis](/RUP/02-analisis/clases-analisis.puml)|[Clases de diseño](/RUP/03-diseño/clases-diseño.puml)|
-|Historial de refinamientos|[Glosario de entidades](/RUP/00-modelo-del-dominio/README.md#glosario-de-entidades-por-microservicio)|[Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md)|[Colaboraciones de análisis](/RUP/02-analisis/casos-uso/README.md)|[Diagrama Entidad-Relación](/RUP/03-diseño/modelo-datos/README.md)|
-|Registro de acuerdos RUP|[3 Microservicios](/RUP/00-modelo-del-dominio/README.md#1-los-3-microservicios-del-sistema)|Wireframes de interfaz||[Despliegue Docker](/RUP/03-diseño/despliegue/README.md)|
+|**[Bitácora RUP (ADR)](/RUP/BITACORA.md)**|[Modelo del dominio](/RUP/00-modelo-del-dominio/README.md)|[Hub de Requisitos](/RUP/01-requisitos/README.md)|[Fase 02: Análisis](/RUP/02-analisis/README.md)|[Fase 03: Diseño](/RUP/03-diseño/README.md)|
+|Historial de refinamientos|[Glosario de entidades](/RUP/00-modelo-del-dominio/README.md#glosario-de-entidades-por-microservicio)|[Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)|Clases de análisis (BCE)|Diagrama Entidad-Relación|
+|Registro de acuerdos RUP|[3 Microservicios](/RUP/00-modelo-del-dominio/README.md#1-los-3-microservicios-del-sistema)|[Detalle Casos de Uso (35)](/RUP/01-requisitos/03-detalle-casos-uso/README.md)|Colaboraciones de análisis|Despliegue Docker|
 
 </div>
 
@@ -33,7 +34,7 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 |Fase|Directorio / Enlace|Propósito y Contenido Principal|
 |:-|:-|:-|
 |**00 - Dominio**|[Modelo del dominio](/RUP/00-modelo-del-dominio/README.md)|Vocabulario del negocio, modelo conceptual de entidades, estados del ciclo de vida y reglas invariantes.|
-|**01 - Requisitos**|[Requisitos](/RUP/01-requisitos/01-actores-casos-uso/README.md)|Catálogo de actores, diagramas de contexto, diagramas de casos de uso por paquete funcional, especificaciones formales con máquinas de estados y wireframes.|
+|**01 - Requisitos**|[Requisitos](/RUP/01-requisitos/README.md)|Catálogo de actores, diagramas de contexto, diagramas de casos de uso por paquete funcional, especificaciones formales con máquinas de estados y wireframes.|
 |**02 - Análisis**|[Análisis](/RUP/02-analisis/README.md)|Clases de análisis (Frontera, Control, Entidad) y realizaciones de casos de uso independientes de la tecnología concreta.|
 |**03 - Diseño**|[Diseño](/RUP/03-diseño/README.md)|Diagramas de secuencia de diseño, contratos de API REST/GraphQL, diseño relacional (DER), clases del stack tecnológico y despliegue físico con Docker.|
 |**04 - Desarrollo**|[Desarrollo](/RUP/04-desarrollo/README.md)|Trazabilidad hacia el código fuente de backend y frontend, componentes y pruebas automatizadas.|

@@ -1,4 +1,14 @@
+<div align="center">
+
+| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+
+<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `eliminarMaterial()`</sub>
+
+</div>
+
 # Caso de Uso: `eliminarMaterial()`
+
 
 ## 1. Identificación y Metadatos
 
@@ -59,3 +69,10 @@ Permite al Tech Leader despublicar o eliminar lógicamente un recurso didáctico
 
 ## 6. Reglas de Negocio Vinculadas
 - **RN-LEAD-03 (Baja No Destructiva):** La eliminación es siempre lógica para preservar el histórico de métricas de lectura de alumnos de cohortes previas.
+---
+
+<div align="center">
+
+[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+
+</div>

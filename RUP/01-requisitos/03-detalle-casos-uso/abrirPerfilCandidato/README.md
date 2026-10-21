@@ -1,13 +1,14 @@
-<div align=right>
+<div align="center">
 
-<sub>[Al inicio](/README.md) / [Bitácora RUP](/RUP/BITACORA.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / [Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md) / [Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / **abrirPerfilCandidato()**</sub>
+| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+
+<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `abrirPerfilCandidato()`</sub>
 
 </div>
 
 # Caso de Uso: `abrirPerfilCandidato()`
 
-> | [Inicio](/README.md) | [Diagrama de Contexto Gestor](/images/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoGestor.svg) | **Detalle** | [Análisis](/RUP/02-analisis/README.md) | [Diseño](/RUP/03-diseño/README.md) |
-> | :-: | :-: | :-: | :-: | :-: |
 
 <div align=center>
 
@@ -61,3 +62,10 @@
 
 * [Diagrama de Estados de Candidatura](/RUP/00-modelo-del-dominio/estados-entidades/candidatura-estados.puml)
 * [ADR-009: Entrevistas Google Meet en el Perfil por el Gestor](/RUP/BITACORA.md#adr-009-delimitaci%C3%B3n-de-actores-opacidad-de-tests-para-el-candidato-entrevistas-google-meet-en-el-perfil-por-el-gestor-y-aislamiento-del-tl)
+---
+
+<div align="center">
+
+[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+
+</div>

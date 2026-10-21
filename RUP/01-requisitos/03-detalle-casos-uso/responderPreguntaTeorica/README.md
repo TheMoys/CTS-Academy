@@ -1,13 +1,14 @@
-<div align=right>
+<div align="center">
 
-<sub>[Al inicio](/README.md) / [Bitácora RUP](/RUP/BITACORA.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / [Actores y casos de uso](/RUP/01-requisitos/01-actores-casos-uso/README.md) / [Detalle de casos de uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) / **responderPreguntaTeorica()**</sub>
+| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+
+<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `responderPreguntaTeorica()`</sub>
 
 </div>
 
 # Caso de Uso: `responderPreguntaTeorica()`
 
-> | [Inicio](/README.md) | [Diagrama de Contexto Candidato](/images/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoCandidato.svg) | [Diagrama de Contexto Alumno](/images/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoAlumno.svg) | **Detalle** | [Análisis](/RUP/02-analisis/README.md) | [Diseño](/RUP/03-diseño/README.md) |
-> | :-: | :-: | :-: | :-: | :-: | :-: |
 
 <div align=center>
 
@@ -62,3 +63,10 @@
 * [Diagrama de Estados de Test (`PENDIENTE` → `EN_CURSO` → `ENTREGADO` / `EXPIRADO`)](/RUP/00-modelo-del-dominio/estados-entidades/test-estados.puml)
 * [Diagrama de Contexto Candidato](/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoCandidato.puml)
 * [ADR-007: Admisión continua y batería de 3 tests diagnósticos](/RUP/BITACORA.md#adr-007-admisi%C3%B3n-continua-por-ciclos-acad%C3%A9micos-bater%C3%ADa-de-3-tests-e-inclusi%C3%B3n-de-entrevista)
+---
+
+<div align="center">
+
+[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+
+</div>

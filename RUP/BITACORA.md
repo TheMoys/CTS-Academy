@@ -1,6 +1,7 @@
-<div align=right>
+<div align="center">
 
-<sub>[Al inicio](/README.md) / [RUP Principal](/RUP/README.md) / [Modelo del dominio](/RUP/00-modelo-del-dominio/README.md) / [Requisitos](/RUP/01-requisitos/01-actores-casos-uso/README.md)</sub>
+| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | **📜 Bitácora ADR** | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | [🎨 03 Diseño](/RUP/03-diseño/README.md) | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
 
