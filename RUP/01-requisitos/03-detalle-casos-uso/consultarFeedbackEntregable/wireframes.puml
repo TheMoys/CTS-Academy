@@ -1,0 +1,29 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — DETALLE Y RETROALIMENTACIÓN DE ENTREGABLE DE CÓDIGO</b>
+    ====
+    <b>Laboratorio:</b> Lab 02: Middleware de Autenticación & Tests | <b>Módulo:</b> M02 - Microservicios & REST
+    <b>Alumno:</b> Carlos Mendoza Rivas | <b>Tech Leader Tutor:</b> Diego Moys | [ Volver al Módulo ]
+    --
+    {
+        <b>Repositorio del Alumno:</b> github.com/cts-academy-students/carlos-mendoza-lab02
+        <b>Pull Request Entregado:</b> PR #14 (Rama: feature/auth-middleware) | <b>Fecha de Entrega:</b> 18/10/2026 15:42
+        <b>Dictamen del Tech Leader:</b> <color:orange><b>CAMBIOS SOLICITADOS (Requiere Corrección)</b></color>
+        <b>Calificación Preliminar:</b> 6.0 / 10.0 | <b>Fecha de Revisión:</b> 19/10/2026 11:30
+    }
+    --
+    <b>OBSERVACIONES TÉCNICAS Y FEEDBACK DEL TECH LEADER:</b>
+    {
+        "Buen avance en la estructura de los middlewares, Carlos. Sin embargo, hay dos puntos críticos:
+        1. El middleware verifyToken no está manejando adecuadamente la expiración de tokens (TokenExpiredError).
+           Actualmente devuelve un 500 en lugar de un código HTTP 401 Unauthorized estructurado.
+        2. Faltan los tests unitarios para verificar el caso en que el header Authorization venga vacío o malformado.
+        Corrige estos dos puntos, actualiza tu rama en GitHub y solicita nueva revisión."
+    }
+    --
+    <b>ACCIONES DISPONIBLES:</b>
+    {
+        [ <b>Actualizar Entrega / Reenviar PR Corregido</b> ] | [ Ver Pull Request en GitHub ] | [ Volver al Módulo ]
+    }
+}
+@endsalt

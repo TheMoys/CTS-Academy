@@ -1,0 +1,40 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state CAPACITACION_ABIERTO
+state MODULO_ABIERTO
+
+CAPACITACION_ABIERTO -[#green]-> consultarModulo
+note on link
+<b>Alumno</b> selecciona módulo formativo habilitado
+<b>Alumno</b> solicita consultar módulo
+end note
+
+state consultarModulo as "consultarModulo()" {
+
+    state " " as PresentandoDetalleModulo
+
+    [*] -[#green]-> PresentandoDetalleModulo
+    note on link
+    <b>Sistema</b> presenta objetivos pedagógicos, guías de estudio y diagramas
+    <b>Sistema</b> presenta laboratorios prácticos, consignas y estado de entregas
+    <b>Sistema</b> presenta estado de habilitación del test técnico de fin de módulo
+    <b>Sistema</b> permite seleccionar material didáctico para consultar contenido
+    <b>Sistema</b> permite solicitar enviar entregable de laboratorio
+    <b>Sistema</b> permite solicitar iniciar test técnico si está habilitado
+    <b>Sistema</b> permite solicitar volver a la capacitación
+    end note
+
+    PresentandoDetalleModulo -[#green]-> [*]
+    note on link
+    detalle del módulo desplegado y operativo
+    end note
+}
+
+consultarModulo -[#green]-> MODULO_ABIERTO
+note on link
+módulo de formación abierto en pantalla
+end note
+
+@enduml

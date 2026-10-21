@@ -1,0 +1,37 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state INICIO_ALUMNO_ABIERTO
+state INICIO_ALUMNO_ABIERTO_SALIDA as "INICIO_ALUMNO_ABIERTO"
+
+INICIO_ALUMNO_ABIERTO -[#green]-> abrirPanelAlumno
+note on link
+<b>Alumno</b> solicita abrir panel de formación
+end note
+
+state abrirPanelAlumno as "abrirPanelAlumno()" {
+
+    state " " as PresentandoPanelAlumno
+
+    [*] -[#green]-> PresentandoPanelAlumno
+    note on link
+    <b>Sistema</b> presenta información del alumno, equipo CTS asignado y Tech Leader
+    <b>Sistema</b> presenta avance porcentual de formación y módulo en curso
+    <b>Sistema</b> presenta entregables con feedback disponible y pendientes de entrega
+    <b>Sistema</b> permite seleccionar ruta formativa para consultar capacitación
+    <b>Sistema</b> permite seleccionar entregable para consultar retroalimentación
+    end note
+
+    PresentandoPanelAlumno -[#green]-> [*]
+    note on link
+    panel de inicio del alumno sincronizado y operativo
+    end note
+}
+
+abrirPanelAlumno -[#green]-> INICIO_ALUMNO_ABIERTO_SALIDA
+note on link
+dashboard del alumno en pantalla con métricas de progreso
+end note
+
+@enduml

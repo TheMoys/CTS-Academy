@@ -1,0 +1,37 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state MODULO_ABIERTO
+state MODULO_ABIERTO_SALIDA as "MODULO_ABIERTO"
+
+MODULO_ABIERTO -[#green]-> consultarMaterial
+note on link
+<b>Alumno</b> selecciona material didáctico del módulo
+<b>Alumno</b> solicita consultar material
+end note
+
+state consultarMaterial as "consultarMaterial()" {
+
+    state " " as PresentandoContenidoMaterial
+
+    [*] -[#green]-> PresentandoContenidoMaterial
+    note on link
+    <b>Sistema</b> presenta visor de contenido didáctico y documentación técnica
+    <b>Sistema</b> registra lectura del material y actualiza progreso del módulo
+    <b>Sistema</b> permite solicitar descargar recurso complementario
+    <b>Sistema</b> permite solicitar cerrar visor de material didáctico
+    end note
+
+    PresentandoContenidoMaterial -[#green]-> [*]
+    note on link
+    <b>Alumno</b> solicita cerrar visor de material didáctico
+    end note
+}
+
+consultarMaterial -[#green]-> MODULO_ABIERTO_SALIDA
+note on link
+material consultado y marcado como completado en el módulo
+end note
+
+@enduml

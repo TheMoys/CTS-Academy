@@ -1,0 +1,33 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — VISOR DE MATERIAL DIDÁCTICO</b>
+    ====
+    <b>Módulo:</b> M02 - Microservicios & Arquitectura REST | <b>Material:</b> Guía 02: Autenticación JWT y Manejo de Refresh Tokens
+    --
+    {
+        <b>Tipo:</b> Guía Técnica / Markdown | <b>Autor:</b> Tech Leader Diego Moys | <b>Tiempo Estimado:</b> 25 minutos
+        <b>Estado de Lectura:</b> <color:green>Completado</color>
+    }
+    --
+    <b>CONTENIDO DIDÁCTICO DEL RECURSO:</b>
+    {
+        == 1. Introducción al Estándar JWT (RFC 7519) ==
+        Un JSON Web Token (JWT) es un estándar abierto que define una forma compacta y autónoma
+        de transmitir información de forma segura entre las partes como un objeto JSON.
+
+        == 2. Estructura de un Token JWT ==
+        Un token está compuesto por tres partes separadas por puntos (header.payload.signature):
+        * Header: Tipo de token y algoritmo de firma (ej. RS256 o HS256).
+        * Payload: Claims con la identidad del usuario y roles técnicos.
+        * Signature: Cifrado con clave secreta o par asimétrico RSA.
+
+        == 3. Estrategia de Refresh Tokens en CTS Academy ==
+        * Access Token en memoria / encabezado Authorization Bearer con vigencia de 15 minutos.
+        * Refresh Token en Cookie HttpOnly con rotación estricta y revocación en Redis.
+    }
+    --
+    [ Descargar Guía en PDF ] | [ Descargar Código de Ejemplo (.zip) ]
+    --
+    [ Marcar como Leído y Volver al Módulo ] | [ Siguiente Material -> ]
+}
+@endsalt

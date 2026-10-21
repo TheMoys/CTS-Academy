@@ -85,6 +85,11 @@ A continuación se indexan las especificaciones de los casos de uso nucleares es
 | **PK04 - MotorEquipos** | `abrirPeriodoIngreso()` | `Gestor` | [especificacion.puml](abrirPeriodoIngreso/especificacion.puml) | [wireframes.puml](abrirPeriodoIngreso/wireframes.puml) | [Detalle](abrirPeriodoIngreso/README.md) |
 | **PK04 - MotorEquipos** | `cerrarCorteSemestral()` | `Gestor` | [especificacion.puml](cerrarCorteSemestral/especificacion.puml) | [wireframes.puml](cerrarCorteSemestral/wireframes.puml) | [Detalle](cerrarCorteSemestral/README.md) |
 | **PK04 - MotorEquipos** | `abrirPanelLider()` | `LiderEquipo` | [especificacion.puml](abrirPanelLider/especificacion.puml) | [wireframes.puml](abrirPanelLider/wireframes.puml) | [Detalle](abrirPanelLider/README.md) |
+| **PK03 - MotorFormacion** | `abrirPanelAlumno()` | `Alumno` | [especificacion.puml](abrirPanelAlumno/especificacion.puml) | [wireframes.puml](abrirPanelAlumno/wireframes.puml) | [Detalle](abrirPanelAlumno/README.md) |
+| **PK03 - MotorFormacion** | `consultarCapacitacion()` | `Alumno` | [especificacion.puml](consultarCapacitacion/especificacion.puml) | [wireframes.puml](consultarCapacitacion/wireframes.puml) | [Detalle](consultarCapacitacion/README.md) |
+| **PK03 - MotorFormacion** | `consultarModulo()` | `Alumno` | [especificacion.puml](consultarModulo/especificacion.puml) | [wireframes.puml](consultarModulo/wireframes.puml) | [Detalle](consultarModulo/README.md) |
+| **PK03 - MotorFormacion** | `consultarMaterial()` | `Alumno` | [especificacion.puml](consultarMaterial/especificacion.puml) | [wireframes.puml](consultarMaterial/wireframes.puml) | [Detalle](consultarMaterial/README.md) |
 | **PK03 - MotorFormacion** | `enviarEntregable()` | `Alumno` | [especificacion.puml](enviarEntregable/especificacion.puml) | [wireframes.puml](enviarEntregable/wireframes.puml) | [Detalle](enviarEntregable/README.md) |
+| **PK03 - MotorFormacion** | `consultarFeedbackEntregable()` | `Alumno` | [especificacion.puml](consultarFeedbackEntregable/especificacion.puml) | [wireframes.puml](consultarFeedbackEntregable/wireframes.puml) | [Detalle](consultarFeedbackEntregable/README.md) |
 
 </div>

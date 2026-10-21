@@ -1,0 +1,32 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — HOJA DE RUTA Y CAPACITACIÓN DEL EQUIPO</b>
+    ====
+    <b>Alumno:</b> Carlos Mendoza Rivas | <b>Equipo:</b> Equipo 01 — Backend & Arquitectura | [ Volver al Inicio ]
+    --
+    {
+        <b>Itinerario Técnico Asignado:</b> Formación de Desarrollo Backend Especializado en Entornos Distribuidos
+        <b>Progreso Global del Itinerario:</b> [=========>  ] 50% | <b>Módulos Aprobados:</b> 1 de 4 | <b>En Curso:</b> 1
+    }
+    --
+    <b>MÓDULOS DE LA HOJA DE RUTA:</b>
+    {
+        <b>Fase / Módulo</b>                             | <b>Competencias Clave</b>              | <b>Horas Est.</b> | <b>Estado</b>       | <b>Acción</b>
+        --
+        <b>M01: Arquitectura Hexagonal y DDD en Node</b> | Puertos y Adaptadores, Dominio, DTOs  | 40 horas          | <color:green>APROBADO</color>   | [ Ver Detalles ]
+        <b>M02: Microservicios y Arquitectura REST</b>   | JWT, Clean Code, OpenAPI, Middleware  | 45 horas          | <color:blue>EN CURSO</color>    | [ Abrir Módulo ]
+        <b>M03: Persistencia y Transacciones</b>         | PostgreSQL, TypeORM, ACID, Índices    | 35 horas          | <color:gray>BLOQUEADO</color>   | [ Ver Requisitos ]
+        <b>M04: Sistemas Distribuidos y RabbitMQ</b>     | Broker de Mensajes, Event Sourcing    | 40 horas          | <color:gray>BLOQUEADO</color>   | [ Ver Requisitos ]
+    }
+    --
+    <b>REQUISITOS DE DESBLOQUEO:</b>
+    {
+        Para desbloquear un módulo formativo se exige:
+        * 100% de materiales didácticos del módulo previo consultados.
+        * Todos los laboratorios y Pull Requests aprobados formalmente por el Tech Leader.
+        * Superar el test técnico de fin de módulo con un porcentaje mínimo de suficiencia.
+    }
+    --
+    [ Volver al Panel Principal ]
+}
+@endsalt

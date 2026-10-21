@@ -1,0 +1,37 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state INICIO_ALUMNO_ABIERTO
+state CAPACITACION_ABIERTO
+
+INICIO_ALUMNO_ABIERTO -[#green]-> consultarCapacitacion
+note on link
+<b>Alumno</b> solicita consultar capacitación
+end note
+
+state consultarCapacitacion as "consultarCapacitacion()" {
+
+    state " " as PresentandoItinerarioCapacitacion
+
+    [*] -[#green]-> PresentandoItinerarioCapacitacion
+    note on link
+    <b>Sistema</b> presenta itinerario formativo completo y competencias del equipo CTS
+    <b>Sistema</b> presenta módulos formativos en orden secuencial y estado de desbloqueo
+    <b>Sistema</b> presenta métricas de avance por módulo y porcentaje acumulado
+    <b>Sistema</b> permite seleccionar módulo formativo habilitado para consultar temario
+    <b>Sistema</b> permite solicitar volver al panel de inicio
+    end note
+
+    PresentandoItinerarioCapacitacion -[#green]-> [*]
+    note on link
+    itinerario formativo desplegado en pantalla
+    end note
+}
+
+consultarCapacitacion -[#green]-> CAPACITACION_ABIERTO
+note on link
+vista de capacitación activa y lista para navegación
+end note
+
+@enduml

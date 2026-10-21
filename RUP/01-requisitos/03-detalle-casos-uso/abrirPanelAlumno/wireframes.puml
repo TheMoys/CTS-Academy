@@ -1,0 +1,30 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — PANEL PRINCIPAL DEL ALUMNO (INICIO)</b>
+    ====
+    <b>Alumno:</b> Carlos Mendoza Rivas | <b>Equipo:</b> Equipo 01 — Team Fénix | <b>Tech Leader:</b> Diego Moys | [ Cerrar Sesión ]
+    --
+    {
+        <b>Progreso General del Onboarding:</b> [=========>  ] 75% | <b>Fase Actual:</b> Onboarding Técnico Especializado
+        <b>Módulo Activo:</b> M02 - Microservicios & Arquitectura REST | <b>Entregables Aprobados:</b> 3 de 5
+    }
+    --
+    <b>ALERTAS Y ACCIONES RECIENTES:</b>
+    {
+        [ <b>Nuevo Feedback:</b> Pull Request #14 - Feedback del Tech Leader disponible ] | [ Ver Feedback ]
+        [ <b>Próxima Entrega:</b> Laboratorio 03 - Autenticación JWT y Middlewares (Vence en 2 días) ]
+    }
+    --
+    <b>HOJA DE RUTA FORMATIVA ASIGNADA:</b>
+    {
+        <b>Módulo</b>                               | <b>Estado</b>       | <b>Progreso</b>      | <b>Laboratorios</b> | <b>Acción</b>
+        --
+        M01 - Arquitectura Hexagonal y DDD en Node  | <color:green>Completado</color>  | [==========] 100% | 2 de 2 aprobados | [ Ver Módulo ]
+        M02 - Microservicios & Arquitectura REST    | <color:blue>En Curso</color>     | [=========>] 75%  | 1 de 2 aprobados | [ Continuar Módulo ]
+        M03 - Persistencia Relacional y Transacciones| <color:gray>Bloqueado</color>   | [          ] 0%   | 0 de 2 entregados| [ Ver Temario ]
+        M04 - Event-Driven & RabbitMQ               | <color:gray>Bloqueado</color>   | [          ] 0%   | 0 de 2 entregados| [ Ver Temario ]
+    }
+    --
+    [ Consultar Hoja de Ruta Completa ] | [ Ver Todos Mis Entregables ]
+}
+@endsalt

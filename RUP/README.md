@@ -64,12 +64,12 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 |**PK02 - MotorEvaluacion**|`rechazarCandidatura()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/rechazarCandidatura/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`registrarCandidato()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/registrarCandidato/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`importarCandidatosSede()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/importarCandidatosSede/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`abrirPanelAlumno()`|`Alumno`|—|—|—|—|
-|**PK03 - MotorFormacion**|`consultarCapacitacion()`|`Alumno`|—|—|—|—|
-|**PK03 - MotorFormacion**|`consultarModulo()`|`Alumno`|—|—|—|—|
-|**PK03 - MotorFormacion**|`consultarMaterial()`|`Alumno`|—|—|—|—|
+|**PK03 - MotorFormacion**|`abrirPanelAlumno()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelAlumno/README.md)|—|—|—|
+|**PK03 - MotorFormacion**|`consultarCapacitacion()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/consultarCapacitacion/README.md)|—|—|—|
+|**PK03 - MotorFormacion**|`consultarModulo()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/consultarModulo/README.md)|—|—|—|
+|**PK03 - MotorFormacion**|`consultarMaterial()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/consultarMaterial/README.md)|—|—|—|
 |**PK03 - MotorFormacion**|`enviarEntregable()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/enviarEntregable/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`consultarFeedbackEntregable()`|`Alumno`|—|—|—|—|
+|**PK03 - MotorFormacion**|`consultarFeedbackEntregable()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/consultarFeedbackEntregable/README.md)|—|—|—|
 |**PK03 - MotorFormacion**|`crearMaterial()`|`LiderEquipo`|—|—|—|—|
 |**PK03 - MotorFormacion**|`editarMaterial()`|`LiderEquipo`|—|—|—|—|
 |**PK03 - MotorFormacion**|`eliminarMaterial()`|`LiderEquipo`|—|—|—|—|

@@ -1,0 +1,38 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — DETALLE DE MÓDULO FORMATIVO</b>
+    ====
+    <b>Módulo:</b> M02 - Microservicios & Arquitectura REST | <b>Equipo:</b> Equipo 01 | [ Volver a la Capacitación ]
+    --
+    {
+        <b>Estado del Módulo:</b> <color:blue>EN CURSO</color> | <b>Progreso:</b> [=========>  ] 75%
+        <b>Materiales Leídos:</b> 8 de 8 | <b>Laboratorios Aprobados:</b> 1 de 2 | <b>Test Técnico:</b> Pendiente
+    }
+    --
+    <b>1. MATERIALES DIDÁCTICOS Y GUÍAS DE ESTUDIO:</b>
+    {
+        <b>Título del Recurso</b>                               | <b>Tipo</b>        | <b>Lectura</b> | <b>Acción</b>
+        --
+        Guía 01: Principios REST y Verbos HTTP Canónicos        | Documentación Guía | Leído         | [ Leer Material ]
+        Guía 02: Autenticación JWT y Manejo de Refresh Tokens   | Documentación Guía | Leído         | [ Leer Material ]
+        Guía 03: Arquitectura en Capas y Middlewares en Express | Documentación Guía | Leído         | [ Leer Material ]
+        Diagrama: Flujo de Autorización y Cifrado Token         | Diagrama Técnico   | Leído         | [ Ver Recurso ]
+    }
+    --
+    <b>2. ENTREGABLES Y LABORATORIOS PRÁCTICOS:</b>
+    {
+        <b>Laboratorio</b>                                      | <b>Pull Request</b>   | <b>Estado Entrega</b>       | <b>Acción</b>
+        --
+        Lab 01: API REST con Controladores y DTOs               | PR #12 (github.com)  | <color:green>APROBADO (Nota: 9/10)</color> | [ Ver Feedback ]
+        Lab 02: Middleware de Autenticación y Test de Integración| PR #14 (github.com)  | <color:orange>CAMBIOS SOLICITADOS</color>  | [ Corregir y Reenviar ]
+    }
+    --
+    <b>3. EVALUACIÓN Y CIERRE DE MÓDULO:</b>
+    {
+        <b>Test Técnico de Nivelación:</b> Bloqueado hasta tener todos los laboratorios prácticos en estado APROBADO.
+        [ Iniciar Test Técnico de Fin de Módulo ]
+    }
+    --
+    [ Volver a la Hoja de Ruta ]
+}
+@endsalt

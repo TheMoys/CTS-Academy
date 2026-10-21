@@ -1,0 +1,38 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state ENTREGABLE_ABIERTO
+state ENTREGABLE_ABIERTO_SALIDA as "ENTREGABLE_ABIERTO"
+
+ENTREGABLE_ABIERTO -[#green]-> consultarFeedbackEntregable
+note on link
+<b>Alumno</b> selecciona entregable evaluado
+<b>Alumno</b> solicita consultar retroalimentación
+end note
+
+state consultarFeedbackEntregable as "consultarFeedbackEntregable()" {
+
+    state " " as PresentandoFeedbackEntregable
+
+    [*] -[#green]-> PresentandoFeedbackEntregable
+    note on link
+    <b>Sistema</b> presenta dictamen emitido por el Tech Leader (APROBADO o CAMBIOS SOLICITADOS)
+    <b>Sistema</b> presenta calificación numérica obtenida y rúbrica de evaluación
+    <b>Sistema</b> presenta observaciones detalladas de la revisión de código sobre el PR
+    <b>Sistema</b> permite solicitar reenviar entregable corregido si requiere cambios
+    <b>Sistema</b> permite solicitar volver al módulo formativo
+    end note
+
+    PresentandoFeedbackEntregable -[#green]-> [*]
+    note on link
+    retroalimentación consultada por el alumno
+    end note
+}
+
+consultarFeedbackEntregable -[#green]-> ENTREGABLE_ABIERTO_SALIDA
+note on link
+detalle del entregable y evaluación en pantalla
+end note
+
+@enduml
