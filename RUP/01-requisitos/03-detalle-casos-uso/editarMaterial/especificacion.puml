@@ -1,0 +1,56 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state MODULO_CONFIGURACION_ABIERTO
+state MODULO_CONFIGURACION_ABIERTO_SALIDA as "MODULO_CONFIGURACION_ABIERTO"
+
+MODULO_CONFIGURACION_ABIERTO -[#green]-> editarMaterial
+note on link
+<b>LiderEquipo</b> selecciona material didáctico
+<b>LiderEquipo</b> solicita editar material didáctico
+end note
+
+state editarMaterial as "editarMaterial()" {
+
+    state " " as EditandoDatosMaterial
+    state c_val <<choice>>
+
+    [*] -[#green]-> EditandoDatosMaterial
+    note on link
+    <b>Sistema</b> presenta formulario precargado con los datos del material
+    <b>Sistema</b> permite introducir modificaciones en título, contenido y parámetros
+    <b>Sistema</b> permite solicitar actualizar material
+    <b>Sistema</b> permite solicitar cancelar edición
+    end note
+
+    EditandoDatosMaterial -[#green]-> c_val
+    note on link
+    <b>LiderEquipo</b> introduce modificaciones en datos del material
+    <b>LiderEquipo</b> solicita actualizar material
+    end note
+
+    c_val -[#green]-> [*]
+    note on link
+    [modificaciones válidas]
+    <b>Sistema</b> actualiza material didáctico en el módulo formativo
+    end note
+
+    c_val -[#red]-> EditandoDatosMaterial
+    note on link
+    [título o contenido vacío]
+    <b>Sistema</b> presenta mensaje de error en datos modificados
+    end note
+
+    EditandoDatosMaterial -[#blue]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita cancelar edición
+    end note
+}
+
+editarMaterial -[#green]-> MODULO_CONFIGURACION_ABIERTO_SALIDA
+note on link
+material didáctico actualizado y reflejado en el temario
+end note
+
+@enduml

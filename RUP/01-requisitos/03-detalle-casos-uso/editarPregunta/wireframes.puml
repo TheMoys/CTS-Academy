@@ -1,0 +1,35 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — EDITAR PREGUNTA TÉCNICA (BANCO DE EVALUACIÓN)</b>
+    ====
+    <b>Pregunta ID:</b> PREG-108 | <b>Categoría:</b> APIs REST & Seguridad JWT | <b>Tech Leader:</b> Diego Moys
+    --
+    {
+        <b>Tipo de Pregunta:</b>      | (X) Teórica / Opción Múltiple (MCQ)  ( ) Reto Práctico Sandbox
+        <b>Categoría Técnica:</b>     | ^APIs REST & Seguridad JWT^Arquitectura Hexagonal & Patrones|APIs REST & Seguridad JWT|Persistencia Relacional|Event-Driven & RabbitMQ^
+        <b>Nivel de Dificultad:</b>   | ^Avanzado^Básico|Intermedio|Avanzado^
+        <b>Puntos Asignados:</b>      | "1.5"
+        <b>Tiempo Límite Estimado:</b> | "180" segundos
+    }
+    --
+    <b>ENUNCIADO DE LA PREGUNTA:</b>
+    {
+        "¿Qué vulnerabilidad de seguridad mitiga principalmente la configuración de la directiva
+        SameSite=Strict combinada con el flag HttpOnly en las cookies de sesión?"
+    }
+    --
+    <b>OPCIONES DE RESPUESTA:</b>
+    {
+        <b>Correcta</b> | <b>Texto de la Opción de Respuesta</b>
+        --
+        (X)      | Cross-Site Request Forgery (CSRF) y robo de sesión mediante scripts XSS maliciosos.
+        ( )      | Ataques de denegación de servicio distribuido (DDoS) a nivel de capa de transporte.
+        ( )      | Inyección de comandos SQL mediante parámetros en la URL de la petición.
+        ( )      | Envenenamiento de caché DNS en peticiones hacia microservicios backend.
+    }
+    --
+    [ + Añadir Otra Opción ]
+    --
+    [ <b>Guardar Modificaciones</b> ] | [ Cancelar ]
+}
+@endsalt

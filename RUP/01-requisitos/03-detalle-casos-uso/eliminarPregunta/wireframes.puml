@@ -1,0 +1,20 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — CONFIRMAR DESACTIVACIÓN DE PREGUNTA TÉCNICA</b>
+    ====
+    <b>Pregunta ID:</b> PREG-108 | <b>Categoría:</b> APIs REST & Seguridad JWT | <b>Tech Leader:</b> Diego Moys
+    --
+    {
+        <b>¿Está seguro de que desea desactivar esta pregunta técnica del banco?</b>
+        
+        <b>Enunciado:</b> ¿Qué vulnerabilidad de seguridad mitiga principalmente la configuración de la directiva SameSite=Strict?
+        <b>Dificultad:</b> Avanzado | <b>Puntos:</b> 1.5 pts | <b>Tests previos que la han incluido:</b> 34 evaluaciones
+        
+        <color:red><b>POLÍTICA DE INTEGRIDAD:</b></color>
+        La pregunta pasará a estado INACTIVA y no volverá a ser seleccionada en futuros exámenes.
+        Los resultados e historial de los 34 tests previamente completados se mantendrán intactos.
+    }
+    --
+    [ <color:red><b>Confirmar Desactivación de Pregunta</b></color> ] | [ Cancelar ]
+}
+@endsalt

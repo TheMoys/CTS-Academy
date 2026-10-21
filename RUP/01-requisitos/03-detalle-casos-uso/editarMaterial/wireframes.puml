@@ -1,0 +1,33 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — EDITAR MATERIAL DIDÁCTICO DEL MÓDULO</b>
+    ====
+    <b>Módulo:</b> M02 - Microservicios & REST | <b>Material ID:</b> MAT-042 | <b>Tech Leader:</b> Diego Moys
+    --
+    {
+        <b>Título del Material:</b>   | "Guía 02: Autenticación JWT y Manejo de Refresh Tokens (Revisión v2)"
+        <b>Tipo de Recurso:</b>       | ^Guía Técnica (Markdown)^Guía Técnica (Markdown)|Diagrama de Arquitectura|Enlace de Referencia Externa^
+        <b>Tiempo Estimado:</b>       | "25" minutos
+        <b>Orden en el Módulo:</b>    | "2"
+        <b>Obligatoriedad:</b>        | [X] Lectura obligatoria para desbloqueo del test de nivelación
+    }
+    --
+    <b>CONTENIDO DIDÁCTICO (MARKDOWN FORMAT):</b>
+    {
+        "# Autenticación JWT y Manejo de Refresh Tokens
+        
+        Actualizado para incluir política estricta de rotación de Refresh Tokens.
+        
+        ## Flujo de Rotación:
+        1. Cliente envía Refresh Token en cookie HttpOnly.
+        2. Servidor valida firma y existencia en Redis.
+        3. Se invalida el token consumido y se emite un nuevo par de credenciales."
+    }
+    --
+    {
+        <b>Recursos Adjuntos Actuales:</b> | [ Descargar jwt-auth-boilerplate.zip ] | [ Reemplazar archivo... ]
+    }
+    --
+    [ <b>Guardar Cambios</b> ] | [ Descartar Cambios ]
+}
+@endsalt

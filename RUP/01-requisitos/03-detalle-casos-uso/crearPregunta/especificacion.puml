@@ -1,0 +1,51 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state BANCO_PREGUNTAS_ABIERTO
+state BANCO_PREGUNTAS_ABIERTO_SALIDA as "BANCO_PREGUNTAS_ABIERTO"
+
+BANCO_PREGUNTAS_ABIERTO -[#green]-> crearPregunta
+note on link
+<b>LiderEquipo</b> solicita crear pregunta técnica
+end note
+
+state crearPregunta as "crearPregunta()" {
+
+    state " " as SolicitandoDatosPregunta
+    state c_val <<choice>>
+
+    [*] -[#green]-> SolicitandoDatosPregunta
+    note on link
+    <b>Sistema</b> presenta formulario de alta de reactivo técnico
+    <b>Sistema</b> permite introducir enunciado, categoría, dificultad y tipología
+    <b>Sistema</b> permite introducir opciones de respuesta o plantilla de código base
+    <b>Sistema</b> permite solicitar guardar pregunta
+    end note
+
+    SolicitandoDatosPregunta -[#green]-> c_val
+    note on link
+    <b>LiderEquipo</b> introduce enunciado y parámetros de la pregunta
+    <b>LiderEquipo</b> introduce opciones de respuesta o código base
+    <b>LiderEquipo</b> solicita guardar pregunta
+    end note
+
+    c_val -[#green]-> [*]
+    note on link
+    [reactivo y respuestas válidos]
+    <b>Sistema</b> registra pregunta técnica en el banco de evaluación
+    end note
+
+    c_val -[#red]-> SolicitandoDatosPregunta
+    note on link
+    [enunciado vacío o sin respuesta correcta definida]
+    <b>Sistema</b> presenta mensaje de error en reactivo técnico
+    end note
+}
+
+crearPregunta -[#green]-> BANCO_PREGUNTAS_ABIERTO_SALIDA
+note on link
+nueva pregunta técnica añadida al banco de evaluación
+end note
+
+@enduml

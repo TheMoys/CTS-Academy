@@ -1,0 +1,56 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state BANCO_PREGUNTAS_ABIERTO
+state BANCO_PREGUNTAS_ABIERTO_SALIDA as "BANCO_PREGUNTAS_ABIERTO"
+
+BANCO_PREGUNTAS_ABIERTO -[#green]-> editarPregunta
+note on link
+<b>LiderEquipo</b> selecciona pregunta técnica
+<b>LiderEquipo</b> solicita editar pregunta técnica
+end note
+
+state editarPregunta as "editarPregunta()" {
+
+    state " " as EditandoDatosPregunta
+    state c_val <<choice>>
+
+    [*] -[#green]-> EditandoDatosPregunta
+    note on link
+    <b>Sistema</b> presenta formulario precargado con el enunciado y opciones del reactivo
+    <b>Sistema</b> permite introducir modificaciones en enunciado, dificultad y alternativas
+    <b>Sistema</b> permite solicitar actualizar pregunta
+    <b>Sistema</b> permite solicitar cancelar edición
+    end note
+
+    EditandoDatosPregunta -[#green]-> c_val
+    note on link
+    <b>LiderEquipo</b> introduce modificaciones en el reactivo técnico
+    <b>LiderEquipo</b> solicita actualizar pregunta
+    end note
+
+    c_val -[#green]-> [*]
+    note on link
+    [reactivo modificado con opciones válidas]
+    <b>Sistema</b> actualiza pregunta técnica en el banco de evaluación
+    end note
+
+    c_val -[#red]-> EditandoDatosPregunta
+    note on link
+    [enunciado vacío o sin respuesta correcta seleccionada]
+    <b>Sistema</b> presenta mensaje de error en modificaciones de la pregunta
+    end note
+
+    EditandoDatosPregunta -[#blue]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita cancelar edición
+    end note
+}
+
+editarPregunta -[#green]-> BANCO_PREGUNTAS_ABIERTO_SALIDA
+note on link
+pregunta técnica actualizada en el banco de reactivos
+end note
+
+@enduml

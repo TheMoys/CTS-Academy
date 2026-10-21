@@ -1,0 +1,51 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state MODULO_CONFIGURACION_ABIERTO
+state MODULO_CONFIGURACION_ABIERTO_SALIDA as "MODULO_CONFIGURACION_ABIERTO"
+
+MODULO_CONFIGURACION_ABIERTO -[#green]-> crearMaterial
+note on link
+<b>LiderEquipo</b> solicita crear material didáctico
+end note
+
+state crearMaterial as "crearMaterial()" {
+
+    state " " as SolicitandoDatosMaterial
+    state c_val <<choice>>
+
+    [*] -[#green]-> SolicitandoDatosMaterial
+    note on link
+    <b>Sistema</b> presenta formulario de alta de recurso didáctico
+    <b>Sistema</b> permite introducir título, tipología y tiempo estimado de lectura
+    <b>Sistema</b> permite introducir contenido técnico en Markdown o enlace
+    <b>Sistema</b> permite solicitar guardar material
+    end note
+
+    SolicitandoDatosMaterial -[#green]-> c_val
+    note on link
+    <b>LiderEquipo</b> introduce título y tipología de material
+    <b>LiderEquipo</b> introduce contenido técnico
+    <b>LiderEquipo</b> solicita guardar material
+    end note
+
+    c_val -[#green]-> [*]
+    note on link
+    [título y contenido válidos]
+    <b>Sistema</b> registra material didáctico en el módulo formativo
+    end note
+
+    c_val -[#red]-> SolicitandoDatosMaterial
+    note on link
+    [campos requeridos incompletos o vacíos]
+    <b>Sistema</b> presenta mensaje de error en datos del material
+    end note
+}
+
+crearMaterial -[#green]-> MODULO_CONFIGURACION_ABIERTO_SALIDA
+note on link
+nuevo material didáctico publicado y disponible para los alumnos
+end note
+
+@enduml

@@ -1,0 +1,35 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — CREAR PREGUNTA TÉCNICA (BANCO DE EVALUACIÓN)</b>
+    ====
+    <b>Equipo:</b> Equipo 01 — Backend & Arquitectura | <b>Tech Leader:</b> Diego Moys
+    --
+    {
+        <b>Tipo de Pregunta:</b>      | (X) Teórica / Opción Múltiple (MCQ)  ( ) Reto Práctico Sandbox
+        <b>Categoría Técnica:</b>     | ^Arquitectura Hexagonal & Patrones^Arquitectura Hexagonal & Patrones|APIs REST & Seguridad JWT|Persistencia Relacional|Event-Driven & RabbitMQ^
+        <b>Nivel de Dificultad:</b>   | ^Intermedio^Básico|Intermedio|Avanzado^
+        <b>Puntos Asignados:</b>      | "1.0"
+        <b>Tiempo Límite Estimado:</b> | "120" segundos
+    }
+    --
+    <b>ENUNCIADO DE LA PREGUNTA:</b>
+    {
+        "En una arquitectura hexagonal o de puertos y adaptadores implementada en TypeScript,
+        ¿dónde deben residir las interfaces que definen los contratos para los repositorios de datos?"
+    }
+    --
+    <b>OPCIONES DE RESPUESTA:</b>
+    {
+        <b>Correcta</b> | <b>Texto de la Opción de Respuesta</b>
+        --
+        (X)      | En la capa de Dominio o Aplicación (Core), independientes de la infraestructura concreta.
+        ( )      | En la capa de Infraestructura, junto a la implementación del ORM (TypeORM / Prisma).
+        ( )      | En la capa de Presentación o Controladores REST para facilitar la serialización DTO.
+        ( )      | En un paquete externo compartido entre múltiples microservicios.
+    }
+    --
+    [ + Añadir Otra Opción ]
+    --
+    [ <b>Guardar Pregunta en Banco</b> ] | [ Cancelar ]
+}
+@endsalt

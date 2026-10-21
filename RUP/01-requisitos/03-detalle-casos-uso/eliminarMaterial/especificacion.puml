@@ -1,0 +1,42 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state MODULO_CONFIGURACION_ABIERTO
+state MODULO_CONFIGURACION_ABIERTO_SALIDA as "MODULO_CONFIGURACION_ABIERTO"
+
+MODULO_CONFIGURACION_ABIERTO -[#green]-> eliminarMaterial
+note on link
+<b>LiderEquipo</b> selecciona material didáctico
+<b>LiderEquipo</b> solicita eliminar material didáctico
+end note
+
+state eliminarMaterial as "eliminarMaterial()" {
+
+    state " " as SolicitandoConfirmacionEliminacion
+
+    [*] -[#green]-> SolicitandoConfirmacionEliminacion
+    note on link
+    <b>Sistema</b> presenta solicitud de confirmación de eliminación del recurso
+    <b>Sistema</b> permite solicitar confirmar eliminación
+    <b>Sistema</b> permite solicitar cancelar eliminación
+    end note
+
+    SolicitandoConfirmacionEliminacion -[#green]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita confirmar eliminación
+    <b>Sistema</b> retira material didáctico del módulo formativo
+    end note
+
+    SolicitandoConfirmacionEliminacion -[#blue]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita cancelar eliminación
+    end note
+}
+
+eliminarMaterial -[#green]-> MODULO_CONFIGURACION_ABIERTO_SALIDA
+note on link
+temario del módulo actualizado sin el recurso eliminado
+end note
+
+@enduml

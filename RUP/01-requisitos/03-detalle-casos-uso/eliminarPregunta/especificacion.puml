@@ -1,0 +1,42 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state BANCO_PREGUNTAS_ABIERTO
+state BANCO_PREGUNTAS_ABIERTO_SALIDA as "BANCO_PREGUNTAS_ABIERTO"
+
+BANCO_PREGUNTAS_ABIERTO -[#green]-> eliminarPregunta
+note on link
+<b>LiderEquipo</b> selecciona pregunta técnica
+<b>LiderEquipo</b> solicita eliminar pregunta técnica
+end note
+
+state eliminarPregunta as "eliminarPregunta()" {
+
+    state " " as SolicitandoConfirmacionBajaPregunta
+
+    [*] -[#green]-> SolicitandoConfirmacionBajaPregunta
+    note on link
+    <b>Sistema</b> presenta solicitud de confirmación de baja del reactivo técnico
+    <b>Sistema</b> permite solicitar confirmar desactivación
+    <b>Sistema</b> permite solicitar cancelar operación
+    end note
+
+    SolicitandoConfirmacionBajaPregunta -[#green]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita confirmar desactivación
+    <b>Sistema</b> desactiva pregunta técnica del banco de evaluación
+    end note
+
+    SolicitandoConfirmacionBajaPregunta -[#blue]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita cancelar operación
+    end note
+}
+
+eliminarPregunta -[#green]-> BANCO_PREGUNTAS_ABIERTO_SALIDA
+note on link
+banco de reactivos actualizado sin la pregunta desactivada
+end note
+
+@enduml

@@ -91,5 +91,11 @@ A continuación se indexan las especificaciones de los casos de uso nucleares es
 | **PK03 - MotorFormacion** | `consultarMaterial()` | `Alumno` | [especificacion.puml](consultarMaterial/especificacion.puml) | [wireframes.puml](consultarMaterial/wireframes.puml) | [Detalle](consultarMaterial/README.md) |
 | **PK03 - MotorFormacion** | `enviarEntregable()` | `Alumno` | [especificacion.puml](enviarEntregable/especificacion.puml) | [wireframes.puml](enviarEntregable/wireframes.puml) | [Detalle](enviarEntregable/README.md) |
 | **PK03 - MotorFormacion** | `consultarFeedbackEntregable()` | `Alumno` | [especificacion.puml](consultarFeedbackEntregable/especificacion.puml) | [wireframes.puml](consultarFeedbackEntregable/wireframes.puml) | [Detalle](consultarFeedbackEntregable/README.md) |
+| **PK03 - MotorFormacion** | `crearMaterial()` | `LiderEquipo` | [especificacion.puml](crearMaterial/especificacion.puml) | [wireframes.puml](crearMaterial/wireframes.puml) | [Detalle](crearMaterial/README.md) |
+| **PK03 - MotorFormacion** | `editarMaterial()` | `LiderEquipo` | [especificacion.puml](editarMaterial/especificacion.puml) | [wireframes.puml](editarMaterial/wireframes.puml) | [Detalle](editarMaterial/README.md) |
+| **PK03 - MotorFormacion** | `eliminarMaterial()` | `LiderEquipo` | [especificacion.puml](eliminarMaterial/especificacion.puml) | [wireframes.puml](eliminarMaterial/wireframes.puml) | [Detalle](eliminarMaterial/README.md) |
+| **PK03 - MotorFormacion** | `crearPregunta()` | `LiderEquipo` | [especificacion.puml](crearPregunta/especificacion.puml) | [wireframes.puml](crearPregunta/wireframes.puml) | [Detalle](crearPregunta/README.md) |
+| **PK03 - MotorFormacion** | `editarPregunta()` | `LiderEquipo` | [especificacion.puml](editarPregunta/especificacion.puml) | [wireframes.puml](editarPregunta/wireframes.puml) | [Detalle](editarPregunta/README.md) |
+| **PK03 - MotorFormacion** | `eliminarPregunta()` | `LiderEquipo` | [especificacion.puml](eliminarPregunta/especificacion.puml) | [wireframes.puml](eliminarPregunta/wireframes.puml) | [Detalle](eliminarPregunta/README.md) |
 
 </div>

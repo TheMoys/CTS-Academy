@@ -1,0 +1,35 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — CREAR MATERIAL DIDÁCTICO PARA MÓDULO FORMATIVO</b>
+    ====
+    <b>Módulo:</b> M02 - Microservicios & Arquitectura REST | <b>Equipo:</b> Equipo 01 | <b>Tech Leader:</b> Diego Moys
+    --
+    {
+        <b>Título del Material:</b>   | "Guía Práctica: Validación de DTOs y Sanitización de Inputs"
+        <b>Tipo de Recurso:</b>       | ^Guía Técnica (Markdown)^Guía Técnica (Markdown)|Diagrama de Arquitectura|Enlace de Referencia Externa|Video Tutorial^
+        <b>Tiempo Estimado:</b>       | "20" minutos
+        <b>Orden en el Módulo:</b>    | "5"
+        <b>Obligatoriedad:</b>        | [X] Lectura obligatoria para desbloqueo del test de nivelación
+    }
+    --
+    <b>CONTENIDO DIDÁCTICO (MARKDOWN FORMAT):</b>
+    {
+        "# Validación de DTOs en Express y NestJS
+        
+        En este laboratorio aprenderemos a utilizar class-validator y class-transformer
+        para garantizar que los payloads recibidos en endpoints REST cumplan con los
+        contratos de interfaz antes de alcanzar la capa de dominio.
+        
+        ## Reglas de Validación Esenciales
+        - @IsString() y @IsNotEmpty() para campos nominales obligatorios
+        - @IsEmail() para credenciales de acceso
+        - Sanitización de strings para prevenir inyecciones NoSQL y XSS"
+    }
+    --
+    {
+        <b>Archivo Adjunto / Recursos (.zip / .pdf):</b> | [ Seleccionar archivo... ] | "ningún archivo seleccionado"
+    }
+    --
+    [ <b>Guardar y Publicar Material</b> ] | [ Cancelar ]
+}
+@endsalt

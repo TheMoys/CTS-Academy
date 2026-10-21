@@ -1,0 +1,20 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — CONFIRMAR ELIMINACIÓN DE MATERIAL DIDÁCTICO</b>
+    ====
+    <b>Módulo:</b> M02 - Microservicios & REST | <b>Tech Leader:</b> Diego Moys
+    --
+    {
+        <b>¿Está seguro de que desea eliminar el siguiente recurso didáctico?</b>
+        
+        <b>Título:</b> Guía Práctica: Validación de DTOs y Sanitización de Inputs
+        <b>Tipo:</b> Guía Técnica (Markdown) | <b>Orden actual:</b> 5
+        
+        <color:red><b>ADVERTENCIA:</b></color>
+        El material dejará de estar visible inmediatamente para todos los alumnos del equipo.
+        Los registros de alumnos que ya lo hayan leído se conservarán en el historial de auditoría.
+    }
+    --
+    [ <color:red><b>Confirmar Eliminación Definitiva</b></color> ] | [ Cancelar Operación ]
+}
+@endsalt
