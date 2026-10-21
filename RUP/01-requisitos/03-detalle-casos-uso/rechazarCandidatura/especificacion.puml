@@ -1,0 +1,70 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PERFIL_CANDIDATO_ABIERTO
+state PERFIL_CANDIDATO_ABIERTO_SALIDA as "PERFIL_CANDIDATO_ABIERTO"
+state PANEL_ADMISIONES_ABIERTO_SALIDA as "PANEL_ADMISIONES_ABIERTO"
+
+PERFIL_CANDIDATO_ABIERTO -[#green]-> rechazarCandidatura
+note on link
+<b>Gestor</b> selecciona opción de rechazar candidatura
+<b>Gestor</b> solicita archivar con no admisión
+end note
+
+state rechazarCandidatura as "rechazarCandidatura()" {
+
+    state c_precondicion <<choice>>
+    state " " as SolicitandoMotivoRechazo
+    state c_validacion <<choice>>
+
+    [*] -[#green]-> c_precondicion
+
+    c_precondicion -[#red]-> [*]
+    note on link
+    [candidatura ya admitida formalmente o cerrada]
+    <b>Sistema</b> presenta mensaje de expediente no modificable
+    end note
+
+    c_precondicion -[#green]-> SolicitandoMotivoRechazo
+    note on link
+    [candidatura pendiente de resolución]
+    <b>Sistema</b> presenta formulario de resolución de no admisión
+    <b>Sistema</b> presenta motivos tipificados de rechazo y plantillas de notificación
+    <b>Sistema</b> permite seleccionar motivo principal de no admisión
+    <b>Sistema</b> permite introducir justificación cualitativa y observaciones
+    <b>Sistema</b> permite solicitar confirmar rechazo de candidatura
+    end note
+
+    SolicitandoMotivoRechazo -[#green]-> c_validacion
+    note on link
+    <b>Gestor</b> selecciona motivo tipificado
+    <b>Gestor</b> introduce justificación cualitativa
+    <b>Gestor</b> solicita confirmar rechazo de candidatura
+    end note
+
+    c_validacion -[#red]-> SolicitandoMotivoRechazo
+    note on link
+    [motivo no seleccionado o justificación incompleta]
+    <b>Sistema</b> presenta advertencia de motivo requerido
+    end note
+
+    c_validacion -[#green]-> [*]
+    note on link
+    [resolución debidamente fundamentada]
+    <b>Sistema</b> registra estado de candidatura como no admitida
+    <b>Sistema</b> presenta confirmación de expediente archivado
+    end note
+}
+
+rechazarCandidatura -[#green]-> PANEL_ADMISIONES_ABIERTO_SALIDA
+note on link
+candidatura archivada con resolución de no admisión
+end note
+
+rechazarCandidatura -[#red]-> PERFIL_CANDIDATO_ABIERTO_SALIDA
+note on link
+cancelación voluntaria o bloqueo de precondición
+end note
+
+@enduml

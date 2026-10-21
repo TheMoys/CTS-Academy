@@ -1,0 +1,70 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PERFIL_CANDIDATO_ABIERTO
+state PERFIL_CANDIDATO_ABIERTO_SALIDA as "PERFIL_CANDIDATO_ABIERTO"
+state PANEL_ADMISIONES_ABIERTO_SALIDA as "PANEL_ADMISIONES_ABIERTO"
+
+PERFIL_CANDIDATO_ABIERTO -[#green]-> admitirAlumnoProfer
+note on link
+<b>Gestor</b> selecciona opción de admitir alumno
+<b>Gestor</b> solicita formalizar admisión
+end note
+
+state admitirAlumnoProfer as "admitirAlumnoProfer()" {
+
+    state c_precondicion <<choice>>
+    state " " as SolicitandoDatosAdmision
+    state c_validacion <<choice>>
+
+    [*] -[#green]-> c_precondicion
+
+    c_precondicion -[#red]-> [*]
+    note on link
+    [candidatura ya resuelta previamente o cancelada]
+    <b>Sistema</b> presenta mensaje de expediente no elegible para admisión
+    end note
+
+    c_precondicion -[#green]-> SolicitandoDatosAdmision
+    note on link
+    [candidatura pendiente de resolución]
+    <b>Sistema</b> presenta formulario de asignación institucional
+    <b>Sistema</b> presenta equipos formadores CTS y plazas disponibles
+    <b>Sistema</b> permite seleccionar equipo de destino
+    <b>Sistema</b> permite introducir rol técnico y fecha de incorporación
+    <b>Sistema</b> permite solicitar confirmar admisión
+    end note
+
+    SolicitandoDatosAdmision -[#green]-> c_validacion
+    note on link
+    <b>Gestor</b> selecciona equipo de destino
+    <b>Gestor</b> introduce rol técnico y fecha de inicio
+    <b>Gestor</b> solicita confirmar admisión
+    end note
+
+    c_validacion -[#red]-> SolicitandoDatosAdmision
+    note on link
+    [equipo o rol no seleccionados o cupo completo]
+    <b>Sistema</b> presenta advertencia de asignación incompleta o sin vacantes
+    end note
+
+    c_validacion -[#green]-> [*]
+    note on link
+    [asignación válida y plazas disponibles]
+    <b>Sistema</b> registra alta de Alumno PROFER en equipo seleccionado
+    <b>Sistema</b> presenta confirmación de admisión formalizada
+    end note
+}
+
+admitirAlumnoProfer -[#green]-> PANEL_ADMISIONES_ABIERTO_SALIDA
+note on link
+admisión consolidada, candidatura cerrada con dictamen favorable
+end note
+
+admitirAlumnoProfer -[#red]-> PERFIL_CANDIDATO_ABIERTO_SALIDA
+note on link
+operación cancelada o rechazada por precondición
+end note
+
+@enduml

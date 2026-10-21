@@ -1,0 +1,37 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — IMPORTACIÓN MASIVA DE CANDIDATOS POR SEDE</b>
+    ====
+    <b>Gestor:</b> Diego Moys | <b>Convocatoria Activa:</b> Becas Talento Internacional 2026-I
+    --
+    {
+        <b>1. SELECCIÓN DE SEDE Y ARCHIVO DE DATOS:</b>
+        --
+        <b>Sede Internacional Remitente (*):</b> | ^Sede Bogotá (Colombia)^Sede Santander (España)^Sede San Salvador (El Salvador)^Sede México DF (México)^
+        <b>Archivo de Candidatos (*):</b>       | "candidatos_bogota_2026_lote1.csv    " | [ Examinar Archivo... ]
+        --
+        <i>Formato requerido: CSV o XLSX UTF-8 con cabeceras estándar (Nombre, Apellidos, Email, Titulacion, Telefono).</i>
+        [ Descargar Plantilla Oficial CSV ]
+    }
+    --
+    {
+        <b>2. BALANCE DE VALIDACIÓN PREVIA DEL LOTE (ANÁLISIS PREVIO):</b>
+        --
+        <b>Total Registros Procesados:</b> 25 filas
+        * 22 Registros Válidos: Listos para alta y generación de batería diagnóstica.
+        * 2 Registros Duplicados: Email ya existente en la convocatoria (Se omitirán).
+        * 1 Registro con Errores: Fila 14: Formato de correo electrónico no válido.
+        --
+        {
+            <b>Fila</b> | <b>Candidato</b>           | <b>Email</b>                   | <b>Titulación</b>      | <b>Estado Validación</b>
+            --
+            1       | Mariana Silva Castro    | m.silva@alumnos.edu.co         | Ing. Informática      | Válido
+            2       | David Santiago Ríos     | d.rios@alumnos.edu.co          | Ing. Sistemas         | Válido
+            14      | Juan Pablo Ortiz        | j.ortiz_invalido@@edu          | ADE                   | Error de Sintaxis
+            19      | Carlos Mendoza Rivas    | c.mendoza@alumnos.uneatlantico | Ing. Informática      | Duplicado en BD
+        }
+    }
+    --
+    [ Cancelar Operación ] | <b>[ Importar 22 Candidatos Válidos y Encolar Credenciales ]</b>
+}
+@endsalt

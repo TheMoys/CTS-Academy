@@ -1,0 +1,36 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — ALTA INDIVIDUAL DE CANDIDATO INTERNACIONAL</b>
+    ====
+    <b>Gestor Responsable:</b> Diego Moys (Gestor PROFER / Admisiones) | <b>Periodo Activo:</b> Ciclo 2026-I
+    --
+    {
+        <b>1. DATOS PERSONALES Y DE CONTACTO:</b>
+        --
+        <b>Nombre Completo (*):</b>       | "Valeria Sofía                          "
+        <b>Apellidos (*):</b>             | "Gómez Restrepo                         "
+        <b>Correo Electrónico (*):</b>     | "v.gomez@alumnos.uneatlantico.es        "
+        <b>Teléfono / WhatsApp:</b>       | "+57 312 456 7890                       "
+    }
+    --
+    {
+        <b>2. PROCEDENCIA ACADÉMICA Y SEDE INTERNACIONAL:</b>
+        --
+        <b>Sede Internacional Remitente (*):</b> | ^Sede Bogotá (Colombia)^Sede Santander (España)^Sede San Salvador (El Salvador)^Sede México DF (México)^
+        <b>Grado / Titulación de Origen (*):</b> | ^Ingeniería Informática^Grado en Administración y Dirección de Empresas (ADE)^Ingeniería Industrial^
+        <b>Semestre / Nivel Actual:</b>          | ^Último Año / Graduando^7º - 8º Semestre^Egresado Reciente^
+    }
+    --
+    {
+        <b>3. ASIGNACIÓN A CONVOCATORIA Y BATERÍA DIAGNÓSTICA:</b>
+        --
+        <b>Convocatoria Activa (*):</b> | ^Becas Talento Internacional 2026-I (Cierre: 15/11/2026)^Convocatoria Extraordinaria 2026^
+        --
+        [X] <b>Inicializar automáticamente la batería de 3 tests diagnósticos (Actitud, Aptitud y Técnico)</b>
+        [X] <b>Generar credenciales de acceso temporales para el Panel de Postulación (PK01 - Acceso)</b>
+        [X] <b>Despachar correo de bienvenida con enlace de acceso e instrucciones de la prueba</b>
+    }
+    --
+    [ Cancelar y Volver al Panel ] | <b>[ Registrar Candidato y Despachar Credenciales ]</b>
+}
+@endsalt

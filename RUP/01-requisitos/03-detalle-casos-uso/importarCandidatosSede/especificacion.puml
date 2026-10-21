@@ -1,0 +1,79 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state REGISTRO_CANDIDATO_ABIERTO
+state REGISTRO_CANDIDATO_ABIERTO_SALIDA as "REGISTRO_CANDIDATO_ABIERTO"
+
+REGISTRO_CANDIDATO_ABIERTO -[#green]-> importarCandidatosSede
+note on link
+<b>Gestor</b> solicita importar lote de candidatos de sede
+end note
+
+state importarCandidatosSede as "importarCandidatosSede()" {
+
+    state " " as SolicitandoArchivoLote
+    state c_formato <<choice>>
+    state " " as PresentandoResumenValidacion
+    state c_confirmacion <<choice>>
+
+    [*] -[#green]-> SolicitandoArchivoLote
+    note on link
+    <b>Sistema</b> presenta formulario de importación masiva por archivo CSV o Excel
+    <b>Sistema</b> presenta plantilla oficial de importación
+    <b>Sistema</b> permite seleccionar sede internacional y convocatoria activa
+    <b>Sistema</b> permite introducir archivo de datos
+    <b>Sistema</b> permite solicitar validar archivo
+    end note
+
+    SolicitandoArchivoLote -[#green]-> c_formato
+    note on link
+    <b>Gestor</b> selecciona sede y convocatoria
+    <b>Gestor</b> introduce archivo de datos
+    <b>Gestor</b> solicita validar archivo
+    end note
+
+    c_formato -[#red]-> SolicitandoArchivoLote
+    note on link
+    [formato de archivo no soportado o estructura corrupta]
+    <b>Sistema</b> presenta mensaje de formato de archivo inválido
+    end note
+
+    c_formato -[#green]-> PresentandoResumenValidacion
+    note on link
+    [archivo estructurado correctamente]
+    <b>Sistema</b> presenta resumen de filas válidas, duplicadas y con errores
+    <b>Sistema</b> permite solicitar confirmar importación de registros válidos
+    <b>Sistema</b> permite solicitar cancelar importación
+    end note
+
+    PresentandoResumenValidacion -[#green]-> c_confirmacion
+    note on link
+    <b>Gestor</b> selecciona opción
+    end note
+
+    c_confirmacion -[#blue]-> [*]
+    note on link
+    [gestor selecciona cancelar importación]
+    end note
+
+    c_confirmacion -[#green]-> [*]
+    note on link
+    [gestor selecciona confirmar importación]
+    <b>Sistema</b> registra lote de candidatos e inicializa baterías de tests
+    <b>Sistema</b> encola despacho de credenciales por correo
+    <b>Sistema</b> presenta confirmación de lote importado exitosamente
+    end note
+}
+
+importarCandidatosSede -[#green]-> REGISTRO_CANDIDATO_ABIERTO_SALIDA
+note on link
+lote de candidatos importado, credenciales encoladas
+end note
+
+importarCandidatosSede -[#blue]-> REGISTRO_CANDIDATO_ABIERTO_SALIDA
+note on link
+cancelación voluntaria de la importación
+end note
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_ADMISIONES_ABIERTO
+state PANEL_ADMISIONES_ABIERTO_SALIDA as "PANEL_ADMISIONES_ABIERTO"
+state REGISTRO_CANDIDATO_ABIERTO_SALIDA as "REGISTRO_CANDIDATO_ABIERTO"
+
+PANEL_ADMISIONES_ABIERTO -[#green]-> registrarCandidato
+note on link
+<b>Gestor</b> solicita registrar nuevo candidato
+end note
+
+state registrarCandidato as "registrarCandidato()" {
+
+    state " " as SolicitandoDatosCandidato
+    state c_validacion <<choice>>
+
+    [*] -[#green]-> SolicitandoDatosCandidato
+    note on link
+    <b>Sistema</b> presenta formulario de alta individual de candidato
+    <b>Sistema</b> presenta sedes internacionales y convocatorias activas
+    <b>Sistema</b> permite introducir datos personales y académicos
+    <b>Sistema</b> permite seleccionar sede de origen y convocatoria
+    <b>Sistema</b> permite solicitar registrar candidato
+    end note
+
+    SolicitandoDatosCandidato -[#green]-> c_validacion
+    note on link
+    <b>Gestor</b> introduce nombre, apellidos y email
+    <b>Gestor</b> selecciona sede de origen y convocatoria
+    <b>Gestor</b> solicita registrar candidato
+    end note
+
+    c_validacion -[#red]-> SolicitandoDatosCandidato
+    note on link
+    [email ya registrado en convocatoria o datos incompletos]
+    <b>Sistema</b> presenta mensaje de email duplicado o campos requeridos
+    end note
+
+    c_validacion -[#green]-> [*]
+    note on link
+    [datos válidos y email único en convocatoria]
+    <b>Sistema</b> registra candidato e inicializa batería de 3 tests
+    <b>Sistema</b> presenta confirmación de alta exitosa y credenciales despachadas
+    end note
+}
+
+registrarCandidato -[#green]-> REGISTRO_CANDIDATO_ABIERTO_SALIDA
+note on link
+candidato dado de alta, expediente inicializado
+end note
+
+registrarCandidato -[#red]-> PANEL_ADMISIONES_ABIERTO_SALIDA
+note on link
+cancelación voluntaria del registro
+end note
+
+@enduml

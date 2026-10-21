@@ -1,0 +1,35 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — RESOLUCIÓN DE NO ADMISIÓN DE CANDIDATURA</b>
+    ====
+    <b>Candidato:</b> Andrés Felipe Morales | <b>Email:</b> a.morales@alumnos.uneatlantico.es
+    <b>Sede Remitente:</b> Sede Bogotá (Colombia) | <b>Expediente:</b> CTS-2026-BOG-088
+    --
+    {
+        <b>Batería de Tests:</b> Actitud: 54% | Aptitud: 48% | Técnico: 42% (Afinidad dispersa)
+        <b>Entrevista Meet:</b> Realizada (04/11/2026) | <b>Dictamen Rúbrica:</b> Desfavorable (Indisponibilidad on-site)
+    }
+    --
+    {
+        <b>1. FUNDAMENTACIÓN DEL DICTAMEN DE NO ADMISIÓN:</b>
+        --
+        <b>Motivo Tipificado Principal (*):</b> | ^Incompatibilidad con régimen de estancia on-site (Turno intensivo)^Desajuste de perfil competencial con las áreas técnicas actuales^Inasistencia no justificada a entrevista diagnóstica^Baja afinidad con trabajo en equipo y metodología ágil CTS^Desistimiento voluntario comunicado por el aspirante^
+        --
+        <b>Justificación Cualitativa Interna (Exclusiva para el expediente):</b>
+        "El candidato manifestó durante la entrevista que no cuenta con disponibilidad horaria para cumplir   "
+        "con el turno de prácticas on-site en Santander debido a compromisos académicos incompatibles en     "
+        "su sede de origen. Adicionalmente, los indicadores diagnósticos muestran dispersión formativa.      "
+    }
+    --
+    {
+        <b>2. NOTIFICACIÓN INSTITUCIONAL DE RESOLUCIÓN:</b>
+        --
+        <b>Plantilla de Comunicación (*):</b> | ^Carta Estándar de No Admisión con Recomendación Formativa (PROFER)^Notificación Institucional por Incompatibilidad Horaria^
+        [X] <b>Despachar notificación por correo al aspirante agradeciendo su postulación</b>
+        [X] <b>Notificar resolución formal a la dirección académica de la sede remitente</b>
+        [X] <b>Archivar expediente en estado RECHAZADO para el histórico de la convocatoria</b>
+    }
+    --
+    [ Cancelar y Volver al Perfil ] | <b>[ Confirmar Resolución y Archivar Expediente ]</b>
+}
+@endsalt

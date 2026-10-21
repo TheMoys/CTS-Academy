@@ -60,10 +60,10 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 |**PK02 - MotorEvaluacion**|`abrirPerfilCandidato()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPerfilCandidato/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`agendarEntrevistaGoogleMeet()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/agendarEntrevistaGoogleMeet/README.md)|—|—|—|
 |**PK02 - MotorEvaluacion**|`registrarAnotacionesEntrevista()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/registrarAnotacionesEntrevista/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`admitirAlumnoProfer()`|`Gestor`|—|—|—|—|
-|**PK02 - MotorEvaluacion**|`rechazarCandidatura()`|`Gestor`|—|—|—|—|
-|**PK02 - MotorEvaluacion**|`registrarCandidato()`|`Gestor`|—|—|—|—|
-|**PK02 - MotorEvaluacion**|`importarCandidatosSede()`|`Gestor`|—|—|—|—|
+|**PK02 - MotorEvaluacion**|`admitirAlumnoProfer()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/admitirAlumnoProfer/README.md)|—|—|—|
+|**PK02 - MotorEvaluacion**|`rechazarCandidatura()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/rechazarCandidatura/README.md)|—|—|—|
+|**PK02 - MotorEvaluacion**|`registrarCandidato()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/registrarCandidato/README.md)|—|—|—|
+|**PK02 - MotorEvaluacion**|`importarCandidatosSede()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/importarCandidatosSede/README.md)|—|—|—|
 |**PK03 - MotorFormacion**|`abrirPanelAlumno()`|`Alumno`|—|—|—|—|
 |**PK03 - MotorFormacion**|`consultarCapacitacion()`|`Alumno`|—|—|—|—|
 |**PK03 - MotorFormacion**|`consultarModulo()`|`Alumno`|—|—|—|—|

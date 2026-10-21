@@ -1,0 +1,36 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — DICTAMEN DE ADMISIÓN FORMAL COMO ALUMNO PROFER</b>
+    ====
+    <b>Candidato:</b> Carlos Mendoza Rivas | <b>Email:</b> c.mendoza@alumnos.uneatlantico.es
+    <b>Sede Remitente:</b> Sede Santander (España) | <b>Expediente:</b> CTS-2026-SDR-014
+    --
+    {
+        <b>Batería de Tests:</b> Actitud: 82% | Aptitud: 90% | Técnico: 74% (Afinidad Backend: 88%)
+        <b>Entrevista Meet:</b> Realizada (05/11/2026) | <b>Dictamen Rúbrica:</b> Favorable (Recomendado)
+    }
+    --
+    {
+        <b>1. ASIGNACIÓN INSTITUCIONAL DE EQUIPO Y ROL (MOTOR EQUIPOS):</b>
+        --
+        <b>Equipo CTS Formador (*):</b> | ^Equipo 01 - Backend & Arquitectura (Cupo: 2/4 disponibles)^Equipo 02 - Frontend Web Apps (Cupo: 1/4)^Equipo 03 - Cloud & DevOps (Cupo: 3/4)^
+        <b>Rol Técnico Inicial (*):</b>  | ^Desarrollador Backend Junior (Node.js / Express)^Ingeniero de Microservicios Junior^QA Automation Junior^
+        <b>Tutor / Tech Leader (TL):</b> | Diego Moys (TL Team Fénix / Equipo 01)
+        <b>Fecha de Incorporación (*):</b>| "2026-11-16              " | <b>Turno de Prácticas:</b> On-Site Intensivo (Mañanas)
+    }
+    --
+    {
+        <b>2. RESOLUCIÓN Y NOTIFICACIÓN TRANSACCIONAL:</b>
+        --
+        [X] <b>Generar credenciales institucionales de Alumno PROFER (PK01 - Acceso)</b>
+        [X] <b>Matricular automáticamente en la Capacitación On-Site de su Equipo (PK03 - MotorFormacion)</b>
+        [X] <b>Despachar carta oficial de admisión al candidato y copia a la sede de origen</b>
+        --
+        <b>Observaciones del Dictamen de Admisión:</b>
+        "Candidato admitido con base en su sobresaliente afinidad técnica en backend y solidez analítica.     "
+        "Se incorpora como Desarrollador Backend Junior al Equipo 01 bajo la tutoría de Diego Moys.          "
+    }
+    --
+    [ Cancelar y Volver al Perfil ] | <b>[ Formalizar Admisión como Alumno PROFER ]</b>
+}
+@endsalt
