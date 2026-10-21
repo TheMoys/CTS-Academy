@@ -1,0 +1,39 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — EVALUACIÓN FINAL DE CAPACITACIÓN Y CERTIFICACIÓN TÉCNICA</b>
+    ====
+    <b>Alumno:</b> Carlos Mendoza Rivas | <b>Equipo:</b> Equipo 01 — Backend & Arquitectura (Team Fénix)
+    <b>Tech Leader Tutor:</b> Diego Moys | [ Cancelar ]
+    --
+    {
+        <b>Resumen de Rendimiento Formativo:</b>
+        * Módulos Completados: 4 de 4 (100%) | Laboratorios y Pull Requests Aprobados: 9 de 9
+        * Nota Media en Laboratorios: 9.1 / 10.0 | Tests Técnicos de Nivelación: 8.8 / 10.0
+    }
+    --
+    <b>EVALUACIÓN DE COMPETENCIAS PROFESIONALES (RÚBRICA FINAL):</b>
+    {
+        <b>Competencia Clave</b>                   | <b>Nivel Alcanzado</b>              | <b>Observaciones del Tech Leader</b>
+        --
+        Arquitectura y Clean Architecture         | ^Sobresaliente^Básico|Competente|Sobresaliente^ | Excelente asimilación de Hexagonal y DDD.
+        Calidad de Código y Testing               | ^Sobresaliente^Básico|Competente|Sobresaliente^ | Alta cobertura con Jest y Supertest.
+        Autonomía y Resolución de Problemas       | ^Competente^Básico|Competente|Sobresaliente^    | Muy resolutivo, consulta ante dudas clave.
+        Trabajo en Equipo y Comunicación Git      | ^Sobresaliente^Básico|Competente|Sobresaliente^ | PRs documentados y buena actitud de equipo.
+    }
+    --
+    <b>DICTAMEN FINAL DEL TECH LEADER:</b>
+    {
+        <b>Resolución:</b> | (X) <b>APTO PARA INTEGRACIÓN EN PROYECTO REAL (PRODUCCIÓN)</b>  ( ) Requiere Refuerzo Formativo
+        <b>Rol Recomendado en Producción:</b> | ^Desarrollador Backend Junior (NestJS / Node)^
+    }
+    --
+    <b>COMENTARIOS Y CONCLUSIÓN DEL TECH LEADER:</b>
+    {
+        "Carlos ha demostrado una progresión técnica excepcional a lo largo de los 4 módulos del
+        itinerario de backend. Cumple con holgura los estándares técnicos y de cultura de desarrollo
+        exigidos en CTS. Recomiendo con total confianza su integración inmediata al squad de desarrollo."
+    }
+    --
+    [ <color:green><b>Emitir y Registrar Certificación Final de Capacitación</b></color> ] | [ Cancelar ]
+}
+@endsalt

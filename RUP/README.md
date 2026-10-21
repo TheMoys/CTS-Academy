@@ -76,11 +76,11 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 |**PK03 - MotorFormacion**|`crearPregunta()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/crearPregunta/README.md)|—|—|—|
 |**PK03 - MotorFormacion**|`editarPregunta()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/editarPregunta/README.md)|—|—|—|
 |**PK03 - MotorFormacion**|`eliminarPregunta()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/eliminarPregunta/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`abrirEntregablesPendientes()`|`LiderEquipo`|—|—|—|—|
-|**PK03 - MotorFormacion**|`revisarEntregable()`|`LiderEquipo`|—|—|—|—|
-|**PK03 - MotorFormacion**|`aprobarEntregable()`|`LiderEquipo`|—|—|—|—|
-|**PK03 - MotorFormacion**|`solicitarCambiosEntregable()`|`LiderEquipo`|—|—|—|—|
-|**PK03 - MotorFormacion**|`evaluarCapacitacionAlumno()`|`LiderEquipo`|—|—|—|—|
+|**PK03 - MotorFormacion**|`abrirEntregablesPendientes()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirEntregablesPendientes/README.md)|—|—|—|
+|**PK03 - MotorFormacion**|`revisarEntregable()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/revisarEntregable/README.md)|—|—|—|
+|**PK03 - MotorFormacion**|`aprobarEntregable()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/aprobarEntregable/README.md)|—|—|—|
+|**PK03 - MotorFormacion**|`solicitarCambiosEntregable()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/solicitarCambiosEntregable/README.md)|—|—|—|
+|**PK03 - MotorFormacion**|`evaluarCapacitacionAlumno()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/evaluarCapacitacionAlumno/README.md)|—|—|—|
 |**PK04 - MotorEquipos**|`abrirPanelLider()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelLider/README.md)|—|—|—|
 |**PK04 - MotorEquipos**|`abrirPanelAdmisiones()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelAdmisiones/README.md)|—|—|—|
 |**PK04 - MotorEquipos**|`abrirPeriodoIngreso()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPeriodoIngreso/README.md)|—|—|—|

@@ -1,0 +1,56 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state REVISION_ENTREGABLES_ABIERTO
+state REVISION_ENTREGABLES_ABIERTO_SALIDA as "REVISION_ENTREGABLES_ABIERTO"
+
+REVISION_ENTREGABLES_ABIERTO -[#green]-> solicitarCambiosEntregable
+note on link
+<b>LiderEquipo</b> solicita requerir cambios en entregable
+end note
+
+state solicitarCambiosEntregable as "solicitarCambiosEntregable()" {
+
+    state " " as SolicitandoMotivosCambio
+    state c_val <<choice>>
+
+    [*] -[#green]-> SolicitandoMotivosCambio
+    note on link
+    <b>Sistema</b> presenta formulario de requerimiento de cambios en el código
+    <b>Sistema</b> permite introducir observaciones técnicas y puntos a subsanar
+    <b>Sistema</b> permite solicitar registrar solicitud de cambios
+    <b>Sistema</b> permite solicitar cancelar operación
+    end note
+
+    SolicitandoMotivosCambio -[#green]-> c_val
+    note on link
+    <b>LiderEquipo</b> introduce observaciones técnicas detalladas
+    <b>LiderEquipo</b> solicita registrar solicitud de cambios
+    end note
+
+    c_val -[#green]-> [*]
+    note on link
+    [observaciones técnicas válidas y justificadas]
+    <b>Sistema</b> registra entregable en estado CAMBIOS_SOLICITADOS
+    <b>Sistema</b> habilita opción de reenvío de PR al alumno
+    end note
+
+    c_val -[#red]-> SolicitandoMotivosCambio
+    note on link
+    [observaciones vacías o sin justificación técnica]
+    <b>Sistema</b> presenta mensaje de error en justificación de cambios
+    end note
+
+    SolicitandoMotivosCambio -[#blue]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita cancelar operación
+    end note
+}
+
+solicitarCambiosEntregable -[#green]-> REVISION_ENTREGABLES_ABIERTO_SALIDA
+note on link
+cambios solicitados registrados y notificados formalmente al alumno
+end note
+
+@enduml

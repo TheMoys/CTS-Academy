@@ -97,5 +97,10 @@ A continuación se indexan las especificaciones de los casos de uso nucleares es
 | **PK03 - MotorFormacion** | `crearPregunta()` | `LiderEquipo` | [especificacion.puml](crearPregunta/especificacion.puml) | [wireframes.puml](crearPregunta/wireframes.puml) | [Detalle](crearPregunta/README.md) |
 | **PK03 - MotorFormacion** | `editarPregunta()` | `LiderEquipo` | [especificacion.puml](editarPregunta/especificacion.puml) | [wireframes.puml](editarPregunta/wireframes.puml) | [Detalle](editarPregunta/README.md) |
 | **PK03 - MotorFormacion** | `eliminarPregunta()` | `LiderEquipo` | [especificacion.puml](eliminarPregunta/especificacion.puml) | [wireframes.puml](eliminarPregunta/wireframes.puml) | [Detalle](eliminarPregunta/README.md) |
+| **PK03 - MotorFormacion** | `abrirEntregablesPendientes()` | `LiderEquipo` | [especificacion.puml](abrirEntregablesPendientes/especificacion.puml) | [wireframes.puml](abrirEntregablesPendientes/wireframes.puml) | [Detalle](abrirEntregablesPendientes/README.md) |
+| **PK03 - MotorFormacion** | `revisarEntregable()` | `LiderEquipo` | [especificacion.puml](revisarEntregable/especificacion.puml) | [wireframes.puml](revisarEntregable/wireframes.puml) | [Detalle](revisarEntregable/README.md) |
+| **PK03 - MotorFormacion** | `aprobarEntregable()` | `LiderEquipo` | [especificacion.puml](aprobarEntregable/especificacion.puml) | [wireframes.puml](aprobarEntregable/wireframes.puml) | [Detalle](aprobarEntregable/README.md) |
+| **PK03 - MotorFormacion** | `solicitarCambiosEntregable()` | `LiderEquipo` | [especificacion.puml](solicitarCambiosEntregable/especificacion.puml) | [wireframes.puml](solicitarCambiosEntregable/wireframes.puml) | [Detalle](solicitarCambiosEntregable/README.md) |
+| **PK03 - MotorFormacion** | `evaluarCapacitacionAlumno()` | `LiderEquipo` | [especificacion.puml](evaluarCapacitacionAlumno/especificacion.puml) | [wireframes.puml](evaluarCapacitacionAlumno/wireframes.puml) | [Detalle](evaluarCapacitacionAlumno/README.md) |
 
 </div>

@@ -1,0 +1,57 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state REVISION_ENTREGABLES_ABIERTO
+state REVISION_ENTREGABLES_ABIERTO_SALIDA as "REVISION_ENTREGABLES_ABIERTO"
+
+REVISION_ENTREGABLES_ABIERTO -[#green]-> aprobarEntregable
+note on link
+<b>LiderEquipo</b> solicita aprobar entregable
+end note
+
+state aprobarEntregable as "aprobarEntregable()" {
+
+    state " " as SolicitandoDictamenAprobacion
+    state c_val <<choice>>
+
+    [*] -[#green]-> SolicitandoDictamenAprobacion
+    note on link
+    <b>Sistema</b> presenta formulario de aprobación y rúbrica técnica
+    <b>Sistema</b> permite introducir calificación numérica y comentarios de feedback
+    <b>Sistema</b> permite solicitar registrar aprobación
+    <b>Sistema</b> permite solicitar cancelar dictamen
+    end note
+
+    SolicitandoDictamenAprobacion -[#green]-> c_val
+    note on link
+    <b>LiderEquipo</b> introduce calificación numérica
+    <b>LiderEquipo</b> introduce comentarios de retroalimentación
+    <b>LiderEquipo</b> solicita registrar aprobación
+    end note
+
+    c_val -[#green]-> [*]
+    note on link
+    [calificación mayor o igual a 7.0 y comentarios válidos]
+    <b>Sistema</b> registra entregable en estado APROBADO
+    <b>Sistema</b> actualiza avance del alumno en el módulo
+    end note
+
+    c_val -[#red]-> SolicitandoDictamenAprobacion
+    note on link
+    [calificación inferior a 7.0 o comentarios vacíos]
+    <b>Sistema</b> presenta mensaje de error en calificación de aprobación
+    end note
+
+    SolicitandoDictamenAprobacion -[#blue]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita cancelar dictamen
+    end note
+}
+
+aprobarEntregable -[#green]-> REVISION_ENTREGABLES_ABIERTO_SALIDA
+note on link
+entregable aprobado formalmente y notificado al alumno
+end note
+
+@enduml

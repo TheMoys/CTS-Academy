@@ -1,0 +1,35 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — REVISIÓN TÉCNICA DE ENTREGABLE (CODE REVIEW)</b>
+    ====
+    <b>Alumno:</b> Carlos Mendoza Rivas | <b>Módulo:</b> M02: Lab 02 - Auth Middleware & Tests | [ Volver a la Bandeja ]
+    --
+    {
+        <b>Repositorio Alumno:</b> github.com/cts-academy-students/carlos-mendoza-lab02
+        <b>Pull Request:</b> [ PR #14 - feature/auth-middleware-v2 (Abrir en GitHub ->) ]
+        <b>Fecha de Envío:</b> 18/10/2026 15:42 (Re-entrega tras cambios previos)
+        <b>Resultado Sandbox Docker:</b> <color:green><b>TODOS LOS TESTS APROBADOS (12/12) — Cobertura: 94.2%</b></color>
+    }
+    --
+    <b>NOTAS TÉCNICAS DEL ALUMNO EN EL ENVÍO:</b>
+    {
+        "He corregido el middleware verifyToken agregando captura de TokenExpiredError para retornar
+        código 401 estructurado con mensaje descriptivo. Además añadí la suite de tests unitarios
+        en Jest cubriendo casos de header faltante, formato Bearer incorrecto y firma no válida."
+    }
+    --
+    <b>INFORME DEL PIPELINE DE PRUEBAS AUTOMATIZADAS (CI RUNNER):</b>
+    {
+        PASS tests/auth.middleware.spec.ts (12 tests)
+        - PASS verifyToken con token válido inyecta user payload en Request (14ms)
+        - PASS verifyToken con token expirado retorna 401 TokenExpired (8ms)
+        - PASS verifyToken sin cabecera Authorization retorna 401 MissingHeader (5ms)
+        Test Suites: 1 passed, 1 total | Tests: 12 passed, 12 total | Time: 2.14s
+    }
+    --
+    <b>ACCIONES DEL TECH LEADER:</b>
+    {
+        [ <color:green><b>Aprobar Entregable (Emitir Calificación Final)</b></color> ] | [ <color:orange><b>Solicitar Nuevos Cambios</b></color> ]
+    }
+}
+@endsalt

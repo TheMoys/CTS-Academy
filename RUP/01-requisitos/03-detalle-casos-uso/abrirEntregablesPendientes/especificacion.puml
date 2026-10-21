@@ -1,0 +1,37 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_LIDER_ABIERTO
+state REVISION_ENTREGABLES_ABIERTO
+
+PANEL_LIDER_ABIERTO -[#green]-> abrirEntregablesPendientes
+note on link
+<b>LiderEquipo</b> solicita abrir entregables pendientes
+end note
+
+state abrirEntregablesPendientes as "abrirEntregablesPendientes()" {
+
+    state " " as PresentandoBandejaEntregables
+
+    [*] -[#green]-> PresentandoBandejaEntregables
+    note on link
+    <b>Sistema</b> presenta cola de Pull Requests y entregables pendientes de revisión
+    <b>Sistema</b> presenta nombre del alumno, módulo formativo y fecha de entrega
+    <b>Sistema</b> presenta resultado preliminar del test automatizado en sandbox
+    <b>Sistema</b> permite seleccionar entregable para iniciar revisión de código
+    <b>Sistema</b> permite solicitar volver al panel principal
+    end note
+
+    PresentandoBandejaEntregables -[#green]-> [*]
+    note on link
+    bandeja de entregables pendientes lista para evaluación
+    end note
+}
+
+abrirEntregablesPendientes -[#green]-> REVISION_ENTREGABLES_ABIERTO
+note on link
+vista de revisión de entregables abierta en pantalla
+end note
+
+@enduml

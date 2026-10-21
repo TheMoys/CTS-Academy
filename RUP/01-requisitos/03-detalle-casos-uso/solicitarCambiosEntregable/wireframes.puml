@@ -1,0 +1,37 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — SOLICITAR CAMBIOS EN ENTREGABLE (REQUEST CHANGES)</b>
+    ====
+    <b>Alumno:</b> Mariam Fernanda Paredes | <b>Módulo:</b> M02: Lab 03 - Tests de Integración Supertest
+    <b>Tech Leader:</b> Diego Moys | [ Cancelar ]
+    --
+    {
+        <b>Estado Actual:</b> PENDIENTE_REVISION | <b>Pull Request:</b> PR #21 (github.com)
+        <b>Resultado Sandbox Docker:</b> <color:orange><b>9 Tests Pasados / 1 Test Fallido</b></color>
+    }
+    --
+    <b>MOTIVOS PRINCIPALES DEL REQUERIMIENTO DE CAMBIOS:</b>
+    {
+        [X] Fallo en pruebas automatizadas del pipeline de CI
+        [X] Ausencia o inconsistencia en el manejo de excepciones HTTP
+        [ ] Incumplimiento de convenciones de nombres o formato de código
+        [ ] Cobertura de tests inferior al umbral mínimo exigido
+    }
+    --
+    <b>OBSERVACIONES TÉCNICAS Y GUÍA DE CORRECCIÓN PARA EL ALUMNO:</b>
+    {
+        "Mariam, la suite de integración está fallando en el escenario de creación de recursos duplicados.
+        1. El endpoint POST /api/v1/modules debe capturar la violación de unicidad del índice (código 23505)
+           y mapearlo a un HTTP 409 Conflict en lugar de lanzar una excepción genérica no controlada.
+        2. Agrega la prueba que valide la estructura de la respuesta JSON ante el error de conflicto.
+        Por favor actualiza tu rama y vuelve a solicitar revisión cuando los 10 tests pasen en verde."
+    }
+    --
+    {
+        [X] Enviar notificación automática por correo con las observaciones
+        [X] Mantener el laboratorio en estado editable para el alumno
+    }
+    --
+    [ <color:orange><b>Registrar Solicitud de Cambios</b></color> ] | [ Cancelar ]
+}
+@endsalt

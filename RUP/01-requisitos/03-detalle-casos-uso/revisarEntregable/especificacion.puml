@@ -1,0 +1,39 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state REVISION_ENTREGABLES_ABIERTO
+state REVISION_ENTREGABLES_ABIERTO_SALIDA as "REVISION_ENTREGABLES_ABIERTO"
+
+REVISION_ENTREGABLES_ABIERTO -[#green]-> revisarEntregable
+note on link
+<b>LiderEquipo</b> selecciona entregable de la cola
+<b>LiderEquipo</b> solicita revisar entregable
+end note
+
+state revisarEntregable as "revisarEntregable()" {
+
+    state " " as PresentandoFichaRevision
+
+    [*] -[#green]-> PresentandoFichaRevision
+    note on link
+    <b>Sistema</b> presenta expediente de entrega, enlace a Pull Request y rama
+    <b>Sistema</b> presenta notas técnicas del alumno y logs de tests automatizados
+    <b>Sistema</b> presenta rúbrica técnica de evaluación y criterios de calidad
+    <b>Sistema</b> permite solicitar aprobar entregable
+    <b>Sistema</b> permite solicitar requerir cambios en el código
+    <b>Sistema</b> permite solicitar volver a la bandeja de entregables
+    end note
+
+    PresentandoFichaRevision -[#green]-> [*]
+    note on link
+    expediente de entrega inspeccionado y listo para emisión de dictamen
+    end note
+}
+
+revisarEntregable -[#green]-> REVISION_ENTREGABLES_ABIERTO_SALIDA
+note on link
+vista de revisión de código activa en pantalla
+end note
+
+@enduml

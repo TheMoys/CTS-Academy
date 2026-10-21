@@ -1,0 +1,59 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state EQUIPO_PROPIO_ABIERTO
+state EQUIPO_PROPIO_ABIERTO_SALIDA as "EQUIPO_PROPIO_ABIERTO"
+
+EQUIPO_PROPIO_ABIERTO -[#green]-> evaluarCapacitacionAlumno
+note on link
+<b>LiderEquipo</b> selecciona alumno con módulos completados
+<b>LiderEquipo</b> solicita evaluar capacitación
+end note
+
+state evaluarCapacitacionAlumno as "evaluarCapacitacionAlumno()" {
+
+    state " " as EvaluandoCompetenciasAlumno
+    state c_val <<choice>>
+
+    [*] -[#green]-> EvaluandoCompetenciasAlumno
+    note on link
+    <b>Sistema</b> presenta expediente formativo del alumno y resumen de entregables superados
+    <b>Sistema</b> permite introducir valoración en competencias técnicas y conductuales
+    <b>Sistema</b> permite introducir dictamen final (APTO PARA PRODUCCIÓN o REFUERZO FORMATIVO)
+    <b>Sistema</b> permite solicitar registrar evaluación final
+    <b>Sistema</b> permite solicitar cancelar evaluación
+    end note
+
+    EvaluandoCompetenciasAlumno -[#green]-> c_val
+    note on link
+    <b>LiderEquipo</b> introduce calificaciones por competencia
+    <b>LiderEquipo</b> introduce dictamen final y observaciones
+    <b>LiderEquipo</b> solicita registrar evaluación final
+    end note
+
+    c_val -[#green]-> [*]
+    note on link
+    [evaluación y dictamen completos]
+    <b>Sistema</b> registra acta formal de capacitación del alumno
+    <b>Sistema</b> notifica al Gestor de Admisiones y al alumno
+    end note
+
+    c_val -[#red]-> EvaluandoCompetenciasAlumno
+    note on link
+    [criterios de rúbrica incompletos o sin dictamen final]
+    <b>Sistema</b> presenta mensaje de error en evaluación final
+    end note
+
+    EvaluandoCompetenciasAlumno -[#blue]-> [*]
+    note on link
+    <b>LiderEquipo</b> solicita cancelar evaluación
+    end note
+}
+
+evaluarCapacitacionAlumno -[#green]-> EQUIPO_PROPIO_ABIERTO_SALIDA
+note on link
+evaluación final consolidada en el expediente del alumno
+end note
+
+@enduml

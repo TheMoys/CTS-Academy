@@ -9,14 +9,13 @@ actor Alumno
 package "Acceso e Inicio" {
   usecase iniciarSesion as "iniciarSesion()"
   usecase cerrarSesion as "cerrarSesion()"
-  usecase abrirInicio as "abrirInicio()"
+  usecase abrirPanelAlumno as "abrirPanelAlumno()"
 }
 
 package "Capacitación y Módulos" {
-  usecase abrirCapacitacion as "abrirCapacitacion()"
-  usecase abrirModulo as "abrirModulo()"
+  usecase consultarCapacitacion as "consultarCapacitacion()"
+  usecase consultarModulo as "consultarModulo()"
   usecase consultarMaterial as "consultarMaterial()"
-  usecase consultarProgresoFormativo as "consultarProgresoFormativo()"
 }
 
 package "Entregables de Código" {
@@ -24,28 +23,27 @@ package "Entregables de Código" {
   usecase consultarFeedbackEntregable as "consultarFeedbackEntregable()"
 }
 
-package "Nivelación y Cierre de Módulo" {
-  usecase iniciarTestTecnicoNivelacion as "iniciarTestTecnicoNivelacion()"
+package "Evaluación y Cierre de Módulo" {
+  usecase iniciarTest as "iniciarTest()"
   usecase responderPreguntaTeorica as "responderPreguntaTeorica()"
   usecase entregarPreguntaPractica as "entregarPreguntaPractica()"
-  usecase finalizarTestTecnicoNivelacion as "finalizarTestTecnicoNivelacion()"
+  usecase finalizarTest as "finalizarTest()"
 }
 
 Alumno -- iniciarSesion
 Alumno -- cerrarSesion
-Alumno -- abrirInicio
+Alumno -- abrirPanelAlumno
 
-Alumno -- abrirCapacitacion
-Alumno -- abrirModulo
+Alumno -- consultarCapacitacion
+Alumno -- consultarModulo
 Alumno -- consultarMaterial
-Alumno -- consultarProgresoFormativo
 
 Alumno -- enviarEntregable
 Alumno -- consultarFeedbackEntregable
 
-Alumno -- iniciarTestTecnicoNivelacion
+Alumno -- iniciarTest
 Alumno -- responderPreguntaTeorica
 Alumno -- entregarPreguntaPractica
-Alumno -- finalizarTestTecnicoNivelacion
+Alumno -- finalizarTest
 
 @enduml

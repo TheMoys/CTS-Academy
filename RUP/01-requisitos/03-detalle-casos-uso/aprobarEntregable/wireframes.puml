@@ -1,0 +1,37 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — EMITIR DICTAMEN DE APROBACIÓN DE ENTREGABLE</b>
+    ====
+    <b>Alumno:</b> Carlos Mendoza Rivas | <b>Módulo:</b> M02: Lab 02 - Auth Middleware & Tests
+    <b>Tech Leader:</b> Diego Moys | [ Cancelar Dictamen ]
+    --
+    {
+        <b>Calificación Numérica (0.0 a 10.0):</b> | "9.5" / 10.0  *(Mínimo aprobatorio: 7.0)*
+        <b>Resultado en Tests Automáticos:</b>     | <color:green>12 de 12 Tests Superados (100%)</color>
+        <b>Nivel de Cobertura de Código:</b>        | 94.2% (Supera el umbral del 85%)
+    }
+    --
+    <b>EVALUACIÓN POR CRITERIOS DE RÚBRICA TÉCNICA:</b>
+    {
+        <b>Criterio</b>                       | <b>Ponderación</b> | <b>Valoración</b>
+        --
+        Arquitectura y Diseño Limpio   | 30%         | ^Excelente (3.0 pts)^Excelente|Adecuado|Regular|Deficiente^
+        Calidad del Código & Tipado TS | 30%         | ^Excelente (3.0 pts)^Excelente|Adecuado|Regular|Deficiente^
+        Cobertura y Robustez de Tests  | 40%         | ^Excelente (3.5 pts)^Excelente|Adecuado|Regular|Deficiente^
+    }
+    --
+    <b>OBSERVACIONES CUALITATIVAS Y RETROALIMENTACIÓN:</b>
+    {
+        "Excelente trabajo en la refactorización, Carlos. La gestión de errores con TokenExpiredError
+        quedó muy limpia y la cobertura de pruebas unitarias contempla todos los edge cases requeridos.
+        El código cumple cabalmente con los estándares de producción del equipo."
+    }
+    --
+    {
+        [X] Notificar inmediatamente al alumno por correo electrónico
+        [X] Desbloquear siguiente laboratorio / test de fin de módulo si aplica
+    }
+    --
+    [ <color:green><b>Registrar Dictamen de Aprobación Formal</b></color> ] | [ Cancelar ]
+}
+@endsalt

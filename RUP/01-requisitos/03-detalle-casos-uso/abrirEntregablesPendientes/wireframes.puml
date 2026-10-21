@@ -1,0 +1,29 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — BANDEJA DE ENTREGABLES PENDIENTES DE REVISIÓN (CODE REVIEW)</b>
+    ====
+    <b>Tech Leader:</b> Diego Moys | <b>Equipo:</b> Equipo 01 — Team Fénix | [ Volver al Panel ]
+    --
+    {
+        <b>Entregables Pendientes en Cola:</b> <color:red><b>3 entregables</b></color> | <b>Revisados Esta Semana:</b> 8
+        <b>Tiempo Medio de Respuesta (SLA):</b> 18 horas | <b>Compromiso SLA Máximo:</b> 48 horas
+    }
+    --
+    <b>COLA DE PULL REQUESTS PARA REVISIÓN:</b>
+    {
+        <b>Fecha</b>            | <b>Alumno</b>                | <b>Módulo / Práctica</b>                      | <b>Pull Request</b>   | <b>CI Sandbox</b>          | <b>Acción</b>
+        --
+        18/10 15:42     | Carlos Mendoza Rivas     | M02: Lab 02 - Auth Middleware & Tests         | PR #14 (v2 corregida)| <color:green>TESTS PASS (12/12)</color> | [ <b>Revisar PR</b> ]
+        19/10 10:15     | Luis "Pipe" Hoyos        | M03: Lab 01 - Estado Global con Pinia         | PR #09               | <color:green>TESTS PASS (8/8)</color>   | [ <b>Revisar PR</b> ]
+        20/10 09:30     | Mariam Fernanda Paredes  | M02: Lab 03 - Tests de Integración Supertest  | PR #21               | <color:orange>TESTS FAIL (9/10)</color> | [ <b>Revisar PR</b> ]
+    }
+    --
+    <b>HISTÓRICO RECIENTE DE EVALUACIONES:</b>
+    {
+        17/10 16:00 | William Guardado         | M01: Lab 02 - Inversión de Control            | PR #06 | <color:green>APROBADO (9.5)</color> | [ Ver Dictamen ]
+        16/10 12:20 | Carlos Mendoza Rivas     | M02: Lab 01 - API REST Controllers            | PR #12 | <color:green>APROBADO (9.0)</color> | [ Ver Dictamen ]
+    }
+    --
+    [ Volver al Panel de Gestión de Equipo ]
+}
+@endsalt

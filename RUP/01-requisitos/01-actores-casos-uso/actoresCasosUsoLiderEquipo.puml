@@ -12,9 +12,7 @@ package "Acceso e Inicio" {
   usecase abrirPanelLider as "abrirPanelLider()"
 }
 
-package "Gestión de Equipo y Módulos" {
-  usecase abrirEquipoPropio as "abrirEquipoPropio()"
-  usecase configurarModulo as "configurarModulo()"
+package "Gestión de Módulos y Materiales" {
   usecase crearMaterial as "crearMaterial()"
   usecase editarMaterial as "editarMaterial()"
   usecase eliminarMaterial as "eliminarMaterial()"
@@ -34,15 +32,10 @@ package "Code Reviews y Evaluación de Alumnos" {
   usecase evaluarCapacitacionAlumno as "evaluarCapacitacionAlumno()"
 }
 
-' Nota: La consulta de candidatos queda excluida del TL (pendiente de confirmación),
-' limitando su alcance estrictamente a los alumnos y artefactos de su propio equipo.
-
 LiderEquipo -- iniciarSesion
 LiderEquipo -- cerrarSesion
 LiderEquipo -- abrirPanelLider
 
-LiderEquipo -- abrirEquipoPropio
-LiderEquipo -- configurarModulo
 LiderEquipo -- crearMaterial
 LiderEquipo -- editarMaterial
 LiderEquipo -- eliminarMaterial
