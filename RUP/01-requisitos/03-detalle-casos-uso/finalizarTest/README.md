@@ -32,7 +32,7 @@
 
 | Atributo | Valor |
 | :--- | :--- |
-| **Actores** | `Candidato` (admisión en `TestActitud`, `TestAptitud` o `TestTecnico`), `Alumno` (evaluación continua o test de nivelación técnica en `MotorFormacion`) |
+| **Actores** | `Candidato` (admisión en `Actitud`, `Aptitud` o `Tecnico`), `Alumno` (evaluación continua o test de nivelación técnica en `MotorFormacion`) |
 | **Objetivo** | Formalizar el cierre y entrega definitiva de una evaluación diagnóstica o de módulo formativo, ya sea por confirmación voluntaria del evaluado o por autoentrega forzada al expirar el cronómetro en el servidor, congelando atómicamente todos los reactivos y transitando el expediente hacia la fase de procesamiento |
 | **Tipo** | Primario, esencial |
 | **Nivel** | Objetivo de usuario |

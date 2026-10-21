@@ -33,7 +33,7 @@
 | Atributo | Valor |
 | :--- | :--- |
 | **Actores** | `Candidato` (admisión), `Alumno` (nivelación de fin de módulo formativo) |
-| **Objetivo** | Iniciar formalmente la ejecución de un test diagnóstico (`TestActitud`, `TestAptitud` o `TestTecnico`), activando el cronómetro inmutable en servidor y habilitando el panel de preguntas |
+| **Objetivo** | Iniciar formalmente la ejecución de un test diagnóstico (`Actitud`, `Aptitud` o `Tecnico`), activando el cronómetro inmutable en servidor y habilitando el panel de preguntas |
 | **Tipo** | Primario, esencial |
 | **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe estar autenticado; el test seleccionado debe estar en estado `PENDIENTE` dentro de la convocatoria activa |
@@ -48,8 +48,8 @@
 
 1. **Inmutabilidad del Tiempo de Prueba**:
    * El cronómetro se calcula y valida en el servidor (`MotorEvaluacion`). Cerrar la ventana o refrescar el navegador no pausa el tiempo restante.
-2. **Nutrición Multidisciplinar (`TestTecnico`)**:
-   * En el caso del `TestTecnico`, el motor de evaluación selecciona aleatoriamente preguntas aportadas por los 6 equipos de CTS (`TestTecnico ... Pregunta`) para evaluar la afinidad del candidato a las diferentes disciplinas.
+2. **Nutrición Multidisciplinar (`Tecnico`)**:
+   * En el caso del test `Tecnico`, el motor de evaluación selecciona aleatoriamente preguntas aportadas por los 6 equipos de CTS (`Test ... Pregunta`) para evaluar la afinidad del candidato a las diferentes disciplinas.
 3. **Sin Nota de Corte Eliminatoria (ADR-007)**:
    * El test no tiene nota eliminatoria; su propósito es emitir indicadores de perfil para el `Gestor`.
 

@@ -82,7 +82,7 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
   * Descomponer el sistema en **3 microservicios/subsistemas independientes**:
     1. **`MotorEquipos`**: Gobierna `Programa`, `Equipo`, `Alumno`, `LiderEquipo` y `Gestor`.
     2. **`MotorEvaluacion`**: Gobierna `Convocatoria`, `Candidato`, `Test` y `Resultado`.
-    3. **`MotorFormacion`**: Gobierna `Capacitacion`, `Modulo`, `Material`, `Entregable`, `Pregunta`, `PreguntaTeorica` y `PreguntaPractica`.
+    3. **`MotorFormacion`**: Gobierna `Capacitacion`, `Modulo`, `Material`, `Entregable`, `Pregunta`, `Teorica` y `Practica`.
   * **Regla de negocio sobre capacitación**: No existe relación `Equipo --> Capacitacion`; la capacitación es una acción del alumno dentro del equipo (`Alumno --> Capacitacion : realiza`).
   * **Responsabilidad del Tech Leader**: `LiderEquipo --> Capacitacion : evalua`, comprendiendo por herencia y jerarquía la configuración de módulos, la revisión de entregables de código y la calificación de tests de fin de módulo de los alumnos de su equipo.
   * **Test transversal**: El `Test` de `MotorEvaluacion` es agnóstico y es ejecutado tanto por el `Candidato` (admisión) como por el `Alumno` (nivelación o cierre de módulo formativo).
@@ -96,7 +96,7 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
 * **Contexto**: El proceso de selección real de los Alumnos PROFER no sigue un calendario rígido con convocatorias que expiran ni aplica una nota de corte eliminatoria sobre un único examen técnico. La captación de talento está abierta todo el año y se estructura para alimentar a los 6 equipos de CTS de forma continua.
 * **Decisión**:
   * **Temporalidad y Postulación Continua**: Incorporar las entidades `CursoAcademico` y `Semestre`. La postulación no se cierra (365 días al año); las candidaturas se canalizan y agrupan según el `(CursoAcademico, Semestre)` activo para los cortes de asignación.
-  * **Especialización de Tests como Indicadores**: Especializar `Test` en `TestActitud` (competencias blandas y compromiso), `TestAptitud` (lógica y resolución) y `TestTecnico` (habilidades prácticas nutriéndose de reactivos de los módulos de los 6 equipos: `TestTecnico ... Pregunta`). Los tests no eliminan por nota de corte, sino que consolidan un perfil de indicadores y afinidades competenciales.
+  * **Especialización de Tests como Indicadores**: Especializar `Test` en `Actitud` (competencias blandas y compromiso), `Aptitud` (lógica y resolución) y `Tecnico` (habilidades prácticas nutriéndose de reactivos de los módulos de los 6 equipos: `Test ... Pregunta`). Los tests no eliminan por nota de corte, sino que consolidan un perfil de indicadores y afinidades competenciales.
   * **Formalización de `Entrevista`**: Incorporar la entidad `Entrevista` en `MotorEvaluacion`.
   * **Reglas de Acceso a Entrevista**:
     * *Por derecho*: Todo candidato que completa la batería de 3 tests adquiere el derecho a agendar su entrevista personal.

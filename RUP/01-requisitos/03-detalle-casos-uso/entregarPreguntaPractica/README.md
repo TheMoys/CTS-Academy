@@ -32,8 +32,8 @@
 
 | Atributo | Valor |
 | :--- | :--- |
-| **Actores** | `Candidato` (admisión en `TestTecnico`), `Alumno` (evaluación continua o test de nivelación técnica en `MotorFormacion`) |
-| **Objetivo** | Formalizar la entrega de la solución de código a un reto práctico (`PreguntaPractica`), permitiendo ejecuciones de validación en contenedor seguro Docker (`TestRunner`) y persistiendo versiones consolidadas para la evaluación cualitativa por rúbrica del Tech Leader |
+| **Actores** | `Candidato` (admisión en `Tecnico`), `Alumno` (evaluación continua o test de nivelación técnica en `MotorFormacion`) |
+| **Objetivo** | Formalizar la entrega de la solución de código a un reto práctico (`Practica`), permitiendo ejecuciones de validación en contenedor seguro Docker (`TestRunner`) y persistiendo versiones consolidadas para la evaluación cualitativa por rúbrica del Tech Leader |
 | **Tipo** | Primario, esencial |
 | **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe estar autenticado; el test técnico debe encontrarse en estado `EN_CURSO` (`TEST_EN_EJECUCION`); el cronómetro en servidor debe tener tiempo disponible (`tiempoRestante > 0`); el reactivo seleccionado debe ser de tipo práctico |
@@ -59,7 +59,7 @@
 
 ## 🔗 Referencias
 
-* [Modelo del Dominio: `TestTecnico`, `PreguntaPractica`, `Modulo`](/RUP/00-modelo-del-dominio/README.md)
+* [Modelo del Dominio: `Tecnico`, `Practica`, `Modulo`](/RUP/00-modelo-del-dominio/README.md)
 * [Diagrama de Estados de Test (`EN_CURSO` → `ENTREGADO` / `EXPIRADO`)](/RUP/00-modelo-del-dominio/estados-entidades/test-estados.puml)
 * [Diagrama de Contexto Candidato](/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoCandidato.puml)
 * [ADR-007: Admisión continua y batería de 3 tests diagnósticos](/RUP/BITACORA.md#adr-007-admisi%C3%B3n-continua-por-ciclos-acad%C3%A9micos-bater%C3%ADa-de-3-tests-e-inclusi%C3%B3n-de-entrevista)

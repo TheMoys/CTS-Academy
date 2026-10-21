@@ -37,7 +37,7 @@
 | **Tipo** | Primario, entrada del flujo de admisiones |
 | **Nivel** | Objetivo de usuario |
 | **Precondición** | El Gestor debe encontrarse autenticado; debe existir al menos una convocatoria activa con plazo de postulación abierto |
-| **Postcondición Éxito** | Se crea la entidad `Candidato` y la asociación `Candidatura`; se instancian los 3 tests (`TestActitud`, `TestAptitud`, `TestTecnico`) en estado `PENDIENTE`; se generan credenciales temporales y se despacha el correo de bienvenida; contexto transiciona a `REGISTRO_CANDIDATO_ABIERTO` |
+| **Postcondición Éxito** | Se crea la entidad `Candidato` y la asociación `Candidatura`; se instancian los 3 tests (`Actitud`, `Aptitud`, `Tecnico`) en estado `PENDIENTE`; se generan credenciales temporales y se despacha el correo de bienvenida; contexto transiciona a `REGISTRO_CANDIDATO_ABIERTO` |
 | **Postcondición Fallo** | Si el email del candidato ya se encuentra registrado en la convocatoria activa o faltan campos obligatorios, el sistema emite un aviso de validación y mantiene el formulario editable |
 
 </div>

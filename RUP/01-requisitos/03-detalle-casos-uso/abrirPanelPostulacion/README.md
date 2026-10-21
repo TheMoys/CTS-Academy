@@ -33,7 +33,7 @@
 | Atributo | Valor |
 | :--- | :--- |
 | **Actores** | `Candidato` (aspirante autenticado en proceso de admisión internacional) |
-| **Objetivo** | Proporcionar al aspirante la visión unificada de su expediente de postulación, la fecha límite de la convocatoria y el estado de disponibilidad y ejecución de la batería de 3 tests diagnósticos (`TestActitud`, `TestAptitud`, `TestTecnico`), permitiendo iniciar o reanudar pruebas según las reglas de negocio |
+| **Objetivo** | Proporcionar al aspirante la visión unificada de su expediente de postulación, la fecha límite de la convocatoria y el estado de disponibilidad y ejecución de la batería de 3 tests diagnósticos (`Actitud`, `Aptitud`, `Tecnico`), permitiendo iniciar o reanudar pruebas según las reglas de negocio |
 | **Tipo** | Primario, esencial |
 | **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe estar autenticado con rol `Candidato`; el expediente debe existir y estar vinculado a una convocatoria activa |

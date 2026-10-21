@@ -16,8 +16,8 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 | Microservicio | Propósito y Responsabilidad | Entidades Propias |
 | :--- | :--- | :--- |
 | **`MotorEquipos`** | **Estructura Organizativa y Gobernanza**<br>Controla los programas, los equipos del centro tecnológico, los alumnos que los integran, el liderazgo técnico y la coordinación general. | `Programa`, `Equipo`, `Alumno`, `LiderEquipo`, `Gestor` |
-| **`MotorEvaluacion`** | **Admisión Continua, Batería de Tests y Entrevistas**<br>Canaliza las postulaciones abiertas todo el año, la división por cursos académicos y semestres, la ejecución de la batería de 3 tests (actitud, aptitud y técnico) como indicadores competenciales, y la agenda de entrevistas con el gestor. | `Convocatoria`, `CursoAcademico`, `Semestre`, `Candidato`, `Test`, `TestActitud`, `TestAptitud`, `TestTecnico`, `Resultado`, `Entrevista` |
-| **`MotorFormacion`** | **Academy On-Site y Banco de Conocimiento**<br>LMS interno donde se crean capacitaciones divididas en módulos, material de estudio, entregables prácticos y reactivos (teóricos y prácticos). | `Capacitacion`, `Modulo`, `Material`, `Entregable`, `Pregunta`, `PreguntaTeorica`, `PreguntaPractica` |
+| **`MotorEvaluacion`** | **Admisión Continua, Batería de Tests y Entrevistas**<br>Canaliza las postulaciones abiertas todo el año, la división por cursos académicos y semestres, la ejecución de la batería de 3 tests (actitud, aptitud y técnico) como indicadores competenciales, y la agenda de entrevistas con el gestor. | `Convocatoria`, `CursoAcademico`, `Semestre`, `Candidato`, `Test`, `Actitud`, `Aptitud`, `Tecnico`, `Resultado`, `Entrevista` |
+| **`MotorFormacion`** | **Academy On-Site y Banco de Conocimiento**<br>LMS interno donde se crean capacitaciones divididas en módulos, material de estudio, entregables prácticos y reactivos (teóricos y prácticos). | `Capacitacion`, `Modulo`, `Material`, `Entregable`, `Pregunta`, `Teorica`, `Practica` |
 
 ---
 
@@ -47,8 +47,9 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 * **`Semestre`**: Periodo semestral (*Semestre 1* / *Semestre 2*) en el que se estructuran los cortes de ingreso y formalización de becas.
 * **`Candidato`**: Aspirante que postula al programa en cualquier momento del año y rinde la batería diagnóstica de tests.
 * **`Test`**: Evaluación objetiva y estructurada de indicadores de desempeño. Se especializa en:
-  * **`TestActitud`**: Mide competencias blandas, compromiso, motivación, proactividad y encaje en cultura de equipo.
-  * **`TestAptitud`**: Mide razonamiento lógico, agilidad analítica y capacidad de resolución de problemas.
+  * **`Actitud`**: Mide competencias blandas, compromiso, motivación, proactividad y encaje en cultura de equipo.
+  * **`Aptitud`**: Mide razonamiento lógico, agilidad analítica y capacidad de resolución de problemas.
+  * **`Tecnico`**: Reto y preguntas técnicas de especialidad para admisión o nivelación de alumnos.
 * **`Resultado`**: Informe diagnóstico y métricas de afinidad técnica/actitudinal emitidas tras la realización de los tests (sin notas de corte excluyentes), consultables de forma exclusiva por el `Gestor`.
 * **`Entrevista`**: Sesión en Google Meet agendada y registrada por el `Gestor` desde el perfil del candidato una vez completada la batería de tests (o a su discreción con tests en curso), donde se registran notas cualitativas y se formaliza el dictamen de admisión.
 
@@ -58,19 +59,19 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 * **`Material`**: Recursos didácticos (documentación, vídeos, guías técnicas, repositorios de referencia).
 * **`Entregable`**: Práctica o ticket en código fuente enviado por el alumno (rama de Git / Pull Request).
 * **`Pregunta`**: Reactivo de evaluación del banco de conocimiento. Especializado en:
-  * **`PreguntaTeorica`**: Cuestión conceptual objetiva (HTML, CSS, JS, Git, SQL).
-  * **`PreguntaPractica`**: Reto de código o maquetación con plantilla base y criterios de corrección.
+  * **`Teorica`**: Cuestión conceptual objetiva (HTML, CSS, JS, Git, SQL).
+  * **`Practica`**: Reto de código o maquetación con plantilla base y criterios de corrección.
 
 ---
 
 ## Invariantes y Reglas del Dominio
 
 1. **Desacoplamiento de Servicios**:
-   * Cada motor es autónomo en su persistencia y lógica de negocio. La comunicación entre `MotorEvaluacion` y `MotorFormacion` (para componer el `TestTecnico` a partir de preguntas de los módulos de los 6 equipos) se produce a través de contratos de API REST interna.
+   * Cada motor es autónomo en su persistencia y lógica de negocio. La comunicación entre `MotorEvaluacion` y `MotorFormacion` (para componer el test `Tecnico` a partir de preguntas del banco: `Test ... Pregunta`) se produce a través de contratos de API REST interna.
 2. **Canalización por Sedes Internacionales y Admisión Continua**:
    * No existe registro público anónimo ni auto-postulación en la plataforma. La captación y recepción de solicitudes es responsabilidad de las sedes en cada país, que recopilan los aspirantes y los remiten al `GestorProfer`. El gestor los da de alta en el sistema (`registrarCandidato()`), agrupándolos en el `CursoAcademico` (ej. 2024-2025) y `Semestre` activo para coordinar las pruebas y los cortes semestrales.
 3. **Batería de Tests como Indicadores (Sin Nota de Corte)**:
-   * Los 3 tests (`TestActitud`, `TestAptitud`, `TestTecnico`) no actúan como guillotina o filtro eliminatorio por nota mínima. Producen un mapa de indicadores competenciales y de afinidad de equipo para orientar la decisión. Los resultados son estrictamente de consumo interno para el `Gestor` y no se publican al candidato.
+   * Los 3 tests (`Actitud`, `Aptitud`, `Tecnico`) no actúan como guillotina o filtro eliminatorio por nota mínima. Producen un mapa de indicadores competenciales y de afinidad de equipo para orientar la decisión. Los resultados son estrictamente de consumo interno para el `Gestor` y no se publican al candidato.
 4. **Gestión de Entrevistas vía Google Meet y Anotaciones**:
    * El candidato no agenda ni visualiza entrevistas en el sistema. Es el `Gestor` quien, desde el perfil unificado del aspirante, agenda el enlace de Google Meet al verificar los indicadores de los tests (o anticipadamente a su criterio). Tras celebrar la reunión, el Gestor vuelca sus impresiones y anotaciones directamente en el perfil.
 5. **Decisión de Admisión y Asignación de Plazas**:

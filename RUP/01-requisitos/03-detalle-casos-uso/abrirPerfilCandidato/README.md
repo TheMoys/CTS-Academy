@@ -52,7 +52,7 @@
      - La integración directa con Google Meet para la entrevista personal.
      - El registro continuo de anotaciones y feedback del evaluador.
 2. **Recomendación de Afinidad por Equipos**:
-   * A partir de los reactivos de los 6 equipos integrados en el `TestTecnico`, el perfil calcula un índice de afinidad para recomendar en qué equipo encaja con mayor naturalidad el aspirante.
+   * A partir de los reactivos de los 6 equipos integrados en el test `Tecnico`, el perfil calcula un índice de afinidad para recomendar en qué equipo encaja con mayor naturalidad el aspirante.
 3. **Formalización de Beca y Transición a Alumno**:
    * Al pulsar `[Admitir como Alumno PROFER]`, se asocia al estudiante a uno de los 6 equipos de CTS y se fija su rol técnico inicial, completando la transición de la entidad `Candidato` a `Alumno` en `MotorEquipos`.
 

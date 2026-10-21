@@ -54,7 +54,7 @@ Modela la navegación del aspirante desde su acceso mediante las credenciales ge
 
 </div>
 
-* **Panel de Postulación**: Acceso a su panel (`abrirPanelPostulacion()`) donde visualiza el estado de disponibilidad de sus 3 tests diagnósticos (`TestActitud`, `TestAptitud`, `TestTecnico`).
+* **Panel de Postulación**: Acceso a su panel (`abrirPanelPostulacion()`) donde visualiza el estado de disponibilidad de sus 3 tests diagnósticos (`Actitud`, `Aptitud`, `Tecnico`).
 * **Ejecución de Tests**: El candidato rinde cualquiera de los 3 tests (`iniciarTest()`), respondiendo preguntas conceptuales (`responderPreguntaTeorica()`) o retos prácticos de código (`entregarPreguntaPractica()`). El cronómetro corre en el backend y el test se entrega manualmente o se autoentrega por expiración con `finalizarTest()`.
 * **Opacidad de Resultados y Agenda**: El candidato **no** consulta informes de resultados (los indicadores son de uso exclusivo del Gestor) y **no** agenda ni visualiza entrevistas en su interfaz (la convocatoria y enlace de Google Meet son coordinados enteramente por el Gestor).
 

@@ -25,9 +25,9 @@ package MotorEvaluacion {
   class Semestre
   class Candidato
   class Test
-  class TestActitud
-  class TestAptitud
-  class TestTecnico
+  class Actitud
+  class Aptitud
+  class Tecnico
   class Resultado
   class Entrevista
 
@@ -36,9 +36,9 @@ package MotorEvaluacion {
   Convocatoria o-- Candidato
 
   Candidato --> Test : realiza
-  Test <|-- TestActitud
-  Test <|-- TestAptitud
-  Test <|-- TestTecnico
+  Test <|-- Actitud
+  Test <|-- Aptitud
+  Test <|-- Tecnico
   Test o-- Resultado
 
   Candidato o-- Entrevista
@@ -51,11 +51,11 @@ package MotorFormacion {
   class Material
   class Entregable
   class Pregunta
-  class PreguntaTeorica
-  class PreguntaPractica
+  class Teorica
+  class Practica
 
-  Pregunta <|-- PreguntaTeorica
-  Pregunta <|-- PreguntaPractica
+  Pregunta <|-- Teorica
+  Pregunta <|-- Practica
 
   Capacitacion o-- Modulo
   Modulo *-- Material
@@ -66,8 +66,8 @@ package MotorFormacion {
 Programa --> Convocatoria : mantiene abierta
 Gestor --> Resultado : consulta
 
-TestTecnico ... Pregunta
-Alumno ---> TestTecnico : realiza
+Test ... Pregunta
+Alumno ---> Tecnico : realiza
 
 Alumno --> Capacitacion : realiza
 LiderEquipo --> Modulo : configura
