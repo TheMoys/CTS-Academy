@@ -1,0 +1,58 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_ADMISIONES_ABIERTO
+state PANEL_ADMISIONES_ABIERTO_SALIDA as "PANEL_ADMISIONES_ABIERTO"
+state GESTION_CICLOS_ABIERTO_SALIDA as "GESTION_CICLOS_ABIERTO"
+
+PANEL_ADMISIONES_ABIERTO -[#green]-> abrirPeriodoIngreso
+note on link
+<b>Gestor</b> solicita abrir nuevo periodo de ingreso
+end note
+
+state abrirPeriodoIngreso as "abrirPeriodoIngreso()" {
+
+    state " " as SolicitandoDatosPeriodo
+    state c_validacion <<choice>>
+
+    [*] -[#green]-> SolicitandoDatosPeriodo
+    note on link
+    <b>Sistema</b> presenta formulario de apertura de periodo y convocatoria
+    <b>Sistema</b> presenta cursos académicos, semestres y equipos CTS
+    <b>Sistema</b> permite introducir denominación de convocatoria y fechas de apertura y cierre
+    <b>Sistema</b> permite introducir cupos máximos de becarios por equipo
+    <b>Sistema</b> permite solicitar activar periodo de ingreso
+    end note
+
+    SolicitandoDatosPeriodo -[#green]-> c_validacion
+    note on link
+    <b>Gestor</b> introduce fechas y cupos por equipo
+    <b>Gestor</b> solicita activar periodo
+    end note
+
+    c_validacion -[#red]-> SolicitandoDatosPeriodo
+    note on link
+    [rango de fechas inconsistente o cupos inválidos]
+    <b>Sistema</b> presenta mensaje de error en fechas o cupos
+    end note
+
+    c_validacion -[#green]-> [*]
+    note on link
+    [parámetros de convocatoria válidos]
+    <b>Sistema</b> registra nueva convocatoria en estado ABIERTO
+    <b>Sistema</b> presenta confirmación de periodo activado
+    end note
+}
+
+abrirPeriodoIngreso -[#green]-> GESTION_CICLOS_ABIERTO_SALIDA
+note on link
+periodo de ingreso activado, convocatoria publicada
+end note
+
+abrirPeriodoIngreso -[#red]-> PANEL_ADMISIONES_ABIERTO_SALIDA
+note on link
+cancelación voluntaria
+end note
+
+@enduml

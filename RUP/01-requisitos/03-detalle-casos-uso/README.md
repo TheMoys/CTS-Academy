@@ -81,6 +81,10 @@ A continuación se indexan las especificaciones de los casos de uso nucleares es
 | **PK02 - MotorEvaluacion** | `rechazarCandidatura()` | `Gestor` | [especificacion.puml](rechazarCandidatura/especificacion.puml) | [wireframes.puml](rechazarCandidatura/wireframes.puml) | [Detalle](rechazarCandidatura/README.md) |
 | **PK02 - MotorEvaluacion** | `registrarCandidato()` | `Gestor` | [especificacion.puml](registrarCandidato/especificacion.puml) | [wireframes.puml](registrarCandidato/wireframes.puml) | [Detalle](registrarCandidato/README.md) |
 | **PK02 - MotorEvaluacion** | `importarCandidatosSede()` | `Gestor` | [especificacion.puml](importarCandidatosSede/especificacion.puml) | [wireframes.puml](importarCandidatosSede/wireframes.puml) | [Detalle](importarCandidatosSede/README.md) |
+| **PK04 - MotorEquipos** | `abrirPanelAdmisiones()` | `Gestor` | [especificacion.puml](abrirPanelAdmisiones/especificacion.puml) | [wireframes.puml](abrirPanelAdmisiones/wireframes.puml) | [Detalle](abrirPanelAdmisiones/README.md) |
+| **PK04 - MotorEquipos** | `abrirPeriodoIngreso()` | `Gestor` | [especificacion.puml](abrirPeriodoIngreso/especificacion.puml) | [wireframes.puml](abrirPeriodoIngreso/wireframes.puml) | [Detalle](abrirPeriodoIngreso/README.md) |
+| **PK04 - MotorEquipos** | `cerrarCorteSemestral()` | `Gestor` | [especificacion.puml](cerrarCorteSemestral/especificacion.puml) | [wireframes.puml](cerrarCorteSemestral/wireframes.puml) | [Detalle](cerrarCorteSemestral/README.md) |
+| **PK04 - MotorEquipos** | `abrirPanelLider()` | `LiderEquipo` | [especificacion.puml](abrirPanelLider/especificacion.puml) | [wireframes.puml](abrirPanelLider/wireframes.puml) | [Detalle](abrirPanelLider/README.md) |
 | **PK03 - MotorFormacion** | `enviarEntregable()` | `Alumno` | [especificacion.puml](enviarEntregable/especificacion.puml) | [wireframes.puml](enviarEntregable/wireframes.puml) | [Detalle](enviarEntregable/README.md) |
 
 </div>

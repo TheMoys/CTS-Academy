@@ -1,0 +1,43 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — APERTURA DE NUEVO PERIODO ACADÉMICO Y CONVOCATORIA</b>
+    ====
+    <b>Gestor:</b> Diego Moys | <b>Subsistema:</b> PK04 - MotorEquipos (Gobernanza)
+    --
+    {
+        <b>1. VINCULACIÓN ACADÉMICA Y CALENDARIZACIÓN:</b>
+        --
+        <b>Curso Académico (*):</b>           | ^Curso 2026 - 2027^Curso 2025 - 2026 (Activo)^
+        <b>Semestre / Cohorte (*):</b>          | ^Semestre 1 (Otoño / Invierno)^Semestre 2 (Primavera / Verano)^
+        <b>Denominación de Convocatoria (*):</b>| "Becas Talento Internacional — Cohorte 2026-II                "
+        --
+        <b>Fecha de Apertura de Recepción:</b>   | "2026-11-01              " | 00:00 UTC
+        <b>Fecha Límite de Cierre de Tests (*):</b>| "2026-12-15              " | 23:59 UTC
+    }
+    --
+    {
+        <b>2. ASIGNACIÓN DE CUPOS DE BECARIOS POR EQUIPO FORMADOR CTS:</b>
+        --
+        <b>Equipo CTS</b>                                | <b>Cupo Máximo Autorizado</b> | <b>Tech Leader Responsable</b>
+        --
+        Equipo 01 — Backend & Arquitectura (Team Fénix) | "4 " plazas                 | Diego Moys
+        Equipo 02 — Frontend & Mobile Apps              | "4 " plazas                 | Coordinador Frontend
+        Equipo 03 — Cloud Infraestructura & DevOps      | "4 " plazas                 | Coordinador DevOps
+        Equipo 04 — QA Testing & Automatización         | "3 " plazas                 | Coordinador QA
+        Equipo 05 — Inteligencia Artificial & Data      | "3 " plazas                 | Coordinador AI
+        Equipo 06 — Ciberseguridad & SysAdmin           | "3 " plazas                 | Coordinador SysAdmin
+        --
+        <b>Total de Plazas Ofertadas para la Cohorte:</b> <b>21 becarios PROFER</b>
+    }
+    --
+    {
+        <b>3. CONDICIONES DE ADMISIÓN (ADR-007):</b>
+        --
+        [X] <b>Habilitar batería de 3 tests diagnósticos automáticos (Actitud, Aptitud y Técnico)</b>
+        [X] <b>Permitir admisiones continuas con entrevistas cualitativas por Google Meet</b>
+        [X] <b>Publicar convocatoria en catálogo para sedes internacionales</b>
+    }
+    --
+    [ Cancelar y Volver ] | <b>[ Activar Periodo de Ingreso y Publicar Convocatoria ]</b>
+}
+@endsalt

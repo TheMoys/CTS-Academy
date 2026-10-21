@@ -1,0 +1,35 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — PANEL DE GESTIÓN DEL TECH LEADER (LIDER DE EQUIPO)</b>
+    ====
+    <b>Tech Leader:</b> Diego Moys | <b>Equipo Asignado:</b> Equipo 01 — Backend & Arquitectura (Team Fénix) | [ Cerrar Sesión ]
+    --
+    {
+        <b>Alumnos Asignados:</b> 4 becarios on-site | <b>Entregables Pendientes de Revisión:</b> <color:red><b>3 Pull Requests</b></color>
+        <b>Módulos Formativos Activos:</b> 4 módulos | <b>Banco de Preguntas Aportadas:</b> 28 reactivos técnicos
+    }
+    --
+    <b>ALERTAS DE ACCIÓN INMEDIATA:</b>
+    [ <b>Revisar 3 Entregables Pendientes de Code Review</b> ] | [ Gestionar Banco de Preguntas Técnicas ]
+    --
+    <b>ALUMNOS PROFER ASIGNADOS AL EQUIPO:</b>
+    {
+        <b>Alumno</b>                | <b>Rol Técnico</b>        | <b>Módulo Actual</b>             | <b>Progreso</b>      | <b>Entregas</b>   | <b>Acción</b>
+        --
+        Carlos Mendoza Rivas     | Dev Backend Junior      | M02 - Microservicios & REST      | [=========>  ] 75% | 1 Pte. Revisión  | [ Ver Progreso ]
+        Luis "Pipe" Hoyos        | Frontend Integrator     | M03 - Estado Global & APIs       | [=======>    ] 60% | 1 Pte. Revisión  | [ Ver Progreso ]
+        William Guardado         | Dev Backend Junior      | M01 - Arquitectura Hexagonal     | [====>       ] 40% | Al día           | [ Ver Progreso ]
+        Mariam Fernanda Paredes  | QA & Backend Testing    | M02 - Tests de Integración       | [=========>  ] 75% | 1 Pte. Revisión  | [ Ver Progreso ]
+    }
+    --
+    <b>MÓDULOS FORMATIVOS DEL EQUIPO (MOTOR FORMACIÓN):</b>
+    {
+        <b>Código</b> | <b>Módulo</b>                          | <b>Materiales</b> | <b>Entregables</b> | <b>Preguntas Test</b> | <b>Acción</b>
+        --
+        M01    | Arquitectura Hexagonal y DDD en Node  | 6 guías          | 2 laboratorios    | 8 reactivos           | [ Gestionar ]
+        M02    | APIs RESTful, Middleware y Auth JWT   | 8 guías          | 3 laboratorios    | 10 reactivos          | [ Gestionar ]
+        M03    | Persistencia Relacional y Transacciones| 5 guías          | 2 laboratorios    | 6 reactivos           | [ Gestionar ]
+        M04    | Event-Driven & Mensajería con RabbitMQ| 4 guías          | 2 laboratorios    | 4 reactivos           | [ Gestionar ]
+    }
+}
+@endsalt

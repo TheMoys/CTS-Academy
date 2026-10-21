@@ -1,0 +1,37 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_LIDER_ABIERTO
+state PANEL_LIDER_ABIERTO_SALIDA as "PANEL_LIDER_ABIERTO"
+
+PANEL_LIDER_ABIERTO -[#green]-> abrirPanelLider
+note on link
+<b>LiderEquipo</b> solicita abrir panel de gestión de equipo
+end note
+
+state abrirPanelLider as "abrirPanelLider()" {
+
+    state " " as PresentandoDashboardLider
+
+    [*] -[#green]-> PresentandoDashboardLider
+    note on link
+    <b>Sistema</b> presenta datos del equipo CTS asignado y alumnos tutelados
+    <b>Sistema</b> presenta entregables pendientes de revisión y estado de módulos
+    <b>Sistema</b> permite seleccionar alumno para consultar progreso
+    <b>Sistema</b> permite solicitar abrir entregables pendientes de revisión
+    <b>Sistema</b> permite solicitar gestionar módulos formativos y banco de preguntas
+    end note
+
+    PresentandoDashboardLider -[#green]-> [*]
+    note on link
+    dashboard de liderazgo operativo con alertas actualizadas
+    end note
+}
+
+abrirPanelLider -[#green]-> PANEL_LIDER_ABIERTO_SALIDA
+note on link
+panel de gestión de equipo operativo en pantalla
+end note
+
+@enduml

@@ -1,0 +1,27 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — CIERRE FORMAL DE CORTE SEMESTRAL DE ADMISIÓN</b>
+    ====
+    <b>Gestor:</b> Diego Moys | <b>Convocatoria:</b> Becas Talento Internacional 2026-I (Semestre 1)
+    <b>Fecha Oficial de Cierre:</b> 15 de Noviembre de 2026 a las 23:59 UTC
+    --
+    {
+        <b>1. BALANCE CONSOLIDADO DEL CICLO DE ADMISIÓN:</b>
+        --
+        <b>Total Candidaturas Tramitadas:</b> 52 expedientes
+        * <b>Admitidos como Alumnos PROFER:</b> <color:green><b>20 becarios</b></color> (Ocupación del 95% de plazas)
+        * <b>Candidaturas No Admitidas:</b>     <color:red><b>28 aspirantes</b></color> (Notificaciones oficiales despachadas)
+        * <b>Expedientes Incompletos / Sin Test:</b> <color:orange><b>4 aspirantes</b></color> (Serán archivados por abandono)
+        --
+        <b>Distribución Final de Alumnos por Equipo CTS:</b>
+        Team 01 (Backend): 4/4 | Team 02 (Frontend): 4/4 | Team 03 (DevOps): 4/4 | Team 04 (QA): 3/3 | Team 05 (AI): 3/3 | Team 06 (Sys): 2/3
+    }
+    --
+    <color:red><b>CONSECUENCIAS DEL CIERRE DEFINITIVO:</b></color>
+    * La convocatoria pasará irrevocablemente a estado <b>CERRADO</b>.
+    * Ningún candidato podrá iniciar ni entregar tests diagnósticos adicionales.
+    * Se emitirá el informe estadístico anual para la Dirección del Centro Tecnológico y las Sedes Internacionales.
+    --
+    [ Cancelar y Volver ] | <b>[ Confirmar y Clausurar Corte Semestral ]</b>
+}
+@endsalt

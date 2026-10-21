@@ -1,0 +1,29 @@
+@startsalt wireframes
+{
+    <b>CTS ACADEMY — PANEL GENERAL DE ADMISIONES (GESTOR PROFER)</b>
+    ====
+    <b>Gestor:</b> Diego Moys | <b>Convocatoria Activa:</b> Becas Talento 2026-I | [ Gestionar Ciclos ] | [ Cerrar Sesión ]
+    --
+    {
+        <b>Total Candidatos:</b> 48 | <b>En Batería Tests:</b> 18 | <b>Pendientes Entrevista:</b> 8 | <b>Admitidos:</b> 14 | <b>Rechazados:</b> 8
+        --
+        <b>Ocupación de Equipos CTS:</b> Team 01 (2/4) | Team 02 (3/4) | Team 03 (1/4) | Team 04 (4/4 - Lleno) | Team 05 (2/4) | Team 06 (2/4)
+    }
+    --
+    [ + Registrar Nuevo Candidato ] | [ Importar Lote de Sede (CSV/XLSX) ]
+    --
+    <b>Filtros de Búsqueda:</b>
+    Sede: ^Todas las Sedes^Santander^Bogotá^San Salvador^ | Estado: ^Todos los Estados^En Evaluación^Pendiente Entrevista^Admitido^
+    --
+    {
+        <b>Expediente</b>      | <b>Candidato</b>           | <b>Sede</b>       | <b>Tests</b>   | <b>Entrevista</b> | <b>Afinidad</b>   | <b>Estado</b>          | <b>Acción</b>
+        --
+        CTS-2026-SDR-014    | Carlos Mendoza Rivas    | Santander  | 3/3 (82%) | Realizada   | Backend (88%) | <color:green>Admitido</color>    | [ Ver Expediente ]
+        CTS-2026-BOG-042    | Juan Carlos Pérez       | Bogotá     | 2/3 (67%) | Pendiente   | En evaluación | <color:orange>En Curso</color>    | [ Ver Expediente ]
+        CTS-2026-BOG-088    | Andrés Felipe Morales   | Bogotá     | 3/3 (48%) | Realizada   | Dispersa      | <color:red>Rechazado</color>   | [ Ver Expediente ]
+        CTS-2026-SAL-003    | Gabriela María Vega     | San Salvad | 3/3 (91%) | Pendiente   | Frontend (94%)| <color:blue>Pte. Entrevista</color>| <b>[ Ver Expediente ]</b>
+    }
+    --
+    <i>Mostrando 1 a 4 de 48 expedientes. Paginación: [ < ] [ 1 ] [ 2 ] [ 3 ] [ > ]</i>
+}
+@endsalt

@@ -1,0 +1,37 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state PANEL_ADMISIONES_ABIERTO
+state PANEL_ADMISIONES_ABIERTO_SALIDA as "PANEL_ADMISIONES_ABIERTO"
+
+PANEL_ADMISIONES_ABIERTO -[#green]-> abrirPanelAdmisiones
+note on link
+<b>Gestor</b> solicita abrir panel de admisiones
+end note
+
+state abrirPanelAdmisiones as "abrirPanelAdmisiones()" {
+
+    state " " as PresentandoDashboardAdmisiones
+
+    [*] -[#green]-> PresentandoDashboardAdmisiones
+    note on link
+    <b>Sistema</b> presenta KPIs de convocatoria y capacidad de los 6 equipos
+    <b>Sistema</b> presenta listado de candidatos, filtros de búsqueda y paginación
+    <b>Sistema</b> permite seleccionar candidato para consultar expediente
+    <b>Sistema</b> permite solicitar registrar candidato o importar lote
+    <b>Sistema</b> permite solicitar gestionar periodos y cortes semestrales
+    end note
+
+    PresentandoDashboardAdmisiones -[#green]-> [*]
+    note on link
+    dashboard consolidado con métricas actualizadas
+    end note
+}
+
+abrirPanelAdmisiones -[#green]-> PANEL_ADMISIONES_ABIERTO_SALIDA
+note on link
+panel de admisiones operativo en pantalla
+end note
+
+@enduml

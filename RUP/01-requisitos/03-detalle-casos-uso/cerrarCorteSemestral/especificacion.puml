@@ -1,0 +1,65 @@
+@startuml especificacion
+
+skinparam linetype polyline
+
+state GESTION_CICLOS_ABIERTO
+state GESTION_CICLOS_ABIERTO_SALIDA as "GESTION_CICLOS_ABIERTO"
+
+GESTION_CICLOS_ABIERTO -[#green]-> cerrarCorteSemestral
+note on link
+<b>Gestor</b> solicita cerrar corte semestral
+end note
+
+state cerrarCorteSemestral as "cerrarCorteSemestral()" {
+
+    state c_precondicion <<choice>>
+    state " " as PresentandoBalanceCorte
+    state c_confirmacion <<choice>>
+
+    [*] -[#green]-> c_precondicion
+
+    c_precondicion -[#red]-> [*]
+    note on link
+    [convocatoria ya cerrada previamente]
+    <b>Sistema</b> presenta mensaje de corte ya clausurado
+    end note
+
+    c_precondicion -[#green]-> PresentandoBalanceCorte
+    note on link
+    [convocatoria abierta con fecha límite cumplida o cierre formal]
+    <b>Sistema</b> presenta balance estadístico final de la cohorte
+    <b>Sistema</b> presenta total de admitidos por equipo y candidaturas pendientes
+    <b>Sistema</b> permite solicitar confirmar cierre definitivo del corte
+    <b>Sistema</b> permite solicitar cancelar cierre
+    end note
+
+    PresentandoBalanceCorte -[#green]-> c_confirmacion
+    note on link
+    <b>Gestor</b> selecciona opción
+    end note
+
+    c_confirmacion -[#blue]-> [*]
+    note on link
+    [gestor selecciona cancelar cierre]
+    end note
+
+    c_confirmacion -[#green]-> [*]
+    note on link
+    [gestor selecciona confirmar cierre]
+    <b>Sistema</b> actualiza convocatoria a estado CERRADO
+    <b>Sistema</b> congela expedientes y consolida informe de ciclo
+    <b>Sistema</b> presenta confirmación de corte semestral clausurado
+    end note
+}
+
+cerrarCorteSemestral -[#green]-> GESTION_CICLOS_ABIERTO_SALIDA
+note on link
+corte semestral clausurado, convocatoria archivada
+end note
+
+cerrarCorteSemestral -[#blue]-> GESTION_CICLOS_ABIERTO_SALIDA
+note on link
+cancelación voluntaria del cierre
+end note
+
+@enduml

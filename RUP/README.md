@@ -81,9 +81,9 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 |**PK03 - MotorFormacion**|`aprobarEntregable()`|`LiderEquipo`|—|—|—|—|
 |**PK03 - MotorFormacion**|`solicitarCambiosEntregable()`|`LiderEquipo`|—|—|—|—|
 |**PK03 - MotorFormacion**|`evaluarCapacitacionAlumno()`|`LiderEquipo`|—|—|—|—|
-|**PK04 - MotorEquipos**|`abrirPanelLider()`|`LiderEquipo`|—|—|—|—|
-|**PK04 - MotorEquipos**|`abrirPanelAdmisiones()`|`Gestor`|—|—|—|—|
-|**PK04 - MotorEquipos**|`abrirPeriodoIngreso()`|`Gestor`|—|—|—|—|
-|**PK04 - MotorEquipos**|`cerrarCorteSemestral()`|`Gestor`|—|—|—|—|
+|**PK04 - MotorEquipos**|`abrirPanelLider()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelLider/README.md)|—|—|—|
+|**PK04 - MotorEquipos**|`abrirPanelAdmisiones()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelAdmisiones/README.md)|—|—|—|
+|**PK04 - MotorEquipos**|`abrirPeriodoIngreso()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPeriodoIngreso/README.md)|—|—|—|
+|**PK04 - MotorEquipos**|`cerrarCorteSemestral()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/cerrarCorteSemestral/README.md)|—|—|—|
 
 </div>
