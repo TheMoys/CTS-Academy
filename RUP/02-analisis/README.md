@@ -7,7 +7,7 @@
 
 # Fase 02: Análisis — CTS Academy & Evaluator
 
-Bienvenido a la **Fase 02: Análisis** de **CTS Academy & Evaluator** bajo la metodología RUP (Rational Unified Process).
+Esta fase formaliza las colaboraciones entre clases de análisis Boundary-Control-Entity (BCE) que realizan los 35 casos de uso del sistema de forma agnóstica a la tecnología concreta.
 
 ---
 

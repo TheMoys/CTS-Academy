@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `iniciarTest()`</sub>
-
 </div>
 
 # Caso de Uso: `iniciarTest()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Candidato` (admisión), `Alumno` (nivelación de fin de módulo formativo) |
 | **Objetivo** | Iniciar formalmente la ejecución de un test diagnóstico (`Actitud`, `Aptitud` o `Tecnico`), activando el cronómetro inmutable en servidor y habilitando el panel de preguntas |
-| **Tipo** | Primario, esencial |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe estar autenticado; el test seleccionado debe estar en estado `PENDIENTE` dentro de la convocatoria activa |
 | **Postcondición Éxito** | Test en estado `EN_CURSO`; cronómetro backend iniciado; primer ítem presentado; navegación en `TEST_EN_EJECUCION` |
 | **Postcondición Fallo** | Si el test ya fue entregado (`COMPLETADO`) o expiró, el sistema bloquea el acceso mostrando mensaje informativo y permanece en `PANEL_POSTULACION_ABIERTO` |

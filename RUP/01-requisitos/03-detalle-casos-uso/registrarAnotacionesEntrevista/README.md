@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `registrarAnotacionesEntrevista()`</sub>
-
 </div>
 
 # Caso de Uso: `registrarAnotacionesEntrevista()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Registrar formalmente en la bitácora del expediente las observaciones cualitativas y la valoración tipificada de la rúbrica competencial obtenida durante la entrevista personal (Google Meet), consolidando la evidencia requerida para emitir el dictamen final de admisión |
-| **Tipo** | Secundario, soporte de evaluación cualitativa |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El Gestor debe encontrarse autenticado y en el expediente del aspirante (`PERFIL_CANDIDATO_ABIERTO`); la entrevista debe estar en estado editable; el expediente no debe contar con dictamen definitivo cerrado |
 | **Postcondición Éxito** | Entrada cualitativa incorporada como evento inmutable en la bitácora `Entrevista.anotaciones` con autoría, marca temporal, momento de captura y puntuaciones de rúbrica; el contexto permanece en `PERFIL_CANDIDATO_ABIERTO` |
 | **Postcondición Bloqueo** | Si el expediente ya cuenta con resolución formal cerrada (`ADMITIDO` o `RECHAZADO`), el sistema bloquea cualquier entrada de datos y degrada la interfaz a modo de solo lectura |

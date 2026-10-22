@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `cerrarCorteSemestral()`</sub>
-
 </div>
 
 # Caso de Uso: `cerrarCorteSemestral()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Formalizar la clausura administrativa de una convocatoria de admisión tras el vencimiento de su plazo o por decisión institucional, congelando las candidaturas de la cohorte, inhabilitando la realización de nuevos tests y consolidando el informe estadístico final del ciclo |
-| **Tipo** | Secundario, soporte de gobernanza y cierre de ciclo |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe encontrarse autenticado con rol `Gestor` en `GESTION_CICLOS_ABIERTO`; la convocatoria debe encontrarse en estado `ABIERTO` |
 | **Postcondición Éxito** | La entidad `Convocatoria` transiciona a `CERRADO`; se congelan los accesos a tests de la cohorte; se genera el consolidado estadístico de admisiones; contexto permanece en `GESTION_CICLOS_ABIERTO` |
 | **Postcondición Cancelación** | Si el Gestor cancela tras revisar el balance preliminar, la convocatoria continúa abierta |

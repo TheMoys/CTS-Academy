@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `agendarEntrevistaGoogleMeet()`</sub>
-
 </div>
 
 # Caso de Uso: `agendarEntrevistaGoogleMeet()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Programar y coordinar la entrevista diagnóstica cualitativa con el aspirante, integrándose con Google Calendar API para generar automáticamente la sala de Google Meet, sincronizar el evento en la agenda institucional y despachar la convocatoria transaccional por correo electrónico |
-| **Tipo** | Secundario, soporte de admisiones |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El Gestor debe encontrarse autenticado y en el expediente del aspirante (`PERFIL_CANDIDATO_ABIERTO`); el candidato debe encontrarse en estado admisible para entrevista; las credenciales de servicio de Google Workspace deben estar configuradas |
 | **Postcondición Éxito** | Entrevista registrada en la entidad `Candidato.entrevista`; evento sincronizado en Google Calendar con enlace Meet persistido; notificación enviada al correo del candidato; el contexto permanece en `PERFIL_CANDIDATO_ABIERTO` con el enlace y estado actualizados |
 | **Postcondición Fallo** | Si la integración con Google Calendar API falla persistentemente o se introducen fechas no válidas, el sistema emite un mensaje de error y mantiene el formulario abierto sin alterar el expediente |

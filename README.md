@@ -39,9 +39,9 @@ Para explorar la documentación de forma secuencial sin tener que buscar manualm
 
 ---
 
-## 📐 Metodología RUP (Estándar UNEATLANTICO)
+## 📐 Metodología de Desarrollo
 
-Este proyecto sigue estrictamente la metodología **RUP (Rational Unified Process)** adaptada al estándar de ingeniería de software de UNEATLANTICO (referencias: *DOCUTRACE*, *pySigHor*, *pyCelda* / Dr. Manuel Masías).
+El proyecto aplica **RUP (Rational Unified Process)** con trazabilidad formal de requisitos, análisis, diseño y despliegue mediante especificaciones en PlantUML y Markdown.
 
 Toda la documentación técnica se concentra y enlaza desde el concentrador central:
 👉 **[Acceder al RUP Hub Central (`/RUP/README.md`)](/RUP/README.md)**

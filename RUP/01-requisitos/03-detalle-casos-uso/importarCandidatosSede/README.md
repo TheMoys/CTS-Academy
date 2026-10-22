@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `importarCandidatosSede()`</sub>
-
 </div>
 
 # Caso de Uso: `importarCandidatosSede()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Cargar masivamente un conjunto de aspirantes remitidos formalmente por una sede internacional mediante archivo estructurado (CSV/Excel), validando su integridad, deduplicando correos y generando en bloque sus candidaturas y credenciales de examen |
-| **Tipo** | Secundario, soporte de operaciones masivas |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El Gestor debe encontrarse autenticado en `REGISTRO_CANDIDATO_ABIERTO`; debe existir al menos una convocatoria activa |
 | **Postcondición Éxito** | Creación masiva de entidades `Candidato` y `Candidatura` para todos los registros válidos; baterías de 3 tests diagnósticos inicializadas; despacho de credenciales encolado en cola asíncrona; contexto permanece en `REGISTRO_CANDIDATO_ABIERTO` |
 | **Postcondición Cancelación** | Si el Gestor cancela la operación tras visualizar el informe de validación previa (`-[#blue]->`), no se persiste ningún registro |

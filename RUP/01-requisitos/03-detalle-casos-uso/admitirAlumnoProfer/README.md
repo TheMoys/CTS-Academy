@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `admitirAlumnoProfer()`</sub>
-
 </div>
 
 # Caso de Uso: `admitirAlumnoProfer()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Formalizar la resolución favorable de admisión de un aspirante, promoviendo la entidad `Candidato` a `Alumno` (`AlumnoProfer`), asignándolo obligatoriamente a uno de los 6 equipos de desarrollo de CTS con un rol técnico específico, matriculándolo en la capacitación del equipo y despachando la carta de admisión institucional |
-| **Tipo** | Primario, esencial para la gobernanza |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El Gestor debe encontrarse autenticado y en el expediente del aspirante (`PERFIL_CANDIDATO_ABIERTO`); la candidatura debe estar en estado `EVALUACION_COMPLETADA` o con entrevista cualitativa realizada; el equipo seleccionado debe contar con plazas disponibles en el periodo activo |
 | **Postcondición Éxito** | Entidad `Candidatura` transiciona a `ADMITIDO`; se crea la instancia `Alumno` vinculada a `Equipo`, `LiderEquipo` y `Capacitacion`; se generan credenciales de acceso para rol `Alumno`; se despachan notificaciones transaccionales a candidato y sede; el contexto transiciona a `PANEL_ADMISIONES_ABIERTO` |
 | **Postcondición Bloqueo** | Si el expediente ya contaba con dictamen previo o el equipo seleccionado no dispone de vacantes, el sistema emite un aviso de bloqueo y mantiene al Gestor en el perfil sin alterar el estado |

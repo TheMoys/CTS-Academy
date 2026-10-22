@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `abrirPanelAdmisiones()`</sub>
-
 </div>
 
 # Caso de Uso: `abrirPanelAdmisiones()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Proveer al Gestor PROFER el cuadro de mando integral de admisiones, presentando las métricas consolidadas de la convocatoria, la disponibilidad de plazas en los 6 equipos de CTS y la tabla interactiva de aspirantes con opciones de filtrado y acceso a expedientes |
-| **Tipo** | Primario, concentrador del rol Gestor |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe encontrarse autenticado con rol `Gestor` (`SESION_CERRADA` $\rightarrow$ `PANEL_ADMISIONES_ABIERTO`) |
 | **Postcondición Éxito** | Dashboard de admisiones operativo con KPIs en tiempo real, listado paginado y acciones de alta, importación y gestión de ciclos habilitadas |
 

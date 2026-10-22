@@ -43,48 +43,18 @@ Desde aquí se accede a cada una de las fases del ciclo de desarrollo, al regist
 
 ---
 
-## Matriz Preliminar de Casos de Uso y Trazabilidad
+## Matriz de Cobertura por Subsistemas
 
-`📃` enlaza la ficha de la fase; `—` indica que el caso de uso está pendiente de elaborar en esa fase.
+La especificación detallada de los 35 casos de uso, sus diagramas de estados (Statecharts) y maquetas de interfaz (Salt) se encuentra centralizada por paquetes funcionales:
 
 <div align=center>
 
-|Subsistema / Paquete|Caso de uso|Actor Principal|Requisito|Análisis|Diseño|Desarrollo|
-|:-|:-|:-:|:-:|:-:|:-:|:-:|
-|**PK01 - Acceso**|`iniciarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarSesion/README.md)|—|—|—|
-|**PK01 - Acceso**|`cerrarSesion()`|`Candidato` / `Alumno` / `LiderEquipo` / `Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/cerrarSesion/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`abrirPanelPostulacion()`|`Candidato`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelPostulacion/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`iniciarTest()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/iniciarTest/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`responderPreguntaTeorica()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/responderPreguntaTeorica/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`entregarPreguntaPractica()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/entregarPreguntaPractica/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`finalizarTest()`|`Candidato` / `Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/finalizarTest/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`abrirPerfilCandidato()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPerfilCandidato/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`agendarEntrevistaGoogleMeet()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/agendarEntrevistaGoogleMeet/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`registrarAnotacionesEntrevista()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/registrarAnotacionesEntrevista/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`admitirAlumnoProfer()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/admitirAlumnoProfer/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`rechazarCandidatura()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/rechazarCandidatura/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`registrarCandidato()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/registrarCandidato/README.md)|—|—|—|
-|**PK02 - MotorEvaluacion**|`importarCandidatosSede()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/importarCandidatosSede/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`abrirPanelAlumno()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelAlumno/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`consultarCapacitacion()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/consultarCapacitacion/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`consultarModulo()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/consultarModulo/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`consultarMaterial()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/consultarMaterial/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`enviarEntregable()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/enviarEntregable/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`consultarFeedbackEntregable()`|`Alumno`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/consultarFeedbackEntregable/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`crearMaterial()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/crearMaterial/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`editarMaterial()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/editarMaterial/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`eliminarMaterial()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/eliminarMaterial/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`crearPregunta()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/crearPregunta/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`editarPregunta()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/editarPregunta/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`eliminarPregunta()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/eliminarPregunta/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`abrirEntregablesPendientes()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirEntregablesPendientes/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`revisarEntregable()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/revisarEntregable/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`aprobarEntregable()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/aprobarEntregable/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`solicitarCambiosEntregable()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/solicitarCambiosEntregable/README.md)|—|—|—|
-|**PK03 - MotorFormacion**|`evaluarCapacitacionAlumno()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/evaluarCapacitacionAlumno/README.md)|—|—|—|
-|**PK04 - MotorEquipos**|`abrirPanelLider()`|`LiderEquipo`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelLider/README.md)|—|—|—|
-|**PK04 - MotorEquipos**|`abrirPanelAdmisiones()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPanelAdmisiones/README.md)|—|—|—|
-|**PK04 - MotorEquipos**|`abrirPeriodoIngreso()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/abrirPeriodoIngreso/README.md)|—|—|—|
-|**PK04 - MotorEquipos**|`cerrarCorteSemestral()`|`Gestor`|[📃](/RUP/01-requisitos/03-detalle-casos-uso/cerrarCorteSemestral/README.md)|—|—|—|
+| Paquete Funcional | Casos de Uso | Actores Involucrados | Acceso al Detalle |
+| :--- | :---: | :--- | :---: |
+| **PK01 — Acceso** | 2 | `Candidato`, `Alumno`, `LiderEquipo`, `Gestor` | [Ver Casos (2)](/RUP/01-requisitos/03-detalle-casos-uso/README.md#-pk01--acceso-2-casos-de-uso) |
+| **PK02 — MotorEvaluacion** | 12 | `Candidato`, `Alumno`, `Gestor` | [Ver Casos (12)](/RUP/01-requisitos/03-detalle-casos-uso/README.md#-pk02--motorevaluacion-12-casos-de-uso) |
+| **PK03 — MotorFormacion** | 17 | `Alumno`, `LiderEquipo` | [Ver Casos (17)](/RUP/01-requisitos/03-detalle-casos-uso/README.md#-pk03--motorformacion-17-casos-de-uso) |
+| **PK04 — MotorEquipos** | 4 | `LiderEquipo`, `Gestor` | [Ver Casos (4)](/RUP/01-requisitos/03-detalle-casos-uso/README.md#-pk04--motorequipos-4-casos-de-uso) |
+| **Total Sistema** | **35** | **4 Roles Autenticados** | **[📋 Ver Catálogo Completo](/RUP/01-requisitos/03-detalle-casos-uso/README.md)** |
 
 </div>

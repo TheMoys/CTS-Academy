@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `registrarCandidato()`</sub>
-
 </div>
 
 # Caso de Uso: `registrarCandidato()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Registrar individualmente en el sistema a un aspirante internacional remitido por una sede de origen, vinculándolo a la convocatoria vigente, inicializando automáticamente su batería de 3 tests diagnósticos y despachando sus credenciales de acceso |
-| **Tipo** | Primario, entrada del flujo de admisiones |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El Gestor debe encontrarse autenticado; debe existir al menos una convocatoria activa con plazo de postulación abierto |
 | **Postcondición Éxito** | Se crea la entidad `Candidato` y la asociación `Candidatura`; se instancian los 3 tests (`Actitud`, `Aptitud`, `Tecnico`) en estado `PENDIENTE`; se generan credenciales temporales y se despacha el correo de bienvenida; contexto transiciona a `REGISTRO_CANDIDATO_ABIERTO` |
 | **Postcondición Fallo** | Si el email del candidato ya se encuentra registrado en la convocatoria activa o faltan campos obligatorios, el sistema emite un aviso de validación y mantiene el formulario editable |

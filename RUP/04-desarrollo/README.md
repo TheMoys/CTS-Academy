@@ -7,7 +7,7 @@
 
 # Fase 04: Desarrollo — CTS Academy & Evaluator
 
-Bienvenido a la **Fase 04: Desarrollo / Implementación** de **CTS Academy & Evaluator** bajo la metodología RUP (Rational Unified Process).
+Esta fase vincula el diseño arquitectónico con la base de código real: backend en microservicios, frontend web, arquitectura hexagonal y batería de pruebas automatizadas.
 
 ---
 

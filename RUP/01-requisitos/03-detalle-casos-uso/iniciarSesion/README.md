@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `iniciarSesion()`</sub>
-
 </div>
 
 # Caso de Uso: `iniciarSesion()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Candidato`, `Alumno`, `LiderEquipo`, `Gestor` |
 | **Objetivo** | Autenticar al usuario contra el sistema y redirigirlo a su contexto operativo específico según su rol institucional |
-| **Tipo** | Primario, esencial |
-| **Nivel** | Subfunción / Objetivo de usuario |
 | **Precondición** | El usuario debe estar previamente registrado en la plataforma con credenciales activas (los candidatos son registrados por el Gestor tras la remisión de expedientes por las sedes) |
 | **Postcondición Éxito** | Sesión establecida; token de sesión emitido y contexto del actor abierto (`PANEL_POSTULACION_ABIERTO`, `INICIO_ALUMNO_ABIERTO`, `PANEL_LIDER_ABIERTO` o `PANEL_ADMISIONES_ABIERTO`) |
 | **Postcondición Fallo** | El sistema permanece en `SESION_CERRADA` visualizando mensaje de error de credenciales |

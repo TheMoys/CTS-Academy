@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `abrirPanelPostulacion()`</sub>
-
 </div>
 
 # Caso de Uso: `abrirPanelPostulacion()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Candidato` (aspirante autenticado en proceso de admisión internacional) |
 | **Objetivo** | Proporcionar al aspirante la visión unificada de su expediente de postulación, la fecha límite de la convocatoria y el estado de disponibilidad y ejecución de la batería de 3 tests diagnósticos (`Actitud`, `Aptitud`, `Tecnico`), permitiendo iniciar o reanudar pruebas según las reglas de negocio |
-| **Tipo** | Primario, esencial |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe estar autenticado con rol `Candidato`; el expediente debe existir y estar vinculado a una convocatoria activa |
 | **Postcondición Éxito** | Panel de postulación presentado con datos del expediente, convocatoria, estado individual de cada instrumento evaluativo y controles de inicio/reanudación habilitados según corresponda; contexto en `PANEL_POSTULACION_ABIERTO` |
 | **Postcondición Fuera de Plazo** | Si la convocatoria alcanzó su fecha límite de cierre, el panel se presenta en modo de solo lectura, deshabilitando cualquier acción de inicio o reanudación |

@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `enviarEntregable()`</sub>
-
 </div>
 
 # Caso de Uso: `enviarEntregable()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actor Principal** | `Alumno` (`AlumnoProfer`) |
 | **Objetivo** | Enviar la solución en código fuente (Pull Request en repositorio Git) de una práctica de laboratorio o ticket asignado en un módulo formativo para su revisión técnica |
-| **Tipo** | Primario, esencial |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El Alumno está autenticado e integrado en un equipo de CTS; el módulo formativo está en curso y la práctica se encuentra en estado inicial o solicitada de cambios (`REQUIERE_CAMBIOS`) |
 | **Postcondición Éxito** | Entregable registrado en estado `PENDIENTE_REVISION`; notificación encolada para el `LiderEquipo` (TL) en `abrirEntregablesPendientes()` |
 | **Postcondición Fallo** | Si la URL del Pull Request no es válida o no pertenece al repositorio institucional, el sistema rechaza la entrega y permanece en el formulario |

@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `abrirPanelLider()`</sub>
-
 </div>
 
 # Caso de Uso: `abrirPanelLider()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `LiderEquipo` (Tech Leader - TL) |
 | **Objetivo** | Proporcionar al Tech Leader el panel de gobierno técnico y formativo de su equipo asignado, centralizando la supervisión de sus alumnos PROFER, las alertas de Pull Requests pendientes de Code Review y el estado de sus módulos y banco de reactivos |
-| **Tipo** | Primario, concentrador del rol Tech Leader |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe encontrarse autenticado con rol `LiderEquipo` (`SESION_CERRADA` $\rightarrow$ `PANEL_LIDER_ABIERTO`) |
 | **Postcondición Éxito** | Dashboard del Tech Leader presentado con alumnos del equipo, entregables pendientes de revisión y accesos directos a módulos formativos y banco de preguntas |
 

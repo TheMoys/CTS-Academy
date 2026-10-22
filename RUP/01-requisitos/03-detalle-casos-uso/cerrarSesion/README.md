@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `cerrarSesion()`</sub>
-
 </div>
 
 # Caso de Uso: `cerrarSesion()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | Común a los 4 actores (`Candidato`, `Alumno`, `LiderEquipo`, `Gestor`) |
 | **Objetivo** | Finalizar e invalidar de forma segura la sesión activa del usuario autenticado, revocando sus tokens criptográficos en el servidor (Refresh Token y lista negra de Access Token JTI), purgando las cookies `HttpOnly` y retornando a la interfaz de acceso general (`SESION_CERRADA`) |
-| **Tipo** | Secundario, soporte de seguridad |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El usuario debe encontrarse previamente autenticado en cualquiera de los paneles principales (`PANEL_POSTULACION_ABIERTO`, `INICIO_ALUMNO_ABIERTO`, `PANEL_LIDER_ABIERTO`, `PANEL_ADMISIONES_ABIERTO`) |
 | **Postcondición Éxito** | Tokens invalidados en backend; cabecera `Clear-Site-Data` y cookies `HttpOnly` eliminadas; almacenamiento volátil del cliente purgado; contexto transiciona a `SESION_CERRADA` con la pantalla de acceso |
 | **Postcondición Cancelación** | Si el usuario cancela en el diálogo de advertencia de procesos activos (`-[#blue]->`), permanece en su panel de origen sin alteración de credenciales |

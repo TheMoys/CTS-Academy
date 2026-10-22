@@ -9,9 +9,7 @@
 
 # Fase 01: Requisitos — CTS Academy & Evaluator
 
-Bienvenido a la **Fase 01: Requisitos** de **CTS Academy & Evaluator** bajo la metodología RUP (Rational Unified Process) adaptada al estándar riguroso de ingeniería de software de UNEATLANTICO (*pyCelda* / Dr. Manuel Masías).
-
-En esta fase se formalizan las interacciones de los actores con el sistema y se especifica el comportamiento exacto de los 35 casos de uso que componen la plataforma.
+En esta fase se formalizan las interacciones de los actores con el sistema y se especifica el comportamiento exacto de los 35 casos de uso que componen la plataforma bajo la metodología RUP.
 
 ---
 
@@ -58,8 +56,8 @@ Contiene la especificación formal exhaustiva de los **35 casos de uso**, organi
 * **[PK04 — MotorEquipos (4 Casos de Uso)](/RUP/01-requisitos/03-detalle-casos-uso/README.md#pk04---motorequipos)**: Gobernanza de los 6 equipos CTS, cohortes semestrales y cuadros de mando de liderazgo.
 
 Cada caso de uso cuenta estrictamente con:
-1. `especificacion.puml`: Statechart con vocabulario cerrado UNEATLANTICO (*introduce, solicita, presenta, permite*).
-2. `wireframes.puml`: Prototipo Salt de la interfaz.
+1. `especificacion.puml`: Statechart de interacción con flujos alternativos y bifurcaciones de control.
+2. `wireframes.puml`: Prototipo Salt esquemático de la interfaz.
 3. `README.md`: Ficha técnica de requisitos con diagramas vectoriales SVG embebidos.
 
 ---

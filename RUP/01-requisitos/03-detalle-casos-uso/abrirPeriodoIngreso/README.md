@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `abrirPeriodoIngreso()`</sub>
-
 </div>
 
 # Caso de Uso: `abrirPeriodoIngreso()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Formalizar la apertura y configuración de una nueva convocatoria de ingreso dentro del curso académico y semestre correspondiente, fijando el cronograma de recepción de candidaturas y los cupos máximos de becarios autorizados para cada uno de los 6 equipos de desarrollo de CTS |
-| **Tipo** | Secundario, soporte de gobernanza y planificación |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe encontrarse autenticado con rol `Gestor` en `PANEL_ADMISIONES_ABIERTO`; el curso académico y semestre deben estar catalogados en el sistema |
 | **Postcondición Éxito** | Se crea la entidad `Convocatoria` en estado `ABIERTO` vinculada al `CursoAcademico` y `Semestre`; se asignan las capacidades por equipo; contexto transiciona a `GESTION_CICLOS_ABIERTO` |
 | **Postcondición Cancelación** | Si el Gestor cancela el formulario, permanece en `PANEL_ADMISIONES_ABIERTO` sin alterar la configuración previa |

@@ -3,73 +3,53 @@
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `editarMaterial()`</sub>
-
 </div>
 
 # Caso de Uso: `editarMaterial()`
 
+<div align=center>
 
-## 1. Identificación y Metadatos
+| Especificación del Caso de Uso |
+| :---: |
+| ![](/images/RUP/01-requisitos/03-detalle-casos-uso/editarMaterial/especificacion.svg) |
+| <sup><i>[Código fuente PlantUML](especificacion.puml)</i></sup> |
 
-| Atributo | Detalle |
+| Wireframe de la Interfaz |
+| :---: |
+| ![](/images/RUP/01-requisitos/03-detalle-casos-uso/editarMaterial/wireframes.svg) |
+| <sup><i>[Código fuente PlantUML](wireframes.puml)</i></sup> |
+
+</div>
+
+---
+
+## 📋 Información del Caso de Uso
+
+<div align=center>
+
+| Atributo | Valor |
 | :--- | :--- |
-| **Identificador** | `CU-LEAD-02` |
-| **Nombre** | `editarMaterial()` |
-| **Paquete** | `PK03 - MotorFormacion` |
 | **Actores** | `LiderEquipo` |
-| **Tipo de Flujo** | Modificación de Contenido Didáctico |
-| **Prioridad** | Media |
-| **Estado** | Especificado |
+| **Objetivo** | Permite al Tech Leader actualizar el contenido pedagógico, los metadatos o los archivos adjuntos de un recurso didáctico existente dentro de los módulos asignados a su equipo. Los cambios surten efecto de manera inmediata para los estudiantes. |
+| **Precondición** | El usuario debe estar autenticado con rol `LiderEquipo`. El recurso didáctico a editar debe existir y pertenecer a un módulo del equipo del Tech Leader. |
+| **Postcondición Éxito** | El recurso didáctico se actualiza con la nueva versión del contenido. Los alumnos que abran el recurso accederán a la versión modificada sin alterar su registro de lecturas históricas. |
+
+</div>
 
 ---
 
-## 2. Descripción General
-Permite al Tech Leader actualizar el contenido pedagógico, los metadatos o los archivos adjuntos de un recurso didáctico existente dentro de los módulos asignados a su equipo. Los cambios surten efecto de manera inmediata para los estudiantes.
+## 📑 Reglas de Negocio Asociadas
 
----
-
-## 3. Precondiciones y Postcondiciones
-
-### 3.1. Precondiciones
-1. El usuario debe estar autenticado con rol `LiderEquipo`.
-2. El recurso didáctico a editar debe existir y pertenecer a un módulo del equipo del Tech Leader.
-
-### 3.2. Postcondiciones
-1. El recurso didáctico se actualiza con la nueva versión del contenido.
-2. Los alumnos que abran el recurso accederán a la versión modificada sin alterar su registro de lecturas históricas.
-
----
-
-## 4. Diagramas de Especificación
-
-### 4.1. Diagrama de Estados del Caso de Uso (RUP)
-![Especificación editarMaterial](/images/RUP/01-requisitos/03-detalle-casos-uso/editarMaterial/especificacion.svg)
-
-### 4.2. Wireframe / Prototipo de Interfaz
-![Wireframe editarMaterial](/images/RUP/01-requisitos/03-detalle-casos-uso/editarMaterial/wireframes.svg)
-
----
-
-## 5. Flujo de Eventos
-
-### 5.1. Flujo Básico (Exitoso)
-1. El **LiderEquipo** selecciona un recurso didáctico y solicita editar su información.
-2. El **Sistema** precarga el formulario con los valores vigentes (título, tipo, orden, Markdown y adjuntos).
-3. El **LiderEquipo** modifica el contenido o los parámetros deseados.
-4. El **LiderEquipo** solicita guardar los cambios.
-5. El **Sistema** valida que el título no esté vacío y que el contenido mantenga integridad formal.
-6. El **Sistema** persiste las modificaciones y actualiza el temario.
-7. El **Sistema** retorna a la configuración del módulo mostrando el recurso actualizado.
-
-### 5.2. Flujo Alternativo: Cancelación Voluntaria
-- En cualquier momento antes de guardar, el **LiderEquipo** solicita cancelar la edición.
-- El **Sistema** descarta las modificaciones no guardadas y retorna al listado sin alterar el recurso.
-
----
-
-## 6. Reglas de Negocio Vinculadas
 - **RN-LEAD-02 (Preservación de Trazabilidad):** Las modificaciones a guías formativas no invalidan las lecturas ya completadas por los alumnos que las leyeron previamente.
+
+---
+
+## 🔗 Referencias
+
+* [Modelo del Dominio: MotorFormacion](/RUP/00-modelo-del-dominio/README.md)
+* [Diagramas de Contexto por Actor](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+* [Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md)
+
 ---
 
 <div align="center">

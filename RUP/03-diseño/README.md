@@ -7,7 +7,7 @@
 
 # Fase 03: Diseño — CTS Academy & Evaluator
 
-Bienvenido a la **Fase 03: Diseño** de **CTS Academy & Evaluator** bajo la metodología RUP (Rational Unified Process).
+Esta fase concreta las realizaciones de análisis en especificaciones técnicas de diseño: diagramas de secuencia, modelo relacional (PostgreSQL), contratos OpenAPI/REST y despliegue físico en contenedores Docker.
 
 ---
 

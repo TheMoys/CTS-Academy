@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `abrirPerfilCandidato()`</sub>
-
 </div>
 
 # Caso de Uso: `abrirPerfilCandidato()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actor Principal** | `Gestor` (`GestorProfer`) |
 | **Objetivo** | Abrir el expediente consolidado del candidato para inspeccionar sus resultados diagnósticos de tests, agendar o consultar la sesión en Google Meet, registrar impresiones cualitativas y formalizar la admisión o descarte |
-| **Tipo** | Primario, esencial |
-| **Nivel** | Objetivo de usuario / Centro neurálgico de admisiones |
 | **Precondición** | El Gestor está autenticado; el aspirante fue previamente registrado a través de las listas canalizadas por las sedes |
 | **Postcondición Éxito** | Expediente unificado visible en `PERFIL_CANDIDATO_ABIERTO` con todas las acciones contextuales operativas (`agendarEntrevistaGoogleMeet`, `registrarAnotacionesEntrevista`, `admitirAlumnoProfer`, `rechazarCandidatura`) |
 | **Postcondición Fallo** | Si el identificador del candidato es inexistente, el sistema muestra error y permanece en `PANEL_ADMISIONES_ABIERTO` |

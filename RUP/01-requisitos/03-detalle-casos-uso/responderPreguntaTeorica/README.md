@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `responderPreguntaTeorica()`</sub>
-
 </div>
 
 # Caso de Uso: `responderPreguntaTeorica()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Candidato` (admisión en `Actitud`, `Aptitud` o `Tecnico`), `Alumno` (evaluación continua o test de nivelación de fin de módulo formativo) |
 | **Objetivo** | Registrar la opción de respuesta seleccionada por el evaluado para un ítem teórico de opción múltiple, validando la vigencia del tiempo en el servidor y aplicando las restricciones de mutabilidad e integridad según la modalidad de prueba |
-| **Tipo** | Primario, esencial |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe estar autenticado; el test evaluado debe encontrarse en estado `EN_CURSO` (`TEST_EN_EJECUCION`); el cronómetro en servidor debe tener tiempo remanente (`tiempoRestante > 0`); el reactivo presentado debe pertenecer al test activo |
 | **Postcondición Éxito** | La respuesta queda persistida atómicamente en servidor con timestamp y metadatos de auditoría; el estado del reactivo se actualiza a respondido; se presenta el siguiente reactivo disponible; la sesión permanece en `TEST_EN_EJECUCION` |
 | **Postcondición Fallo** | - Si el cronómetro en servidor expiró (`tiempoRestante <= 0`), la respuesta es rechazada atómicamente y el sistema notifica la finalización del tiempo límite, requiriendo la consolidación del test (`finalizarTest()`).<br>- Si se intenta modificar un reactivo en un test de `Actitud` (psicométrico Likert) previamente consolidado, el sistema bloquea la alteración emitiendo mensaje de inmutabilidad y mantiene la respuesta original. |

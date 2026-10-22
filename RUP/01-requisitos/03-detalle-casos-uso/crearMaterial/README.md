@@ -3,72 +3,53 @@
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `crearMaterial()`</sub>
-
 </div>
 
 # Caso de Uso: `crearMaterial()`
 
+<div align=center>
 
-## 1. Identificación y Metadatos
+| Especificación del Caso de Uso |
+| :---: |
+| ![](/images/RUP/01-requisitos/03-detalle-casos-uso/crearMaterial/especificacion.svg) |
+| <sup><i>[Código fuente PlantUML](especificacion.puml)</i></sup> |
 
-| Atributo | Detalle |
+| Wireframe de la Interfaz |
+| :---: |
+| ![](/images/RUP/01-requisitos/03-detalle-casos-uso/crearMaterial/wireframes.svg) |
+| <sup><i>[Código fuente PlantUML](wireframes.puml)</i></sup> |
+
+</div>
+
+---
+
+## 📋 Información del Caso de Uso
+
+<div align=center>
+
+| Atributo | Valor |
 | :--- | :--- |
-| **Identificador** | `CU-LEAD-01` |
-| **Nombre** | `crearMaterial()` |
-| **Paquete** | `PK03 - MotorFormacion` |
 | **Actores** | `LiderEquipo` (Tech Leader de equipo técnico CTS) |
-| **Tipo de Flujo** | Creación de Contenido Didáctico |
-| **Prioridad** | Media-Alta |
-| **Estado** | Especificado |
+| **Objetivo** | Permite al Tech Leader diseñar y publicar un nuevo recurso didáctico (guía técnica en Markdown, diagrama arquitectónico, especificación de laboratorio o recurso de referencia) dentro de un módulo formativo bajo su tutela. El material creado queda inmediatamente accesible para los alumnos asignados al equipo. |
+| **Precondición** | El usuario debe estar autenticado con rol `LiderEquipo`. El Tech Leader debe tener permisos sobre el módulo seleccionado dentro de su equipo CTS asignado. |
+| **Postcondición Éxito** | El nuevo recurso didáctico queda almacenado en la base de datos vinculado al módulo y orden de lectura establecido. Los alumnos del equipo pueden consultar el nuevo material en su temario. |
+
+</div>
 
 ---
 
-## 2. Descripción General
-Permite al Tech Leader diseñar y publicar un nuevo recurso didáctico (guía técnica en Markdown, diagrama arquitectónico, especificación de laboratorio o recurso de referencia) dentro de un módulo formativo bajo su tutela. El material creado queda inmediatamente accesible para los alumnos asignados al equipo.
+## 📑 Reglas de Negocio Asociadas
 
----
-
-## 3. Precondiciones y Postcondiciones
-
-### 3.1. Precondiciones
-1. El usuario debe estar autenticado con rol `LiderEquipo`.
-2. El Tech Leader debe tener permisos sobre el módulo seleccionado dentro de su equipo CTS asignado.
-
-### 3.2. Postcondiciones
-1. El nuevo recurso didáctico queda almacenado en la base de datos vinculado al módulo y orden de lectura establecido.
-2. Los alumnos del equipo pueden consultar el nuevo material en su temario.
-
----
-
-## 4. Diagramas de Especificación
-
-### 4.1. Diagrama de Estados del Caso de Uso (RUP)
-![Especificación crearMaterial](/images/RUP/01-requisitos/03-detalle-casos-uso/crearMaterial/especificacion.svg)
-
-### 4.2. Wireframe / Prototipo de Interfaz
-![Wireframe crearMaterial](/images/RUP/01-requisitos/03-detalle-casos-uso/crearMaterial/wireframes.svg)
-
----
-
-## 5. Flujo de Eventos
-
-### 5.1. Flujo Básico (Exitoso)
-1. El **LiderEquipo** solicita crear un nuevo material didáctico desde la pantalla de configuración del módulo.
-2. El **Sistema** presenta el formulario de alta con los campos requeridos (título, tipología, tiempo estimado, obligatoriedad y cuerpo del recurso).
-3. El **LiderEquipo** introduce los metadatos y el contenido en formato Markdown.
-4. El **LiderEquipo** solicita guardar el material.
-5. El **Sistema** valida que el título no esté vacío y que el contenido cumpla con los estándares mínimos de longitud.
-6. El **Sistema** registra el material y actualiza el temario formativo.
-7. El **Sistema** retorna a la configuración del módulo mostrando el nuevo ítem listado.
-
-### 5.2. Flujo Alternativo: Campos Incompletos
-- En el paso 5, si el título está vacío o el contenido no contiene texto válido, el **Sistema** presenta un mensaje de validación destacando los campos obligatorios pendientes y mantiene los datos introducidos para su corrección.
-
----
-
-## 6. Reglas de Negocio Vinculadas
 - **RN-LEAD-01 (Propiedad de Módulos):** Un Tech Leader solo puede dar de alta o modificar materiales en los módulos asociados a su equipo técnico CTS.
+
+---
+
+## 🔗 Referencias
+
+* [Modelo del Dominio: MotorFormacion](/RUP/00-modelo-del-dominio/README.md)
+* [Diagramas de Contexto por Actor](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+* [Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md)
+
 ---
 
 <div align="center">

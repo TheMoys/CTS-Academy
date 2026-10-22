@@ -37,7 +37,7 @@ En esta fase se formalizan los actores que interactúan con **CTS Academy & Eval
 
 ## 🔄 Diagramas de Contexto por Actor
 
-Siguiendo el estándar de ingeniería de software de UNEATLANTICO (*pyCelda* / Dr. Manuel Masías), se modela **un diagrama de contexto por cada actor**. 
+Se define un diagrama de contexto por cada actor del sistema. 
 
 Los estados en estos diagramas **no deben verse simplemente como pantallas**, sino como **contextos de disponibilidad de casos de uso** (qué acciones son invocables en cada momento con independencia del canal o framework frontend). Cada transición lleva el **nombre literal del caso de uso** ya catalogado, sirviendo como mecanismo de verificación formal para detectar callejones sin salida y casos de uso faltantes antes de detallar flujos.
 

@@ -7,9 +7,9 @@
 
 </div>
 
-# Detalle de Casos de Uso — Fase 01: Requisitos
+# Catálogo y Detalle de Casos de Uso — Fase 01: Requisitos
 
-En esta sección se especifica formalmente el comportamiento interactivo, las máquinas de estados de control y los prototipos de interfaz de los **35 casos de uso** del sistema **CTS Academy & Evaluator**, siguiendo con rigor el estándar de ingeniería de software de UNEATLANTICO (*pyCelda* / Dr. Manuel Masías).
+En esta sección se especifica formalmente el comportamiento interactivo, las máquinas de estados de control (Statecharts) y los prototipos de interfaz (Wireframes Salt) de los **35 casos de uso** de **CTS Academy & Evaluator**.
 
 ---
 
@@ -19,48 +19,6 @@ En esta sección se especifica formalmente el comportamiento interactivo, las m�
 
 | [🔐 PK01 — Acceso (2 CUs)](#-pk01--acceso-2-casos-de-uso) | [🎯 PK02 — MotorEvaluacion (12 CUs)](#-pk02--motorevaluacion-12-casos-de-uso) | [📚 PK03 — MotorFormacion (17 CUs)](#-pk03--motorformacion-17-casos-de-uso) | [👥 PK04 — MotorEquipos (4 CUs)](#-pk04--motorequipos-4-casos-de-uso) |
 |:---:|:---:|:---:|:---:|
-
-</div>
-
----
-
-## 📐 Estructura Canónica de Cada Caso de Uso
-
-Cada caso de uso cuenta con su propio subdirectorio (`iniciarSesion/`, `iniciarTest/`, `crearMaterial/`, etc.) compuesto invariablemente por **tres ficheros**:
-
-1. **`especificacion.puml`** — **Statechart de Interacción (Fuente de Verdad)**:
-   * Statechart PlantUML (`skinparam linetype polyline`) con un estado compuesto nombrado exactamente como el caso de uso (`state iniciarTest as "iniciarTest()"`).
-   * Estados internos anónimos (`state " " as Paso1`) para evitar redundancias visuales con las notas de transición.
-   * Entradas y salidas explícitas que coinciden textualmente con los estados de los [Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md#%F0%9F%94%84-diagramas-de-contexto-por-actor).
-   * **Bifurcaciones de Control (`<<choice>>`)**: Evaluación de precondiciones y reglas de negocio antes de transicionar.
-   * **Colores semánticos de transición**:
-     * `-[#green]->`: Flujo principal de éxito (*Happy path*).
-     * `-[#red]->`: Fallo de validación o bloqueo de precondición (retorna con mensaje del sistema).
-     * `-[#blue]->`: Cancelación voluntaria del actor (únicamente permitida si el sistema planteó una confirmación previa explícita).
-
-2. **`wireframes.puml`** — **Prototipos de Interfaz en PlantUML Salt**:
-   * Maqueta esquemática (`@startsalt`) representativa de los formularios, paneles o visores correspondientes al caso de uso.
-   * Correspondencia 1:1 estricta con la especificación (sin controles huérfanos fuera del modelo).
-
-3. **`README.md`** — **Ficha de Requisitos**:
-   * Ficha técnica tabular (Actor, Objetivo, Tipo, Prioridad, Estado).
-   * Inclusión de los dos diagramas vectoriales compilados en SVG desde `/images/RUP/01-requisitos/03-detalle-casos-uso/<casoUso>/`.
-   * Descripción de precondiciones, reglas de negocio e invariantes del dominio aplicables.
-
----
-
-## 🔒 Vocabulario Cerrado en Notas de Transición (Regla UNEATLANTICO)
-
-Las notas (`note on link`) utilizan **exclusivamente** el vocabulario canónico:
-
-<div align=center>
-
-| Actor | Sistema |
-| :--- | :--- |
-| `introduce` | `permite introducir` |
-| `solicita introducir` | `permite solicitar` |
-| `solicita` | `presenta` / `muestra` / `visualiza` |
-| `selecciona` | `presenta selección de` |
 
 </div>
 

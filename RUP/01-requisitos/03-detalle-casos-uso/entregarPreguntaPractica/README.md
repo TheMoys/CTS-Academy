@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `entregarPreguntaPractica()`</sub>
-
 </div>
 
 # Caso de Uso: `entregarPreguntaPractica()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Candidato` (admisión en `Tecnico`), `Alumno` (evaluación continua o test de nivelación técnica en `MotorFormacion`) |
 | **Objetivo** | Formalizar la entrega de la solución de código a un reto práctico (`Practica`), permitiendo ejecuciones de validación en contenedor seguro Docker (`TestRunner`) y persistiendo versiones consolidadas para la evaluación cualitativa por rúbrica del Tech Leader |
-| **Tipo** | Primario, esencial |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe estar autenticado; el test técnico debe encontrarse en estado `EN_CURSO` (`TEST_EN_EJECUCION`); el cronómetro en servidor debe tener tiempo disponible (`tiempoRestante > 0`); el reactivo seleccionado debe ser de tipo práctico |
 | **Postcondición Éxito** | La solución de código queda persistida con identificador de versión, marcas temporales y telemetría; si hay cuota de sandbox disponible se ejecuta la suite automatizada en `TestRunner` y se presentan los resultados; la sesión permanece en `TEST_EN_EJECUCION` |
 | **Postcondición Fallo** | - Si el cronómetro en servidor expiró sin ventana de gracia, el sistema rechaza la nueva entrega, consolida automáticamente el último borrador guardado en segundo plano y notifica el fin de la prueba.<br>- Si el código introducido coincide al 100% con la plantilla inicial o está vacío, el sistema emite una advertencia de contenido no modificado y mantiene la edición. |

@@ -2,9 +2,6 @@
 
 | [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-
-<sub>**Fase 01 Requisitos** › **Detalle de Caso de Uso** › `finalizarTest()`</sub>
-
 </div>
 
 # Caso de Uso: `finalizarTest()`
@@ -34,8 +31,6 @@
 | :--- | :--- |
 | **Actores** | `Candidato` (admisión en `Actitud`, `Aptitud` o `Tecnico`), `Alumno` (evaluación continua o test de nivelación técnica en `MotorFormacion`) |
 | **Objetivo** | Formalizar el cierre y entrega definitiva de una evaluación diagnóstica o de módulo formativo, ya sea por confirmación voluntaria del evaluado o por autoentrega forzada al expirar el cronómetro en el servidor, congelando atómicamente todos los reactivos y transitando el expediente hacia la fase de procesamiento |
-| **Tipo** | Primario, esencial |
-| **Nivel** | Objetivo de usuario |
 | **Precondición** | El actor debe estar autenticado; el test evaluado debe encontrarse en estado `EN_CURSO` (`TEST_EN_EJECUCION` para Candidato o `TEST_NIVELACION_EN_EJECUCION` para Alumno) |
 | **Postcondición Éxito** | La entidad `Test` transiciona a `ENTREGADO` (cierre manual en tiempo) o `EXPIRADO` (autoentrega por cronómetro de backend); las respuestas y el código del sandbox quedan sellados e inmutables; se revoca la sesión del test; el actor retorna a `PANEL_POSTULACION_ABIERTO` (Candidato) o `INICIO_ALUMNO_ABIERTO` (Alumno) |
 | **Postcondición Cancelación** | Si el evaluado cancela la acción en el diálogo de balance antes de confirmar (`-[#blue]->`), el sistema reanuda la interacción en `TEST_EN_EJECUCION` sin alterar datos |
