@@ -4,20 +4,6 @@
 hide empty members
 hide circles
 skinparam linetype polyline
-left to right direction
-
-package MotorEquipos {
-  class Programa
-  class Equipo 
-  class Alumno
-  class LiderEquipo
-  class Gestor
-
-  Programa *-- Equipo
-  Equipo *-- Alumno
-  Equipo --> LiderEquipo : posee
-  Programa --> Gestor : es organizado
-}
 
 package MotorEvaluacion {
   class Convocatoria
@@ -31,8 +17,8 @@ package MotorEvaluacion {
   class Resultado
   class Entrevista
 
-  CursoAcademico *-- Semestre
-  Convocatoria --> Semestre : organiza por
+  CursoAcademico *-u- Semestre
+  Convocatoria -r-> Semestre : organiza por
   Convocatoria o-- Candidato
 
   Candidato --> Test : realiza
@@ -41,8 +27,22 @@ package MotorEvaluacion {
   Test <|-- Tecnico
   Test o-- Resultado
 
-  Candidato o-- Entrevista
+  Candidato *-- Entrevista
   Gestor --> Entrevista : agenda
+  Gestor --> Resultado : consulta
+}
+
+package MotorEquipos {
+  class Programa
+  class Equipo 
+  class Alumno
+  class LiderEquipo
+  class Gestor
+
+  Programa *-- Equipo
+  Equipo o-- Alumno
+  Equipo --> LiderEquipo : posee
+  Programa --> Gestor : es organizado
 }
 
 package MotorFormacion {
@@ -57,20 +57,19 @@ package MotorFormacion {
   Pregunta <|-- Teorica
   Pregunta <|-- Practica
 
-  Capacitacion o-- Modulo
-  Modulo *-- Material
+  Capacitacion o-- Material
+  Modulo <-r- Material : se agrupa en
   Modulo o-- Entregable
-  Modulo o-- Pregunta
+  Material --> Pregunta : genera
+  Alumno --> Capacitacion : realiza
+  LiderEquipo --> Modulo : configura
+  LiderEquipo --> Capacitacion : evalua
 }
 
-Programa --> Convocatoria : mantiene abierta
-Gestor --> Resultado : consulta
+Candidato -- Alumno : > Cuando se acepta
 
+Programa --> Convocatoria : mantiene abierta
 Test ... Pregunta
 Alumno ---> Tecnico : realiza
-
-Alumno --> Capacitacion : realiza
-LiderEquipo --> Modulo : configura
-LiderEquipo --> Capacitacion : evalua
 
 @enduml

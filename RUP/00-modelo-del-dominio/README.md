@@ -54,11 +54,11 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 * **`Entrevista`**: Sesión en Google Meet agendada y registrada por el `Gestor` desde el perfil del candidato una vez completada la batería de tests (o a su discreción con tests en curso), donde se registran notas cualitativas y se formaliza el dictamen de admisión.
 
 ### 3. `MotorFormacion`
-* **`Capacitacion`**: Itinerario formativo on-site cursado por el alumno y evaluado por el líder de su equipo.
-* **`Modulo`**: Unidad temático-práctica dentro de una capacitación, configurada por el líder técnico.
-* **`Material`**: Recursos didácticos (documentación, vídeos, guías técnicas, repositorios de referencia).
-* **`Entregable`**: Práctica o ticket en código fuente enviado por el alumno (rama de Git / Pull Request).
-* **`Pregunta`**: Reactivo de evaluación del banco de conocimiento. Especializado en:
+* **`Capacitacion`**: Itinerario formativo on-site cursado por el alumno, que concentra y agrega el acervo de materiales técnicos (`Capacitacion o-- Material`).
+* **`Modulo`**: Unidad temático-práctica configurada por el líder técnico en la que se agrupan los materiales didácticos (`Modulo <- Material : se agrupa en`) y los entregables de laboratorio (`Modulo o-- Entregable`).
+* **`Material`**: Recursos didácticos (guías técnicas en Markdown, diagramas de arquitectura, documentación) que generan los reactivos de evaluación (`Material --> Pregunta : genera`).
+* **`Entregable`**: Práctica o ticket en código fuente enviado por el alumno (rama de Git / Pull Request) para revisión de código por el TL.
+* **`Pregunta`**: Reactivo de evaluación generado a partir de los contenidos de los materiales. Especializado en:
   * **`Teorica`**: Cuestión conceptual objetiva (HTML, CSS, JS, Git, SQL).
   * **`Practica`**: Reto de código o maquetación con plantilla base y criterios de corrección.
 
@@ -66,20 +66,28 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 
 ## Invariantes y Reglas del Dominio
 
-1. **Desacoplamiento de Servicios**:
-   * Cada motor es autónomo en su persistencia y lógica de negocio. La comunicación entre `MotorEvaluacion` y `MotorFormacion` (para componer el test `Tecnico` a partir de preguntas del banco: `Test ... Pregunta`) se produce a través de contratos de API REST interna.
-2. **Canalización por Sedes Internacionales y Admisión Continua**:
+1. **Desacoplamiento de Servicios y Nutrición de Tests**:
+   * Cada motor es autónomo en su persistencia y lógica de negocio. La comunicación entre `MotorEvaluacion` y `MotorFormacion` (donde los tests se nutren de preguntas del banco formativo: `Test ... Pregunta`, y el alumno realiza el test técnico: `Alumno ---> Tecnico : realiza`) se produce a través de contratos de API REST interna.
+2. **Transición Formal de Candidato a Alumno (`Candidato -- Alumno : > Cuando se acepta`)**:
+   * La relación entre el aspirante y el estudiante no es anónima ni automática; el `Candidato` transiciona a `Alumno` únicamente cuando el `Gestor` formaliza el dictamen favorable de admisión (`admitirAlumnoProfer()`).
+3. **Agregación de Alumno a Equipo (`Equipo o-- Alumno`)**:
+   * Los alumnos pertenecen a los equipos de CTS por agregación (`o--`), posibilitando la reasignación técnica entre squads o rotaciones interdisciplinares sin destruir el expediente formativo del estudiante.
+4. **Composición Estricta de la Entrevista (`Candidato *-- Entrevista`)**:
+   * La entrevista personal de admisión pertenece indisolublemente al expediente del candidato (`*--`); no pueden existir entrevistas huérfanas sin una postulación formal activa.
+5. **Generación de Preguntas desde Materiales (`Material --> Pregunta : genera`)**:
+   * En `MotorFormacion`, el acervo de materiales didácticos es la fuente generadora directa de los reactivos (`Pregunta`), los cuales se agrupan temáticamente en los módulos formativos (`Modulo <- Material : se agrupa en`).
+6. **Canalización por Sedes Internacionales y Admisión Continua**:
    * No existe registro público anónimo ni auto-postulación en la plataforma. La captación y recepción de solicitudes es responsabilidad de las sedes en cada país, que recopilan los aspirantes y los remiten al `GestorProfer`. El gestor los da de alta en el sistema (`registrarCandidato()`), agrupándolos en el `CursoAcademico` (ej. 2024-2025) y `Semestre` activo para coordinar las pruebas y los cortes semestrales.
-3. **Batería de Tests como Indicadores (Sin Nota de Corte)**:
+7. **Batería de Tests como Indicadores (Sin Nota de Corte)**:
    * Los 3 tests (`Actitud`, `Aptitud`, `Tecnico`) no actúan como guillotina o filtro eliminatorio por nota mínima. Producen un mapa de indicadores competenciales y de afinidad de equipo para orientar la decisión. Los resultados son estrictamente de consumo interno para el `Gestor` y no se publican al candidato.
-4. **Gestión de Entrevistas vía Google Meet y Anotaciones**:
+8. **Gestión de Entrevistas vía Google Meet y Anotaciones**:
    * El candidato no agenda ni visualiza entrevistas en el sistema. Es el `Gestor` quien, desde el perfil unificado del aspirante, agenda el enlace de Google Meet al verificar los indicadores de los tests (o anticipadamente a su criterio). Tras celebrar la reunión, el Gestor vuelca sus impresiones y anotaciones directamente en el perfil.
-5. **Decisión de Admisión y Asignación de Plazas**:
+9. **Decisión de Admisión y Asignación de Plazas**:
    * La decisión definitiva de admisión a la beca PROFER la formaliza el `Gestor` en el perfil del candidato (`admitirAlumnoProfer()`), contrastando las anotaciones de la entrevista con los indicadores de los tests, asignando al alumno a uno de los 6 equipos con su rol técnico específico, o dictaminando el descarte (`rechazarCandidatura()`).
-6. **El Alumno se Capacita en su Equipo**:
-   * No existe vínculo directo entre la entidad `Equipo` y `Capacitacion`; la capacitación es una actividad propia del `Alumno` dentro del equipo, supervisada y evaluada por el `LiderEquipo`.
-7. **Evaluación Integral por el Líder Técnico**:
-   * Al configurar el `Modulo` y evaluar la `Capacitacion`, el `LiderEquipo` evalúa implícitamente tanto los `Entregable`s de código como los tests técnicos de nivelación rendidos por los alumnos de su equipo.
+10. **El Alumno se Capacita en su Equipo**:
+    * No existe vínculo directo entre la entidad `Equipo` y `Capacitacion`; la capacitación es una actividad propia del `Alumno` dentro del equipo, supervisada y evaluada por el `LiderEquipo`.
+11. **Evaluación Integral por el Líder Técnico**:
+    * Al configurar el `Modulo` y evaluar la `Capacitacion`, el `LiderEquipo` evalúa implícitamente tanto los `Entregable`s de código como los tests técnicos de nivelación rendidos por los alumnos de su equipo.
 
 ---
 

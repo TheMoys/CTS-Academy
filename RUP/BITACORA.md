@@ -26,6 +26,8 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
 | **[ADR-006](#adr-006-descomposición-arquitectónica-en-3-microservicios)** | 2026-10-13 | Descomposición arquitectónica en 3 microservicios independientes | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
 | **[ADR-007](#adr-007-admisión-continua-por-ciclos-académicos-batería-de-3-tests-e-inclusión-de-entrevista)** | 2026-10-14 | Admisión continua por ciclos académicos, batería de 3 tests e inclusión de entrevista | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
 | **[ADR-008](#adr-008-canalización-de-candidatos-por-sedes-internacionales-y-eliminación-de-usuarionologueado)** | 2026-10-14 | Canalización de candidatos por sedes internacionales y eliminación de UsuarioNoLogueado | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
+| **[ADR-009](#adr-009-delimitación-de-actores-opacidad-de-tests-para-el-candidato-entrevistas-google-meet-en-el-perfil-por-el-gestor-y-aislamiento-del-tl)** | 2026-10-14 | Delimitación de actores: opacidad de tests, entrevistas Google Meet en el Perfil y aislamiento del TL | Aprobado | — |
+| **[ADR-010](#adr-010-refinamiento-estructural-del-dominio-top-to-bottom-transición-candidato-alumno-y-rediseño-pedagógico-de-materiales)** | 2026-10-22 | Refinamiento estructural del dominio top-to-bottom, transición Candidato-Alumno y rediseño pedagógico de materiales | Aprobado | — |
 
 ---
 
@@ -128,6 +130,22 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
   * **Perfil Unificado del Candidato en el Gestor**: El `GestorProfer` visualiza directamente los indicadores en el perfil del aspirante (`abrirPerfilCandidato()`), agenda la sesión virtual (`agendarEntrevistaGoogleMeet()`), registra anotaciones cualitativas (`registrarAnotacionesEntrevista()`) y dictamina la resolución (`admitirAlumnoProfer()`, `rechazarCandidatura()`).
   * **Aislamiento del Líder de Equipo**: El TL queda enfocado exclusivamente en los alumnos de su equipo, sus módulos y sus entregables de código.
 * **Artefactos afectados**: `RUP/00-modelo-del-dominio/modeloDominio.puml`, `estados-entidades/candidatura-estados.puml`, `RUP/00-modelo-del-dominio/README.md`, catálogo de casos de uso y diagramas de contexto en `RUP/01-requisitos/01-actores-casos-uso/` (`actoresCasosUsoCandidato.puml`, `diagramaContextoCandidato.puml`, `actoresCasosUsoGestor.puml`, `diagramaContextoGestor.puml`, `actoresCasosUsoLiderEquipo.puml`, `diagramaContextoLiderEquipo.puml`, `README.md`).
+
+---
+
+### ADR-010: Refinamiento estructural del dominio top-to-bottom, transición Candidato-Alumno y rediseño pedagógico de materiales
+* **Fecha**: 2026-10-22
+* **Contexto**: Para optimizar la legibilidad del modelo conceptual y alinear con mayor fidelidad la pedagogía de los módulos y el ciclo de vida del estudiante:
+  1. La orientación horizontal saturaba la comprensión visual de los tres paquetes de microservicios.
+  2. Faltaba modelar explícitamente en el diagrama conceptual la transición entre el rol evaluado (`Candidato`) y el rol becario (`Alumno`).
+  3. En `MotorFormacion`, los materiales didácticos son el activo central de la capacitación que luego se organiza en módulos y genera el banco de preguntas.
+  4. Los alumnos están vinculados al equipo por agregación (posibilitando transferencias de squad sin romper el expediente formativo).
+* **Decisión**:
+  * **Orientación Vertical Top-to-Bottom**: Retirar `left to right direction` para estructurar la lectura vertical canónica de los 3 subsistemas.
+  * **Transición Explícita de Rol**: Incorporar `Candidato -- Alumno : > Cuando se acepta`, formalizando la resolución favorable del proceso de admisión.
+  * **Rediseño de `MotorFormacion`**: Modelar `Capacitacion o-- Material`, `Modulo <-r- Material : se agrupa en`, `Modulo o-- Entregable` y `Material --> Pregunta : genera`.
+  * **Agregación de Equipos y Composición de Entrevistas**: Modelar `Equipo o-- Alumno` y `Candidato *-- Entrevista`.
+* **Artefactos afectados**: `RUP/00-modelo-del-dominio/modeloDominio.puml`, `images/RUP/00-modelo-del-dominio/modeloDominio.svg`, `RUP/00-modelo-del-dominio/README.md`.
 
 
 
