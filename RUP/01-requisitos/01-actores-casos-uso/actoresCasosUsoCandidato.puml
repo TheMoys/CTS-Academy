@@ -4,13 +4,19 @@
 left to right direction
 skinparam packageStyle rectangle
 
+actor UsuarioNoLogueado
 actor Candidato
 
-package "Acceso y Estado" {
+package "Acceso" {
   usecase iniciarSesion as "iniciarSesion()"
   usecase cerrarSesion as "cerrarSesion()"
   usecase abrirPanelPostulacion as "abrirPanelPostulacion()"
 }
+
+UsuarioNoLogueado -- iniciarSesion
+Candidato -- cerrarSesion
+Candidato -- abrirPanelPostulacion
+abrirPanelPostulacion ..> iniciarSesion : <<extend>>\n(condición: rol == Candidato)\n(punto: tras validación exitosa)
 
 package "Batería de Tests" {
   usecase iniciarTest as "iniciarTest()"
@@ -18,10 +24,6 @@ package "Batería de Tests" {
   usecase entregarPreguntaPractica as "entregarPreguntaPractica()"
   usecase finalizarTest as "finalizarTest()"
 }
-
-Candidato -- iniciarSesion
-Candidato -- cerrarSesion
-Candidato -- abrirPanelPostulacion
 
 Candidato -- iniciarTest
 Candidato -- responderPreguntaTeorica

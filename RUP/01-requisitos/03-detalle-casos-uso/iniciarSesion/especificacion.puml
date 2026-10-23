@@ -11,7 +11,7 @@ state PANEL_ADMISIONES_ABIERTO as "PANEL_ADMISIONES_ABIERTO"
 
 SESION_CERRADA -[#green]-> iniciarSesion
 note on link
-<b>Actor</b> solicita iniciar sesión
+<b>UsuarioNoLogueado</b> solicita iniciar sesión
 end note
 
 state iniciarSesion as "iniciarSesion()" {
@@ -27,9 +27,9 @@ state iniciarSesion as "iniciarSesion()" {
 
     SolicitandoCredenciales -[#green]-> c_auth
     note on link
-    <b>Actor</b> introduce email
-    <b>Actor</b> introduce contraseña
-    <b>Actor</b> solicita inicio de sesión
+    <b>UsuarioNoLogueado</b> introduce email
+    <b>UsuarioNoLogueado</b> introduce contraseña
+    <b>UsuarioNoLogueado</b> solicita inicio de sesión
     end note
 
     c_auth -[#green]-> [*]
@@ -50,10 +50,10 @@ note on link
 autenticación correcta
 end note
 
-c_rol -[#green]-> PANEL_POSTULACION_ABIERTO : [rol == Candidato]
-c_rol -[#green]-> INICIO_ALUMNO_ABIERTO : [rol == Alumno]
-c_rol -[#green]-> PANEL_LIDER_ABIERTO : [rol == LiderEquipo]
-c_rol -[#green]-> PANEL_ADMISIONES_ABIERTO : [rol == Gestor]
+c_rol -[#green]-> PANEL_POSTULACION_ABIERTO : [rol == Candidato]\n<<extend>> abrirPanelPostulacion()
+c_rol -[#green]-> INICIO_ALUMNO_ABIERTO : [rol == Alumno]\n<<extend>> abrirPanelAlumno()
+c_rol -[#green]-> PANEL_LIDER_ABIERTO : [rol == LiderEquipo]\n<<extend>> abrirPanelLider()
+c_rol -[#green]-> PANEL_ADMISIONES_ABIERTO : [rol == Gestor]\n<<extend>> abrirPanelAdmisiones()
 
 iniciarSesion -[#red]-> SESION_CERRADA_SALIDA
 note on link

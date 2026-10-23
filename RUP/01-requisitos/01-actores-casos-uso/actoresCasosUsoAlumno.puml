@@ -4,13 +4,19 @@
 left to right direction
 skinparam packageStyle rectangle
 
+actor UsuarioNoLogueado
 actor Alumno
 
-package "Acceso e Inicio" {
+package "Acceso" {
   usecase iniciarSesion as "iniciarSesion()"
   usecase cerrarSesion as "cerrarSesion()"
   usecase abrirPanelAlumno as "abrirPanelAlumno()"
 }
+
+UsuarioNoLogueado -- iniciarSesion
+Alumno -- cerrarSesion
+Alumno -- abrirPanelAlumno
+abrirPanelAlumno ..> iniciarSesion : <<extend>>\n(condición: rol == Alumno)\n(punto: tras validación exitosa)
 
 package "Capacitación y Módulos" {
   usecase consultarCapacitacion as "consultarCapacitacion()"
@@ -29,10 +35,6 @@ package "Evaluación y Cierre de Módulo" {
   usecase entregarPreguntaPractica as "entregarPreguntaPractica()"
   usecase finalizarTest as "finalizarTest()"
 }
-
-Alumno -- iniciarSesion
-Alumno -- cerrarSesion
-Alumno -- abrirPanelAlumno
 
 Alumno -- consultarCapacitacion
 Alumno -- consultarModulo

@@ -11,9 +11,11 @@
 
 En esta fase se formalizan los actores que interactúan con **CTS Academy & Evaluator** y el catálogo completo de casos de uso del sistema estructurados en sus 3 microservicios (`MotorEquipos`, `MotorEvaluacion`, `MotorFormacion`), garantizando la trazabilidad entre el dominio conceptual y la futura implementación.
 
-> [!IMPORTANT]
-> **Canalización por Sedes Internacionales (Sin `UsuarioNoLogueado`)**:
-> La captación y primera criba de aspirantes es realizada por las sedes de la institución en cada país. Las sedes remiten los expedientes recopilados al `GestorProfer`, quien realiza el alta en el sistema (`registrarCandidato()`). Por tanto, la plataforma es un entorno cerrado sin auto-registro anónimo público. El sistema opera exclusivamente con **4 actores autenticados**.
+> [!NOTE]
+> **Mecanismo Canónico de Acceso (`UsuarioNoLogueado` y Extensión a Paneles de Rol)**:
+> Aunque el sistema es un entorno cerrado sin portal público de auto-registro (los aspirantes son canalizados por las sedes internacionales y registrados por el Gestor), se modela formalmente al actor **`UsuarioNoLogueado`** como la entidad no autenticada en `SESION_CERRADA` que invoca exclusivamente `iniciarSesion()`.
+>
+> Los roles institucionales específicos (**`Candidato`**, **`Alumno`**, **`LiderEquipo`**, **`Gestor`**) se materializan formalmente tras validar con éxito las credenciales. Cada uno extiende `iniciarSesion()` mediante su caso de uso de apertura de panel (`abrirPanelPostulacion()`, `abrirPanelAlumno()`, `abrirPanelLider()`, `abrirPanelAdmisiones()`) bajo la condición `rol == <Rol>`, y son dichos roles identificados quienes invocan `cerrarSesion()`.
 
 ---
 

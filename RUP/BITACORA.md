@@ -28,6 +28,7 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
 | **[ADR-008](#adr-008-canalización-de-candidatos-por-sedes-internacionales-y-eliminación-de-usuarionologueado)** | 2026-10-14 | Canalización de candidatos por sedes internacionales y eliminación de UsuarioNoLogueado | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
 | **[ADR-009](#adr-009-delimitación-de-actores-opacidad-de-tests-para-el-candidato-entrevistas-google-meet-en-el-perfil-por-el-gestor-y-aislamiento-del-tl)** | 2026-10-14 | Delimitación de actores: opacidad de tests, entrevistas Google Meet en el Perfil y aislamiento del TL | Aprobado | — |
 | **[ADR-010](#adr-010-refinamiento-estructural-del-dominio-top-to-bottom-transición-candidato-alumno-y-rediseño-pedagógico-de-materiales)** | 2026-10-22 | Refinamiento estructural del dominio top-to-bottom, transición Candidato-Alumno y rediseño pedagógico de materiales | Aprobado | — |
+| **[ADR-011](#adr-011-patrón-canónico-de-acceso-usuarionologueado-exclusividad-de-cerrarsesion-en-roles-y-extend-condicional)** | 2026-10-23 | Patrón canónico de acceso: UsuarioNoLogueado, exclusividad de cerrarSesion en roles y <<extend>> condicional | Aprobado | — |
 
 ---
 
@@ -146,6 +147,27 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
   * **Rediseño de `MotorFormacion`**: Modelar `Capacitacion o-- Material`, `Modulo <-r- Material : se agrupa en`, `Modulo o-- Entregable` y `Material --> Pregunta : genera`.
   * **Agregación de Equipos y Composición de Entrevistas**: Modelar `Equipo o-- Alumno` y `Candidato *-- Entrevista`.
 * **Artefactos afectados**: `RUP/00-modelo-del-dominio/modeloDominio.puml`, `images/RUP/00-modelo-del-dominio/modeloDominio.svg`, `RUP/00-modelo-del-dominio/README.md`.
+
+---
+
+### ADR-011: Patrón canónico de acceso: UsuarioNoLogueado para iniciarSesion(), exclusividad de cerrarSesion() en roles y <<extend>> condicional
+* **Fecha**: 2026-10-23
+* **Contexto**: Siguiendo el estándar riguroso de modelado de casos de uso RUP (referencias oficiales UNEATLANTICO / issues #48-#51):
+  1. En versiones previas se había conectado directamente a los roles autenticados (`Candidato`, `Alumno`, `LiderEquipo`, `Gestor`) con `iniciarSesion()`.
+  2. Esto generaba un error conceptual sistemático: el rol específico no existe en el sistema antes de validar sus credenciales.
+  3. Quien está en `SESION_CERRADA` es formalmente un `UsuarioNoLogueado`.
+  4. Los roles autenticados específicos solo existen tras la autenticación exitosa, por lo que son ellos quienes invocan `cerrarSesion()`, pero nunca `iniciarSesion()`.
+  5. La entrada a la operativa de cada rol se produce mediante la extensión condicional de su caso de uso de apertura de panel sobre `iniciarSesion()`.
+* **Decisión**:
+  * **Asignación de `iniciarSesion()` a `UsuarioNoLogueado`**: El actor no autenticado es el único conectado a `iniciarSesion()`.
+  * **Exclusividad de `cerrarSesion()` en Roles Autenticados**: `Candidato`, `Alumno`, `LiderEquipo` y `Gestor` están vinculados a `cerrarSesion()`.
+  * **Extensión Condicional (`<<extend>>`)**:
+    * `abrirPanelPostulacion ..> iniciarSesion : <<extend>>\n(condición: rol == Candidato)\n(punto: tras validación exitosa)`
+    * `abrirPanelAlumno ..> iniciarSesion : <<extend>>\n(condición: rol == Alumno)\n(punto: tras validación exitosa)`
+    * `abrirPanelLider ..> iniciarSesion : <<extend>>\n(condición: rol == LiderEquipo)\n(punto: tras validación exitosa)`
+    * `abrirPanelAdmisiones ..> iniciarSesion : <<extend>>\n(condición: rol == Gestor)\n(punto: tras validación exitosa)`
+  * **Doble Función de los Paneles**: Los casos de uso `abrirPanel<X>()` modelan tanto la entrada extendida desde el login como el retorno al panel principal desde las distintas áreas operativas de cada actor.
+* **Artefactos afectados**: `actoresCasosUsoCandidato.puml`, `actoresCasosUsoAlumno.puml`, `actoresCasosUsoLiderEquipo.puml`, `actoresCasosUsoGestor.puml`, `iniciarSesion/especificacion.puml`, `iniciarSesion/README.md`, `RUP/01-requisitos/01-actores-casos-uso/README.md` y diagramas SVG compilados.
 
 
 

@@ -29,8 +29,8 @@
 
 | Atributo | Valor |
 | :--- | :--- |
-| **Actores** | `Candidato`, `Alumno`, `LiderEquipo`, `Gestor` |
-| **Objetivo** | Autenticar al usuario contra el sistema y redirigirlo a su contexto operativo específico según su rol institucional |
+| **Actores** | `UsuarioNoLogueado` (extiende mediante `<<extend>>` condicional al caso de uso de apertura del panel correspondiente: `abrirPanelPostulacion()`, `abrirPanelAlumno()`, `abrirPanelLider()` o `abrirPanelAdmisiones()`) |
+| **Objetivo** | Autenticar credenciales en `SESION_CERRADA` y dar paso al espacio de trabajo del actor según su rol institucional validado |
 | **Precondición** | El usuario debe estar previamente registrado en la plataforma con credenciales activas (los candidatos son registrados por el Gestor tras la remisión de expedientes por las sedes) |
 | **Postcondición Éxito** | Sesión establecida; token de sesión emitido y contexto del actor abierto (`PANEL_POSTULACION_ABIERTO`, `INICIO_ALUMNO_ABIERTO`, `PANEL_LIDER_ABIERTO` o `PANEL_ADMISIONES_ABIERTO`) |
 | **Postcondición Fallo** | El sistema permanece en `SESION_CERRADA` visualizando mensaje de error de credenciales |

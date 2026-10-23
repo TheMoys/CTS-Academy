@@ -4,13 +4,19 @@
 left to right direction
 skinparam packageStyle rectangle
 
+actor UsuarioNoLogueado
 actor LiderEquipo
 
-package "Acceso e Inicio" {
+package "Acceso" {
   usecase iniciarSesion as "iniciarSesion()"
   usecase cerrarSesion as "cerrarSesion()"
   usecase abrirPanelLider as "abrirPanelLider()"
 }
+
+UsuarioNoLogueado -- iniciarSesion
+LiderEquipo -- cerrarSesion
+LiderEquipo -- abrirPanelLider
+abrirPanelLider ..> iniciarSesion : <<extend>>\n(condición: rol == LiderEquipo)\n(punto: tras validación exitosa)
 
 package "Gestión de Módulos y Materiales" {
   usecase crearMaterial as "crearMaterial()"
@@ -31,10 +37,6 @@ package "Code Reviews y Evaluación de Alumnos" {
   usecase solicitarCambiosEntregable as "solicitarCambiosEntregable()"
   usecase evaluarCapacitacionAlumno as "evaluarCapacitacionAlumno()"
 }
-
-LiderEquipo -- iniciarSesion
-LiderEquipo -- cerrarSesion
-LiderEquipo -- abrirPanelLider
 
 LiderEquipo -- crearMaterial
 LiderEquipo -- editarMaterial
