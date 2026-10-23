@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
@@ -23,7 +23,7 @@
 
 ---
 
-## 📋 Información del Caso de Uso
+## Información del Caso de Uso
 
 <div align=center>
 
@@ -38,13 +38,13 @@
 
 ---
 
-## 📑 Reglas de Negocio Asociadas
+## Reglas de Negocio Asociadas
 
 - **RN-LEAD-02 (Preservación de Trazabilidad):** Las modificaciones a guías formativas no invalidan las lecturas ya completadas por los alumnos que las leyeron previamente.
 
 ---
 
-## 🔗 Referencias
+## Referencias
 
 * [Modelo del Dominio: MotorFormacion](/RUP/00-modelo-del-dominio/README.md)
 * [Diagramas de Contexto por Actor](/RUP/01-requisitos/01-actores-casos-uso/README.md)
@@ -54,6 +54,6 @@
 
 <div align="center">
 
-[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+[Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
 
 </div>

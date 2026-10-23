@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [📜 Bitácora ADR](/RUP/BITACORA.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | **🔍 02 Análisis** | [🎨 03 Diseño](/RUP/03-diseño/README.md) | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [Bitácora ADR](/RUP/BITACORA.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | **02 Análisis** | [03 Diseño](/RUP/03-diseño/README.md) | [04 Desarrollo](/RUP/04-desarrollo/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
@@ -11,7 +11,7 @@ Esta fase formaliza las colaboraciones entre clases de análisis Boundary-Contro
 
 ---
 
-## 🎯 Propósito del Modelo de Análisis
+## Propósito del Modelo de Análisis
 
 El modelo de análisis actúa como el puente formal entre la especificación de requisitos del usuario y el diseño arquitectónico concreto. Su propósito es definir **cómo** el sistema responderá a las necesidades del negocio abstrayéndose de tecnologías particulares (bases de datos relacionales, frameworks web, protocolos de red).
 
@@ -25,7 +25,7 @@ En esta fase se formalizan:
 
 ---
 
-## 📋 Estado de la Fase
+## Estado de la Fase
 
 > [!NOTE]
 > **Fase Siguiente en el Roadmap RUP**:
@@ -36,6 +36,6 @@ En esta fase se formalizan:
 
 <div align="center">
 
-[⬅️ Fase 01: Requisitos](/RUP/01-requisitos/README.md) • [Fase 03: Diseño ➡️](/RUP/03-diseño/README.md)
+[Fase 01: Requisitos](/RUP/01-requisitos/README.md) • [Fase 03: Diseño](/RUP/03-diseño/README.md)
 
 </div>

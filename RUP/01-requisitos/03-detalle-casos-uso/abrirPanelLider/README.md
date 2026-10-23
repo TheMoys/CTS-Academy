@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 </div>
 
@@ -23,7 +23,7 @@
 
 ---
 
-## 📋 Información del Caso de Uso
+## Información del Caso de Uso
 
 <div align=center>
 
@@ -38,7 +38,7 @@
 
 ---
 
-## 📑 Reglas de Negocio Asociadas
+## Reglas de Negocio Asociadas
 
 1. **RN-TL-01 — Aislamiento y Ámbito de Equipo**:
    * El Tech Leader únicamente accede y supervisa a los alumnos y contenidos correspondientes al `Equipo` CTS del cual es titular. No tiene visibilidad sobre la cartera global de candidatos (reservada al Gestor).
@@ -47,7 +47,7 @@
 
 ---
 
-## 🔗 Referencias
+## Referencias
 
 * [Modelo del Dominio: `LiderEquipo`, `Equipo`, `Alumno`, `Modulo`](/RUP/00-modelo-del-dominio/README.md)
 * [Diagrama de Contexto LiderEquipo](/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoLiderEquipo.puml)
@@ -55,6 +55,6 @@
 
 <div align="center">
 
-[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+[Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
 
 </div>

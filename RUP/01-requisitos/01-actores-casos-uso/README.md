@@ -1,9 +1,9 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [📜 Bitácora ADR](/RUP/BITACORA.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | [🎨 03 Diseño](/RUP/03-diseño/README.md) | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [Bitácora ADR](/RUP/BITACORA.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [02 Análisis](/RUP/02-analisis/README.md) | [03 Diseño](/RUP/03-diseño/README.md) | [04 Desarrollo](/RUP/04-desarrollo/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
-**Fase 01 Requisitos:** **👥 Actores y Contexto** • [📋 Catálogo y Detalle de Casos de Uso (35)](/RUP/01-requisitos/03-detalle-casos-uso/README.md)
+**Fase 01 Requisitos:** **Actores y Contexto** • [Catálogo y Detalle de Casos de Uso (35)](/RUP/01-requisitos/03-detalle-casos-uso/README.md)
 
 </div>
 
@@ -19,7 +19,7 @@ En esta fase se formalizan los actores que interactúan con **CTS Academy & Eval
 
 ---
 
-## 👥 Catálogo de Actores y Casos de Uso
+## Catálogo de Actores y Casos de Uso
 
 <div align=center>
 
@@ -37,7 +37,7 @@ En esta fase se formalizan los actores que interactúan con **CTS Academy & Eval
 
 ---
 
-## 🔄 Diagramas de Contexto por Actor
+## Diagramas de Contexto por Actor
 
 Se define un diagrama de contexto por cada actor del sistema. 
 
@@ -117,7 +117,7 @@ Gobierna la admisión continua, la recepción desde las sedes internacionales, l
 
 ---
 
-## 🏷️ Convenciones de Nomenclatura y Granularidad
+## Convenciones de Nomenclatura y Granularidad
 
 1. **Convención `verboEntidad()`**:
    * Todos los casos de uso siguen el formato formal de método `verboEntidad()` con el sustantivo tomado literalmente de `modeloDominio.puml`.
@@ -130,6 +130,6 @@ Gobierna la admisión continua, la recepción desde las sedes internacionales, l
 
 <div align="center">
 
-[⬅️ Volver a Hub de Requisitos](/RUP/01-requisitos/README.md) • [Explorar Catálogo y Detalle de Casos de Uso (35) ➡️](/RUP/01-requisitos/03-detalle-casos-uso/README.md)
+[Volver a Hub de Requisitos](/RUP/01-requisitos/README.md) • [Catálogo y Detalle de Casos de Uso (35)](/RUP/01-requisitos/03-detalle-casos-uso/README.md)
 
 </div>

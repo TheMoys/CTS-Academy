@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [📜 Bitácora ADR](/RUP/BITACORA.md) | **🏛️ 00 Dominio** | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | [🎨 03 Diseño](/RUP/03-diseño/README.md) | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [Bitácora ADR](/RUP/BITACORA.md) | **00 Dominio** | [01 Requisitos](/RUP/01-requisitos/README.md) | [02 Análisis](/RUP/02-analisis/README.md) | [03 Diseño](/RUP/03-diseño/README.md) | [04 Desarrollo](/RUP/04-desarrollo/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
@@ -11,7 +11,7 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 
 ---
 
-## 🏗️ Los 3 Microservicios del Sistema
+## Microservicios del Sistema
 
 | Microservicio | Propósito y Responsabilidad | Entidades Propias |
 | :--- | :--- | :--- |
@@ -91,7 +91,7 @@ El modelo del dominio formaliza los conceptos, entidades y relaciones del sistem
 
 ---
 
-## 🔄 Ciclos de Vida y Máquinas de Estados del Dominio
+## Ciclos de Vida y Estados del Dominio
 
 Las entidades puramente estructurales (`Programa`, `Equipo`, `Material`, `Pregunta`) se gestionan mediante operaciones CRUD sin transiciones de estado complejas. Sin embargo, la lógica de negocio y la dinámica temporal del sistema están gobernadas por **4 máquinas de estados críticas**:
 
@@ -165,6 +165,6 @@ Gobierna el marco de admisión permanente y los hitos de corte periódico:
 
 <div align="center">
 
-[⬅️ Volver a la Bitácora ADR](/RUP/BITACORA.md) • [Avanzar a Fase 01: Requisitos ➡️](/RUP/01-requisitos/README.md)
+[Bitácora ADR](/RUP/BITACORA.md) • [Fase 01: Requisitos](/RUP/01-requisitos/README.md)
 
 </div>

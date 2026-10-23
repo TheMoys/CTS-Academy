@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 </div>
 
@@ -23,7 +23,7 @@
 
 ---
 
-## 📋 Información del Caso de Uso
+## Información del Caso de Uso
 
 <div align=center>
 
@@ -39,7 +39,7 @@
 
 ---
 
-## 📑 Reglas de Negocio Asociadas
+## Reglas de Negocio Asociadas
 
 1. **RN-ACC-03 — Revocación Server-Side y Blacklist en Redis**:
    * La invalidación de sesión no delega la seguridad en el cliente. El backend revoca formalmente el `refresh_token` en base de datos e incorpora el identificador único `jti` del `access_token` en una lista negra en memoria caché (Redis) con un TTL equivalente al tiempo remanente de expiración del token.
@@ -50,7 +50,7 @@
 
 ---
 
-## 🔗 Referencias
+## Referencias
 
 * [Diagrama de Contexto Candidato](/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoCandidato.puml)
 * [Diagrama de Contexto Alumno](/RUP/01-requisitos/01-actores-casos-uso/diagramaContextoAlumno.puml)
@@ -62,6 +62,6 @@
 
 <div align="center">
 
-[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+[Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
 
 </div>

@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [📜 Bitácora ADR](/RUP/BITACORA.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | **🎨 03 Diseño** | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [Bitácora ADR](/RUP/BITACORA.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [02 Análisis](/RUP/02-analisis/README.md) | **03 Diseño** | [04 Desarrollo](/RUP/04-desarrollo/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
@@ -11,7 +11,7 @@ Esta fase concreta las realizaciones de análisis en especificaciones técnicas 
 
 ---
 
-## 🎯 Propósito del Modelo de Diseño
+## Propósito del Modelo de Diseño
 
 El modelo de diseño refina el análisis adaptándolo a la infraestructura, plataformas y limitaciones técnicas reales de **CTS Academy & Evaluator**. 
 
@@ -23,7 +23,7 @@ En esta fase se formalizan:
 
 ---
 
-## 📋 Estado de la Fase
+## Estado de la Fase
 
 > [!NOTE]
 > **Planificación de Artefactos**:
@@ -33,6 +33,6 @@ En esta fase se formalizan:
 
 <div align="center">
 
-[⬅️ Fase 02: Análisis](/RUP/02-analisis/README.md) • [Fase 04: Desarrollo ➡️](/RUP/04-desarrollo/README.md)
+[Fase 02: Análisis](/RUP/02-analisis/README.md) • [Fase 04: Desarrollo](/RUP/04-desarrollo/README.md)
 
 </div>

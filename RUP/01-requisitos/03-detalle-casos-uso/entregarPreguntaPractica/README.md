@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 </div>
 
@@ -23,7 +23,7 @@
 
 ---
 
-## 📋 Información del Caso de Uso
+## Información del Caso de Uso
 
 <div align=center>
 
@@ -39,7 +39,7 @@
 
 ---
 
-## 📑 Reglas de Negocio Asociadas
+## Reglas de Negocio Asociadas
 
 1. **RN-EVAL-PRACT-01 — Editor Integrado y Autoguardado Silencioso**:
    * La vía canónica de resolución es el editor web multi-archivo integrado. Para prevenir pérdidas de trabajo ante desconexiones fortuitas o refrescos de página, el cliente realiza un autoguardado en segundo plano (*background draft*) cada 30 segundos, manteniendo un snapshot sincronizado en servidor.
@@ -52,7 +52,7 @@
 
 ---
 
-## 🔗 Referencias
+## Referencias
 
 * [Modelo del Dominio: `Tecnico`, `Practica`, `Modulo`](/RUP/00-modelo-del-dominio/README.md)
 * [Diagrama de Estados de Test (`EN_CURSO` → `ENTREGADO` / `EXPIRADO`)](/RUP/00-modelo-del-dominio/estados-entidades/test-estados.puml)
@@ -62,6 +62,6 @@
 
 <div align="center">
 
-[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+[Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
 
 </div>

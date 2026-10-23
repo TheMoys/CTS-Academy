@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [👥 Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [📋 Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [Actores y Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md) | [Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 </div>
 
@@ -23,7 +23,7 @@
 
 ---
 
-## 📋 Información del Caso de Uso
+## Información del Caso de Uso
 
 <div align=center>
 
@@ -39,7 +39,7 @@
 
 ---
 
-## 📑 Reglas de Negocio Asociadas
+## Reglas de Negocio Asociadas
 
 1. **Inmutabilidad del Tiempo de Prueba**:
    * El cronómetro se calcula y valida en el servidor (`MotorEvaluacion`). Cerrar la ventana o refrescar el navegador no pausa el tiempo restante.
@@ -50,7 +50,7 @@
 
 ---
 
-## 🔗 Referencias
+## Referencias
 
 * [Diagrama de Estados de Test](/RUP/00-modelo-del-dominio/estados-entidades/test-estados.puml)
 * [ADR-007: Admisión continua y batería de 3 tests](/RUP/BITACORA.md#adr-007-admisi%C3%B3n-continua-por-ciclos-acad%C3%A9micos-bater%C3%ADa-de-3-tests-e-inclusi%C3%B3n-de-entrevista)
@@ -58,6 +58,6 @@
 
 <div align="center">
 
-[⬅️ Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [👥 Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
+[Volver al Catálogo de Casos de Uso](/RUP/01-requisitos/03-detalle-casos-uso/README.md) • [Ver Diagramas de Contexto](/RUP/01-requisitos/01-actores-casos-uso/README.md)
 
 </div>

@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | **📜 Bitácora ADR** | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | [🎨 03 Diseño](/RUP/03-diseño/README.md) | [💻 04 Desarrollo](/RUP/04-desarrollo/README.md) |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | **Bitácora ADR** | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [02 Análisis](/RUP/02-analisis/README.md) | [03 Diseño](/RUP/03-diseño/README.md) | [04 Desarrollo](/RUP/04-desarrollo/README.md) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
@@ -10,22 +10,22 @@
 Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y evolución del proyecto **CTS Academy & Evaluator** bajo la metodología RUP (Rational Unified Process).
 
 > [!NOTE]
-> 🤡 **Hall of Fame de Cagadas y Redundancias**: Para consultar el registro informal, autocrítico y sin filtros de todas las pifias, incoherencias y fiascos de modelado rectificados sobre la marcha, visita la discusión oficial: [💬 Discussion #9: El Muro de los Despropósitos](https://github.com/TheMoys/CTS-Academy/discussions/9).
+> **Historial de Refinamiento y Lecciones Aprendidas**: Para consultar el registro de iteraciones, decisiones descartadas y correcciones de modelado realizadas sobre la marcha, visita la discusión oficial: [Discussion #9: Registro de Refinamientos](https://github.com/TheMoys/CTS-Academy/discussions/9).
 
 ---
 
-## 📋 Índice de Decisiones (ADR - Architectural Decision Records)
+## Índice de Decisiones (ADR)
 
 | ID | Fecha | Título | Estado | Discusión Consolidada en GitHub |
 | :---: | :---: | :--- | :---: | :--- |
-| **[ADR-001](#adr-001-adopción-de-la-metodología-rup-estándar-uneatlantico)** | 2026-10-09 | Adopción de la metodología RUP estándar UNEATLANTICO | Aprobado | [📋 Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
-| **[ADR-002](#adr-002-diagramas-conceptuales-limpios-sin-atributos)** | 2026-10-09 | Diagramas conceptuales limpios sin atributos de entidad | Aprobado | [📋 Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
-| **[ADR-003](#adr-003-adopción-de-nomenclatura-institucional-programa-profer)** | 2026-10-09 | Adopción de nomenclatura institucional del Programa PROFER | Aprobado | [📋 Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
-| **[ADR-004](#adr-004-embudo-en-2-fases-y-asignación-a-los-6-equipos-de-cts)** | 2026-10-09 | Embudo de admisión en 2 fases y asignación a los 6 equipos de CTS | Aprobado | [📋 Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
-| **[ADR-005](#adr-005-gobernanza-institucional-convenio-programa-profer--universidad)** | 2026-10-09 | Gobernanza institucional: convenio Programa PROFER – Universidad | Aprobado | [📋 Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
-| **[ADR-006](#adr-006-descomposición-arquitectónica-en-3-microservicios)** | 2026-10-13 | Descomposición arquitectónica en 3 microservicios independientes | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
-| **[ADR-007](#adr-007-admisión-continua-por-ciclos-académicos-batería-de-3-tests-e-inclusión-de-entrevista)** | 2026-10-14 | Admisión continua por ciclos académicos, batería de 3 tests e inclusión de entrevista | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
-| **[ADR-008](#adr-008-canalización-de-candidatos-por-sedes-internacionales-y-eliminación-de-usuarionologueado)** | 2026-10-14 | Canalización de candidatos por sedes internacionales y eliminación de UsuarioNoLogueado | Aprobado | [🧩 Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
+| **[ADR-001](#adr-001-adopción-de-la-metodología-rup-estándar-uneatlantico)** | 2026-10-09 | Adopción de la metodología RUP estándar UNEATLANTICO | Aprobado | [Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
+| **[ADR-002](#adr-002-diagramas-conceptuales-limpios-sin-atributos)** | 2026-10-09 | Diagramas conceptuales limpios sin atributos de entidad | Aprobado | [Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
+| **[ADR-003](#adr-003-adopción-de-nomenclatura-institucional-programa-profer)** | 2026-10-09 | Adopción de nomenclatura institucional del Programa PROFER | Aprobado | [Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
+| **[ADR-004](#adr-004-embudo-en-2-fases-y-asignación-a-los-6-equipos-de-cts)** | 2026-10-09 | Embudo de admisión en 2 fases y asignación a los 6 equipos de CTS | Aprobado | [Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
+| **[ADR-005](#adr-005-gobernanza-institucional-convenio-programa-profer--universidad)** | 2026-10-09 | Gobernanza institucional: convenio Programa PROFER – Universidad | Aprobado | [Sesión 2026-10-09 (#7)](https://github.com/TheMoys/CTS-Academy/discussions/7) |
+| **[ADR-006](#adr-006-descomposición-arquitectónica-en-3-microservicios)** | 2026-10-13 | Descomposición arquitectónica en 3 microservicios independientes | Aprobado | [Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
+| **[ADR-007](#adr-007-admisión-continua-por-ciclos-académicos-batería-de-3-tests-e-inclusión-de-entrevista)** | 2026-10-14 | Admisión continua por ciclos académicos, batería de 3 tests e inclusión de entrevista | Aprobado | [Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
+| **[ADR-008](#adr-008-canalización-de-candidatos-por-sedes-internacionales-y-eliminación-de-usuarionologueado)** | 2026-10-14 | Canalización de candidatos por sedes internacionales y eliminación de UsuarioNoLogueado | Aprobado | [Sesión 2026-10-13 (#8)](https://github.com/TheMoys/CTS-Academy/discussions/8) |
 | **[ADR-009](#adr-009-delimitación-de-actores-opacidad-de-tests-para-el-candidato-entrevistas-google-meet-en-el-perfil-por-el-gestor-y-aislamiento-del-tl)** | 2026-10-14 | Delimitación de actores: opacidad de tests, entrevistas Google Meet en el Perfil y aislamiento del TL | Aprobado | — |
 | **[ADR-010](#adr-010-refinamiento-estructural-del-dominio-top-to-bottom-transición-candidato-alumno-y-rediseño-pedagógico-de-materiales)** | 2026-10-22 | Refinamiento estructural del dominio top-to-bottom, transición Candidato-Alumno y rediseño pedagógico de materiales | Aprobado | — |
 | **[ADR-011](#adr-011-patrón-canónico-de-acceso-usuarionologueado-exclusividad-de-cerrarsesion-en-roles-y-extend-condicional)** | 2026-10-23 | Patrón canónico de acceso: UsuarioNoLogueado, exclusividad de cerrarSesion en roles y <<extend>> condicional | Aprobado | — |

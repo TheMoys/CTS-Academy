@@ -1,6 +1,6 @@
 <div align="center">
 
-| [🏠 Inicio](/README.md) | [📖 RUP Hub](/RUP/README.md) | [📜 Bitácora ADR](/RUP/BITACORA.md) | [🏛️ 00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [📋 01 Requisitos](/RUP/01-requisitos/README.md) | [🔍 02 Análisis](/RUP/02-analisis/README.md) | [🎨 03 Diseño](/RUP/03-diseño/README.md) | **💻 04 Desarrollo** |
+| [Inicio](/README.md) | [RUP Hub](/RUP/README.md) | [Bitácora ADR](/RUP/BITACORA.md) | [00 Dominio](/RUP/00-modelo-del-dominio/README.md) | [01 Requisitos](/RUP/01-requisitos/README.md) | [02 Análisis](/RUP/02-analisis/README.md) | [03 Diseño](/RUP/03-diseño/README.md) | **04 Desarrollo** |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
@@ -11,7 +11,7 @@ Esta fase vincula el diseño arquitectónico con la base de código real: backen
 
 ---
 
-## 🎯 Propósito del Modelo de Desarrollo
+## Propósito del Modelo de Desarrollo
 
 Esta fase alberga el código fuente del sistema y la matriz de correspondencia directa entre los artefactos de modelado RUP y los componentes de software implementados.
 
@@ -25,7 +25,7 @@ En esta fase se formalizan:
 
 ---
 
-## 📋 Estado de la Fase
+## Estado de la Fase
 
 > [!NOTE]
 > **Trazabilidad Garantizada**:
@@ -35,6 +35,6 @@ En esta fase se formalizan:
 
 <div align="center">
 
-[⬅️ Fase 03: Diseño](/RUP/03-diseño/README.md) • [Volver al Inicio del Proyecto 🏠](/README.md)
+[Fase 03: Diseño](/RUP/03-diseño/README.md) • [Volver a Inicio](/README.md)
 
 </div>
