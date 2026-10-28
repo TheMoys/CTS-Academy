@@ -1,0 +1,51 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class "ActorAutenticado\n(Candidato / Alumno /\nLiderEquipo / Gestor)" as actor <<actor>>
+
+class BarraNavegacion <<boundary>> {
+    + solicitarCerrarSesion()
+    + mostrarAdvertenciaProcesosActivos(mensaje: String)
+    + solicitarConfirmacion(): Boolean
+    + purgarAlmacenamientoLocal()
+    + redirigirASesionCerrada()
+}
+
+class GestorAutenticacion <<control>> {
+    + cerrarSesion(tokenSesion: String, idUsuario: UUID): ResultadoCierre
+    + verificarProcesosActivos(idUsuario: UUID): Boolean
+    + revocarSesion(sesion: Sesion)
+    + registrarAuditoriaCierre(usuario: Usuario)
+}
+
+class Usuario <<entity>> {
+    - id: UUID
+    - email: String
+    - rol: RolUsuario
+    + tieneEvaluacionEnCurso(): Boolean
+    + obtenerSesionActiva(): Sesion
+}
+
+class Sesion <<entity>> {
+    - id: UUID
+    - tokenSesion: String
+    - fechaInicio: DateTime
+    - activa: Boolean
+    + estaActiva(): Boolean
+    + revocar()
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - tipo: TipoTest
+    - estado: EstadoTest
+    + estaEnCurso(): Boolean
+}
+
+actor --> BarraNavegacion : 1. solicita cerrar sesión
+BarraNavegacion --> GestorAutenticacion : 2. delega cierre de sesión
+GestorAutenticacion --> Usuario : 3. consulta procesos activos
+GestorAutenticacion --> Test : 4. verifica estado de examen
+GestorAutenticacion --> Sesion : 5. revoca sesión activa
+@enduml

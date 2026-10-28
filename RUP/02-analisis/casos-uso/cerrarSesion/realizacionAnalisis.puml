@@ -1,0 +1,53 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "ActorAutenticado" as actor
+boundary "BarraNavegacion" as boundary <<boundary>>
+control "GestorAutenticacion" as control <<control>>
+entity "Usuario" as usuario <<entity>>
+entity "Test" as test <<entity>>
+entity "Sesion" as sesion <<entity>>
+
+actor -> boundary : solicitaCerrarSesion()
+activate boundary
+
+boundary -> control : verificarProcesosActivos(idUsuario)
+activate control
+control -> usuario : tieneEvaluacionEnCurso()
+activate usuario
+usuario -> test : estaEnCurso()
+activate test
+test --> usuario : enCurso (true / false)
+deactivate test
+usuario --> control : tieneProcesosActivos
+deactivate usuario
+
+alt tiene evaluación en curso [RN-ACC-05]
+    control --> boundary : advertenciaEvaluacionActiva("El cronómetro continuará en el servidor")
+    boundary --> actor : mostrarAdvertenciaProcesosActivos()
+    actor -> boundary : confirmarCierre(confirmado)
+    
+    alt usuario cancela cierre
+        boundary --> actor : permanecerEnContextoActual()
+    else usuario confirma cierre
+        boundary -> control : cerrarSesion(tokenSesion, idUsuario)
+    end
+else sin procesos activos pendientes
+    boundary -> control : cerrarSesion(tokenSesion, idUsuario)
+end
+
+control -> sesion : revocar()
+activate sesion
+sesion --> control : confirmacionRevocada
+deactivate sesion
+
+control -> control : registrarAuditoriaCierre(usuario)
+control --> boundary : exitoCierre()
+deactivate control
+
+boundary -> boundary : purgarAlmacenamientoLocal()
+boundary --> actor : redirigirASesionCerrada()
+deactivate boundary
+
+@enduml

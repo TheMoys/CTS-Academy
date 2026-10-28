@@ -1,0 +1,60 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "UsuarioNoLogueado" as actor
+boundary "FormularioLogin" as boundary <<boundary>>
+control "GestorAutenticacion" as control <<control>>
+entity "Usuario" as usuario <<entity>>
+entity "Sesion" as sesion <<entity>>
+
+actor -> boundary : introduce credenciales (email, contraseña)
+activate boundary
+boundary -> control : iniciarSesion(email, contraseña)
+activate control
+
+control -> usuario : buscarPorEmail(email)
+activate usuario
+usuario --> control : usuario
+deactivate usuario
+
+alt usuario no existe
+    control --> boundary : error("Credenciales incorrectas")
+    boundary --> actor : mostrarErrorAutenticacion("Credenciales incorrectas")
+else usuario existe
+    control -> usuario : estaBloqueado()
+    activate usuario
+    usuario --> control : bloqueado (true / false)
+    deactivate usuario
+
+    alt cuenta bloqueada temporalmente
+        control --> boundary : errorBloqueo(tiempoRestante)
+        boundary --> actor : mostrarBloqueoTemporal(tiempoRestante)
+    else cuenta activa
+        control -> usuario : verificarPassword(contraseña)
+        activate usuario
+        usuario --> control : esValida (true / false)
+        deactivate usuario
+
+        alt credenciales inválidas
+            control -> usuario : incrementarIntentosFallidos()
+            activate usuario
+            deactivate usuario
+            control --> boundary : error("Credenciales incorrectas")
+            boundary --> actor : mostrarErrorAutenticacion("Credenciales incorrectas")
+        else credenciales válidas
+            control -> usuario : reiniciarIntentosFallidos()
+            activate usuario
+            deactivate usuario
+            control -> sesion : crear(usuario)
+            activate sesion
+            sesion --> control : nuevaSesion
+            deactivate sesion
+            control --> boundary : exito(rol, token)
+            deactivate control
+            boundary --> actor : redirigirAPanel(rol)
+            deactivate boundary
+        end
+    end
+end
+@enduml

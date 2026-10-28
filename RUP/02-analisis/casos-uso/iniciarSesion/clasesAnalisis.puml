@@ -1,0 +1,53 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class UsuarioNoLogueado <<actor>>
+
+class FormularioLogin <<boundary>> {
+    + presentarFormulario()
+    + solicitarCredenciales()
+    + mostrarErrorAutenticacion(mensaje: String)
+    + mostrarBloqueoTemporal(minutos: Integer)
+    + redirigirAPanel(rol: RolUsuario)
+}
+
+class GestorAutenticacion <<control>> {
+    + iniciarSesion(email: String, contrasena: String): ResultadoAutenticacion
+    + verificarBloqueo(usuario: Usuario): Boolean
+    + validarCredenciales(usuario: Usuario, contrasena: String): Boolean
+    + registrarIntentoFallido(usuario: Usuario)
+    + restablecerIntentos(usuario: Usuario)
+    + crearSesion(usuario: Usuario): Sesion
+}
+
+class Usuario <<entity>> {
+    - id: UUID
+    - email: String
+    - contrasenaHash: String
+    - rol: RolUsuario
+    - estadoCuenta: EstadoCuenta
+    - intentosFallidos: Integer
+    - bloqueadoHasta: DateTime
+    + estaBloqueado(): Boolean
+    + verificarPassword(contrasena: String): Boolean
+    + incrementarIntentosFallidos()
+    + reiniciarIntentosFallidos()
+}
+
+class Sesion <<entity>> {
+    - id: UUID
+    - tokenSesion: String
+    - fechaInicio: DateTime
+    - ultimaActividad: DateTime
+    - activa: Boolean
+    + estaActiva(): Boolean
+    + actualizarActividad()
+    + revocar()
+}
+
+UsuarioNoLogueado --> FormularioLogin : 1. introduce credenciales
+FormularioLogin --> GestorAutenticacion : 2. delega autenticación
+GestorAutenticacion --> Usuario : 3. consulta y valida estado
+GestorAutenticacion --> Sesion : 4. crea sesión activa
+@enduml
