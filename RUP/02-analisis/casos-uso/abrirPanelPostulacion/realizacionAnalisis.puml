@@ -1,0 +1,55 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Candidato" as actor
+boundary "PanelPostulacion" as boundary <<boundary>>
+control "GestorPostulacion" as control <<control>>
+entity "Candidato" as candidato <<entity>>
+entity "Convocatoria" as convocatoria <<entity>>
+entity "Test" as test <<entity>>
+
+actor -> boundary : abrirPanelPostulacion()
+activate boundary
+boundary -> control : abrirPanelPostulacion(idCandidato)
+activate control
+
+control -> candidato : obtenerConvocatoria()
+activate candidato
+candidato -> convocatoria : estaVigente()
+activate convocatoria
+convocatoria --> candidato : vigente (true / false)
+deactivate convocatoria
+candidato --> control : convocatoria, vigente
+deactivate candidato
+
+alt convocatoria fuera de plazo [fecha límite superada]
+    control --> boundary : datosPanel(convocatoria, modoSoloLectura = true)
+    boundary --> actor : mostrarFueraPlazo(fechaCierre)
+else convocatoria vigente
+    control -> candidato : obtenerBateriaTests()
+    activate candidato
+    candidato --> control : tests (Actitud, Aptitud, Tecnico)
+    deactivate candidato
+
+    loop por cada test con estado EN_CURSO [RN-POST-04: Reconciliación Servidor]
+        control -> test : calcularTiempoRestanteServidor()
+        activate test
+        test --> control : tiempoRestante
+        alt tiempoRestante <= 0
+            control -> test : marcarExpiradoPorServidor()
+        end
+        deactivate test
+    end
+
+    alt existe algún test en estado EN_CURSO [RN-POST-01: Bloqueo Concurrente]
+        control --> boundary : datosPanel(tests, testActivo = testEnCurso)
+        boundary --> actor : mostrarBloqueoConcurrente(testEnCurso)
+    else sin tests en ejecución
+        control --> boundary : datosPanel(tests, bateriaHabilitada = true)
+        boundary --> actor : presentarExpediente(datosCandidato, bateriaTests)
+    end
+end
+deactivate control
+deactivate boundary
+@enduml

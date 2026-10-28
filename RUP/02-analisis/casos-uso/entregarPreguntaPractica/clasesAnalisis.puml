@@ -1,0 +1,60 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class "ActorEvaluado\n(Candidato / Alumno)" as actor <<actor>>
+
+class EditorPractica <<boundary>> {
+    + presentarRetoCodigo(reto: Practica)
+    + capturarArchivosCodigo(): Map
+    + solicitarEjecucionPruebas()
+    + mostrarResultadoTests(salidaSuite: String, cuotaRestante: Integer)
+    + mostrarAdvertenciaCuotaAgotada()
+    + mostrarConfirmacionEntregaVersion(version: Integer)
+}
+
+class TestRunner <<boundary>> {
+    + compilarYEjecutar(archivos: Map, suiteTests: String): ResultadoSandbox
+}
+
+class GestorEvaluacionPractica <<control>> {
+    + guardarBorradorCodigo(idTest: UUID, idPregunta: UUID, archivos: Map)
+    + ejecutarEnSandbox(idTest: UUID, idPregunta: UUID, archivos: Map): ResultadoSandbox
+    + entregarVersionFinal(idTest: UUID, idPregunta: UUID, archivos: Map): EntregaPractica
+    + verificarCuotaSandbox(entrega: EntregaPractica): Boolean
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - horaLimiteServidor: DateTime
+    + tieneTiempoConVentanaGracia(): Boolean
+}
+
+class Practica <<entity>> {
+    - id: UUID
+    - enunciado: String
+    - plantillaCodigo: Map
+    - suitePruebasAutomatizadas: String
+    - maxEjecucionesSandbox: Integer
+    + obtenerSuitePruebas(): String
+}
+
+class EntregaPractica <<entity>> {
+    - id: UUID
+    - idPregunta: UUID
+    - version: Integer
+    - archivosCodigo: Map
+    - ejecucionesConsumidas: Integer
+    - timestampEntrega: DateTime
+    + tieneCuotaDisponible(): Boolean
+    + registrarEjecucionSandbox(resultado: ResultadoSandbox)
+    + consolidarNuevaVersion(archivos: Map): Integer
+}
+
+actor --> EditorPractica : 1. escribe código y solicita entrega
+EditorPractica --> GestorEvaluacionPractica : 2. delega guardado / ejecución
+GestorEvaluacionPractica --> Test : 3. valida tiempo en servidor
+GestorEvaluacionPractica --> Practica : 4. recupera suite de tests
+GestorEvaluacionPractica --> TestRunner : 5. solicita ejecución en sandbox
+GestorEvaluacionPractica --> EntregaPractica : 6. persiste versión de entrega
+@enduml

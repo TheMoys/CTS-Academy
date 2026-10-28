@@ -1,0 +1,54 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class "ActorEvaluado\n(Candidato / Alumno)" as actor <<actor>>
+
+class DialogoFinalizarTest <<boundary>> {
+    + presentarBalance(respondidas: Integer, pendientes: Integer, tiempoRestante: Integer)
+    + solicitarConfirmacionFinal()
+    + mostrarAdvertenciaPendientes()
+    + presentarAcuseReciboAseptico()
+    + redirigirAPanelOrigen(rol: RolUsuario)
+}
+
+class GestorEvaluacion <<control>> {
+    + obtenerBalanceEvaluacion(idTest: UUID): BalanceTest
+    + finalizarTest(idTest: UUID, motivo: MotivoCierre): ResultadoCierre
+    + ejecutarAutoentregaServidor(idTest: UUID)
+    + congelarYGenerarResultado(test: Test): Resultado
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - tipo: TipoTest
+    - estado: EstadoTest
+    - horaCierreReal: DateTime
+    + estaEnCurso(): Boolean
+    + obtenerBalance(): BalanceTest
+    + finalizar(motivo: MotivoCierre)
+    + congelarAtómicamente()
+}
+
+class Resultado <<entity>> {
+    - id: UUID
+    - idTest: UUID
+    - totalRespondidas: Integer
+    - totalPendientes: Integer
+    - indicadoresProcesados: Boolean
+    + calcularIndicadoresDiagnosticos()
+}
+
+class SesionEvaluacion <<entity>> {
+    - id: UUID
+    - tokenEvaluacion: String
+    - activa: Boolean
+    + revocar()
+}
+
+actor --> DialogoFinalizarTest : 1. solicita finalizar prueba
+DialogoFinalizarTest --> GestorEvaluacion : 2. consulta balance y confirma entrega
+GestorEvaluacion --> Test : 3. bloquea transaccionalmente y congela
+GestorEvaluacion --> Resultado : 4. genera registro opaco de resultado
+GestorEvaluacion --> SesionEvaluacion : 5. invalida sesión de examen
+@enduml

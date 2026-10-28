@@ -1,0 +1,52 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class "ActorEvaluado\n(Candidato / Alumno)" as actor <<actor>>
+
+class InterfazTest <<boundary>> {
+    + presentarInstrucciones(test: Test)
+    + solicitarConfirmacionInicio()
+    + presentarEntornoEvaluacion(primerItem: Pregunta, tiempoRestante: Integer)
+    + mostrarErrorAcceso(mensaje: String)
+}
+
+class GestorEvaluacion <<control>> {
+    + iniciarTest(idTest: UUID, idUsuario: UUID): SesionEvaluacion
+    + verificarDisponibilidad(test: Test): Boolean
+    + activarCronometroServidor(test: Test)
+    + cargarReactivos(test: Test): List<Pregunta>
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - tipo: TipoTest
+    - estado: EstadoTest
+    - duracionMinutos: Integer
+    - fechaInicioServidor: DateTime
+    - horaLimiteServidor: DateTime
+    + estaPendiente(): Boolean
+    + iniciar(horaActual: DateTime)
+    + obtenerPrimerItem(): Pregunta
+}
+
+class Pregunta <<entity>> {
+    - id: UUID
+    - enunciado: String
+    - tipo: TipoPregunta
+    - disciplinaEquipo: String
+}
+
+class SesionEvaluacion <<entity>> {
+    - id: UUID
+    - tokenEvaluacion: String
+    - tiempoRestanteSegundos: Integer
+    - activa: Boolean
+}
+
+actor --> InterfazTest : 1. confirma inicio de prueba
+InterfazTest --> GestorEvaluacion : 2. delega inicio formal
+GestorEvaluacion --> Test : 3. valida estado e inicia cronómetro
+GestorEvaluacion --> Pregunta : 4. asocia reactivos
+GestorEvaluacion --> SesionEvaluacion : 5. crea sesión de prueba activa
+@enduml

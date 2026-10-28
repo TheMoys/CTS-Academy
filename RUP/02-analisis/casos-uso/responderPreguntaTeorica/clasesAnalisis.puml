@@ -1,0 +1,53 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class "ActorEvaluado\n(Candidato / Alumno)" as actor <<actor>>
+
+class PanelPreguntaTeorica <<boundary>> {
+    + presentarEnunciado(pregunta: Teorica, opciones: List<Opcion>)
+    + capturarSeleccion(idOpcion: UUID)
+    + mostrarConfirmacionGuardado()
+    + mostrarErrorTiempoAgotado()
+    + mostrarBloqueoInmutabilidad()
+}
+
+class GestorEvaluacion <<control>> {
+    + registrarRespuestaTeorica(idTest: UUID, idPregunta: UUID, idOpcion: UUID, telemetria: DatosTelemetria): ResultadoGuardado
+    + validarTiempoServidor(test: Test): Boolean
+    + verificarInmutabilidad(test: Test, pregunta: Teorica): Boolean
+    + persistirRespuesta(respuesta: RespuestaTeorica)
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - tipo: TipoTest
+    - horaLimiteServidor: DateTime
+    + tieneTiempoDisponible(): Boolean
+    + esPsicometrico(): Boolean
+}
+
+class Teorica <<entity>> {
+    - id: UUID
+    - enunciado: String
+    - opciones: List<Opcion>
+    - esInmutableTrasRespuesta: Boolean
+    + obtenerOpciones(): List<Opcion>
+}
+
+class RespuestaTeorica <<entity>> {
+    - id: UUID
+    - idPregunta: UUID
+    - idOpcionSeleccionada: UUID
+    - timestampRegistro: DateTime
+    - latenciaSegundos: Integer
+    - rectificacionesCount: Integer
+    + actualizarOpcion(idOpcion: UUID)
+}
+
+actor --> PanelPreguntaTeorica : 1. selecciona opción
+PanelPreguntaTeorica --> GestorEvaluacion : 2. envía respuesta y telemetría
+GestorEvaluacion --> Test : 3. valida tiempo en servidor
+GestorEvaluacion --> Teorica : 4. comprueba regla de inmutabilidad
+GestorEvaluacion --> RespuestaTeorica : 5. persiste atómicamente la respuesta
+@enduml

@@ -1,0 +1,83 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "ActorEvaluado" as actor
+boundary "EditorPractica" as boundary <<boundary>>
+control "GestorEvaluacionPractica" as control <<control>>
+entity "Test" as test <<entity>>
+entity "Practica" as practica <<entity>>
+entity "EntregaPractica" as entrega <<entity>>
+boundary "TestRunner (Docker)" as runner <<boundary>>
+
+== Flujo A: Ejecución de Suite Automatizada en Sandbox (RN-EVAL-PRACT-02) ==
+actor -> boundary : solicitarEjecucionSandbox(archivosCodigo)
+activate boundary
+
+boundary -> control : ejecutarEnSandbox(idTest, idPregunta, archivosCodigo)
+activate control
+
+control -> test : tieneTiempoConVentanaGracia()
+activate test
+test --> control : tiempoValido (true / false)
+deactivate test
+
+alt tiempo expirado
+    control --> boundary : error("Tiempo agotado")
+    boundary --> actor : mostrarErrorTiempoAgotado()
+else tiempo válido
+    control -> entrega : tieneCuotaDisponible()
+    activate entrega
+    entrega --> control : cuotaOk (true / false), cuotaRestante
+    deactivate entrega
+
+    alt cuota agotada [máx 5 ejecuciones superado]
+        control --> boundary : advertenciaCuotaAgotada()
+        boundary --> actor : mostrarAdvertenciaCuotaAgotada("Evaluable en diferido por el TL")
+    else cuota disponible
+        control -> practica : obtenerSuitePruebas()
+        activate practica
+        practica --> control : suitePruebas
+        deactivate practica
+
+        control -> runner : compilarYEjecutar(archivosCodigo, suitePruebas)
+        activate runner
+        runner --> control : resultadoSandbox (passed / failed / logs)
+        deactivate runner
+
+        control -> entrega : registrarEjecucionSandbox(resultadoSandbox)
+        activate entrega
+        deactivate entrega
+
+        control --> boundary : resultadoEjecucion(resultadoSandbox, cuotaRestante - 1)
+        boundary --> actor : mostrarResultadoTests(resultadoSandbox)
+    end
+end
+deactivate control
+deactivate boundary
+
+== Flujo B: Entrega Formal de Versión de Código (RN-EVAL-PRACT-03) ==
+actor -> boundary : entregarVersionCodigo(archivosCodigo)
+activate boundary
+
+boundary -> control : entregarVersionFinal(idTest, idPregunta, archivosCodigo)
+activate control
+
+control -> test : tieneTiempoConVentanaGracia()
+activate test
+test --> control : tiempoValido (true / false)
+deactivate test
+
+alt tiempo válido en servidor [RN-EVAL-PRACT-04]
+    control -> entrega : consolidarNuevaVersion(archivosCodigo)
+    activate entrega
+    entrega --> control : nuevaVersionId (v1, v2...)
+    deactivate entrega
+
+    control --> boundary : exitoEntrega(nuevaVersionId)
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionEntregaVersion(nuevaVersionId)
+    deactivate boundary
+end
+@enduml

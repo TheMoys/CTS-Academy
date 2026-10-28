@@ -1,0 +1,82 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "ActorEvaluado" as actor
+boundary "DialogoFinalizarTest" as boundary <<boundary>>
+control "GestorEvaluacion" as control <<control>>
+entity "Test" as test <<entity>>
+entity "Resultado" as resultado <<entity>>
+entity "SesionEvaluacion" as sesion <<entity>>
+
+== Escenario 1: Cierre Voluntario con Balance de Respuestas (RN-EVAL-FIN-04) ==
+actor -> boundary : solicitarFinalizarTest()
+activate boundary
+
+boundary -> control : obtenerBalanceEvaluacion(idTest)
+activate control
+control -> test : obtenerBalance()
+activate test
+test --> control : balance (respondidas, pendientes, tiempoRestante)
+deactivate test
+control --> boundary : balance
+deactivate control
+
+boundary --> actor : presentarBalance(respondidas, pendientes)
+
+alt existen ítems pendientes
+    boundary --> actor : mostrarAdvertenciaPendientes()
+end
+
+actor -> boundary : confirmarEntregaDefinitiva(confirmado)
+
+alt usuario cancela
+    boundary --> actor : permanecerEnExamen()
+else usuario confirma entrega
+    boundary -> control : finalizarTest(idTest, motivo = VOLUNTARIO)
+    activate control
+
+    control -> test : congelarAtómicamente() [RN-EVAL-FIN-02]
+    activate test
+    note over test : transiciona a ENTREGADO\nsellado transaccional pesimista
+    test --> control : confirmacion
+    deactivate test
+
+    control -> resultado : crearRegistroOpaco(test) [RN-EVAL-FIN-01]
+    activate resultado
+    resultado --> control : nuevoResultado
+    deactivate resultado
+
+    control -> sesion : revocar()
+    activate sesion
+    sesion --> control : sesionInvalida
+    deactivate sesion
+
+    control --> boundary : exitoCierre(acuseRecibo)
+    deactivate control
+
+    boundary --> actor : presentarAcuseReciboAseptico()
+    boundary --> actor : redirigirAPanelOrigen()
+    deactivate boundary
+end
+
+== Escenario 2: Autoentrega Forzada por Servidor (RN-EVAL-FIN-03) ==
+note over control, test : El temporizador UTC authoritative en backend llega a cero
+control -> test : finalizar(motivo = TIEMPO_AGOTADO)
+activate control
+activate test
+note over test : transiciona a EXPIRADO\ncongelamiento automático de snapshots
+test --> control : confirmacionExpirado
+deactivate test
+
+control -> sesion : revocar()
+activate sesion
+deactivate sesion
+
+control --> boundary : forzarCierrePorExpiracion()
+activate boundary
+boundary --> actor : presentarNotificacionTiempoAgotado()
+boundary --> actor : redirigirAPanelOrigen()
+deactivate boundary
+deactivate control
+@enduml

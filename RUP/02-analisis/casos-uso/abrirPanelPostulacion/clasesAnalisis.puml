@@ -1,0 +1,56 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Candidato <<actor>>
+
+class PanelPostulacion <<boundary>> {
+    + presentarExpediente(datosCandidato, convocatoria)
+    + mostrarBateriaTests(tests: List<Test>)
+    + mostrarBloqueoConcurrente(testEnCurso: Test)
+    + mostrarFueraPlazo(fechaCierre: DateTime)
+    + habilitarAccionTest(idTest: UUID, accion: TipoAccion)
+}
+
+class GestorPostulacion <<control>> {
+    + abrirPanelPostulacion(idCandidato: UUID): DatosPanelPostulacion
+    + verificarPlazoConvocatoria(convocatoria: Convocatoria): Boolean
+    + reconciliarCronometrosActivos(candidato: Candidato)
+    + obtenerEstadoBateriaTests(candidato: Candidato): List<Test>
+}
+
+class CandidatoEntidad as "Candidato" <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - estadoPostulacion: EstadoPostulacion
+    + obtenerConvocatoria(): Convocatoria
+    + obtenerBateriaTests(): List<Test>
+}
+
+class Convocatoria <<entity>> {
+    - id: UUID
+    - cursoAcademico: String
+    - semestre: Integer
+    - fechaApertura: DateTime
+    - fechaCierre: DateTime
+    - estado: EstadoConvocatoria
+    + estaVigente(): Boolean
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - tipo: TipoTest
+    - estado: EstadoTest
+    - fechaInicio: DateTime
+    - duracionMinutos: Integer
+    + estaEnCurso(): Boolean
+    + calcularTiempoRestanteServidor(): Integer
+    + marcarExpiradoPorServidor()
+}
+
+Candidato --> PanelPostulacion : 1. accede al panel
+PanelPostulacion --> GestorPostulacion : 2. solicita datos del panel
+GestorPostulacion --> CandidatoEntidad : 3. consulta expediente
+GestorPostulacion --> Convocatoria : 4. valida vigencia
+GestorPostulacion --> Test : 5. reconcilia cronómetros y consulta estados
+@enduml

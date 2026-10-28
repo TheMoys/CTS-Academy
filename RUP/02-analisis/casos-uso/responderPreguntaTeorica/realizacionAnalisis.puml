@@ -1,0 +1,48 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "ActorEvaluado" as actor
+boundary "PanelPreguntaTeorica" as boundary <<boundary>>
+control "GestorEvaluacion" as control <<control>>
+entity "Test" as test <<entity>>
+entity "Teorica" as pregunta <<entity>>
+entity "RespuestaTeorica" as respuesta <<entity>>
+
+actor -> boundary : seleccionarOpcion(idOpcion)
+activate boundary
+
+boundary -> control : registrarRespuestaTeorica(idTest, idPregunta, idOpcion, telemetria)
+activate control
+
+control -> test : tieneTiempoDisponible()
+activate test
+test --> control : disponible (true / false)
+deactivate test
+
+alt tiempo en servidor agotado [RN-EVAL-01]
+    control --> boundary : error("Tiempo de examen agotado")
+    boundary --> actor : mostrarErrorTiempoAgotado()
+else tiempo válido en servidor
+    control -> test : esPsicometrico()
+    activate test
+    test --> control : esActitud (true / false)
+    deactivate test
+
+    alt test de Actitud y ya existía respuesta previa [RN-EVAL-02: Inmutabilidad]
+        control --> boundary : error("Las respuestas en el test de actitud son inmutables")
+        boundary --> actor : mostrarBloqueoInmutabilidad()
+    else navegación libre o primera respuesta [RN-EVAL-03]
+        control -> respuesta : persistirAtómicamente(idPregunta, idOpcion, telemetria)
+        activate respuesta
+        respuesta --> control : guardadoExitoso
+        deactivate respuesta
+
+        control --> boundary : exitoGuardado()
+        deactivate control
+
+        boundary --> actor : mostrarConfirmacionGuardado()
+        deactivate boundary
+    end
+end
+@enduml

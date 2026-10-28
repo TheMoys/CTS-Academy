@@ -34,7 +34,12 @@ En esta fase se formalizan:
     ├── PK01 - Acceso (2 CUs)               ──► Completado (2/2)
     │   ├── iniciarSesion/
     │   └── cerrarSesion/
-    ├── PK02 - MotorEvaluacion (12 CUs)     ──► En cola de modelado
+    ├── PK02 - MotorEvaluacion (12 CUs)     ──► En curso (5/12)
+    │   ├── abrirPanelPostulacion/
+    │   ├── iniciarTest/
+    │   ├── responderPreguntaTeorica/
+    │   ├── entregarPreguntaPractica/
+    │   └── finalizarTest/
     ├── PK03 - MotorFormacion (17 CUs)      ──► En cola de modelado
     └── PK04 - MotorEquipos (4 CUs)         ──► En cola de modelado
 ```
@@ -56,20 +61,20 @@ En esta fase se formalizan:
 
 <div align=center>
 
-| Caso de Uso | Actores Involucrados | Propósito de Análisis | Estado |
-| :--- | :--- | :--- | :---: |
-| `abrirPanelPostulacion()` | `Candidato` | Carga de estado de postulación y batería de 3 tests | Pendiente |
-| `iniciarTest()` | `Candidato`, `Alumno` | Inicialización de intento y sincronización de cronómetro en servidor | Pendiente |
-| `responderPreguntaTeorica()` | `Candidato`, `Alumno` | Persistencia de respuestas de opción múltiple / desarrollo | Pendiente |
-| `entregarPreguntaPractica()` | `Candidato`, `Alumno` | Envío de soluciones de código a sandbox de evaluación | Pendiente |
-| `finalizarTest()` | `Candidato`, `Alumno` | Cierre irreversible de examen y consolidación diagnóstica | Pendiente |
-| `abrirPerfilCandidato()` | `Gestor` | Visualización agregada de indicadores de aptitud y tests | Pendiente |
-| `agendarEntrevistaGoogleMeet()` | `Gestor` | Coordinación de cita virtual en expediente de admisión | Pendiente |
-| `registrarAnotacionesEntrevista()` | `Gestor` | Registro cualitativo de competencias blandas en entrevista | Pendiente |
-| `admitirAlumnoProfer()` | `Gestor` | Resolución favorable, asignación a equipo y rol de becario | Pendiente |
-| `rechazarCandidatura()` | `Gestor` | Desestimación motivada del expediente de admisión | Pendiente |
-| `registrarCandidato()` | `Gestor` | Alta manual controlada de aspirante internacional | Pendiente |
-| `importarCandidatosSede()` | `Gestor` | Procesamiento por lotes de expedientes remitidos por sedes | Pendiente |
+| Caso de Uso | Frontera (`<<boundary>>`) | Control (`<<control>>`) | Entidades (`<<entity>>`) | Realización de Análisis | Estado |
+| :--- | :--- | :--- | :--- | :---: | :---: |
+| **`abrirPanelPostulacion()`** | `PanelPostulacion` | `GestorPostulacion` | `Candidato`, `Convocatoria`, `Test` | [Ver Análisis](casos-uso/abrirPanelPostulacion/README.md) | Completado |
+| **`iniciarTest()`** | `InterfazTest` | `GestorEvaluacion` | `Test`, `Pregunta`, `SesionEvaluacion` | [Ver Análisis](casos-uso/iniciarTest/README.md) | Completado |
+| **`responderPreguntaTeorica()`** | `PanelPreguntaTeorica` | `GestorEvaluacion` | `Test`, `Teorica`, `RespuestaTeorica` | [Ver Análisis](casos-uso/responderPreguntaTeorica/README.md) | Completado |
+| **`entregarPreguntaPractica()`** | `EditorPractica`, `TestRunner` | `GestorEvaluacionPractica` | `Test`, `Practica`, `EntregaPractica` | [Ver Análisis](casos-uso/entregarPreguntaPractica/README.md) | Completado |
+| **`finalizarTest()`** | `DialogoFinalizarTest` | `GestorEvaluacion` | `Test`, `Resultado`, `SesionEvaluacion` | [Ver Análisis](casos-uso/finalizarTest/README.md) | Completado |
+| `abrirPerfilCandidato()` | `PerfilCandidato` | `GestorAdmisiones` | `Candidato`, `Resultado`, `Entrevista` | — | Pendiente |
+| `agendarEntrevistaGoogleMeet()` | `DialogoAgendarEntrevista` | `GestorAdmisiones` | `Candidato`, `Entrevista` | — | Pendiente |
+| `registrarAnotacionesEntrevista()` | `FormularioEntrevista` | `GestorAdmisiones` | `Entrevista`, `Candidato` | — | Pendiente |
+| `admitirAlumnoProfer()` | `DialogoAdmision` | `GestorAdmisiones` | `Candidato`, `Alumno`, `Equipo` | — | Pendiente |
+| `rechazarCandidatura()` | `DialogoRechazo` | `GestorAdmisiones` | `Candidato`, `ExpedientePostulacion` | — | Pendiente |
+| `registrarCandidato()` | `FormularioRegistroCandidato` | `GestorAdmisiones` | `Candidato`, `Convocatoria` | — | Pendiente |
+| `importarCandidatosSede()` | `FormularioImportarSede` | `GestorAdmisiones` | `Candidato`, `Sede`, `Convocatoria` | — | Pendiente |
 
 </div>
 

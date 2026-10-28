@@ -1,0 +1,53 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "ActorEvaluado" as actor
+boundary "InterfazTest" as boundary <<boundary>>
+control "GestorEvaluacion" as control <<control>>
+entity "Test" as test <<entity>>
+entity "Pregunta" as pregunta <<entity>>
+entity "SesionEvaluacion" as sesion <<entity>>
+
+actor -> boundary : confirmarInicioTest(idTest)
+activate boundary
+
+boundary -> control : iniciarTest(idTest, idUsuario)
+activate control
+
+control -> test : estaPendiente()
+activate test
+test --> control : disponible (true / false)
+deactivate test
+
+alt test no disponible [ya completado o expirado]
+    control --> boundary : error("El test no se encuentra en estado PENDIENTE")
+    boundary --> actor : mostrarErrorAcceso("Evaluación no disponible")
+else test disponible
+    control -> test : iniciar(horaActualServidor)
+    activate test
+    note over test : transiciona a EN_CURSO\nfija horaLimiteServidor inmutable
+    test --> control : confirmacion
+    deactivate test
+
+    control -> test : cargarReactivos()
+    activate test
+    test -> pregunta : obtenerItems()
+    activate pregunta
+    pregunta --> test : listaReactivos
+    deactivate pregunta
+    test --> control : primerItem, totalItems
+    deactivate test
+
+    control -> sesion : crear(test, horaActualServidor)
+    activate sesion
+    sesion --> control : sesionEvaluacionActiva
+    deactivate sesion
+
+    control --> boundary : exitoInicio(primerItem, duracionSegundos, token)
+    deactivate control
+
+    boundary --> actor : presentarEntornoEvaluacion(primerItem, duracionSegundos)
+    deactivate boundary
+end
+@enduml
