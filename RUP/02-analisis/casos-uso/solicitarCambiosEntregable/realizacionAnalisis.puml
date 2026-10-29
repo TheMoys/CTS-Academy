@@ -1,0 +1,59 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "DialogoCambiosRevision" as boundary <<boundary>>
+control "GestorRevisiones" as control <<control>>
+entity "RevisionCodigo" as revision <<entity>>
+entity "ComentarioRevision" as comentario <<entity>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+entity "Notificacion" as notif <<entity>>
+
+actor -> boundary : abrirDialogoSolicitudCambios(idEntrega)
+activate boundary
+
+boundary --> actor : presentarFormularioCambios(idEntrega)
+
+actor -> boundary : confirmarSolicitudCambios(observacionesGenerales)
+
+boundary -> control : solicitarCambiosEntrega(idEntrega, idLider, observacionesGenerales)
+activate control
+
+control -> comentario : contarComentariosRevision(idEntrega)
+activate comentario
+comentario --> control : totalComentariosLinea
+deactivate comentario
+
+control -> control : validarFeedbackConstructivo(observacionesGenerales, totalComentariosLinea) [RN-LEAD-10]
+
+alt observaciones vacías y sin comentarios técnicos
+    control --> boundary : error("Es mandatorio incluir una explicación técnica detallada para guiar al alumno")
+    boundary --> actor : mostrarErrorFeedbackVacio()
+else feedback constructivo validado
+    control -> revision : registrarSolicitudCambios(observacionesGenerales)
+    activate revision
+    revision -> revision : establecerVeredicto(REQUIERE_CAMBIOS)
+    revision --> control : revisionRegistrada
+    deactivate revision
+
+    control -> entrega : marcarRequiereCambios()
+    activate entrega
+    entrega -> entrega : transicionarEstado(REQUIERE_CAMBIOS)
+    entrega --> control : entregaActualizada
+    deactivate entrega
+
+    control -> notif : crearNotificacion(idAlumno, "Se han solicitado cambios en tu entrega de laboratorio. Consulta el feedback para corregir tu código.")
+    activate notif
+    notif --> control : notificacionEncolada
+    deactivate notif
+
+    control --> boundary : confirmacionSolicitudCambios()
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionCambiosSolicitados()
+end
+
+deactivate boundary
+
+@enduml

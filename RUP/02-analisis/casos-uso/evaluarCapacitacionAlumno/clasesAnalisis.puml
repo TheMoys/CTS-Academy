@@ -1,0 +1,70 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class FormularioEvaluacionGlobal <<boundary>> {
+    + presentarRubricaFinal(alumnoDTO: DatosCompletitudDTO)
+    + capturarEvaluacionFinal(): EvaluacionSumativaDTO
+    + mostrarErrorIncompletitudCurricular()
+    + mostrarConfirmacionCertificacion()
+}
+
+class ServicioNotificacionesEmail <<boundary>> {
+    + notificarConclusionAGestor(emailGestor: String, actaDTO: ActaConclusionDTO)
+    + notificarCertificadoAAlumno(emailAlumno: String, actaDTO: ActaConclusionDTO)
+}
+
+class GestorRevisiones <<control>> {
+    + emitirEvaluacionSumativaFinal(idAlumno: UUID, idLider: UUID, evaluacionDTO: EvaluacionSumativaDTO): EvaluacionSumativa
+    + verificarCompletitudCurricular(idAlumno: UUID): Boolean
+    + transicionarEstadoAlumno(alumno: Alumno, nuevoEstado: EstadoFormacion)
+    + generarActaConclusion(evaluacion: EvaluacionSumativa): ActaConclusionDTO
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - email: String
+    - idEquipo: UUID
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - email: String
+    - idEquipo: UUID
+    - estadoFormacion: EstadoFormacion
+    + estaListoParaEvaluacionFinal(): Boolean
+    + marcarCapacitacionConcluida()
+}
+
+class Capacitacion <<entity>> {
+    - id: UUID
+    - trackEspecialidad: RolTecnico
+    - totalModulos: Integer
+    + tieneTodosModulosSuperadosPor(idAlumno: UUID): Boolean
+}
+
+class EvaluacionSumativa <<entity>> {
+    - id: UUID
+    - idAlumno: UUID
+    - idTechLeader: UUID
+    - puntuacionArquitectura: Decimal
+    - puntuacionCalidadCodigo: Decimal
+    - puntuacionAutonomia: Decimal
+    - puntuacionTrabajoEquipo: Decimal
+    - calificacionPonderadaFinal: Decimal
+    - informeCualitativo: String
+    - dictamenAptitudProyecto: Boolean
+    - fechaCertificacion: DateTime
+}
+
+LiderEquipo --> FormularioEvaluacionGlobal : interactúa con
+FormularioEvaluacionGlobal --> GestorRevisiones : invoca
+GestorRevisiones --> TechLeader : valida evaluador
+GestorRevisiones --> Alumno : valida y concluye [RN-LEAD-11]
+GestorRevisiones --> Capacitacion : verifica completitud 100%
+GestorRevisiones --> EvaluacionSumativa : archiva acta final
+GestorRevisiones --> ServicioNotificacionesEmail : despacha actas a Gestor y Alumno
+@enduml

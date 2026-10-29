@@ -1,0 +1,62 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class DialogoCambiosRevision <<boundary>> {
+    + presentarFormularioCambios(idEntrega: UUID)
+    + capturarSolicitudCambios(): SolicitudCambiosDTO
+    + mostrarErrorFeedbackVacio()
+    + mostrarConfirmacionCambiosSolicitados()
+}
+
+class GestorRevisiones <<control>> {
+    + solicitarCambiosEntrega(idEntrega: UUID, idLider: UUID, observacionesGenerales: String): RevisionCodigo
+    + validarFeedbackConstructivo(observaciones: String, totalComentarios: Integer): Boolean
+    + transicionarEstadoEntrega(entrega: EntregaLaboratorio, nuevoEstado: EstadoEntrega)
+    + notificarCambiosAlumno(idAlumno: UUID, entrega: EntregaLaboratorio)
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - idAlumno: UUID
+    - estadoEntrega: EstadoEntrega
+    - numeroIntento: Integer
+    + marcarRequiereCambios()
+}
+
+class RevisionCodigo <<entity>> {
+    - id: UUID
+    - idEntrega: UUID
+    - idTechLeader: UUID
+    - veredicto: VeredictoRevision
+    - observacionesGenerales: String
+    - fechaRevision: DateTime
+    + registrarSolicitudCambios(observaciones: String)
+}
+
+class ComentarioRevision <<entity>> {
+    - id: UUID
+    - idRevision: UUID
+    - archivoRuta: String
+    - numeroLinea: Integer
+    - comentarioTexto: String
+    - severidad: SeveridadObservacion
+}
+
+class Notificacion <<entity>> {
+    - id: UUID
+    - idDestinatario: UUID
+    - tipoNotificacion: TipoNotificacion
+    - mensaje: String
+}
+
+LiderEquipo --> DialogoCambiosRevision : interactúa con
+DialogoCambiosRevision --> GestorRevisiones : invoca
+GestorRevisiones --> RevisionCodigo : formaliza dictamen con veredicto REQUIERE_CAMBIOS
+RevisionCodigo o-- ComentarioRevision : consolida observaciones
+GestorRevisiones --> EntregaLaboratorio : transiciona a REQUIERE_CAMBIOS
+GestorRevisiones --> Notificacion : encola alerta constructiva para Alumno [RN-LEAD-10]
+@enduml

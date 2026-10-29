@@ -1,0 +1,64 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class BandejaRevisiones <<boundary>> {
+    + presentarColaRevision(pendientes: List<ItemRevisionDTO>)
+    + resaltarEntregablesEnRiesgoSLA(enRiesgo: List<UUID>)
+    + filtrarPorModulo(idModulo: UUID)
+    + seleccionarEntregable(idEntrega: UUID)
+}
+
+class GestorRevisiones <<control>> {
+    + obtenerColaEntregablesPendientes(idLider: UUID): List<ItemRevisionDTO>
+    + calcularTiempoEspera(fechaEnvio: DateTime): Duracion
+    + evaluarAlertaSLA(fechaEnvio: DateTime): Boolean
+    + obtenerEquipoDeLider(idLider: UUID): Equipo
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - email: String
+    - idEquipo: UUID
+}
+
+class Equipo <<entity>> {
+    - id: UUID
+    - nombre: String
+    - idLiderTecnico: UUID
+    + listarAlumnosActivos(): List<Alumno>
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - idEquipo: UUID
+    - rolTecnico: RolTecnico
+}
+
+class Laboratorio <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - titulo: String
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - idAlumno: UUID
+    - urlPullRequest: String
+    - estadoEntrega: EstadoEntrega
+    - fechaEnvio: DateTime
+    + estaPendienteRevision(): Boolean
+}
+
+LiderEquipo --> BandejaRevisiones : interactúa con
+BandejaRevisiones --> GestorRevisiones : invoca
+GestorRevisiones --> TechLeader : valida líder
+GestorRevisiones --> Equipo : consulta alumnos tutelados
+GestorRevisiones --> Alumno : resuelve autor
+GestorRevisiones --> Laboratorio : resuelve consigna
+GestorRevisiones --> EntregaLaboratorio : lista pendientes [RN-LEAD-07]
+@enduml

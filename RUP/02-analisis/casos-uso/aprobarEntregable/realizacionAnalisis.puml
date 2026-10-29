@@ -1,0 +1,67 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "DialogoAprobacionRevision" as boundary <<boundary>>
+control "GestorRevisiones" as control <<control>>
+entity "RevisionCodigo" as revision <<entity>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+entity "Modulo" as modulo <<entity>>
+entity "Test" as test <<entity>>
+entity "Notificacion" as notif <<entity>>
+
+actor -> boundary : abrirDialogoAprobacion(idEntrega)
+activate boundary
+
+boundary --> actor : presentarFormularioDictamen(idEntrega)
+
+actor -> boundary : confirmarAprobacion(notaNumerica, rubricaDTO, feedbackCualitativo)
+
+boundary -> control : emitirDictamenAprobado(idEntrega, idLider, notaNumerica, rubricaDTO, feedbackCualitativo)
+activate control
+
+control -> control : verificarNotaAprobatoria(notaNumerica) [RN-LEAD-09: nota >= 7.0]
+
+alt nota < 7.0
+    control --> boundary : error("La nota mínima para aprobar es 7.0/10.0")
+    boundary --> actor : mostrarErrorNotaInsuficiente()
+else nota >= 7.0
+    control -> revision : registrarAprobacion(notaNumerica, feedbackCualitativo)
+    activate revision
+    revision -> revision : establecerVeredicto(APROBADO)
+    revision --> control : revisionAprobada
+    deactivate revision
+
+    control -> entrega : marcarAprobado(notaNumerica)
+    activate entrega
+    entrega -> entrega : transicionarEstado(APROBADO)
+    entrega --> control : entregaAprobada
+    deactivate entrega
+
+    control -> modulo : todosLaboratoriosAprobadosPara(idAlumno)
+    activate modulo
+    modulo --> control : todosAprobados (true / false)
+    deactivate modulo
+
+    alt todos los laboratorios del modulo superados
+        control -> test : habilitarParaAlumno(idAlumno)
+        activate test
+        test --> control : testHabilitado
+        deactivate test
+    end
+
+    control -> notif : crearNotificacion(idAlumno, "Tu entrega ha sido APROBADA con nota: " + notaNumerica)
+    activate notif
+    notif --> control : notificacionEncolada
+    deactivate notif
+
+    control --> boundary : confirmacionDictamenAprobado()
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionAprobacion()
+end
+
+deactivate boundary
+
+@enduml

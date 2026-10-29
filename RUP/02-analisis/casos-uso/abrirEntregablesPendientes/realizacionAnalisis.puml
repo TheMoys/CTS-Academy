@@ -1,0 +1,58 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "BandejaRevisiones" as boundary <<boundary>>
+control "GestorRevisiones" as control <<control>>
+entity "TechLeader" as leader <<entity>>
+entity "Equipo" as equipo <<entity>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+entity "Alumno" as alumno <<entity>>
+entity "Laboratorio" as lab <<entity>>
+
+actor -> boundary : abrirBandejaRevisiones()
+activate boundary
+
+boundary -> control : obtenerColaEntregablesPendientes(idLider)
+activate control
+
+control -> leader : obtenerEquipoAsignado(idLider)
+activate leader
+leader --> control : idEquipo
+deactivate leader
+
+control -> equipo : listarAlumnosActivos(idEquipo)
+activate equipo
+equipo --> control : listaAlumnosEquipo
+deactivate equipo
+
+control -> entrega : listarPendientesPorAlumnos(listaAlumnosEquipo)
+activate entrega
+entrega --> control : entregasPendientes
+deactivate entrega
+
+loop para cada entrega in entregasPendientes
+    control -> alumno : obtenerDatosAlumno(idAlumno)
+    activate alumno
+    alumno --> control : nombreAlumno, expedienteId
+    deactivate alumno
+
+    control -> lab : obtenerDatosLaboratorio(idLaboratorio)
+    activate lab
+    lab --> control : tituloLab, moduloInfo
+    deactivate lab
+
+    control -> control : calcularTiempoEspera(fechaEnvio)
+    control -> control : evaluarAlertaSLA(fechaEnvio) [RN-LEAD-07: max 48h]
+end
+
+control -> control : ordenarPorAntiguedadEnvio()
+control --> boundary : listaItemsRevisionDTO
+deactivate control
+
+boundary --> actor : presentarColaRevision(listaItemsRevisionDTO)
+boundary --> actor : resaltarEntregablesEnRiesgoSLA(alertas)
+deactivate boundary
+
+@enduml

@@ -1,0 +1,65 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "EditorRevision" as boundary <<boundary>>
+control "GestorRevisiones" as control <<control>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+entity "Laboratorio" as lab <<entity>>
+boundary "ServicioGitRepository" as gitService <<boundary>>
+entity "RevisionCodigo" as revision <<entity>>
+entity "ComentarioRevision" as comentario <<entity>>
+
+actor -> boundary : seleccionarEntrega(idEntrega)
+activate boundary
+
+boundary -> control : cargarDetalleParaRevision(idEntrega)
+activate control
+
+control -> entrega : obtenerDetalleEntrega(idEntrega)
+activate entrega
+entrega --> control : datosEntrega (urlPR, logsCI, exitCode)
+deactivate entrega
+
+control -> lab : obtenerRubrica(idLab)
+activate lab
+lab --> control : rubricaEvaluacion
+deactivate lab
+
+control -> gitService : obtenerDiffPullRequest(urlPullRequest)
+activate gitService
+gitService --> control : diffCodigo
+deactivate gitService
+
+control -> revision : iniciarOObtenerBorrador(idEntrega, idLider)
+activate revision
+revision --> control : idRevision
+deactivate revision
+
+control -> control : compilarExpedienteEntregaDTO() [RN-LEAD-08]
+control --> boundary : expedienteEntregaDTO
+deactivate control
+
+boundary --> actor : presentarExpedienteEntrega(expedienteEntregaDTO)
+boundary --> actor : mostrarResultadoPipelineCI(logsCI, exitCode)
+boundary --> actor : mostrarDiffCodigo(diffCodigo)
+
+actor -> boundary : agregarObservacionLinea(archivo, linea, texto, severidad)
+boundary -> control : registrarComentarioLinea(idRevision, archivo, linea, texto, severidad)
+activate control
+
+control -> comentario : crearComentario(idRevision, archivo, linea, texto, severidad)
+activate comentario
+comentario --> control : comentarioRegistrado
+deactivate comentario
+
+control --> boundary : confirmarComentarioGuardado()
+deactivate control
+
+boundary --> actor : mostrarComentarioEnDiff()
+boundary --> actor : habilitarAccionesResolutivas(aprobar, solicitarCambios)
+
+deactivate boundary
+
+@enduml

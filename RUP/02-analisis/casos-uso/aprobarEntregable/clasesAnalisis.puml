@@ -1,0 +1,70 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class DialogoAprobacionRevision <<boundary>> {
+    + presentarFormularioDictamen(idEntrega: UUID, rubrica: String)
+    + capturarAprobacion(): DatosDictamenAprobadoDTO
+    + mostrarErrorNotaInsuficiente()
+    + mostrarConfirmacionAprobacion()
+}
+
+class GestorRevisiones <<control>> {
+    + emitirDictamenAprobado(idEntrega: UUID, idLider: UUID, nota: Decimal, rubrica: RubricaDTO, feedback: String): RevisionCodigo
+    + verificarNotaAprobatoria(nota: Decimal): Boolean
+    + actualizarEstadoEntrega(entrega: EntregaLaboratorio, nota: Decimal)
+    + verificarDesbloqueoTestModulo(idModulo: UUID, idAlumno: UUID): Boolean
+    + notificarAlumno(idAlumno: UUID, entrega: EntregaLaboratorio)
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - idAlumno: UUID
+    - estadoEntrega: EstadoEntrega
+    - calificacionFinal: Decimal
+    + marcarAprobado(nota: Decimal)
+}
+
+class RevisionCodigo <<entity>> {
+    - id: UUID
+    - idEntrega: UUID
+    - idTechLeader: UUID
+    - calificacionNumerica: Decimal
+    - veredicto: VeredictoRevision
+    - rubricaCalidad: String
+    - feedbackCualitativo: String
+    - fechaRevision: DateTime
+    + registrarAprobacion(nota: Decimal, feedback: String)
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - ordenSecuencial: Integer
+    + todosLaboratoriosAprobadosPara(idAlumno: UUID): Boolean
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - estadoTest: EstadoTest
+    + habilitarParaAlumno(idAlumno: UUID)
+}
+
+class Notificacion <<entity>> {
+    - id: UUID
+    - idDestinatario: UUID
+    - mensaje: String
+    - tipoNotificacion: TipoNotificacion
+}
+
+LiderEquipo --> DialogoAprobacionRevision : interactúa con
+DialogoAprobacionRevision --> GestorRevisiones : invoca
+GestorRevisiones --> RevisionCodigo : formaliza dictamen
+GestorRevisiones --> EntregaLaboratorio : transiciona a APROBADO [RN-LEAD-09]
+GestorRevisiones --> Modulo : verifica completitud de prácticas
+GestorRevisiones --> Test : desbloquea si corresponde
+GestorRevisiones --> Notificacion : alerta al alumno
+@enduml

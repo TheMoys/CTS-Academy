@@ -47,13 +47,18 @@ En esta fase se formalizan:
     │   ├── rechazarCandidatura/
     │   ├── registrarCandidato/
     │   └── importarCandidatosSede/
-    ├── PK03 - MotorFormacion (17 CUs)      ──► En curso (6/17)
+    ├── PK03 - MotorFormacion (17 CUs)      ──► En curso (11/17)
     │   ├── abrirPanelAlumno/
     │   ├── consultarCapacitacion/
     │   ├── consultarModulo/
     │   ├── consultarMaterial/
     │   ├── enviarEntregable/
-    │   └── consultarFeedbackEntregable/
+    │   ├── consultarFeedbackEntregable/
+    │   ├── abrirEntregablesPendientes/
+    │   ├── revisarEntregable/
+    │   ├── aprobarEntregable/
+    │   ├── solicitarCambiosEntregable/
+    │   └── evaluarCapacitacionAlumno/
     └── PK04 - MotorEquipos (4 CUs)         ──► En cola de modelado
 ```
 
@@ -105,11 +110,11 @@ En esta fase se formalizan:
 | **`consultarMaterial()`** | `VisorMaterial` | `GestorFormacion` | `Alumno`, `Modulo`, `Material`, `LecturaMaterial` | [Ver Análisis](casos-uso/consultarMaterial/README.md) | Completado |
 | **`enviarEntregable()`** | `FormularioEntrega`, `ServicioGitRepository` | `GestorFormacion` | `Alumno`, `Laboratorio`, `EntregaLaboratorio`, `Notificacion` | [Ver Análisis](casos-uso/enviarEntregable/README.md) | Completado |
 | **`consultarFeedbackEntregable()`** | `VistaFeedbackEntrega` | `GestorFormacion` | `Alumno`, `Laboratorio`, `EntregaLaboratorio`, `RevisionCodigo`, `ComentarioRevision` | [Ver Análisis](casos-uso/consultarFeedbackEntregable/README.md) | Completado |
-| `abrirEntregablesPendientes()` | `BandejaRevisiones` | `GestorRevisiones` | `EntregaLaboratorio`, `Laboratorio`, `Alumno` | — | Pendiente |
-| `revisarEntregable()` | `EditorRevision`, `ServicioGitRepository` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `ComentarioRevision` | — | Pendiente |
-| `aprobarEntregable()` | `DialogoAprobacionRevision` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `Modulo` | — | Pendiente |
-| `solicitarCambiosEntregable()` | `DialogoCambiosRevision` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `Notificacion` | — | Pendiente |
-| `evaluarCapacitacionAlumno()` | `FormularioEvaluacionGlobal` | `GestorRevisiones` | `Alumno`, `Capacitacion`, `EvaluacionSumativa` | — | Pendiente |
+| **`abrirEntregablesPendientes()`** | `BandejaRevisiones` | `GestorRevisiones` | `TechLeader`, `Equipo`, `Alumno`, `Laboratorio`, `EntregaLaboratorio` | [Ver Análisis](casos-uso/abrirEntregablesPendientes/README.md) | Completado |
+| **`revisarEntregable()`** | `EditorRevision`, `ServicioGitRepository` | `GestorRevisiones` | `EntregaLaboratorio`, `Laboratorio`, `RevisionCodigo`, `ComentarioRevision` | [Ver Análisis](casos-uso/revisarEntregable/README.md) | Completado |
+| **`aprobarEntregable()`** | `DialogoAprobacionRevision` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `Modulo`, `Test`, `Notificacion` | [Ver Análisis](casos-uso/aprobarEntregable/README.md) | Completado |
+| **`solicitarCambiosEntregable()`** | `DialogoCambiosRevision` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `ComentarioRevision`, `Notificacion` | [Ver Análisis](casos-uso/solicitarCambiosEntregable/README.md) | Completado |
+| **`evaluarCapacitacionAlumno()`** | `FormularioEvaluacionGlobal`, `ServicioNotificacionesEmail` | `GestorRevisiones` | `TechLeader`, `Alumno`, `Capacitacion`, `EvaluacionSumativa` | [Ver Análisis](casos-uso/evaluarCapacitacionAlumno/README.md) | Completado |
 | `crearMaterial()` | `EditorMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |
 | `editarMaterial()` | `EditorMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |
 | `eliminarMaterial()` | `DialogoEliminacionMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |

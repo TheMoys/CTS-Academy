@@ -1,0 +1,73 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "FormularioEvaluacionGlobal" as boundary <<boundary>>
+control "GestorRevisiones" as control <<control>>
+entity "Alumno" as alumno <<entity>>
+entity "Capacitacion" as capacitacion <<entity>>
+entity "EvaluacionSumativa" as evaluacion <<entity>>
+boundary "ServicioNotificacionesEmail" as emailService <<boundary>>
+
+actor -> boundary : abrirFormularioEvaluacionFinal(idAlumno)
+activate boundary
+
+boundary -> control : verificarCompletitudCurricular(idAlumno)
+activate control
+
+control -> alumno : obtenerItinerarioActivo()
+activate alumno
+alumno --> control : idCapacitacion
+deactivate alumno
+
+control -> capacitacion : tieneTodosModulosSuperadosPor(idAlumno)
+activate capacitacion
+capacitacion --> control : completitudTotal (true / false)
+deactivate capacitacion
+
+control -> control : verificarCompletitudCurricular(idAlumno) [RN-LEAD-11]
+
+alt modulos o laboratorios pendientes de aprobacion
+    control --> boundary : error("El alumno no ha superado el 100% de los módulos y laboratorios exigidos")
+    boundary --> actor : mostrarErrorIncompletitudCurricular()
+else completitud curricular 100% satisfecha
+    control --> boundary : habilitarFormularioRubricaFinal()
+    boundary --> actor : presentarRubricaFinal()
+
+    actor -> boundary : confirmarEvaluacionFinal(rubricaCompetencias, informeCualitativo, aptitudProyecto)
+
+    boundary -> control : emitirEvaluacionSumativaFinal(idAlumno, idLider, evaluacionDTO)
+
+    control -> evaluacion : crearActaEvaluacionSumativa(idAlumno, idLider, rubricaCompetencias, informe, aptitudProyecto)
+    activate evaluacion
+    evaluacion --> control : actaRegistrada
+    deactivate evaluacion
+
+    control -> alumno : marcarCapacitacionConcluida()
+    activate alumno
+    alumno -> alumno : transicionarEstado(CAPACITACION_CONCLUIDA)
+    alumno --> control : estadoActualizado
+    deactivate alumno
+
+    control -> control : generarActaConclusion(actaRegistrada)
+
+    control -> emailService : notificarConclusionAGestor(emailGestorAdmisiones, actaConclusionDTO)
+    activate emailService
+    emailService --> control : confirmacionEnvioGestor
+    deactivate emailService
+
+    control -> emailService : notificarCertificadoAAlumno(emailAlumno, actaConclusionDTO)
+    activate emailService
+    emailService --> control : confirmacionEnvioAlumno
+    deactivate emailService
+
+    control --> boundary : confirmacionCertificacion()
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionCertificacion()
+end
+
+deactivate boundary
+
+@enduml

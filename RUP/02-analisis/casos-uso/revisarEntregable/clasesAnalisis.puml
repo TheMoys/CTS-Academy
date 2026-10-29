@@ -1,0 +1,68 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class EditorRevision <<boundary>> {
+    + presentarExpedienteEntrega(expedienteDTO: ExpedienteEntregaDTO)
+    + mostrarDiffCodigo(diff: String)
+    + mostrarResultadoPipelineCI(resultadoCI: ResultadoRunnerDTO)
+    + permitirAgregarComentarioLinea(linea: Integer, archivo: String, texto: String)
+    + habilitarAccionAprobar()
+    + habilitarAccionSolicitarCambios()
+}
+
+class ServicioGitRepository <<boundary>> {
+    + obtenerDiffPullRequest(urlPullRequest: String): String
+    + obtenerArchivosModificados(urlPullRequest: String): List<String>
+}
+
+class GestorRevisiones <<control>> {
+    + cargarDetalleParaRevision(idEntrega: UUID): ExpedienteEntregaDTO
+    + agregarComentarioBorrador(idEntrega: UUID, comentarioDTO: ComentarioDTO)
+    + verificarResultadosSandbox(entrega: EntregaLaboratorio): ResultadoRunnerDTO
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - idAlumno: UUID
+    - urlPullRequest: String
+    - estadoEntrega: EstadoEntrega
+    - logsEjecucionCI: String
+    - exitCodeCI: Integer
+    + pasoTestsSandbox(): Boolean
+}
+
+class Laboratorio <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - titulo: String
+    - rubricaEvaluacion: String
+}
+
+class RevisionCodigo <<entity>> {
+    - id: UUID
+    - idEntrega: UUID
+    - idTechLeader: UUID
+    - estadoRevision: EstadoRevision
+}
+
+class ComentarioRevision <<entity>> {
+    - id: UUID
+    - idRevision: UUID
+    - archivoRuta: String
+    - numeroLinea: Integer
+    - comentarioTexto: String
+    - severidad: SeveridadObservacion
+}
+
+LiderEquipo --> EditorRevision : interactúa con
+EditorRevision --> GestorRevisiones : invoca
+GestorRevisiones --> ServicioGitRepository : consulta diff y archivos
+GestorRevisiones --> EntregaLaboratorio : consulta ejecución CI [RN-LEAD-08]
+GestorRevisiones --> Laboratorio : consulta rúbrica
+GestorRevisiones --> RevisionCodigo : gestiona borrador de revisión
+RevisionCodigo o-- ComentarioRevision : acumula comentarios
+@enduml
