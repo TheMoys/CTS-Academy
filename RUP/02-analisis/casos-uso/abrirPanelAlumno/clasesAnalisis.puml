@@ -1,0 +1,78 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Alumno <<actor>>
+
+class PanelAlumno <<boundary>> {
+    + presentarDashboard(resumen: ResumenAlumnoDTO)
+    + mostrarAlertaEntregablesPendientes(pendientes: List<EntregaLaboratorio>)
+    + mostrarFeedbackDisponible(feedbacks: List<RevisionCodigo>)
+    + navegarHaciaCapacitacion()
+    + navegarHaciaModulo(idModulo: UUID)
+}
+
+class GestorFormacion <<control>> {
+    + obtenerResumenAlumno(idAlumno: UUID): ResumenAlumnoDTO
+    + calcularAvanceCapacitacion(alumno: Alumno): Porcentaje
+    + obtenerModuloActivo(alumno: Alumno): Modulo
+    + listarEntregablesEnRevision(idAlumno: UUID): List<EntregaLaboratorio>
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - idEquipo: UUID
+    - rolTecnico: RolTecnico
+    - estadoFormacion: EstadoFormacion
+    - fechaIngreso: Date
+    + obtenerEquipoAsignado(): UUID
+    + obtenerItinerarioActivo(): Capacitacion
+}
+
+class Equipo <<entity>> {
+    - id: UUID
+    - nombre: String
+    - idLiderTecnico: UUID
+    + obtenerLider(): UUID
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - nombreCompleto: String
+    - email: String
+}
+
+class Capacitacion <<entity>> {
+    - id: UUID
+    - nombre: String
+    - trackEspecialidad: RolTecnico
+    - totalModulos: Integer
+    + calcularProgreso(modulosAprobados: Integer): Porcentaje
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - ordenSecuencial: Integer
+    - titulo: String
+    - estadoModulo: EstadoModulo
+    + esModuloActivo(): Boolean
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - estadoEntrega: EstadoEntrega
+    - fechaEnvio: DateTime
+    + tieneFeedbackPendienteLectura(): Boolean
+}
+
+Alumno --> PanelAlumno : interactúa con
+PanelAlumno --> GestorFormacion : invoca
+GestorFormacion --> Alumno : consulta
+GestorFormacion --> Equipo : consulta
+GestorFormacion --> TechLeader : consulta tutor [RN-FORM-02]
+GestorFormacion --> Capacitacion : consulta progreso [RN-FORM-01]
+GestorFormacion --> Modulo : determina activo
+GestorFormacion --> EntregaLaboratorio : consulta estado entregas
+@enduml

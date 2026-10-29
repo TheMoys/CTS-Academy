@@ -1,0 +1,68 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Alumno <<actor>>
+
+class FormularioEntrega <<boundary>> {
+    + presentarFormulario(labDTO: DatosLaboratorioDTO)
+    + capturarEnvio(): DatosEntregaDTO
+    + mostrarErrorUrlInvalida()
+    + mostrarConfirmacionEntrega()
+}
+
+class ServicioGitRepository <<boundary>> {
+    + validarPullRequest(urlPullRequest: String): InfoPullRequestDTO
+    + verificarPertenenciaOrganizacion(urlRepo: String): Boolean
+}
+
+class GestorFormacion <<control>> {
+    + remitirEntregaLaboratorio(idAlumno: UUID, idLab: UUID, urlPullRequest: String, comentarios: String): EntregaLaboratorio
+    + validarElegibilidadEntrega(idAlumno: UUID, idLab: UUID): Boolean
+    + notificarLiderEquipo(entrega: EntregaLaboratorio)
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - idEquipo: UUID
+    - rolTecnico: RolTecnico
+    + perteneceAEquipo(idEquipo: UUID): Boolean
+}
+
+class Laboratorio <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - titulo: String
+    - repositorioPlantillaUrl: String
+    + esObligatorio(): Boolean
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - idAlumno: UUID
+    - numeroIntento: Integer
+    - urlPullRequest: String
+    - comentariosAlumno: String
+    - estadoEntrega: EstadoEntrega
+    - fechaEnvio: DateTime
+    + registrarNuevoIntento(urlPR: String, comentarios: String)
+    + marcarPendienteRevision()
+}
+
+class Notificacion <<entity>> {
+    - id: UUID
+    - idDestinatario: UUID
+    - tipoNotificacion: TipoNotificacion
+    - mensaje: String
+    - leida: Boolean
+}
+
+Alumno --> FormularioEntrega : interactúa con
+FormularioEntrega --> GestorFormacion : invoca
+GestorFormacion --> ServicioGitRepository : valida PR [ADR-003]
+GestorFormacion --> Alumno : valida pertenencia
+GestorFormacion --> Laboratorio : valida consigna
+GestorFormacion --> EntregaLaboratorio : crea o actualiza [Estado: PENDIENTE_REVISION]
+GestorFormacion --> Notificacion : encola alerta para Tech Leader
+@enduml

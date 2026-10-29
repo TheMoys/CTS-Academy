@@ -1,0 +1,70 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Alumno <<actor>>
+
+class VistaFeedbackEntrega <<boundary>> {
+    + presentarDictamenRevision(revisionDTO: FeedbackEntregaDTO)
+    + resaltarCalificacion(nota: Decimal, aprobado: Boolean)
+    + listarComentariosCodigo(comentarios: List<ComentarioRevision>)
+    + habilitarBotonReenvio(habilitado: Boolean)
+    + redirigirAFormularioEntrega(idLab: UUID)
+}
+
+class GestorFormacion <<control>> {
+    + obtenerFeedbackEntrega(idAlumno: UUID, idEntrega: UUID): FeedbackEntregaDTO
+    + evaluarRequisitoSuperacion(calificacion: Decimal, estado: EstadoEntrega): Boolean
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - estadoFormacion: EstadoFormacion
+}
+
+class Laboratorio <<entity>> {
+    - id: UUID
+    - titulo: String
+    - descripcionConsigna: String
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - idAlumno: UUID
+    - numeroIntento: Integer
+    - urlPullRequest: String
+    - estadoEntrega: EstadoEntrega
+    - fechaEnvio: DateTime
+    + perteneceA(idAlumno: UUID): Boolean
+    + tieneRevision(): Boolean
+}
+
+class RevisionCodigo <<entity>> {
+    - id: UUID
+    - idEntrega: UUID
+    - idTechLeader: UUID
+    - calificacionNumerica: Decimal
+    - veredicto: VeredictoRevision
+    - rubricaCalidad: String
+    - fechaRevision: DateTime
+    + cumpleNotaAprobacion(): Boolean
+}
+
+class ComentarioRevision <<entity>> {
+    - id: UUID
+    - idRevision: UUID
+    - archivoRuta: String
+    - numeroLinea: Integer
+    - comentarioTexto: String
+    - severidad: SeveridadObservacion
+}
+
+Alumno --> VistaFeedbackEntrega : interactúa con
+VistaFeedbackEntrega --> GestorFormacion : invoca
+GestorFormacion --> Alumno : valida identidad
+GestorFormacion --> EntregaLaboratorio : consulta entrega
+GestorFormacion --> Laboratorio : consulta metadatos
+GestorFormacion --> RevisionCodigo : evalúa veredicto [RN-FORM-06]
+RevisionCodigo o-- ComentarioRevision : contiene observaciones
+@enduml

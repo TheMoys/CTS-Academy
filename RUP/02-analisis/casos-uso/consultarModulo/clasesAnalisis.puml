@@ -1,0 +1,80 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Alumno <<actor>>
+
+class VistaModulo <<boundary>> {
+    + presentarDetalleModulo(moduloDTO: DetalleModuloDTO)
+    + habilitarBotonTestNivelacion(habilitado: Boolean)
+    + mostrarAccionesLaboratorio(idLab: UUID, estado: EstadoEntrega)
+    + abrirMaterial(idMaterial: UUID)
+    + abrirEntrega(idLab: UUID)
+    + iniciarTestNivelacion(idTest: UUID)
+}
+
+class GestorFormacion <<control>> {
+    + obtenerDetalleModulo(idAlumno: UUID, idModulo: UUID): DetalleModuloDTO
+    + verificarCumplimientoLaboratorios(idAlumno: UUID, idModulo: UUID): Boolean
+    + verificarLecturaMateriales(idAlumno: UUID, idModulo: UUID): Boolean
+    + evaluarHabilitacionTest(idAlumno: UUID, idModulo: UUID): Boolean
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - estadoFormacion: EstadoFormacion
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - ordenSecuencial: Integer
+    - titulo: String
+    - descripcion: String
+    - estadoModulo: EstadoModulo
+    + esAccesiblePara(idAlumno: UUID): Boolean
+}
+
+class Material <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - titulo: String
+    - esObligatorio: Boolean
+    - tipoRecurso: TipoRecursoMaterial
+}
+
+class Laboratorio <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - titulo: String
+    - descripcionConsigna: String
+    - repositorioPlantillaUrl: String
+    - esObligatorio: Boolean
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - idAlumno: UUID
+    - urlPullRequest: String
+    - estadoEntrega: EstadoEntrega
+    - calificacionFinal: Decimal
+    + estaAprobado(): Boolean
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - titulo: String
+    - duracionMinutos: Integer
+    - estadoTest: EstadoTest
+}
+
+Alumno --> VistaModulo : interactúa con
+VistaModulo --> GestorFormacion : invoca
+GestorFormacion --> Alumno : valida rol
+GestorFormacion --> Modulo : valida acceso
+GestorFormacion --> Material : consulta lecturas
+GestorFormacion --> Laboratorio : consulta consignas
+GestorFormacion --> EntregaLaboratorio : valida aprobación [RN-FORM-04]
+GestorFormacion --> Test : evalúa habilitación [RN-FORM-04]
+@enduml

@@ -1,0 +1,52 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Alumno" as actor
+boundary "PanelAlumno" as boundary <<boundary>>
+control "GestorFormacion" as control <<control>>
+entity "Alumno" as alumno <<entity>>
+entity "Equipo" as equipo <<entity>>
+entity "Capacitacion" as capacitacion <<entity>>
+entity "Modulo" as modulo <<entity>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+
+actor -> boundary : abrirPanel()
+activate boundary
+
+boundary -> control : obtenerResumenAlumno(idAlumno)
+activate control
+
+control -> alumno : obtenerEquipoAsignado()
+activate alumno
+alumno --> control : idEquipo, rolTecnico
+deactivate alumno
+
+control -> equipo : obtenerDatosEquipo(idEquipo) [RN-FORM-02]
+activate equipo
+equipo --> control : nombreEquipo, techLeaderInfo
+deactivate equipo
+
+control -> capacitacion : obtenerItinerarioTrack(rolTecnico) [RN-FORM-01]
+activate capacitacion
+capacitacion --> control : capacitacionInfo, modulosTotales
+deactivate capacitacion
+
+control -> modulo : obtenerModuloEnCurso(idAlumno)
+activate modulo
+modulo --> control : moduloActivo, ordenSecuencial, progreso
+deactivate modulo
+
+control -> entrega : listarEntregasActivas(idAlumno)
+activate entrega
+entrega --> control : entregasPendientes, feedbacksDisponibles
+deactivate entrega
+
+control -> control : consolidarMetricasProgreso()
+control --> boundary : resumenAlumnoDTO
+deactivate control
+
+boundary --> actor : presentarDashboard(resumenAlumnoDTO)
+deactivate boundary
+
+@enduml

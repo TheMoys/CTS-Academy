@@ -1,0 +1,70 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Alumno" as actor
+boundary "VistaFeedbackEntrega" as boundary <<boundary>>
+control "GestorFormacion" as control <<control>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+entity "Laboratorio" as lab <<entity>>
+entity "RevisionCodigo" as revision <<entity>>
+entity "ComentarioRevision" as comentario <<entity>>
+
+actor -> boundary : abrirFeedbackEntrega(idEntrega)
+activate boundary
+
+boundary -> control : obtenerFeedbackEntrega(idAlumno, idEntrega)
+activate control
+
+control -> entrega : perteneceA(idAlumno)
+activate entrega
+entrega --> control : pertenece (true / false)
+
+alt entrega no pertenece al alumno
+    control --> boundary : error("Acceso denegado a la entrega seleccionada")
+    boundary --> actor : mostrarErrorAcceso()
+else acceso autorizado
+    control -> entrega : tieneRevision()
+    entrega --> control : revisionDisponible (true / false)
+    deactivate entrega
+
+    alt entrega en espera de revisión
+        control --> boundary : notificar("La entrega se encuentra en cola de revisión")
+        boundary --> actor : mostrarEstadoEnRevision()
+    else revision completada
+        control -> lab : obtenerMetadatos(idLab)
+        activate lab
+        lab --> control : labInfo
+        deactivate lab
+
+        control -> revision : obtenerDetalleRevision(idEntrega)
+        activate revision
+        revision --> control : revisionInfo (calificacion, veredicto, rubrica)
+
+        control -> comentario : listarComentariosRevision(idRevision)
+        activate comentario
+        comentario --> control : listaObservacionesLinea
+        deactivate comentario
+        deactivate revision
+
+        control -> control : evaluarRequisitoSuperacion(calificacion, veredicto) [RN-FORM-06]
+
+        control -> control : compilarFeedbackDTO()
+        control --> boundary : feedbackDTO
+        deactivate control
+
+        boundary --> actor : presentarDictamenRevision(feedbackDTO)
+        boundary --> actor : resaltarCalificacion(nota, superado)
+        boundary --> actor : listarComentariosCodigo(listaObservacionesLinea)
+
+        alt veredicto == REQUIERE_CAMBIOS
+            boundary --> actor : habilitarBotonReenvio(true)
+        else veredicto == APROBADO
+            boundary --> actor : habilitarBotonReenvio(false)
+        end
+    end
+end
+
+deactivate boundary
+
+@enduml

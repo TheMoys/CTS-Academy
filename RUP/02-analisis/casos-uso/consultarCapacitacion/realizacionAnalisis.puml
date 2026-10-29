@@ -1,0 +1,48 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Alumno" as actor
+boundary "VistaCapacitacion" as boundary <<boundary>>
+control "GestorFormacion" as control <<control>>
+entity "Alumno" as alumno <<entity>>
+entity "Capacitacion" as capacitacion <<entity>>
+entity "Modulo" as modulo <<entity>>
+
+actor -> boundary : abrirVistaCapacitacion()
+activate boundary
+
+boundary -> control : obtenerItinerarioCapacitacion(idAlumno)
+activate control
+
+control -> alumno : obtenerItinerarioActivo()
+activate alumno
+alumno --> control : idCapacitacion, rolTecnico
+deactivate alumno
+
+control -> capacitacion : listarModulosSecuenciales() [RN-FORM-01]
+activate capacitacion
+capacitacion --> control : listaModulos
+deactivate capacitacion
+
+loop para cada modulo en listaModulos
+    control -> modulo : consultarEstadoParaAlumno(idAlumno)
+    activate modulo
+    modulo --> control : estadoModulo (APROBADO, EN_CURSO, BLOQUEADO)
+    deactivate modulo
+
+    alt modulo anterior no aprobado [RN-FORM-03]
+        control -> control : marcarModuloComoBloqueado(modulo)
+    else modulo predecesor aprobado
+        control -> control : habilitarAccesoModulo(modulo)
+    end
+end
+
+control -> control : compilarItinerarioDTO()
+control --> boundary : itinerarioDTO
+deactivate control
+
+boundary --> actor : presentarItinerario(itinerarioDTO)
+deactivate boundary
+
+@enduml

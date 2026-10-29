@@ -1,0 +1,69 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Alumno" as actor
+boundary "VistaModulo" as boundary <<boundary>>
+control "GestorFormacion" as control <<control>>
+entity "Modulo" as modulo <<entity>>
+entity "Material" as material <<entity>>
+entity "Laboratorio" as laboratorio <<entity>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+entity "Test" as test <<entity>>
+
+actor -> boundary : abrirModulo(idModulo)
+activate boundary
+
+boundary -> control : obtenerDetalleModulo(idAlumno, idModulo)
+activate control
+
+control -> modulo : esAccesiblePara(idAlumno)
+activate modulo
+modulo --> control : accesible (true / false)
+deactivate modulo
+
+alt modulo bloqueado
+    control --> boundary : error("El módulo se encuentra bloqueado")
+    boundary --> actor : mostrarErrorAccesoBloqueado()
+else modulo accesible (EN_CURSO o APROBADO)
+    control -> material : listarMaterialesModulo(idModulo)
+    activate material
+    material --> control : listaMateriales
+    deactivate material
+
+    control -> laboratorio : listarLaboratoriosModulo(idModulo)
+    activate laboratorio
+    laboratorio --> control : listaLaboratorios
+    deactivate laboratorio
+
+    loop para cada lab in listaLaboratorios
+        control -> entrega : obtenerEntregaAlumno(idAlumno, idLab)
+        activate entrega
+        entrega --> control : entregaLab (estado, calificacion, feedback)
+        deactivate entrega
+    end
+
+    control -> control : verificarCumplimientoLaboratorios(idAlumno, idModulo)
+    control -> control : verificarLecturaMateriales(idAlumno, idModulo) [RN-FORM-05]
+
+    alt laboratorios aprobados y lecturas completadas [RN-FORM-04]
+        control -> test : obtenerTestNivelacion(idModulo)
+        activate test
+        test --> control : datosTest
+        deactivate test
+        control -> control : marcarTestHabilitado(true)
+    else requisitos incompletos
+        control -> control : marcarTestHabilitado(false) [RN-FORM-04]
+    end
+
+    control -> control : compilarDetalleModuloDTO()
+    control --> boundary : detalleModuloDTO
+    deactivate control
+
+    boundary --> actor : presentarDetalleModulo(detalleModuloDTO)
+    boundary --> actor : habilitarBotonTestNivelacion(testHabilitado)
+end
+
+deactivate boundary
+
+@enduml

@@ -1,0 +1,57 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Alumno" as actor
+boundary "VisorMaterial" as boundary <<boundary>>
+control "GestorFormacion" as control <<control>>
+entity "Modulo" as modulo <<entity>>
+entity "Material" as material <<entity>>
+entity "LecturaMaterial" as lectura <<entity>>
+
+actor -> boundary : abrirMaterial(idMaterial)
+activate boundary
+
+boundary -> control : cargarContenidoMaterial(idAlumno, idMaterial)
+activate control
+
+control -> material : obtenerModuloOrigen()
+activate material
+material --> control : idModulo
+deactivate material
+
+control -> modulo : esAccesiblePara(idAlumno)
+activate modulo
+modulo --> control : accesible (true / false)
+deactivate modulo
+
+alt modulo no accesible
+    control --> boundary : error("El módulo no se encuentra habilitado")
+    boundary --> actor : mostrarErrorAcceso()
+else modulo habilitado
+    control -> material : obtenerContenido()
+    activate material
+    material --> control : contenidoDTO (titulo, markdown, recursos)
+    deactivate material
+
+    control --> boundary : presentarContenido(contenidoDTO)
+    boundary --> actor : renderizarDocumento(contenidoDTO)
+
+    actor -> boundary : marcarLecturaCompletada()
+
+    boundary -> control : registrarLecturaCompletada(idAlumno, idMaterial)
+    control -> lectura : registrarOActualizarLectura(idAlumno, idMaterial)
+    activate lectura
+    lectura -> lectura : marcarCompletada()
+    lectura --> control : confirmacion
+    deactivate lectura
+
+    control -> control : recalcularProgresoTeorico(idAlumno, idModulo) [RN-FORM-05]
+    control --> boundary : estadoLecturaActualizado
+    boundary --> actor : mostrarConfirmacionLecturaCompletada()
+end
+
+deactivate control
+deactivate boundary
+
+@enduml

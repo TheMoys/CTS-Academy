@@ -47,7 +47,13 @@ En esta fase se formalizan:
     │   ├── rechazarCandidatura/
     │   ├── registrarCandidato/
     │   └── importarCandidatosSede/
-    ├── PK03 - MotorFormacion (17 CUs)      ──► En cola de modelado
+    ├── PK03 - MotorFormacion (17 CUs)      ──► En curso (6/17)
+    │   ├── abrirPanelAlumno/
+    │   ├── consultarCapacitacion/
+    │   ├── consultarModulo/
+    │   ├── consultarMaterial/
+    │   ├── enviarEntregable/
+    │   └── consultarFeedbackEntregable/
     └── PK04 - MotorEquipos (4 CUs)         ──► En cola de modelado
 ```
 
@@ -91,25 +97,25 @@ En esta fase se formalizan:
 
 <div align=center>
 
-| Caso de Uso | Actores Involucrados | Propósito de Análisis | Estado |
-| :--- | :--- | :--- | :---: |
-| `abrirPanelAlumno()` | `Alumno` | Tablero de progreso formativo, módulos y entregables | Pendiente |
-| `consultarCapacitacion()` | `Alumno` | Itinerario pedagógico de onboarding en el equipo | Pendiente |
-| `consultarModulo()` | `Alumno` | Desglose de unidades temáticas y requisitos | Pendiente |
-| `consultarMaterial()` | `Alumno` | Acceso a guías técnicas, documentación y referencias | Pendiente |
-| `enviarEntregable()` | `Alumno` | Remisión de Pull Request / repositorio para Code Review | Pendiente |
-| `consultarFeedbackEntregable()` | `Alumno` | Lectura de observaciones, cambios solicitados o aprobación | Pendiente |
-| `abrirEntregablesPendientes()` | `LiderEquipo` | Cola de revisión de código de los alumnos del equipo | Pendiente |
-| `revisarEntregable()` | `LiderEquipo` | Inspección técnica del PR y rúbrica de calidad | Pendiente |
-| `aprobarEntregable()` | `LiderEquipo` | Validación positiva del ejercicio práctico de formación | Pendiente |
-| `solicitarCambiosEntregable()` | `LiderEquipo` | Emisión de observaciones técnicas para iteración de código | Pendiente |
-| `evaluarCapacitacionAlumno()` | `LiderEquipo` | Calificación global sumativa del itinerario del becario | Pendiente |
-| `crearMaterial()` | `LiderEquipo` | Incorporación de nuevo recurso didáctico al banco | Pendiente |
-| `editarMaterial()` | `LiderEquipo` | Actualización de contenido técnico de un material | Pendiente |
-| `eliminarMaterial()` | `LiderEquipo` | Retirada lógica de recurso formativo | Pendiente |
-| `crearPregunta()` | `LiderEquipo` | Creación de reactivo teórico o práctico | Pendiente |
-| `editarPregunta()` | `LiderEquipo` | Modificación de enunciado o criterios de corrección | Pendiente |
-| `eliminarPregunta()` | `LiderEquipo` | Desactivación de reactivo del banco de evaluación | Pendiente |
+| Caso de Uso | Frontera (`<<boundary>>`) | Control (`<<control>>`) | Entidades (`<<entity>>`) | Realización de Análisis | Estado |
+| :--- | :--- | :--- | :--- | :---: | :---: |
+| **`abrirPanelAlumno()`** | `PanelAlumno` | `GestorFormacion` | `Alumno`, `Equipo`, `TechLeader`, `Capacitacion`, `Modulo`, `EntregaLaboratorio` | [Ver Análisis](casos-uso/abrirPanelAlumno/README.md) | Completado |
+| **`consultarCapacitacion()`** | `VistaCapacitacion` | `GestorFormacion` | `Alumno`, `Capacitacion`, `Modulo`, `Laboratorio` | [Ver Análisis](casos-uso/consultarCapacitacion/README.md) | Completado |
+| **`consultarModulo()`** | `VistaModulo` | `GestorFormacion` | `Modulo`, `Material`, `Laboratorio`, `EntregaLaboratorio`, `Test` | [Ver Análisis](casos-uso/consultarModulo/README.md) | Completado |
+| **`consultarMaterial()`** | `VisorMaterial` | `GestorFormacion` | `Alumno`, `Modulo`, `Material`, `LecturaMaterial` | [Ver Análisis](casos-uso/consultarMaterial/README.md) | Completado |
+| **`enviarEntregable()`** | `FormularioEntrega`, `ServicioGitRepository` | `GestorFormacion` | `Alumno`, `Laboratorio`, `EntregaLaboratorio`, `Notificacion` | [Ver Análisis](casos-uso/enviarEntregable/README.md) | Completado |
+| **`consultarFeedbackEntregable()`** | `VistaFeedbackEntrega` | `GestorFormacion` | `Alumno`, `Laboratorio`, `EntregaLaboratorio`, `RevisionCodigo`, `ComentarioRevision` | [Ver Análisis](casos-uso/consultarFeedbackEntregable/README.md) | Completado |
+| `abrirEntregablesPendientes()` | `BandejaRevisiones` | `GestorRevisiones` | `EntregaLaboratorio`, `Laboratorio`, `Alumno` | — | Pendiente |
+| `revisarEntregable()` | `EditorRevision`, `ServicioGitRepository` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `ComentarioRevision` | — | Pendiente |
+| `aprobarEntregable()` | `DialogoAprobacionRevision` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `Modulo` | — | Pendiente |
+| `solicitarCambiosEntregable()` | `DialogoCambiosRevision` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `Notificacion` | — | Pendiente |
+| `evaluarCapacitacionAlumno()` | `FormularioEvaluacionGlobal` | `GestorRevisiones` | `Alumno`, `Capacitacion`, `EvaluacionSumativa` | — | Pendiente |
+| `crearMaterial()` | `EditorMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |
+| `editarMaterial()` | `EditorMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |
+| `eliminarMaterial()` | `DialogoEliminacionMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |
+| `crearPregunta()` | `EditorPregunta` | `GestorBancoPreguntas` | `Pregunta`, `Modulo`, `Opcion` | — | Pendiente |
+| `editarPregunta()` | `EditorPregunta` | `GestorBancoPreguntas` | `Pregunta`, `Modulo`, `Opcion` | — | Pendiente |
+| `eliminarPregunta()` | `DialogoEliminacionPregunta` | `GestorBancoPreguntas` | `Pregunta`, `Modulo` | — | Pendiente |
 
 </div>
 

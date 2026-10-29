@@ -1,0 +1,59 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Alumno <<actor>>
+
+class VisorMaterial <<boundary>> {
+    + presentarContenidoMaterial(contenido: ContenidoMaterialDTO)
+    + emitirEventoFinLectura()
+    + mostrarConfirmacionLecturaCompletada()
+    + volverAModulo(idModulo: UUID)
+}
+
+class GestorFormacion <<control>> {
+    + cargarContenidoMaterial(idAlumno: UUID, idMaterial: UUID): ContenidoMaterialDTO
+    + registrarLecturaCompletada(idAlumno: UUID, idMaterial: UUID): EstadoLecturaDTO
+    + recalcularProgresoTeorico(idAlumno: UUID, idModulo: UUID): Porcentaje
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - estadoFormacion: EstadoFormacion
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - ordenSecuencial: Integer
+    - estadoModulo: EstadoModulo
+    + esAccesiblePara(idAlumno: UUID): Boolean
+}
+
+class Material <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - titulo: String
+    - descripcionBreve: String
+    - tipoRecurso: TipoRecursoMaterial
+    - contenidoMarkdown: String
+    - recursoExternoUrl: String
+    - esObligatorio: Boolean
+    + obtenerContenido(): String
+}
+
+class LecturaMaterial <<entity>> {
+    - id: UUID
+    - idAlumno: UUID
+    - idMaterial: UUID
+    - fechaLectura: DateTime
+    - lecturaConfirmada: Boolean
+    + marcarCompletada()
+}
+
+Alumno --> VisorMaterial : interactúa con
+VisorMaterial --> GestorFormacion : invoca
+GestorFormacion --> Alumno : valida alumno
+GestorFormacion --> Modulo : valida modulo activo
+GestorFormacion --> Material : recupera contenido
+GestorFormacion --> LecturaMaterial : registra evento [RN-FORM-05]
+@enduml

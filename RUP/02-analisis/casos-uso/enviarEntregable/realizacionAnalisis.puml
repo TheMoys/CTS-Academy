@@ -1,0 +1,74 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Alumno" as actor
+boundary "FormularioEntrega" as boundary <<boundary>>
+control "GestorFormacion" as control <<control>>
+boundary "ServicioGitRepository" as gitService <<boundary>>
+entity "Laboratorio" as lab <<entity>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+entity "Notificacion" as notif <<entity>>
+
+actor -> boundary : abrirFormularioEntrega(idLab)
+activate boundary
+
+boundary -> control : consultarEstadoPrevioLab(idAlumno, idLab)
+activate control
+control -> entrega : buscarEntregaExistente(idAlumno, idLab)
+activate entrega
+entrega --> control : entregaPrevia (si existe)
+deactivate entrega
+control --> boundary : datosLabYEntrega
+deactivate control
+
+boundary --> actor : presentarFormulario(datosLabYEntrega)
+
+actor -> boundary : enviarPullRequest(urlPullRequest, comentarios)
+
+boundary -> control : remitirEntregaLaboratorio(idAlumno, idLab, urlPullRequest, comentarios)
+activate control
+
+control -> gitService : validarPullRequest(urlPullRequest) [ADR-003]
+activate gitService
+gitService -> gitService : verificarPertenenciaOrganizacion(urlPullRequest)
+gitService --> control : resultadoValidacion (valido / invalido, infoPR)
+deactivate gitService
+
+alt PR no válido o repositorio fuera de organización institucional
+    control --> boundary : error("URL de Pull Request no válida o no pertenece a la organización")
+    boundary --> actor : mostrarErrorUrlInvalida()
+else PR válido institucional
+    control -> lab : validarLaboratorioActivo(idLab)
+    activate lab
+    lab --> control : labActivo (true)
+    deactivate lab
+
+    alt entrega previa existe [en estado REQUIERE_CAMBIOS]
+        control -> entrega : registrarNuevoIntento(urlPullRequest, comentarios)
+        activate entrega
+        entrega -> entrega : marcarPendienteRevision()
+        entrega --> control : entregaActualizada
+        deactivate entrega
+    else primera entrega
+        control -> entrega : crearNuevaEntrega(idAlumno, idLab, urlPullRequest, comentarios)
+        activate entrega
+        entrega -> entrega : marcarPendienteRevision()
+        entrega --> control : nuevaEntrega
+        deactivate entrega
+    end
+
+    control -> notif : crearNotificacionLider(idLiderEquipo, "Nuevo entregable remitido para revisión")
+    activate notif
+    notif --> control : notificacionEncolada
+    deactivate notif
+
+    control --> boundary : confirmacionExito(entrega)
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionEntrega()
+end
+
+deactivate boundary
+
+@enduml

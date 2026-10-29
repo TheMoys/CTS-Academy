@@ -1,0 +1,60 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Alumno <<actor>>
+
+class VistaCapacitacion <<boundary>> {
+    + presentarItinerario(itinerario: ItinerarioDTO)
+    + resaltarModuloActivo(idModulo: UUID)
+    + deshabilitarModulosBloqueados(modulosBloqueados: List<UUID>)
+    + seleccionarModulo(idModulo: UUID)
+}
+
+class GestorFormacion <<control>> {
+    + obtenerItinerarioCapacitacion(idAlumno: UUID): ItinerarioDTO
+    + evaluarBloqueoModulo(modulo: Modulo, moduloAnterior: Modulo): EstadoModulo
+    + calcularPorcentajeGlobal(capacitacion: Capacitacion, idAlumno: UUID): Porcentaje
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - rolTecnico: RolTecnico
+    - estadoFormacion: EstadoFormacion
+    + obtenerItinerarioActivo(): Capacitacion
+}
+
+class Capacitacion <<entity>> {
+    - id: UUID
+    - nombre: String
+    - descripcion: String
+    - trackEspecialidad: RolTecnico
+    - totalHorasEstimadas: Integer
+    + listarModulosSecuenciales(): List<Modulo>
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - ordenSecuencial: Integer
+    - titulo: String
+    - descripcion: String
+    - horasEstimadas: Integer
+    - estadoModulo: EstadoModulo
+    + estaAprobado(): Boolean
+    + esPredecesorDe(otro: Modulo): Boolean
+}
+
+class Laboratorio <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - titulo: String
+    - esObligatorio: Boolean
+}
+
+Alumno --> VistaCapacitacion : interactúa con
+VistaCapacitacion --> GestorFormacion : invoca
+GestorFormacion --> Alumno : consulta especialidad
+GestorFormacion --> Capacitacion : consulta itinerario [RN-FORM-01]
+GestorFormacion --> Modulo : evalúa correlatividad [RN-FORM-03]
+Modulo o-- Laboratorio : contiene
+@enduml
