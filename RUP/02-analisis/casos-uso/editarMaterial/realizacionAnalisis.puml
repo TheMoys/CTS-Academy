@@ -1,0 +1,69 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "EditorMaterial" as boundary <<boundary>>
+control "GestorContenidos" as control <<control>>
+entity "TechLeader" as leader <<entity>>
+entity "Material" as material <<entity>>
+entity "Modulo" as modulo <<entity>>
+entity "LecturaMaterial" as lectura <<entity>>
+
+actor -> boundary : abrirEdicionMaterial(idMaterial)
+activate boundary
+
+boundary -> control : cargarMaterialParaEdicion(idLider, idMaterial)
+activate control
+
+control -> material : obtenerModuloOrigen(idMaterial)
+activate material
+material --> control : idModulo
+deactivate material
+
+control -> leader : obtenerEquipoTutelado(idLider)
+activate leader
+leader --> control : idEquipo
+deactivate leader
+
+control -> modulo : perteneceAEquipo(idEquipo)
+activate modulo
+modulo --> control : pertenece (true / false)
+deactivate modulo
+
+alt sin permisos sobre el modulo
+    control --> boundary : error("No posee permisos de edición sobre este recurso")
+    boundary --> actor : mostrarErrorPermisos()
+else permisos verificados
+    control -> material : obtenerDetalleEdicion()
+    activate material
+    material --> control : detalleMaterialDTO
+    deactivate material
+
+    control --> boundary : datosMaterialDTO
+    boundary --> actor : presentarFormularioEdicion(datosMaterialDTO)
+
+    actor -> boundary : confirmarActualizacion(nuevoTitulo, nuevoMarkdown, nuevoUrl, esObligatorio)
+
+    boundary -> control : actualizarMaterial(idLider, idMaterial, datosActualizados)
+
+    control -> material : actualizarContenido(datosActualizados)
+    activate material
+    material -> material : incrementarVersionContenido()
+    material --> control : materialActualizado
+    deactivate material
+
+    control -> lectura : mantenerLecturasPreviasInalteradas(idMaterial) [RN-LEAD-02]
+    activate lectura
+    lectura --> control : trazabilidadPreservada
+    deactivate lectura
+
+    control --> boundary : confirmacionActualizacion()
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionActualizacion()
+end
+
+deactivate boundary
+
+@enduml

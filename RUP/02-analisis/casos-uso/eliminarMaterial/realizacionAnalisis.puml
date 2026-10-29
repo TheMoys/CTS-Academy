@@ -1,0 +1,64 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "DialogoEliminacionMaterial" as boundary <<boundary>>
+control "GestorContenidos" as control <<control>>
+entity "TechLeader" as leader <<entity>>
+entity "Material" as material <<entity>>
+entity "Modulo" as modulo <<entity>>
+
+actor -> boundary : solicitarEliminarMaterial(idMaterial)
+activate boundary
+
+boundary -> control : verificarPermisoBaja(idLider, idMaterial)
+activate control
+
+control -> material : obtenerModuloOrigen(idMaterial)
+activate material
+material --> control : idModulo
+deactivate material
+
+control -> leader : obtenerEquipoTutelado(idLider)
+activate leader
+leader --> control : idEquipo
+deactivate leader
+
+control -> modulo : perteneceAEquipo(idEquipo)
+activate modulo
+modulo --> control : pertenece (true / false)
+deactivate modulo
+
+alt modulo fuera de la tutela del lider
+    control --> boundary : error("No posee permisos sobre el módulo del recurso")
+    boundary --> actor : mostrarErrorPermisos()
+else permisos confirmados
+    control --> boundary : permisoConcedido(tituloMaterial)
+    boundary --> actor : solicitarConfirmacionEliminacion(idMaterial, tituloMaterial)
+
+    actor -> boundary : confirmarEliminacion()
+
+    boundary -> control : darDeBajaMaterial(idLider, idMaterial)
+
+    control -> material : marcarInactivo() [RN-LEAD-03: borrado logico]
+    activate material
+    material -> material : establecerEstado(INACTIVO)
+    material --> control : confirmacionBaja
+    deactivate material
+
+    control -> modulo : reindexarMaterialesActivos(idModulo)
+    activate modulo
+    modulo -> modulo : compactarOrdenLectura()
+    modulo --> control : reindexacionCompletada
+    deactivate modulo
+
+    control --> boundary : confirmacionExito()
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionBajaLogica()
+end
+
+deactivate boundary
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class DialogoEliminacionMaterial <<boundary>> {
+    + solicitarConfirmacionEliminacion(idMaterial: UUID, titulo: String)
+    + capturarConfirmacion(): Boolean
+    + mostrarErrorPermisos()
+    + mostrarConfirmacionBajaLogica()
+}
+
+class GestorContenidos <<control>> {
+    + darDeBajaMaterial(idLider: UUID, idMaterial: UUID): Boolean
+    + verificarPermisoBaja(idLider: UUID, idMaterial: UUID): Boolean
+    + reindexarSecuenciaLectura(idModulo: UUID)
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - idEquipo: UUID
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - idEquipo: UUID
+    + perteneceAEquipo(idEquipo: UUID): Boolean
+    + reindexarMaterialesActivos()
+}
+
+class Material <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - ordenLectura: Integer
+    - titulo: String
+    - estadoMaterial: EstadoMaterial
+    + marcarInactivo() [RN-LEAD-03]
+}
+
+LiderEquipo --> DialogoEliminacionMaterial : interactúa con
+DialogoEliminacionMaterial --> GestorContenidos : invoca
+GestorContenidos --> TechLeader : valida líder
+GestorContenidos --> Modulo : valida y reindexa
+GestorContenidos --> Material : transiciona a INACTIVO [RN-LEAD-03]
+@enduml

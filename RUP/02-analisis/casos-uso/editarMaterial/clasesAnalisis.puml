@@ -1,0 +1,56 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class EditorMaterial <<boundary>> {
+    + cargarMaterialParaEdicion(idMaterial: UUID)
+    + capturarActualizacion(): DatosEdicionMaterialDTO
+    + mostrarConfirmacionActualizacion()
+    + mostrarErrorPermisos()
+}
+
+class GestorContenidos <<control>> {
+    + actualizarMaterial(idLider: UUID, idMaterial: UUID, datos: DatosEdicionMaterialDTO): Material
+    + verificarPermisoEdicion(idLider: UUID, idMaterial: UUID): Boolean
+    + preservarHistoricoLecturas(idMaterial: UUID)
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - idEquipo: UUID
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - idEquipo: UUID
+    + perteneceAEquipo(idEquipo: UUID): Boolean
+}
+
+class Material <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - versionContenido: Integer
+    - titulo: String
+    - descripcionBreve: String
+    - contenidoMarkdown: String
+    - recursoExternoUrl: String
+    - esObligatorio: Boolean
+    + actualizarContenido(datos: DatosEdicionMaterialDTO)
+}
+
+class LecturaMaterial <<entity>> {
+    - id: UUID
+    - idAlumno: UUID
+    - idMaterial: UUID
+    - lecturaConfirmada: Boolean
+}
+
+LiderEquipo --> EditorMaterial : interactúa con
+EditorMaterial --> GestorContenidos : invoca
+GestorContenidos --> TechLeader : valida líder
+GestorContenidos --> Material : actualiza contenido [RN-LEAD-02]
+GestorContenidos --> Modulo : valida pertenencia
+GestorContenidos --> LecturaMaterial : preserva registros históricos [RN-LEAD-02]
+@enduml

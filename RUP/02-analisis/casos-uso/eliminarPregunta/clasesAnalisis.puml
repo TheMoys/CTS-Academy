@@ -1,0 +1,46 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class DialogoEliminacionPregunta <<boundary>> {
+    + solicitarConfirmacionBaja(idPregunta: UUID, enunciado: String)
+    + capturarConfirmacion(): Boolean
+    + mostrarAdvertenciaBajaLogica()
+    + mostrarConfirmacionDesactivacion()
+}
+
+class GestorBancoPreguntas <<control>> {
+    + desactivarReactivo(idLider: UUID, idPregunta: UUID): Boolean
+    + verificarHistorialRespuestas(idPregunta: UUID): Integer
+    + excluirDeFuturosExamenes(pregunta: Pregunta)
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - especialidadTecnica: RolTecnico
+}
+
+class Pregunta <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - enunciado: String
+    - estadoPregunta: EstadoPregunta
+    + desactivarLogicamente() [RN-LEAD-06]
+    + estaActiva(): Boolean
+}
+
+class RespuestaEvaluacion <<entity>> {
+    - id: UUID
+    - idSesionEvaluacion: UUID
+    - idPregunta: UUID
+    - calificacionObtenida: Decimal
+}
+
+LiderEquipo --> DialogoEliminacionPregunta : interactúa con
+DialogoEliminacionPregunta --> GestorBancoPreguntas : invoca
+GestorBancoPreguntas --> TechLeader : valida líder
+GestorBancoPreguntas --> Pregunta : transiciona a INACTIVO [RN-LEAD-06]
+GestorBancoPreguntas --> RespuestaEvaluacion : valida preservación de histórico
+@enduml

@@ -1,0 +1,55 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "EditorMaterial" as boundary <<boundary>>
+control "GestorContenidos" as control <<control>>
+entity "TechLeader" as leader <<entity>>
+entity "Modulo" as modulo <<entity>>
+entity "Material" as material <<entity>>
+
+actor -> boundary : abrirCrearMaterial(idModulo)
+activate boundary
+
+boundary --> actor : presentarFormularioNuevoMaterial(idModulo)
+
+actor -> boundary : publicarMaterial(titulo, tipoRecurso, markdown, urlExterna, esObligatorio)
+
+boundary -> control : crearMaterialEnModulo(idLider, idModulo, datosMaterialDTO)
+activate control
+
+control -> leader : obtenerEquipoTutelado(idLider)
+activate leader
+leader --> control : idEquipo
+deactivate leader
+
+control -> modulo : perteneceAEquipo(idEquipo) [RN-LEAD-01]
+activate modulo
+modulo --> control : pertenece (true / false)
+deactivate modulo
+
+alt modulo no pertenece al equipo del Tech Leader
+    control --> boundary : error("El módulo seleccionado no pertenece a su escuadrón técnico")
+    boundary --> actor : mostrarErrorModuloAjeno()
+else propiedad confirmada
+    control -> modulo : calcularSiguienteOrdenLectura(idModulo)
+    activate modulo
+    modulo --> control : siguienteOrden
+    deactivate modulo
+
+    control -> material : crear(idModulo, siguienteOrden, datosMaterialDTO)
+    activate material
+    material -> material : inicializarActivo()
+    material --> control : nuevoMaterial
+    deactivate material
+
+    control --> boundary : confirmacionPublicacion(nuevoMaterial)
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionPublicacion()
+end
+
+deactivate boundary
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "EditorPregunta" as boundary <<boundary>>
+control "GestorBancoPreguntas" as control <<control>>
+entity "Pregunta" as pregunta <<entity>>
+entity "Opcion" as opcion <<entity>>
+entity "Modulo" as modulo <<entity>>
+
+actor -> boundary : abrirCrearPregunta(idModulo)
+activate boundary
+
+boundary --> actor : presentarFormularioReactivo(idModulo)
+
+actor -> boundary : registrarPregunta(tipo, enunciado, dificultad, puntaje, opcionesDTO)
+
+boundary -> control : darDeAltaPregunta(idLider, idModulo, datosPreguntaDTO)
+activate control
+
+control -> control : validarCatalogacionDificultad(dificultad) [RN-LEAD-04]
+
+alt dificultad no especificada o inválida
+    control --> boundary : error("Debe catalogar obligatoriamente la dificultad: BÁSICO, INTERMEDIO o AVANZADO")
+    boundary --> actor : mostrarErrorDificultadRequerida()
+else dificultad válida
+    control -> modulo : validarExistenciaModulo(idModulo)
+    activate modulo
+    modulo --> control : moduloValido
+    deactivate modulo
+
+    control -> pregunta : crear(idModulo, tipo, enunciado, dificultad, puntaje)
+    activate pregunta
+    pregunta -> pregunta : inicializarActiva()
+    pregunta --> control : nuevaPregunta
+    deactivate pregunta
+
+    loop para cada opcionDTO in opcionesDTO
+        control -> opcion : crear(idPregunta, texto, esCorrecta, explicacion)
+        activate opcion
+        opcion --> control : opcionCreada
+        deactivate opcion
+    end
+
+    control --> boundary : confirmacionAlta(nuevaPregunta)
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionAltaReactivo()
+end
+
+deactivate boundary
+
+@enduml

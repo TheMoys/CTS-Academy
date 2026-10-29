@@ -1,0 +1,58 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "DialogoEliminacionPregunta" as boundary <<boundary>>
+control "GestorBancoPreguntas" as control <<control>>
+entity "TechLeader" as leader <<entity>>
+entity "Pregunta" as pregunta <<entity>>
+entity "RespuestaEvaluacion" as respuesta <<entity>>
+
+actor -> boundary : solicitarEliminarPregunta(idPregunta)
+activate boundary
+
+boundary -> control : prepararBajaReactivo(idLider, idPregunta)
+activate control
+
+control -> leader : verificarEspecialidad(idLider)
+activate leader
+leader --> control : especialidadValida
+deactivate leader
+
+control -> pregunta : obtenerDatosPregunta(idPregunta)
+activate pregunta
+pregunta --> control : datosPregunta (enunciado, estado)
+deactivate pregunta
+
+control -> respuesta : contarRespuestasHistoricas(idPregunta)
+activate respuesta
+respuesta --> control : totalRespuestasHistoricas
+deactivate respuesta
+
+control --> boundary : datosBajaDTO(enunciado, totalRespuestasHistoricas)
+deactivate control
+
+boundary --> actor : solicitarConfirmacionBaja(idPregunta, enunciado)
+boundary --> actor : mostrarAdvertenciaBajaLogica()
+
+actor -> boundary : confirmarBajaReactivo()
+
+boundary -> control : desactivarReactivo(idLider, idPregunta)
+activate control
+
+control -> pregunta : desactivarLogicamente() [RN-LEAD-06: soft delete]
+activate pregunta
+pregunta -> pregunta : establecerEstado(INACTIVO)
+pregunta --> control : reactivoDesactivado
+deactivate pregunta
+
+control -> control : excluirDeFuturosExamenes(pregunta)
+control --> boundary : confirmacionDesactivacion()
+deactivate control
+
+boundary --> actor : mostrarConfirmacionDesactivacion()
+
+deactivate boundary
+
+@enduml

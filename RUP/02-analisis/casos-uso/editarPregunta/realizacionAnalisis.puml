@@ -1,0 +1,69 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "EditorPregunta" as boundary <<boundary>>
+control "GestorBancoPreguntas" as control <<control>>
+entity "Pregunta" as pregunta <<entity>>
+entity "Opcion" as opcion <<entity>>
+entity "Test" as test <<entity>>
+
+actor -> boundary : abrirEdicionPregunta(idPregunta)
+activate boundary
+
+boundary -> control : cargarDetallePregunta(idPregunta)
+activate control
+
+control -> pregunta : obtenerDatosEdicion(idPregunta)
+activate pregunta
+pregunta --> control : datosPregunta
+deactivate pregunta
+
+control -> opcion : listarOpciones(idPregunta)
+activate opcion
+opcion --> control : opcionesExistentes
+deactivate opcion
+
+control --> boundary : datosCompletosReactivoDTO
+deactivate control
+
+boundary --> actor : presentarFormularioEdicion(datosCompletosReactivoDTO)
+
+actor -> boundary : confirmarEdicion(nuevoEnunciado, nuevaDificultad, nuevoPuntaje, nuevasOpcionesDTO)
+
+boundary -> control : actualizarReactivo(idLider, idPregunta, datosEdicionDTO)
+activate control
+
+control -> test : existenExamenesActivosConPregunta(idPregunta)
+activate test
+test --> control : hayExamenesEnEjecucion (true / false)
+deactivate test
+
+alt existen exámenes en ejecución en este instante [RN-LEAD-05]
+    control -> test : congelarInstantaneaInmutable(idPregunta)
+    activate test
+    test -> test : aislarVersionOriginal()
+    test --> control : instantaneaAsegurada
+    deactivate test
+end
+
+control -> pregunta : actualizarDatos(datosEdicionDTO)
+activate pregunta
+pregunta -> pregunta : incrementarVersionReactivo()
+pregunta --> control : preguntaActualizada
+deactivate pregunta
+
+control -> opcion : sincronizarOpciones(idPregunta, nuevasOpcionesDTO)
+activate opcion
+opcion --> control : opcionesSincronizadas
+deactivate opcion
+
+control --> boundary : confirmacionEdicion()
+deactivate control
+
+boundary --> actor : mostrarConfirmacionEdicion()
+
+deactivate boundary
+
+@enduml

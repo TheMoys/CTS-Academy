@@ -1,0 +1,56 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class EditorMaterial <<boundary>> {
+    + presentarFormularioNuevoMaterial(idModulo: UUID)
+    + capturarDatosMaterial(): DatosNuevoMaterialDTO
+    + mostrarErrorModuloAjeno()
+    + mostrarConfirmacionPublicacion()
+}
+
+class GestorContenidos <<control>> {
+    + crearMaterialEnModulo(idLider: UUID, idModulo: UUID, datos: DatosNuevoMaterialDTO): Material
+    + verificarPropiedadModulo(idLider: UUID, idModulo: UUID): Boolean
+    + reindexarOrdenLectura(idModulo: UUID)
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - email: String
+    - idEquipo: UUID
+    + administraEquipo(idEquipo: UUID): Boolean
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - idCapacitacion: UUID
+    - idEquipo: UUID
+    - ordenSecuencial: Integer
+    - titulo: String
+    + perteneceAEquipo(idEquipo: UUID): Boolean
+}
+
+class Material <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - ordenLectura: Integer
+    - titulo: String
+    - descripcionBreve: String
+    - tipoRecurso: TipoRecursoMaterial
+    - contenidoMarkdown: String
+    - recursoExternoUrl: String
+    - esObligatorio: Boolean
+    - estadoMaterial: EstadoMaterial
+    + inicializarActivo()
+}
+
+LiderEquipo --> EditorMaterial : interactúa con
+EditorMaterial --> GestorContenidos : invoca
+GestorContenidos --> TechLeader : valida líder
+GestorContenidos --> Modulo : valida pertenencia [RN-LEAD-01]
+GestorContenidos --> Material : crea y publica
+Modulo o-- Material : contiene
+@enduml

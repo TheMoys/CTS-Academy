@@ -1,0 +1,57 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class EditorPregunta <<boundary>> {
+    + cargarPreguntaParaEdicion(idPregunta: UUID)
+    + capturarModificacion(): DatosEdicionPreguntaDTO
+    + mostrarAdvertenciaExamenesEnCurso()
+    + mostrarConfirmacionEdicion()
+}
+
+class GestorBancoPreguntas <<control>> {
+    + actualizarReactivo(idLider: UUID, idPregunta: UUID, datos: DatosEdicionPreguntaDTO): Pregunta
+    + aislarInstantaneaExamenesEnCurso(idPregunta: UUID) [RN-LEAD-05]
+    + actualizarOpcionesPregunta(pregunta: Pregunta, nuevasOpciones: List<OpcionDTO>)
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - especialidadTecnica: RolTecnico
+}
+
+class Pregunta <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - versionReactivo: Integer
+    - enunciado: String
+    - nivelDificultad: NivelDificultad
+    - puntajeBase: Decimal
+    - estadoPregunta: EstadoPregunta
+    + actualizarDatos(datos: DatosEdicionPreguntaDTO)
+}
+
+class Opcion <<entity>> {
+    - id: UUID
+    - idPregunta: UUID
+    - textoOpcion: String
+    - esCorrecta: Boolean
+    - explicacionTecnica: String
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - estadoTest: EstadoTest
+    + tieneInstanciasEnCurso(): Boolean
+    + congelarInstantaneaPregunta(idPregunta: UUID)
+}
+
+LiderEquipo --> EditorPregunta : interactúa con
+EditorPregunta --> GestorBancoPreguntas : invoca
+GestorBancoPreguntas --> TechLeader : valida líder
+GestorBancoPreguntas --> Pregunta : actualiza reactivo
+GestorBancoPreguntas --> Test : aísla tests activos [RN-LEAD-05]
+Pregunta o-- Opcion : actualiza opciones
+@enduml

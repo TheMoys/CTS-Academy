@@ -47,7 +47,7 @@ En esta fase se formalizan:
     │   ├── rechazarCandidatura/
     │   ├── registrarCandidato/
     │   └── importarCandidatosSede/
-    ├── PK03 - MotorFormacion (17 CUs)      ──► En curso (11/17)
+    ├── PK03 - MotorFormacion (17 CUs)      ──► Completado (17/17)
     │   ├── abrirPanelAlumno/
     │   ├── consultarCapacitacion/
     │   ├── consultarModulo/
@@ -58,7 +58,13 @@ En esta fase se formalizan:
     │   ├── revisarEntregable/
     │   ├── aprobarEntregable/
     │   ├── solicitarCambiosEntregable/
-    │   └── evaluarCapacitacionAlumno/
+    │   ├── evaluarCapacitacionAlumno/
+    │   ├── crearMaterial/
+    │   ├── editarMaterial/
+    │   ├── eliminarMaterial/
+    │   ├── crearPregunta/
+    │   ├── editarPregunta/
+    │   └── eliminarPregunta/
     └── PK04 - MotorEquipos (4 CUs)         ──► En cola de modelado
 ```
 
@@ -115,12 +121,12 @@ En esta fase se formalizan:
 | **`aprobarEntregable()`** | `DialogoAprobacionRevision` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `Modulo`, `Test`, `Notificacion` | [Ver Análisis](casos-uso/aprobarEntregable/README.md) | Completado |
 | **`solicitarCambiosEntregable()`** | `DialogoCambiosRevision` | `GestorRevisiones` | `EntregaLaboratorio`, `RevisionCodigo`, `ComentarioRevision`, `Notificacion` | [Ver Análisis](casos-uso/solicitarCambiosEntregable/README.md) | Completado |
 | **`evaluarCapacitacionAlumno()`** | `FormularioEvaluacionGlobal`, `ServicioNotificacionesEmail` | `GestorRevisiones` | `TechLeader`, `Alumno`, `Capacitacion`, `EvaluacionSumativa` | [Ver Análisis](casos-uso/evaluarCapacitacionAlumno/README.md) | Completado |
-| `crearMaterial()` | `EditorMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |
-| `editarMaterial()` | `EditorMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |
-| `eliminarMaterial()` | `DialogoEliminacionMaterial` | `GestorContenidos` | `Material`, `Modulo` | — | Pendiente |
-| `crearPregunta()` | `EditorPregunta` | `GestorBancoPreguntas` | `Pregunta`, `Modulo`, `Opcion` | — | Pendiente |
-| `editarPregunta()` | `EditorPregunta` | `GestorBancoPreguntas` | `Pregunta`, `Modulo`, `Opcion` | — | Pendiente |
-| `eliminarPregunta()` | `DialogoEliminacionPregunta` | `GestorBancoPreguntas` | `Pregunta`, `Modulo` | — | Pendiente |
+| **`crearMaterial()`** | `EditorMaterial` | `GestorContenidos` | `TechLeader`, `Modulo`, `Material` | [Ver Análisis](casos-uso/crearMaterial/README.md) | Completado |
+| **`editarMaterial()`** | `EditorMaterial` | `GestorContenidos` | `TechLeader`, `Modulo`, `Material`, `LecturaMaterial` | [Ver Análisis](casos-uso/editarMaterial/README.md) | Completado |
+| **`eliminarMaterial()`** | `DialogoEliminacionMaterial` | `GestorContenidos` | `TechLeader`, `Modulo`, `Material` | [Ver Análisis](casos-uso/eliminarMaterial/README.md) | Completado |
+| **`crearPregunta()`** | `EditorPregunta` | `GestorBancoPreguntas` | `TechLeader`, `Modulo`, `Pregunta`, `Opcion` | [Ver Análisis](casos-uso/crearPregunta/README.md) | Completado |
+| **`editarPregunta()`** | `EditorPregunta` | `GestorBancoPreguntas` | `TechLeader`, `Pregunta`, `Opcion`, `Test` | [Ver Análisis](casos-uso/editarPregunta/README.md) | Completado |
+| **`eliminarPregunta()`** | `DialogoEliminacionPregunta` | `GestorBancoPreguntas` | `TechLeader`, `Pregunta`, `RespuestaEvaluacion` | [Ver Análisis](casos-uso/eliminarPregunta/README.md) | Completado |
 
 </div>
 

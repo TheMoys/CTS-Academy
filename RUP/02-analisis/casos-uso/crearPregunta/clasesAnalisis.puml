@@ -1,0 +1,57 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class EditorPregunta <<boundary>> {
+    + presentarFormularioReactivo(idModulo: UUID)
+    + capturarPregunta(): DatosNuevaPreguntaDTO
+    + mostrarErrorDificultadRequerida()
+    + mostrarConfirmacionAltaReactivo()
+}
+
+class GestorBancoPreguntas <<control>> {
+    + darDeAltaPregunta(idLider: UUID, idModulo: UUID, datos: DatosNuevaPreguntaDTO): Pregunta
+    + validarCatalogacionDificultad(dificultad: NivelDificultad): Boolean
+    + validarOpcionesMCQ(opciones: List<OpcionDTO>): Boolean
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - especialidadTecnica: RolTecnico
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - titulo: String
+    - trackEspecialidad: RolTecnico
+}
+
+class Pregunta <<entity>> {
+    - id: UUID
+    - idModulo: UUID
+    - tipoReactivo: TipoReactivoPregunta
+    - enunciado: String
+    - nivelDificultad: NivelDificultad
+    - puntajeBase: Decimal
+    - tiempoSugeridoSegundos: Integer
+    - estadoPregunta: EstadoPregunta
+    + inicializarActiva()
+}
+
+class Opcion <<entity>> {
+    - id: UUID
+    - idPregunta: UUID
+    - textoOpcion: String
+    - esCorrecta: Boolean
+    - explicacionTecnica: String
+}
+
+LiderEquipo --> EditorPregunta : interactúa con
+EditorPregunta --> GestorBancoPreguntas : invoca
+GestorBancoPreguntas --> TechLeader : valida líder
+GestorBancoPreguntas --> Modulo : asocia pregunta
+GestorBancoPreguntas --> Pregunta : crea reactivo [RN-LEAD-04]
+Pregunta o-- Opcion : contiene opciones de respuesta
+@enduml
