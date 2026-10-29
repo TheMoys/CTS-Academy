@@ -1,0 +1,92 @@
+@startuml despliegue
+!theme plain
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam componentStyle uml2
+
+node "Dispositivo Cliente" as cliente <<device>> {
+    node "Navegador Web" as navegador {
+        artifact "SPA Frontend (React + Vite)" as spa <<artifact>>
+    }
+}
+
+node "Servidor Host CTS (Docker Engine)" as host <<device>> {
+
+    package "Red Pública (cts_public_net)" #EBF5FB {
+        node "Contenedor: cts-proxy" as c_proxy <<container>> {
+            component "Nginx 1.25 (Reverse Proxy)" as nginx
+        }
+        node "Contenedor: cts-frontend" as c_front <<container>> {
+            component "Nginx Static Server" as front_server
+        }
+    }
+
+    package "Red de Aplicación (cts_app_net)" #EAF2F8 {
+        node "Contenedor: cts-backend" as c_back <<container>> {
+            component "API Gateway & Router" as router
+            component "MotorEquipos" as mod_equipos
+            component "MotorEvaluacion" as mod_evaluacion
+            component "MotorFormacion" as mod_formacion
+            component "Cron & Queue Worker" as worker
+        }
+    }
+
+    package "Red de Persistencia (cts_data_net)" #FEF9E7 {
+        node "Contenedor: cts-postgres" as c_db <<container>> {
+            database "PostgreSQL 16" as postgres {
+                folder "schema: motor_equipos" as s_eq
+                folder "schema: motor_evaluacion" as s_ev
+                folder "schema: motor_formacion" as s_fm
+            }
+        }
+
+        node "Contenedor: cts-redis" as c_redis <<container>> {
+            database "Redis 7 (In-Memory)" as redis {
+                artifact "Cache Sesiones JWT" as r_cache
+                artifact "Temporizador Tests" as r_timer
+                artifact "Colas BullMQ" as r_queue
+            }
+        }
+    }
+
+    package "Red Aislada Sandbox (cts_sandbox_net)" #FDEDEC {
+        node "Contenedor: cts-runner-daemon" as c_runner <<container>> {
+            component "Sandbox Controller" as runner_ctrl
+        }
+        node "Contenedor Efímero (Sin Red)" as c_sandbox <<ephemeral>> {
+            artifact "Node/Python Test Runner" as test_runner
+        }
+    }
+
+    storage "Volumen Persistente: pgdata" as vol_pg
+    storage "Volumen Persistente: redisdata" as vol_redis
+}
+
+cloud "Servicios Cloud Externos" as cloud_ext {
+    component "Google Calendar / Meet API" as g_meet
+    component "GitHub API & Webhooks" as gh_api
+}
+
+' Flujos de comunicación
+spa --> nginx : HTTPS / WSS (Puerto 443 / 80)
+nginx --> front_server : HTTP (Puerto 80 interno)
+nginx --> router : HTTP (Puerto 3000 interno)
+
+router --> mod_equipos
+router --> mod_evaluacion
+router --> mod_formacion
+
+c_back --> postgres : Protocolo PostgreSQL (5432)\nEsquemas Lógicos
+c_back --> redis : Protocolo RESP (6379)\nLatidos & Colas
+
+c_db ..> vol_pg : monta
+c_redis ..> vol_redis : monta
+
+mod_evaluacion --> runner_ctrl : Orden de ejecución práctica
+runner_ctrl --> c_sandbox : Instancia contenedor aislado\n(CPU 0.5, RAM 256MB, Sin Red)
+c_sandbox --> runner_ctrl : Salida stdout/stderr + JSON
+
+mod_evaluacion --> g_meet : Genera reunión virtual [ADR-009]
+mod_formacion --> gh_api : Audita Pull Requests [ADR-003]
+
+@enduml

@@ -29,6 +29,7 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
 | **[ADR-009](#adr-009-delimitación-de-actores-opacidad-de-tests-para-el-candidato-entrevistas-google-meet-en-el-perfil-por-el-gestor-y-aislamiento-del-tl)** | 2026-10-14 | Delimitación de actores: opacidad de tests, entrevistas Google Meet en el Perfil y aislamiento del TL | Aprobado | — |
 | **[ADR-010](#adr-010-refinamiento-estructural-del-dominio-top-to-bottom-transición-candidato-alumno-y-rediseño-pedagógico-de-materiales)** | 2026-10-22 | Refinamiento estructural del dominio top-to-bottom, transición Candidato-Alumno y rediseño pedagógico de materiales | Aprobado | — |
 | **[ADR-011](#adr-011-patrón-canónico-de-acceso-usuarionologueado-exclusividad-de-cerrarsesion-en-roles-y-extend-condicional)** | 2026-10-23 | Patrón canónico de acceso: UsuarioNoLogueado, exclusividad de cerrarSesion en roles y <<extend>> condicional | Aprobado | — |
+| **[ADR-012](#adr-012-elección-de-postgresql-16-para-persistencia-relacional-y-soporte-de-microservicios)** | 2026-10-29 | Elección de PostgreSQL 16 para persistencia relacional y soporte de microservicios | Aprobado | — |
 
 ---
 
@@ -168,6 +169,20 @@ Registro formal y cronológico de decisiones de diseño, acuerdos de modelado y 
     * `abrirPanelAdmisiones ..> iniciarSesion : <<extend>>\n(condición: rol == Gestor)\n(punto: tras validación exitosa)`
   * **Doble Función de los Paneles**: Los casos de uso `abrirPanel<X>()` modelan tanto la entrada extendida desde el login como el retorno al panel principal desde las distintas áreas operativas de cada actor.
 * **Artefactos afectados**: `actoresCasosUsoCandidato.puml`, `actoresCasosUsoAlumno.puml`, `actoresCasosUsoLiderEquipo.puml`, `actoresCasosUsoGestor.puml`, `iniciarSesion/especificacion.puml`, `iniciarSesion/README.md`, `RUP/01-requisitos/01-actores-casos-uso/README.md` y diagramas SVG compilados.
+
+---
+
+### ADR-012: Elección de PostgreSQL 16 para persistencia relacional y soporte de microservicios
+* **Fecha**: 2026-10-29
+* **Contexto**: Se evaluó la disyuntiva entre adoptar MySQL 8 / MariaDB 11.4 (motor predominante en proyectos del equipo como MLS Journals v2 o Nutrix) o PostgreSQL 16 para el soporte de persistencia de CTS Academy & Evaluator.
+* **Decisión**:
+  * **Adopción de PostgreSQL 16**: Se ratifica PostgreSQL 16 como el motor relacional corporativo para la plataforma, fundamentado en:
+    1. **Esquemas Lógicos Nativos**: Permite alojar los tres microservicios (`motor_equipos`, `motor_evaluacion`, `motor_formacion`) en una única base de datos física mediante esquemas aislados con control de acceso por roles, evitando la sobrecarga de 3 instancias físicas de BD o la dispersión de prefijos en tablas.
+    2. **Tipo Nativo `UUID v4`**: Asignación de identificadores de 16 bytes compactos para claves primarias en toda la plataforma sin penalizaciones de almacenamiento ni funciones de conversión forzada.
+    3. **Capacidades Avanzadas de `JSONB` e Índices GIN**: Requeridas para almacenar y consultar de forma ultra-rápida las rúbricas dinámicas de calificación, los resultados de ejecución emitidos por el runner de Docker y los payloads de evaluación práctica.
+    4. **Tipos Especializados de Auditoría**: Empleo del tipo `INET` para control de concurrencia e IPs de aspirantes, y `TIMESTAMPTZ` con soporte estricto de UTC para el sincronismo del temporizador de exámenes.
+* **Artefactos afectados**: `RUP/03-diseño/modelo-datos/`, diagramas DER (`derGeneral.puml`, `derMotorEquipos.puml`, `derMotorEvaluacion.puml`, `derMotorFormacion.puml`) y `RUP/03-diseño/README.md`.
+
 
 
 
