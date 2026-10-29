@@ -1,0 +1,75 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "FormularioImportarSede" as boundary <<boundary>>
+control "GestorAdmisiones" as control <<control>>
+entity "Convocatoria" as convocatoria <<entity>>
+entity "LoteImportacion" as lote <<entity>>
+entity "Candidato" as candidato <<entity>>
+entity "Test" as test <<entity>>
+boundary "ColaNotificacionesAsincrona" as queue <<boundary>>
+
+== Fase 1: Validación Previa No Destructiva (RN-IMP-01) ==
+actor -> boundary : cargarArchivoLote(archivoCSV)
+activate boundary
+
+boundary -> control : validarArchivoLote(archivoCSV, idConvocatoria)
+activate control
+
+control -> convocatoria : obtenerCorreosRegistrados()
+activate convocatoria
+convocatoria --> control : correosExistentesSet
+deactivate convocatoria
+
+control -> lote : procesarEnMemoria(archivoCSV, correosExistentesSet) [RN-IMP-02]
+activate lote
+note over lote : discrimina filas válidas,\nduplicadas y con errores de formato
+lote --> control : informeValidacion (validos, duplicados, errores)
+deactivate lote
+
+control --> boundary : informeValidacion
+deactivate control
+
+boundary --> actor : mostrarInformeValidacion(informeValidacion)
+
+== Fase 2: Confirmación y Persistencia Masiva con Encolamiento (RN-IMP-03) ==
+actor -> boundary : confirmarImportacion(idLote)
+
+boundary -> control : ejecutarImportacionLote(idLote)
+activate control
+
+control -> lote : obtenerRegistrosValidados()
+activate lote
+lote --> control : listaCandidatosValidos
+deactivate lote
+
+loop por cada registro válido
+    control -> candidato : crear(datos)
+    activate candidato
+    candidato --> control : nuevoCandidato
+    deactivate candidato
+
+    control -> test : crearBateriaInicial() [ADR-007]
+    activate test
+    note over test : instancia Actitud (PENDIENTE),\nAptitud (PENDIENTE) y Tecnico (PENDIENTE)
+    test --> control : bateriaTests
+    deactivate test
+
+    control -> candidato : inicializarTests(bateriaTests)
+    activate candidato
+    deactivate candidato
+end
+
+control -> queue : encolarEnvioCredenciales(listaCandidatosValidos) [RN-IMP-03]
+activate queue
+queue --> control : confirmacionEncolado
+deactivate queue
+
+control --> boundary : resumenImportacion(totalPersistidos)
+deactivate control
+
+boundary --> actor : mostrarProgresoEncolamiento(totalPersistidos)
+deactivate boundary
+@enduml

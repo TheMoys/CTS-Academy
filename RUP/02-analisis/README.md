@@ -34,12 +34,19 @@ En esta fase se formalizan:
     ├── PK01 - Acceso (2 CUs)               ──► Completado (2/2)
     │   ├── iniciarSesion/
     │   └── cerrarSesion/
-    ├── PK02 - MotorEvaluacion (12 CUs)     ──► En curso (5/12)
+    ├── PK02 - MotorEvaluacion (12 CUs)     ──► Completado (12/12)
     │   ├── abrirPanelPostulacion/
     │   ├── iniciarTest/
     │   ├── responderPreguntaTeorica/
     │   ├── entregarPreguntaPractica/
-    │   └── finalizarTest/
+    │   ├── finalizarTest/
+    │   ├── abrirPerfilCandidato/
+    │   ├── agendarEntrevistaGoogleMeet/
+    │   ├── registrarAnotacionesEntrevista/
+    │   ├── admitirAlumnoProfer/
+    │   ├── rechazarCandidatura/
+    │   ├── registrarCandidato/
+    │   └── importarCandidatosSede/
     ├── PK03 - MotorFormacion (17 CUs)      ──► En cola de modelado
     └── PK04 - MotorEquipos (4 CUs)         ──► En cola de modelado
 ```
@@ -68,13 +75,13 @@ En esta fase se formalizan:
 | **`responderPreguntaTeorica()`** | `PanelPreguntaTeorica` | `GestorEvaluacion` | `Test`, `Teorica`, `RespuestaTeorica` | [Ver Análisis](casos-uso/responderPreguntaTeorica/README.md) | Completado |
 | **`entregarPreguntaPractica()`** | `EditorPractica`, `TestRunner` | `GestorEvaluacionPractica` | `Test`, `Practica`, `EntregaPractica` | [Ver Análisis](casos-uso/entregarPreguntaPractica/README.md) | Completado |
 | **`finalizarTest()`** | `DialogoFinalizarTest` | `GestorEvaluacion` | `Test`, `Resultado`, `SesionEvaluacion` | [Ver Análisis](casos-uso/finalizarTest/README.md) | Completado |
-| `abrirPerfilCandidato()` | `PerfilCandidato` | `GestorAdmisiones` | `Candidato`, `Resultado`, `Entrevista` | — | Pendiente |
-| `agendarEntrevistaGoogleMeet()` | `DialogoAgendarEntrevista` | `GestorAdmisiones` | `Candidato`, `Entrevista` | — | Pendiente |
-| `registrarAnotacionesEntrevista()` | `FormularioEntrevista` | `GestorAdmisiones` | `Entrevista`, `Candidato` | — | Pendiente |
-| `admitirAlumnoProfer()` | `DialogoAdmision` | `GestorAdmisiones` | `Candidato`, `Alumno`, `Equipo` | — | Pendiente |
-| `rechazarCandidatura()` | `DialogoRechazo` | `GestorAdmisiones` | `Candidato`, `ExpedientePostulacion` | — | Pendiente |
-| `registrarCandidato()` | `FormularioRegistroCandidato` | `GestorAdmisiones` | `Candidato`, `Convocatoria` | — | Pendiente |
-| `importarCandidatosSede()` | `FormularioImportarSede` | `GestorAdmisiones` | `Candidato`, `Sede`, `Convocatoria` | — | Pendiente |
+| **`abrirPerfilCandidato()`** | `PerfilCandidato` | `GestorAdmisiones` | `Candidato`, `Resultado`, `Entrevista` | [Ver Análisis](casos-uso/abrirPerfilCandidato/README.md) | Completado |
+| **`agendarEntrevistaGoogleMeet()`** | `DialogoAgendarEntrevista`, `GoogleCalendarService` | `GestorAdmisiones` | `Candidato`, `Entrevista` | [Ver Análisis](casos-uso/agendarEntrevistaGoogleMeet/README.md) | Completado |
+| **`registrarAnotacionesEntrevista()`** | `FormularioEntrevista` | `GestorAdmisiones` | `Candidato`, `Entrevista`, `Anotacion` | [Ver Análisis](casos-uso/registrarAnotacionesEntrevista/README.md) | Completado |
+| **`admitirAlumnoProfer()`** | `DialogoAdmision`, `ServicioNotificacionesEmail` | `GestorAdmisiones` | `Candidato`, `Equipo`, `Alumno`, `Capacitacion` | [Ver Análisis](casos-uso/admitirAlumnoProfer/README.md) | Completado |
+| **`rechazarCandidatura()`** | `DialogoRechazo`, `ServicioAccesoAutenticacion` | `GestorAdmisiones` | `Candidato` | [Ver Análisis](casos-uso/rechazarCandidatura/README.md) | Completado |
+| **`registrarCandidato()`** | `FormularioRegistroCandidato`, `ServicioAccesoAutenticacion` | `GestorAdmisiones` | `Candidato`, `Convocatoria`, `Test` | [Ver Análisis](casos-uso/registrarCandidato/README.md) | Completado |
+| **`importarCandidatosSede()`** | `FormularioImportarSede`, `ColaNotificacionesAsincrona` | `GestorAdmisiones` | `Candidato`, `LoteImportacion`, `Convocatoria`, `Test` | [Ver Análisis](casos-uso/importarCandidatosSede/README.md) | Completado |
 
 </div>
 

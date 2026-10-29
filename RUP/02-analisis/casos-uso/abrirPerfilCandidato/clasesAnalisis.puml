@@ -1,0 +1,53 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Gestor <<actor>>
+
+class PerfilCandidato <<boundary>> {
+    + presentarExpediente(candidato: Candidato, resultados: List<Resultado>)
+    + mostrarRadarAptitudes(afinidades: Map)
+    + mostrarEstadoEntrevista(entrevista: Entrevista)
+    + habilitarAccionesResolucion()
+    + mostrarErrorCandidatoNoExiste()
+}
+
+class GestorAdmisiones <<control>> {
+    + abrirPerfilCandidato(idCandidato: UUID): ExpedienteCompleto
+    + calcularAfinidadEquipos(candidato: Candidato): Map
+    + consultarResultadosDiagnosticos(candidato: Candidato): List<Resultado>
+    + obtenerEntrevista(candidato: Candidato): Entrevista
+}
+
+class Candidato <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - nombreCompleto: String
+    - sedeOrigen: String
+    - estadoCandidatura: EstadoCandidatura
+    + obtenerTests(): List<Test>
+    + obtenerEntrevista(): Entrevista
+}
+
+class Resultado <<entity>> {
+    - id: UUID
+    - tipoTest: TipoTest
+    - indicadoresDiagnosticos: Map
+    - afinidadDisciplinar: Map
+    + consolidarMetricas(): Map
+}
+
+class Entrevista <<entity>> {
+    - id: UUID
+    - fechaProgramada: DateTime
+    - enlaceMeet: String
+    - estado: EstadoEntrevista
+    - anotaciones: List<Anotacion>
+}
+
+Gestor --> PerfilCandidato : 1. accede al expediente
+PerfilCandidato --> GestorAdmisiones : 2. solicita expediente unificado
+GestorAdmisiones --> Candidato : 3. consulta datos del aspirante
+GestorAdmisiones --> Resultado : 4. recupera indicadores y afinidades
+GestorAdmisiones --> Entrevista : 5. consulta sesión y bitácora
+@enduml

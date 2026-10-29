@@ -1,0 +1,50 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "FormularioEntrevista" as boundary <<boundary>>
+control "GestorAdmisiones" as control <<control>>
+entity "Candidato" as candidato <<entity>>
+entity "Entrevista" as entrevista <<entity>>
+entity "Anotacion" as anotacion <<entity>>
+
+actor -> boundary : registrarEntradaBitacora(momento, rubrica, texto)
+activate boundary
+
+boundary -> control : registrarAnotacion(idCandidato, momento, rubrica, texto)
+activate control
+
+control -> candidato : estaAbiertoParaAnotaciones()
+activate candidato
+candidato --> control : abierto (true / false)
+deactivate candidato
+
+alt expediente ya resuelto formalmente [ADMITIDO o RECHAZADO / RN-ANOT-03]
+    control --> boundary : error("El expediente se encuentra sellado de forma definitiva")
+    boundary --> actor : mostrarBloqueoExpedienteCerrado()
+else expediente activo
+    control -> control : validarDimensionesRubrica(rubrica) [RN-ANOT-01]
+
+    control -> candidato : obtenerEntrevista()
+    activate candidato
+    candidato --> control : entrevista
+    deactivate candidato
+
+    control -> anotacion : crear(momento, rubrica, texto, autorActual, now())
+    activate anotacion
+    anotacion --> control : nuevaAnotacion
+    deactivate anotacion
+
+    control -> entrevista : agregarAnotacionAppendOnly(nuevaAnotacion) [RN-ANOT-02]
+    activate entrevista
+    entrevista --> control : confirmacionAgregado
+    deactivate entrevista
+
+    control --> boundary : exitoRegistro(nuevaAnotacion)
+    deactivate control
+
+    boundary --> actor : mostrarHistorialBitacora(listaActualizada)
+    deactivate boundary
+end
+@enduml

@@ -1,0 +1,54 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Gestor <<actor>>
+
+class DialogoAgendarEntrevista <<boundary>> {
+    + presentarFormularioAgenda(candidato: Candidato)
+    + mostrarEquivalenciaHoraria(horaSantander: DateTime, horaSede: DateTime)
+    + capturarDatosAgenda(): DatosAgenda
+    + mostrarErrorIntegracion(mensaje: String)
+    + mostrarConfirmacionCita(enlaceMeet: String)
+}
+
+class GoogleCalendarService <<boundary>> {
+    + agendarOReagendarEvento(titulo: String, inicio: DateTime, duracion: Integer, asistentes: List): EventoMeet
+}
+
+class ServicioNotificacionesEmail <<boundary>> {
+    + despacharConvocatoria(email: String, inicio: DateTime, enlaceMeet: String, zonaHoraria: String)
+}
+
+class GestorAdmisiones <<control>> {
+    + programarEntrevista(idCandidato: UUID, inicio: DateTime, duracion: Integer, motivo: String): Entrevista
+    + calcularDualTimezone(inicio: DateTime, sede: String): DatosHorarios
+    + sincronizarGoogleWorkspace(candidato: Candidato, entrevista: Entrevista): String
+}
+
+class Candidato <<entity>> {
+    - id: UUID
+    - email: String
+    - sedeOrigen: String
+    - zonaHorariaSede: String
+    + obtenerEntrevista(): Entrevista
+}
+
+class Entrevista <<entity>> {
+    - id: UUID
+    - idEventoGoogle: String
+    - fechaProgramada: DateTime
+    - duracionMinutos: Integer
+    - enlaceMeet: String
+    - estado: EstadoEntrevista
+    + agendar(inicio: DateTime, duracion: Integer, enlaceMeet: String, idEvento: String)
+    + reagendar(inicio: DateTime, duracion: Integer, nuevoEnlace: String, motivo: String)
+}
+
+Gestor --> DialogoAgendarEntrevista : 1. define fecha y hora
+DialogoAgendarEntrevista --> GestorAdmisiones : 2. delega programación
+GestorAdmisiones --> Candidato : 3. consulta zona horaria y sede
+GestorAdmisiones --> GoogleCalendarService : 4. crea evento Meet (API)
+GestorAdmisiones --> Entrevista : 5. persiste enlace y cita
+GestorAdmisiones --> ServicioNotificacionesEmail : 6. despacha correo oficial
+@enduml

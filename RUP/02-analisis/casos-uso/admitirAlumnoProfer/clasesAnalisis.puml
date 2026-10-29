@@ -1,0 +1,63 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Gestor <<actor>>
+
+class DialogoAdmision <<boundary>> {
+    + presentarOpcionesEquipos(equiposDisponibles: List<Equipo>)
+    + capturarAsignacion(): DatosAdmision
+    + mostrarErrorCupoSaturado()
+    + mostrarConfirmacionAdmision()
+}
+
+class ServicioNotificacionesEmail <<boundary>> {
+    + despacharCartaAdmision(email: String, equipo: String, rol: String)
+}
+
+class GestorAdmisiones <<control>> {
+    + formalizarAdmision(idCandidato: UUID, idEquipo: UUID, rol: RolTecnico, fechaIngreso: Date): Alumno
+    + verificarVacantesEquipo(equipo: Equipo): Boolean
+    + promoverCandidatoAAlumno(candidato: Candidato, equipo: Equipo, rol: RolTecnico): Alumno
+}
+
+class Candidato <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - email: String
+    - estadoCandidatura: EstadoCandidatura
+    + estaAdmisible(): Boolean
+    + marcarAdmitido()
+}
+
+class Equipo <<entity>> {
+    - id: UUID
+    - nombre: String
+    - maxBecarios: Integer
+    + tieneVacantes(): Boolean
+    + incorporarAlumno(alumno: Alumno)
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - idCandidatoOrigen: UUID
+    - idEquipo: UUID
+    - rolTecnico: RolTecnico
+    - fechaIngreso: Date
+    - estadoFormacion: EstadoFormacion
+}
+
+class Capacitacion <<entity>> {
+    - id: UUID
+    - idEquipo: UUID
+    + matricularAlumno(alumno: Alumno)
+}
+
+Gestor --> DialogoAdmision : 1. selecciona equipo y rol
+DialogoAdmision --> GestorAdmisiones : 2. delega formalización
+GestorAdmisiones --> Candidato : 3. valida estado y transiciona a ADMITIDO
+GestorAdmisiones --> Equipo : 4. verifica plazas y vincula
+GestorAdmisiones --> Alumno : 5. instancia AlumnoProfer
+GestorAdmisiones --> Capacitacion : 6. matricula en onboarding
+GestorAdmisiones --> ServicioNotificacionesEmail : 7. despacha carta formal
+@enduml

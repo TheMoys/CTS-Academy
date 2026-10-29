@@ -1,0 +1,44 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Gestor <<actor>>
+
+class DialogoRechazo <<boundary>> {
+    + presentarMotivosTipificados(motivos: List<MotivoRechazo>)
+    + capturarDictamenRechazo(): DatosRechazo
+    + mostrarConfirmacionRechazo()
+    + mostrarErrorBloqueo()
+}
+
+class ServicioNotificacionesEmail <<boundary>> {
+    + despacharNotificacionNoAdmision(email: String, plantilla: String)
+}
+
+class ServicioAccesoAutenticacion <<boundary>> {
+    + revocarCredencialesCandidato(idCandidato: UUID)
+}
+
+class GestorAdmisiones <<control>> {
+    + formalizarRechazo(idCandidato: UUID, motivo: MotivoRechazo, justificacion: String)
+    + validarMotivacionObligatoria(motivo: MotivoRechazo, justificacion: String): Boolean
+}
+
+class Candidato <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - email: String
+    - estadoCandidatura: EstadoCandidatura
+    - motivoRechazo: MotivoRechazo
+    - justificacionInterna: String
+    - fechaResolucion: DateTime
+    + estaAdmisibleParaRechazo(): Boolean
+    + marcarRechazado(motivo: MotivoRechazo, justificacion: String)
+}
+
+Gestor --> DialogoRechazo : 1. introduce motivo y justificación
+DialogoRechazo --> GestorAdmisiones : 2. delega formalización de descarte
+GestorAdmisiones --> Candidato : 3. valida y archiva en RECHAZADO
+GestorAdmisiones --> ServicioAccesoAutenticacion : 4. revoca credenciales
+GestorAdmisiones --> ServicioNotificacionesEmail : 5. despacha notificación oficial
+@enduml

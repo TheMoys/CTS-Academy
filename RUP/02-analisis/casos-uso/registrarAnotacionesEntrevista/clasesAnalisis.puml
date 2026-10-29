@@ -1,0 +1,50 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Gestor <<actor>>
+
+class FormularioEntrevista <<boundary>> {
+    + presentarRubricaCompetencial()
+    + capturarAnotacion(): DatosAnotacion
+    + mostrarHistorialBitacora(anotaciones: List<Anotacion>)
+    + mostrarBloqueoExpedienteCerrado()
+}
+
+class GestorAdmisiones <<control>> {
+    + registrarAnotacion(idCandidato: UUID, momento: MomentoCaptura, rubrica: Map, texto: String): Anotacion
+    + verificarEstadoExpediente(candidato: Candidato): Boolean
+    + validarDimensionesRubrica(rubrica: Map): Boolean
+}
+
+class Candidato <<entity>> {
+    - id: UUID
+    - estadoCandidatura: EstadoCandidatura
+    + estaAbiertoParaAnotaciones(): Boolean
+    + obtenerEntrevista(): Entrevista
+}
+
+class Entrevista <<entity>> {
+    - id: UUID
+    - anotaciones: List<Anotacion>
+    + agregarAnotacionAppendOnly(anotacion: Anotacion)
+}
+
+class Anotacion <<entity>> {
+    - id: UUID
+    - momento: MomentoCaptura
+    - puntuacionComunicacion: Integer
+    - puntuacionFitCultural: Integer
+    - puntuacionActitud: Integer
+    - puntuacionCompromisoMovilidad: Integer
+    - textoEvidencia: String
+    - timestampRegistro: DateTime
+    - autorId: UUID
+}
+
+Gestor --> FormularioEntrevista : 1. introduce valoración y notas
+FormularioEntrevista --> GestorAdmisiones : 2. remite entrada de bitácora
+GestorAdmisiones --> Candidato : 3. verifica estado no resuelto
+GestorAdmisiones --> Entrevista : 4. agrega evento append-only
+Entrevista *-- Anotacion : 5. contiene eventos inmutables
+@enduml

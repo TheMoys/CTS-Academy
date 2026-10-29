@@ -1,0 +1,62 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Gestor <<actor>>
+
+class FormularioImportarSede <<boundary>> {
+    + presentarSelectorArchivo()
+    + capturarArchivoLote(): Archivo
+    + mostrarInformeValidacion(resumen: InformeValidacion)
+    + solicitarConfirmacionLote()
+    + mostrarProgresoEncolamiento(totalImportados: Integer)
+}
+
+class ColaNotificacionesAsincrona <<boundary>> {
+    + encolarEnvioCredenciales(candidatos: List<Candidato>)
+}
+
+class GestorAdmisiones <<control>> {
+    + validarArchivoLote(archivo: Archivo, idConvocatoria: UUID): InformeValidacion
+    + ejecutarImportacionLote(idLote: UUID): ResumenImportacion
+    + descartarDuplicados(registros: List, convocatoria: Convocatoria): List
+}
+
+class LoteImportacion <<entity>> {
+    - id: UUID
+    - totalFilas: Integer
+    - totalValidos: Integer
+    - totalDuplicados: Integer
+    - totalErroresSintaxis: Integer
+    - registrosValidados: List<RegistroCandidato>
+    + estaListoParaPersistir(): Boolean
+}
+
+class Candidato <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - email: String
+    - sedeOrigen: String
+    + inicializarTests(tests: List<Test>)
+}
+
+class Convocatoria <<entity>> {
+    - id: UUID
+    + obtenerCorreosRegistrados(): Set<String>
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - tipo: TipoTest
+    - estado: EstadoTest
+    + inicializarPendiente()
+}
+
+Gestor --> FormularioImportarSede : 1. carga archivo CSV/Excel
+FormularioImportarSede --> GestorAdmisiones : 2. remite para análisis previo
+GestorAdmisiones --> Convocatoria : 3. cruza correos existentes
+GestorAdmisiones --> LoteImportacion : 4. crea informe de validación en memoria
+GestorAdmisiones --> Candidato : 5. persiste masivamente registros válidos
+GestorAdmisiones --> Test : 6. inicializa baterías triples
+GestorAdmisiones --> ColaNotificacionesAsincrona : 7. encola emisión asíncrona
+@enduml

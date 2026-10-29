@@ -1,0 +1,74 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "FormularioRegistroCandidato" as boundary <<boundary>>
+control "GestorAdmisiones" as control <<control>>
+entity "Convocatoria" as convocatoria <<entity>>
+entity "Candidato" as candidato <<entity>>
+entity "Test" as test <<entity>>
+boundary "ServicioAccesoAutenticacion" as authService <<boundary>>
+boundary "ServicioNotificacionesEmail" as emailer <<boundary>>
+
+actor -> boundary : abrirFormularioRegistro()
+activate boundary
+
+boundary --> actor : presentarFormulario()
+
+actor -> boundary : registrarCandidato(nombre, email, sedeOrigen, idConvocatoria)
+
+boundary -> control : registrarCandidato(datosCandidato)
+activate control
+
+control -> convocatoria : estaVigente()
+activate convocatoria
+convocatoria --> control : vigente (true / false)
+deactivate convocatoria
+
+alt convocatoria cerrada o inactiva
+    control --> boundary : error("No existe convocatoria activa para admisiones")
+    boundary --> actor : mostrarErrorConvocatoriaInactiva()
+else convocatoria activa
+    control -> convocatoria : existeAspiranteConEmail(email) [RN-REG-02]
+    activate convocatoria
+    convocatoria --> control : yaExiste (true / false)
+    deactivate convocatoria
+
+    alt correo electrónico ya registrado en la convocatoria
+        control --> boundary : error("El correo ya se encuentra postulado en el ciclo actual")
+        boundary --> actor : mostrarErrorEmailDuplicado()
+    else correo no duplicado
+        control -> candidato : crear(nombre, email, sedeOrigen, idConvocatoria) [RN-REG-04]
+        activate candidato
+        candidato --> control : nuevoCandidato
+        deactivate candidato
+
+        control -> test : crearBateriaInicial() [RN-REG-01 / ADR-007]
+        activate test
+        note over test : instancia Actitud (PENDIENTE),\nAptitud (PENDIENTE) y Tecnico (PENDIENTE)
+        test --> control : bateriaTests
+        deactivate test
+
+        control -> candidato : inicializarTests(bateriaTests)
+        activate candidato
+        deactivate candidato
+
+        control -> authService : generarCuentaAspirante(email) [RN-REG-03]
+        activate authService
+        authService --> control : credenciales (tempPass, tokenActivacion)
+        deactivate authService
+
+        control -> emailer : despacharBienvenidaYCredenciales(email, tokenActivacion, tempPass)
+        activate emailer
+        emailer --> control : envioConfirmado
+        deactivate emailer
+
+        control --> boundary : exitoRegistro(nuevoCandidato.expedienteId)
+        deactivate control
+
+        boundary --> actor : mostrarConfirmacionRegistro(expedienteId)
+        deactivate boundary
+    end
+end
+@enduml

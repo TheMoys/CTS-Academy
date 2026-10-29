@@ -1,0 +1,60 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Gestor <<actor>>
+
+class FormularioRegistroCandidato <<boundary>> {
+    + presentarFormulario(sedes: List<Sede>, convocatorias: List<Convocatoria>)
+    + capturarDatos(): DatosCandidato
+    + mostrarErrorEmailDuplicado()
+    + mostrarConfirmacionRegistro(idExpediente: String)
+}
+
+class ServicioNotificacionesEmail <<boundary>> {
+    + despacharBienvenidaYCredenciales(email: String, enlace: String, tempPass: String)
+}
+
+class ServicioAccesoAutenticacion <<boundary>> {
+    + generarCuentaAspirante(email: String): CredencialesTemporales
+}
+
+class GestorAdmisiones <<control>> {
+    + registrarCandidato(datos: DatosCandidato): Candidato
+    + verificarUnicidadEmail(email: String, idConvocatoria: UUID): Boolean
+    + inicializarBateriaTests(candidato: Candidato): List<Test>
+}
+
+class Candidato <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - nombreCompleto: String
+    - email: String
+    - sedeOrigen: String
+    - estadoCandidatura: EstadoCandidatura
+    + inicializarTests(tests: List<Test>)
+}
+
+class Convocatoria <<entity>> {
+    - id: UUID
+    - cursoAcademico: String
+    - semestre: Integer
+    + estaVigente(): Boolean
+    + existeAspiranteConEmail(email: String): Boolean
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - tipo: TipoTest
+    - estado: EstadoTest
+    + inicializarPendiente()
+}
+
+Gestor --> FormularioRegistroCandidato : 1. introduce datos del aspirante
+FormularioRegistroCandidato --> GestorAdmisiones : 2. solicita alta individual
+GestorAdmisiones --> Convocatoria : 3. valida vigencia y unicidad
+GestorAdmisiones --> Candidato : 4. crea instancia del aspirante
+GestorAdmisiones --> Test : 5. instancia batería de 3 tests (PENDIENTE)
+GestorAdmisiones --> ServicioAccesoAutenticacion : 6. genera credenciales temporales
+GestorAdmisiones --> ServicioNotificacionesEmail : 7. despacha bienvenida
+@enduml

@@ -1,0 +1,69 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "DialogoAgendarEntrevista" as boundary <<boundary>>
+control "GestorAdmisiones" as control <<control>>
+entity "Candidato" as candidato <<entity>>
+entity "Entrevista" as entrevista <<entity>>
+boundary "GoogleCalendarService" as calendar <<boundary>>
+boundary "ServicioNotificacionesEmail" as emailer <<boundary>>
+
+actor -> boundary : abrirDialogoAgenda(idCandidato)
+activate boundary
+
+boundary -> control : calcularDualTimezone(horaSeleccionada, idCandidato)
+activate control
+control -> candidato : obtenerZonaHorariaSede()
+activate candidato
+candidato --> control : zonaHorariaSede (ej. America/Bogota)
+deactivate candidato
+control --> boundary : equivalenciaHoraria (Europe/Madrid vs Sede) [RN-ENTR-01]
+deactivate control
+
+boundary --> actor : mostrarEquivalenciaHoraria()
+
+actor -> boundary : confirmarProgramacion(fechaHora, duracion, motivo)
+
+boundary -> control : programarEntrevista(idCandidato, fechaHora, duracion, motivo)
+activate control
+
+control -> calendar : agendarOReagendarEvento(titulo, fechaHora, duracion, [emailCandidato, emailGestor])
+activate calendar
+
+alt fallo persistente de Google API [RN-ENTR-02]
+    calendar --> control : errorConexionAPI("503 Service Unavailable")
+    control --> boundary : error("Fallo en sincronización con Google Workspace")
+    boundary --> actor : mostrarErrorIntegracion("Reintento automático o enlace manual")
+else respuesta exitosa de Google Meet
+    calendar --> control : eventoMeet (idEventoGoogle, enlaceMeet)
+    deactivate calendar
+
+    control -> candidato : obtenerEntrevista()
+    activate candidato
+    candidato --> control : entrevistaExistente
+    deactivate candidato
+
+    alt es reagendación [RN-ENTR-03]
+        control -> entrevista : reagendar(fechaHora, duracion, enlaceMeet, motivo)
+        activate entrevista
+        deactivate entrevista
+    else primera cita
+        control -> entrevista : agendar(fechaHora, duracion, enlaceMeet, idEventoGoogle)
+        activate entrevista
+        deactivate entrevista
+    end
+
+    control -> emailer : despacharConvocatoria(emailCandidato, fechaHora, enlaceMeet, zonaHorariaSede) [RN-ENTR-04]
+    activate emailer
+    emailer --> control : confirmacionEnvio
+    deactivate emailer
+
+    control --> boundary : exitoAgenda(enlaceMeet, fechaHora)
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionCita(enlaceMeet)
+    deactivate boundary
+end
+@enduml

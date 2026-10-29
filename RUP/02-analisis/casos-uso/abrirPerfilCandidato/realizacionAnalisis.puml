@@ -1,0 +1,52 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "PerfilCandidato" as boundary <<boundary>>
+control "GestorAdmisiones" as control <<control>>
+entity "Candidato" as candidato <<entity>>
+entity "Resultado" as resultado <<entity>>
+entity "Entrevista" as entrevista <<entity>>
+
+actor -> boundary : abrirPerfilCandidato(idCandidato)
+activate boundary
+
+boundary -> control : abrirPerfilCandidato(idCandidato)
+activate control
+
+control -> candidato : buscarPorId(idCandidato)
+activate candidato
+candidato --> control : candidato
+deactivate candidato
+
+alt candidato no existe
+    control --> boundary : error("Expediente inexistente")
+    boundary --> actor : mostrarErrorCandidatoNoExiste()
+else candidato localizado
+    control -> resultado : obtenerResultadosPorCandidato(idCandidato)
+    activate resultado
+    resultado --> control : listaResultados (Actitud, Aptitud, Tecnico)
+    deactivate resultado
+
+    control -> control : calcularAfinidadEquipos(listaResultados) [ADR-009]
+
+    control -> candidato : obtenerEntrevista()
+    activate candidato
+    candidato -> entrevista : consultarEstado()
+    activate entrevista
+    entrevista --> candidato : datosEntrevista (Meet, anotaciones)
+    deactivate entrevista
+    candidato --> control : entrevista
+    deactivate candidato
+
+    control --> boundary : expedienteCompleto(candidato, resultados, afinidades, entrevista)
+    deactivate control
+
+    boundary --> actor : presentarExpediente(candidato, resultados)
+    boundary --> actor : mostrarRadarAptitudes(afinidades)
+    boundary --> actor : mostrarEstadoEntrevista(entrevista)
+    boundary --> actor : habilitarAccionesResolucion()
+    deactivate boundary
+end
+@enduml

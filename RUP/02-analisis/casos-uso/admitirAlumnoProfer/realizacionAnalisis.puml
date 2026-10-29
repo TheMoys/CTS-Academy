@@ -1,0 +1,82 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "DialogoAdmision" as boundary <<boundary>>
+control "GestorAdmisiones" as control <<control>>
+entity "Candidato" as candidato <<entity>>
+entity "Equipo" as equipo <<entity>>
+entity "Alumno" as alumno <<entity>>
+entity "Capacitacion" as capacitacion <<entity>>
+boundary "ServicioNotificacionesEmail" as emailer <<boundary>>
+
+actor -> boundary : abrirDialogoAdmision()
+activate boundary
+
+boundary -> control : listarEquiposConPlazas()
+activate control
+control -> equipo : consultarVacantes()
+activate equipo
+equipo --> control : listaEquiposConPlazas
+deactivate equipo
+control --> boundary : equiposDisponibles
+deactivate control
+
+boundary --> actor : presentarOpcionesEquipos(equiposDisponibles)
+
+actor -> boundary : confirmarAdmision(idEquipo, rolTecnico, fechaIngreso)
+
+boundary -> control : formalizarAdmision(idCandidato, idEquipo, rolTecnico, fechaIngreso)
+activate control
+
+control -> candidato : estaAdmisible()
+activate candidato
+candidato --> control : admisible (true / false)
+deactivate candidato
+
+alt candidato no admisible [ya resuelto previamente / RN-ADM-04]
+    control --> boundary : error("El expediente ya cuenta con resolución formal")
+    boundary --> actor : mostrarErrorBloqueo()
+else candidato admisible
+    control -> equipo : tieneVacantes() [RN-ADM-02]
+    activate equipo
+    equipo --> control : vacantesDisponibles (true / false)
+    deactivate equipo
+
+    alt cupo saturado en el equipo seleccionado
+        control --> boundary : error("Equipo sin plazas disponibles")
+        boundary --> actor : mostrarErrorCupoSaturado()
+    else vacantes confirmadas
+        control -> candidato : marcarAdmitido() [RN-ADM-04]
+        activate candidato
+        note over candidato : transiciona a ADMITIDO\nexpediente sellado en convocatoria
+        candidato --> control : confirmacion
+        deactivate candidato
+
+        control -> alumno : crear(candidato, idEquipo, rolTecnico, fechaIngreso) [RN-ADM-01 / RN-ADM-03]
+        activate alumno
+        alumno --> control : nuevoAlumno
+        deactivate alumno
+
+        control -> equipo : incorporarAlumno(nuevoAlumno)
+        activate equipo
+        deactivate equipo
+
+        control -> capacitacion : matricularAlumno(nuevoAlumno)
+        activate capacitacion
+        deactivate capacitacion
+
+        control -> emailer : despacharCartaAdmision(emailCandidato, nombreEquipo, rolTecnico)
+        activate emailer
+        emailer --> control : envioConfirmado
+        deactivate emailer
+
+        control --> boundary : exitoAdmision(nuevoAlumno)
+        deactivate control
+
+        boundary --> actor : mostrarConfirmacionAdmision()
+        deactivate boundary
+    end
+end
+@enduml

@@ -1,0 +1,55 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "DialogoRechazo" as boundary <<boundary>>
+control "GestorAdmisiones" as control <<control>>
+entity "Candidato" as candidato <<entity>>
+boundary "ServicioAccesoAutenticacion" as authService <<boundary>>
+boundary "ServicioNotificacionesEmail" as emailer <<boundary>>
+
+actor -> boundary : abrirDialogoRechazo()
+activate boundary
+
+boundary --> actor : presentarMotivosTipificados(listaMotivos)
+
+actor -> boundary : confirmarRechazo(motivoTipificado, justificacionTexto)
+
+boundary -> control : formalizarRechazo(idCandidato, motivoTipificado, justificacionTexto)
+activate control
+
+control -> candidato : estaAdmisibleParaRechazo()
+activate candidato
+candidato --> control : admisible (true / false)
+deactivate candidato
+
+alt expediente ya resuelto previamente [ADMITIDO o ya RECHAZADO]
+    control --> boundary : error("El expediente ya cuenta con resolución formal cerrada")
+    boundary --> actor : mostrarErrorBloqueo()
+else expediente pendiente de resolución
+    control -> control : validarMotivacionObligatoria(motivo, justificacion) [RN-RECH-01]
+
+    control -> candidato : marcarRechazado(motivoTipificado, justificacionTexto)
+    activate candidato
+    note over candidato : transiciona a RECHAZADO\narchivo sellado e inmutable
+    candidato --> control : confirmacion
+    deactivate candidato
+
+    control -> authService : revocarCredencialesCandidato(idCandidato) [RN-RECH-03]
+    activate authService
+    authService --> control : confirmacionRevocacion
+    deactivate authService
+
+    control -> emailer : despacharNotificacionNoAdmision(emailCandidato, plantillaConstructiva) [RN-RECH-02]
+    activate emailer
+    emailer --> control : envioConfirmado
+    deactivate emailer
+
+    control --> boundary : exitoRechazo()
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionRechazo()
+    deactivate boundary
+end
+@enduml
