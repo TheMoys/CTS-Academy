@@ -1,0 +1,81 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "DialogoCierreConvocatoria" as boundary <<boundary>>
+boundary "GeneradorReportes" as reportes <<boundary>>
+control "GestorCiclosAcademicos" as control <<control>>
+entity "Convocatoria" as conv <<entity>>
+entity "Candidato" as cand <<entity>>
+entity "Test" as test <<entity>>
+entity "InformeCorte" as informe <<entity>>
+
+actor -> boundary : solicitarCierreCorte(idConvocatoria)
+activate boundary
+
+boundary -> control : obtenerBalanceCorte(idConvocatoria)
+activate control
+
+control -> conv : estaAbierta()
+activate conv
+conv --> control : abierta
+deactivate conv
+
+alt Convocatoria ya clausurada previamente
+    control --> boundary : errorConvocatoriaYaCerrada()
+    boundary --> actor : mostrarErrorCorteYaClausurado()
+else Convocatoria abierta válida para clausura
+    control -> cand : obtenerEstadisticasCohorte(idConvocatoria)
+    activate cand
+    cand --> control : metricasCohorte
+    deactivate cand
+
+    control -> control : calcularBalancePreliminar()
+    control --> boundary : balanceCorteDTO
+    deactivate control
+
+    boundary --> actor : presentarBalanceCohorte(balanceCorteDTO)
+    deactivate boundary
+
+    actor -> boundary : confirmarClausuraDefinitiva()
+    activate boundary
+
+    boundary -> control : ejecutarCierreConvocatoria(idConvocatoria)
+    activate control
+
+    control -> conv : transicionarACerrado(timestampUTC)
+    activate conv
+    conv --> control : confirmadaTransicion
+    deactivate conv
+
+    control -> test : bloquearTestsActivosCohorte(idConvocatoria) [RN-CORTE-01]
+    activate test
+    test --> control : totalTestsBloqueados
+    deactivate test
+
+    control -> cand : archivarExpedientesIncompletos(idConvocatoria) [RN-CORTE-02]
+    activate cand
+    cand --> control : totalArchivadosAbandono
+    deactivate cand
+
+    control -> informe : crearConsolidadoInmutable(metricasFinales) [RN-CORTE-03]
+    activate informe
+    informe --> control : informeCorteGenerado
+    deactivate informe
+
+    control --> boundary : confirmacionCierreDTO(informeCorteGenerado)
+    deactivate control
+
+    boundary --> actor : mostrarConfirmacionClausura(informeCorteGenerado)
+    deactivate boundary
+
+    opt Exportación de Informe de Cierre
+        actor -> reportes : solicitarExportarInformePDF(idInforme)
+        activate reportes
+        reportes --> actor : descargarDocumentoPDF()
+        deactivate reportes
+    end
+end
+
+@enduml

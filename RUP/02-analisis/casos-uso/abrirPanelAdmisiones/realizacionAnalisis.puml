@@ -1,0 +1,47 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "PanelAdmisiones" as boundary <<boundary>>
+control "GestorAdmisiones" as control <<control>>
+entity "Gestor" as gestor <<entity>>
+entity "Convocatoria" as conv <<entity>>
+entity "Equipo" as equipo <<entity>>
+entity "Candidato" as cand <<entity>>
+
+actor -> boundary : abrirPanelAdmisiones()
+activate boundary
+
+boundary -> control : obtenerResumenAdmisiones()
+activate control
+
+control -> gestor : validarRolGestor(idUsuario)
+activate gestor
+gestor --> control : esValido
+deactivate gestor
+
+control -> conv : obtenerConvocatoriaActiva()
+activate conv
+conv --> control : convocatoriaVigente
+deactivate conv
+
+control -> equipo : listarTodosEquiposCTS() [RN-ADM-DASH-01]
+activate equipo
+equipo --> control : lista6Equipos, capacidades
+deactivate equipo
+
+control -> cand : listarCandidaturasGlobales(idConvocatoria) [RN-ADM-DASH-02]
+activate cand
+cand --> control : listaCandidatosTodasSedes
+deactivate cand
+
+control -> control : calcularTasasOcupacionEquipos()
+control -> control : computarEmbudoAdmisiones()
+control --> boundary : resumenAdmisionesDTO
+deactivate control
+
+boundary --> actor : presentarDashboard(resumenAdmisionesDTO)
+deactivate boundary
+
+@enduml

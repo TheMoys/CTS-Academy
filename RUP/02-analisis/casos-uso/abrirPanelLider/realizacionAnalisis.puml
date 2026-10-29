@@ -1,0 +1,52 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "LiderEquipo" as actor
+boundary "PanelLider" as boundary <<boundary>>
+control "GestorEquipos" as control <<control>>
+entity "TechLeader" as tl <<entity>>
+entity "Equipo" as equipo <<entity>>
+entity "Alumno" as alumno <<entity>>
+entity "Modulo" as modulo <<entity>>
+entity "EntregaLaboratorio" as entrega <<entity>>
+
+actor -> boundary : abrirPanelLider()
+activate boundary
+
+boundary -> control : obtenerResumenLider(idLider)
+activate control
+
+control -> tl : obtenerEquipoAsignado()
+activate tl
+tl --> control : idEquipoAsignado
+deactivate tl
+
+control -> equipo : obtenerDatosEquipo(idEquipoAsignado) [RN-TL-01]
+activate equipo
+equipo --> control : datosEquipo, cupos
+deactivate equipo
+
+control -> alumno : listarAlumnosPorEquipo(idEquipoAsignado)
+activate alumno
+alumno --> control : listaAlumnos
+deactivate alumno
+
+control -> modulo : listarModulosEquipo(idEquipoAsignado)
+activate modulo
+modulo --> control : listaModulos
+deactivate modulo
+
+control -> entrega : listarEntregasPendientesEquipo(idEquipoAsignado) [RN-TL-02]
+activate entrega
+entrega --> control : entregasPendientesPR
+deactivate entrega
+
+control -> control : consolidarMetricasSquad()
+control --> boundary : resumenLiderDTO
+deactivate control
+
+boundary --> actor : presentarDashboard(resumenLiderDTO)
+deactivate boundary
+
+@enduml

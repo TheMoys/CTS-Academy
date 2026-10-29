@@ -1,0 +1,72 @@
+@startuml realizacionAnalisis
+skinparam style strictuml
+autonumber
+
+actor "Gestor" as actor
+boundary "DialogoAperturaConvocatoria" as boundary <<boundary>>
+control "GestorCiclosAcademicos" as control <<control>>
+entity "CursoAcademico" as curso <<entity>>
+entity "Semestre" as semestre <<entity>>
+entity "Equipo" as equipo <<entity>>
+entity "Convocatoria" as conv <<entity>>
+entity "CupoEquipoConvocatoria" as cupo <<entity>>
+
+actor -> boundary : abrirDialogoApertura()
+activate boundary
+
+boundary -> control : obtenerCatalogosCiclos()
+activate control
+
+control -> curso : listarCursosVigentes()
+activate curso
+curso --> control : cursosDisponibles
+deactivate curso
+
+control -> semestre : listarSemestresActivos()
+activate semestre
+semestre --> control : semestresDisponibles
+deactivate semestre
+
+control -> equipo : listarEquiposCTS()
+activate equipo
+equipo --> control : lista6Equipos
+deactivate equipo
+
+control --> boundary : catalogosAperturaDTO
+deactivate control
+
+boundary --> actor : presentarFormulario(catalogos)
+deactivate boundary
+
+actor -> boundary : enviarDatosConvocatoria(datosAperturaDTO)
+activate boundary
+
+boundary -> control : registrarAperturaConvocatoria(datosAperturaDTO)
+activate control
+
+control -> control : validarRangoFechasUTC(fechaInicio, fechaFin) [RN-PER-01]
+control -> control : validarCuotas6Equipos(cuposPorEquipo) [RN-PER-02]
+
+alt Parámetros de convocatoria inválidos (fechas inconsistentes o cupos incompletos)
+    control --> boundary : errorValidacion(motivo)
+    boundary --> actor : mostrarErrorValidacion(motivo)
+else Parámetros válidos
+    control -> conv : crear(denominacion, idCurso, idSemestre, fechasUTC, ABIERTO) [RN-PER-03]
+    activate conv
+    conv --> control : convocatoriaCreada
+    deactivate conv
+
+    loop Para cada uno de los 6 Equipos CTS [RN-PER-02]
+        control -> cupo : registrarCupo(idConvocatoria, idEquipo, cupoAsignado)
+        activate cupo
+        cupo --> control : cupoConfirmado
+        deactivate cupo
+    end
+
+    control --> boundary : confirmacionConvocatoriaDTO
+    deactivate control
+    boundary --> actor : mostrarConfirmacionApertura(convocatoriaCreada)
+end
+deactivate boundary
+
+@enduml

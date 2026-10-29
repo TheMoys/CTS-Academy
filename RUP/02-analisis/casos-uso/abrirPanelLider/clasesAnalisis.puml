@@ -1,0 +1,76 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class LiderEquipo <<actor>>
+
+class PanelLider <<boundary>> {
+    + presentarDashboard(resumen: ResumenLiderDTO)
+    + mostrarAlumnosEquipo(alumnos: List<Alumno>)
+    + mostrarAlertasRevisiones(pendientes: List<EntregaLaboratorio>)
+    + mostrarEstadoModulos(modulos: List<Modulo>)
+    + navegarHaciaRevisiones()
+    + navegarHaciaModulo(idModulo: UUID)
+}
+
+class GestorEquipos <<control>> {
+    + obtenerResumenLider(idLider: UUID): ResumenLiderDTO
+    + obtenerEquipoDeLider(idLider: UUID): Equipo
+    + listarAlumnosDeEquipo(idEquipo: UUID): List<Alumno>
+    + contarEntregasPendientesRevision(idEquipo: UUID): List<EntregaLaboratorio>
+    + obtenerModulosEquipo(idEquipo: UUID): List<Modulo>
+}
+
+class TechLeader <<entity>> {
+    - id: UUID
+    - nombreCompleto: String
+    - email: String
+    - idEquipoAsignado: UUID
+    + obtenerEquipoAsignado(): UUID
+}
+
+class Equipo <<entity>> {
+    - id: UUID
+    - nombre: String
+    - sede: Sede
+    - cupoMaximo: Integer
+    - cupoOcupado: Integer
+    + obtenerCuposDisponibles(): Integer
+}
+
+class Alumno <<entity>> {
+    - id: UUID
+    - expedienteId: String
+    - idEquipo: UUID
+    - rolTecnico: RolTecnico
+    - estadoFormacion: EstadoFormacion
+    - fechaIngreso: Date
+    + obtenerProgresoGeneral(): Porcentaje
+}
+
+class Modulo <<entity>> {
+    - id: UUID
+    - idEquipo: UUID
+    - ordenSecuencial: Integer
+    - titulo: String
+    - estadoModulo: EstadoModulo
+    + esModuloActivo(): Boolean
+}
+
+class EntregaLaboratorio <<entity>> {
+    - id: UUID
+    - idLaboratorio: UUID
+    - idAlumno: UUID
+    - estadoEntrega: EstadoEntrega
+    - fechaEnvio: DateTime
+    + esPendienteRevision(): Boolean
+}
+
+LiderEquipo --> PanelLider : interactúa con
+PanelLider --> GestorEquipos : invoca
+GestorEquipos --> TechLeader : consulta perfil
+GestorEquipos --> Equipo : consulta equipo asignado [RN-TL-01]
+GestorEquipos --> Alumno : consulta becarios del equipo
+GestorEquipos --> Modulo : consulta unidades formativas
+GestorEquipos --> EntregaLaboratorio : audita PRs pendientes [RN-TL-02]
+@enduml

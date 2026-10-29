@@ -65,7 +65,11 @@ En esta fase se formalizan:
     │   ├── crearPregunta/
     │   ├── editarPregunta/
     │   └── eliminarPregunta/
-    └── PK04 - MotorEquipos (4 CUs)         ──► En cola de modelado
+    └── PK04 - MotorEquipos (4 CUs)         ──► Completado (4/4)
+        ├── abrirPanelLider/
+        ├── abrirPanelAdmisiones/
+        ├── abrirPeriodoIngreso/
+        └── cerrarCorteSemestral/
 ```
 
 ### PK01 — Acceso (2 Casos de Uso)
@@ -136,14 +140,21 @@ En esta fase se formalizan:
 
 <div align=center>
 
-| Caso de Uso | Actores Involucrados | Propósito de Análisis | Estado |
-| :--- | :--- | :--- | :---: |
-| `abrirPanelLider()` | `LiderEquipo` | Cuadro de mando del squad técnico, métricas y becarios | Pendiente |
-| `abrirPanelAdmisiones()` | `Gestor` | Embudo de postulaciones activas y filtros por cohortes | Pendiente |
-| `abrirPeriodoIngreso()` | `Gestor` | Apertura de semestre lectivo para asignación de plazas | Pendiente |
-| `cerrarCorteSemestral()` | `Gestor` | Consolidación y cierre de cohorte de incorporación | Pendiente |
+| Caso de Uso | Frontera (`<<boundary>>`) | Control (`<<control>>`) | Entidades (`<<entity>>`) | Realización de Análisis | Estado |
+| :--- | :--- | :--- | :--- | :---: | :---: |
+| **`abrirPanelLider()`** | `PanelLider` | `GestorEquipos` | `TechLeader`, `Equipo`, `Alumno`, `Modulo`, `EntregaLaboratorio` | [Ver Análisis](casos-uso/abrirPanelLider/README.md) | Completado |
+| **`abrirPanelAdmisiones()`** | `PanelAdmisiones` | `GestorAdmisiones` | `Gestor`, `Convocatoria`, `Equipo`, `Candidato` | [Ver Análisis](casos-uso/abrirPanelAdmisiones/README.md) | Completado |
+| **`abrirPeriodoIngreso()`** | `DialogoAperturaConvocatoria` | `GestorCiclosAcademicos` | `Gestor`, `CursoAcademico`, `Semestre`, `Convocatoria`, `Equipo`, `CupoEquipoConvocatoria` | [Ver Análisis](casos-uso/abrirPeriodoIngreso/README.md) | Completado |
+| **`cerrarCorteSemestral()`** | `DialogoCierreConvocatoria`, `GeneradorReportes` | `GestorCiclosAcademicos` | `Gestor`, `Convocatoria`, `Candidato`, `Test`, `InformeCorte` | [Ver Análisis](casos-uso/cerrarCorteSemestral/README.md) | Completado |
 
 </div>
+
+---
+
+## Estado de la Fase
+
+> [!NOTE]
+> **Fase 02: Análisis Completada al 100%**: Los 35 casos de uso de CTS Academy & Evaluator cuentan con sus diagramas de clases participantes (VOPC) y diagramas de secuencia BCE compilados, trazados con las reglas de negocio institucionales de la Fase 01 y listos para la **Fase 03: Diseño de Arquitectura y Componentes Tecnológicos**.
 
 ---
 

@@ -1,0 +1,84 @@
+@startuml clasesAnalisis
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+
+class Gestor <<actor>>
+
+class DialogoCierreConvocatoria <<boundary>> {
+    + presentarBalanceCohorte(balance: BalanceCorteDTO)
+    + solicitarConfirmacionCierre()
+    + mostrarErrorCorteYaClausurado()
+    + mostrarConfirmacionClausura(informe: InformeCorte)
+}
+
+class GeneradorReportes <<boundary>> {
+    + exportarInformeConsolidado(informe: InformeCorte): DocumentoPDF
+}
+
+class GestorCiclosAcademicos <<control>> {
+    + obtenerBalanceCorte(idConvocatoria: UUID): BalanceCorteDTO
+    + ejecutarCierreConvocatoria(idConvocatoria: UUID): InformeCorte
+    + bloquearTestsActivosDeCohorte(idConvocatoria: UUID): Void
+    + archivarCandidaturasIncompletas(idConvocatoria: UUID): Integer
+    + consolidarInformeCorte(convocatoria: Convocatoria): InformeCorte
+}
+
+class Gestor <<entity>> {
+    - id: UUID
+    - nombreCompleto: String
+    - email: String
+    - rol: RolUsuario
+}
+
+class Convocatoria <<entity>> {
+    - id: UUID
+    - denominacion: String
+    - estadoConvocatoria: EstadoConvocatoria
+    - fechaApertura: DateTime
+    - fechaCierre: DateTime
+    - fechaCierreEfectiva: DateTime
+    + estaAbierta(): Boolean
+    + transicionarACerrado(fecha: DateTime): Void
+}
+
+class Candidato <<entity>> {
+    - id: UUID
+    - idConvocatoria: UUID
+    - estadoPostulacion: EstadoPostulacion
+    - notaFinalBateria: Calificacion
+    + tieneProcesoIncompleto(): Boolean
+    + archivarPorAbandono(): Void
+}
+
+class Test <<entity>> {
+    - id: UUID
+    - idCandidato: UUID
+    - tipoBateria: TipoTestBateria
+    - estadoTest: EstadoTest
+    + forzarBloqueoPorCierre(): Void
+}
+
+class InformeCorte <<entity>> {
+    - id: UUID
+    - idConvocatoria: UUID
+    - totalPostulados: Integer
+    - totalEvaluados: Integer
+    - totalEntrevistados: Integer
+    - totalAdmitidos: Integer
+    - totalArchivadosAbandono: Integer
+    - distribucionPorEquipo: Map<UUID, Integer>
+    - procedenciaPorSede: Map<Sede, Integer>
+    - fechaConsolidacion: DateTime
+    - firmaHashInmutable: String
+    + esInmutable(): Boolean
+}
+
+Gestor --> DialogoCierreConvocatoria : interactúa con
+DialogoCierreConvocatoria --> GestorCiclosAcademicos : invoca
+GestorCiclosAcademicos --> GeneradorReportes : delega exportación
+GestorCiclosAcademicos --> Gestor : verifica rol
+GestorCiclosAcademicos --> Convocatoria : transiciona a CERRADO
+GestorCiclosAcademicos --> Candidato : archiva incompletos [RN-CORTE-02]
+GestorCiclosAcademicos --> Test : bloquea tests en curso [RN-CORTE-01]
+GestorCiclosAcademicos --> InformeCorte : genera consolidado inmutable [RN-CORTE-03]
+@enduml
