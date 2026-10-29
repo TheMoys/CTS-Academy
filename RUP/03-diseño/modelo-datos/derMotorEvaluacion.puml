@@ -1,0 +1,154 @@
+@startuml derMotorEvaluacion
+!theme plain
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam classAttributeIconSize 0
+
+package "motor_evaluacion" {
+
+    entity "cursos_academicos" as cursos {
+        * id : uuid <<PK>>
+        --
+        * denominacion : varchar(50)
+        * anio_inicio : smallint
+        * anio_fin : smallint
+        * activo : boolean
+    }
+
+    entity "semestres" as semestres {
+        * id : uuid <<PK>>
+        --
+        * curso_academico_id : uuid <<FK>>
+        * periodo : varchar(10)
+        * fecha_inicio : date
+        * fecha_fin : date
+    }
+
+    entity "convocatorias" as convocatorias {
+        * id : uuid <<PK>>
+        --
+        * semestre_id : uuid <<FK>>
+        * denominacion : varchar(150)
+        * estado : varchar(30)
+        * fecha_apertura : timestamptz
+        * fecha_cierre : timestamptz
+        * modelo_admision : varchar(30)
+        * creado_en : timestamptz
+        * actualizado_en : timestamptz
+    }
+
+    entity "cupos_equipo_convocatoria" as cupos {
+        * id : uuid <<PK>>
+        --
+        * convocatoria_id : uuid <<FK>>
+        * equipo_id : uuid <<FK>>
+        * cupo_autorizado : integer
+        * total_admitidos : integer
+    }
+
+    entity "candidatos" as candidatos {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK, UNIQUE>>
+        * convocatoria_id : uuid <<FK>>
+        * sede_origen : varchar(50)
+        lote_importacion_id : uuid
+        telefono : varchar(30)
+        titulacion_universitaria : varchar(150)
+        * estado_postulacion : varchar(40)
+        nota_final_bateria : numeric(4,2)
+        decision_admision : varchar(30)
+        motivo_rechazo : text
+        * creado_en : timestamptz
+        * actualizado_en : timestamptz
+    }
+
+    entity "tests" as tests {
+        * id : uuid <<PK>>
+        --
+        candidato_id : uuid <<FK>>
+        alumno_id : uuid <<FK>>
+        * tipo_bateria : varchar(30)
+        * estado : varchar(30)
+        * tiempo_limite_segundos : integer
+        * segundos_consumidos : integer
+        calificacion_obtenida : numeric(4,2)
+        fecha_inicio : timestamptz
+        fecha_finalizacion : timestamptz
+        * creado_en : timestamptz
+    }
+
+    entity "sesiones_evaluacion" as sesiones_eval {
+        * id : uuid <<PK>>
+        --
+        * test_id : uuid <<FK>>
+        ip_remota : inet
+        * inicios_concurrencia : integer
+        * ultimo_latido : timestamptz
+        * desfase_servidor_ms : integer
+    }
+
+    entity "respuestas_evaluacion" as respuestas {
+        * id : uuid <<PK>>
+        --
+        * test_id : uuid <<FK>>
+        * pregunta_id : uuid <<FK>>
+        opcion_seleccionada_id : uuid <<FK>>
+        codigo_entregado : text
+        calificacion_obtenida : numeric(4,2)
+        es_correcta : boolean
+        * respondida_en : timestamptz
+    }
+
+    entity "entrevistas" as entrevistas {
+        * id : uuid <<PK>>
+        --
+        * candidato_id : uuid <<FK, UNIQUE>>
+        * gestor_id : uuid <<FK>>
+        * enlace_google_meet : varchar(255)
+        google_calendar_event_id : varchar(255)
+        * fecha_hora_programada : timestamptz
+        * estado : varchar(30)
+        * creado_en : timestamptz
+    }
+
+    entity "anotaciones_entrevista" as anotaciones {
+        * id : uuid <<PK>>
+        --
+        * entrevista_id : uuid <<FK>>
+        * competencia_evaluada : varchar(100)
+        * calificacion_cualitativa : varchar(50)
+        * comentario : text
+        * creado_en : timestamptz
+    }
+
+    entity "informes_corte" as informes {
+        * id : uuid <<PK>>
+        --
+        * convocatoria_id : uuid <<FK, UNIQUE>>
+        * gestor_id : uuid <<FK>>
+        * total_postulados : integer
+        * total_admitidos : integer
+        * total_rechazados : integer
+        * total_abandonos : integer
+        * distribucion_equipos : jsonb
+        * distribucion_sedes : jsonb
+        * firma_hash_inmutable : varchar(64)
+        * creado_en : timestamptz
+    }
+}
+
+cursos ||--|{ semestres : "compone"
+semestres ||--o{ convocatorias : "organiza"
+convocatorias ||--|{ cupos : "asigna cupos"
+convocatorias ||--o{ candidatos : "inscribe"
+convocatorias ||--o| informes : "consolida"
+
+candidatos ||--o{ tests : "rinde batería"
+tests ||--o{ sesiones_eval : "monitorea reloj"
+tests ||--o{ respuestas : "contesta"
+
+candidatos ||--o| entrevistas : "evalúa idoneidad"
+entrevistas ||--o{ anotaciones : "registra notas"
+
+@enduml

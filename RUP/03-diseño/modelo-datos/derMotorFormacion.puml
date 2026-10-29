@@ -1,0 +1,152 @@
+@startuml derMotorFormacion
+!theme plain
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam classAttributeIconSize 0
+
+package "motor_formacion" {
+
+    entity "capacitaciones" as capacitaciones {
+        * id : uuid <<PK>>
+        --
+        * nombre : varchar(100)
+        * track_especialidad : varchar(50)
+        descripcion : text
+        * version_curricular : varchar(20)
+        * activa : boolean
+    }
+
+    entity "modulos" as modulos {
+        * id : uuid <<PK>>
+        --
+        * capacitacion_id : uuid <<FK>>
+        * equipo_propietario_id : uuid <<FK>>
+        * orden_secuencial : integer
+        * titulo : varchar(150)
+        descripcion : text
+        * estado : varchar(30)
+    }
+
+    entity "materiales" as materiales {
+        * id : uuid <<PK>>
+        --
+        * modulo_id : uuid <<FK>>
+        * orden_secuencial : integer
+        * titulo : varchar(200)
+        * tipo_material : varchar(30)
+        contenido_markdown : text
+        url_recurso : varchar(500)
+        * es_obligatorio : boolean
+        * activo : boolean
+        * creado_en : timestamptz
+        * actualizado_en : timestamptz
+    }
+
+    entity "lecturas_material" as lecturas {
+        * id : uuid <<PK>>
+        --
+        * material_id : uuid <<FK>>
+        * alumno_id : uuid <<FK>>
+        * tiempo_lectura_segundos : integer
+        * completada : boolean
+        completada_en : timestamptz
+    }
+
+    entity "laboratorios" as laboratorios {
+        * id : uuid <<PK>>
+        --
+        * modulo_id : uuid <<FK>>
+        * titulo : varchar(150)
+        * descripcion_ticket : text
+        * url_template_repositorio : varchar(255)
+        * criterios_evaluacion : jsonb
+        * activo : boolean
+    }
+
+    entity "entregas_laboratorio" as entregas {
+        * id : uuid <<PK>>
+        --
+        * laboratorio_id : uuid <<FK>>
+        * alumno_id : uuid <<FK>>
+        * numero_intento : integer
+        * url_pull_request : varchar(255)
+        * commit_hash : varchar(40)
+        * estado : varchar(30)
+        calificacion : numeric(4,2)
+        resultado_sandbox_ci : jsonb
+        * fecha_envio : timestamptz
+        fecha_calificacion : timestamptz
+    }
+
+    entity "revisiones_codigo" as revisiones {
+        * id : uuid <<PK>>
+        --
+        * entrega_laboratorio_id : uuid <<FK>>
+        * tech_leader_id : uuid <<FK>>
+        * veredicto : varchar(30)
+        * calificacion_asignada : numeric(4,2)
+        * resumen_feedback : text
+        * fecha_revision : timestamptz
+    }
+
+    entity "comentarios_revision" as comentarios {
+        * id : uuid <<PK>>
+        --
+        * revision_codigo_id : uuid <<FK>>
+        * archivo_ruta : varchar(255)
+        * linea_codigo : integer
+        * comentario : text
+        * creado_en : timestamptz
+    }
+
+    entity "preguntas" as preguntas {
+        * id : uuid <<PK>>
+        --
+        * modulo_id : uuid <<FK>>
+        * tipo_pregunta : varchar(20)
+        * enunciado : text
+        * nivel_dificultad : varchar(20)
+        * puntuacion_base : numeric(4,2)
+        * tipo_evaluacion_reactivo : varchar(30)
+        * activo : boolean
+        * creado_en : timestamptz
+        eliminado_en : timestamptz
+    }
+
+    entity "opciones_pregunta" as opciones {
+        * id : uuid <<PK>>
+        --
+        * pregunta_id : uuid <<FK>>
+        * texto_opcion : text
+        * es_correcta : boolean
+        justificacion : text
+    }
+
+    entity "evaluaciones_sumativas" as sumativas {
+        * id : uuid <<PK>>
+        --
+        * alumno_id : uuid <<FK>>
+        * tech_leader_id : uuid <<FK>>
+        * capacitacion_id : uuid <<FK>>
+        * nota_final_capacitacion : numeric(4,2)
+        * informe_desempeno : text
+        * apto_para_produccion : boolean
+        * fecha_evaluacion : timestamptz
+    }
+}
+
+capacitaciones ||--|{ modulos : "estructura"
+modulos ||--o{ materiales : "agrupa"
+materiales ||--o{ lecturas : "registra lectura"
+
+modulos ||--o{ laboratorios : "asigna retos"
+laboratorios ||--o{ entregas : "recibe entregables PR"
+entregas ||--o{ revisiones : "audita con code review"
+revisiones ||--o{ comentarios : "detalla líneas"
+
+modulos ||--o{ preguntas : "nutre banco de reactivos"
+preguntas ||--|{ opciones : "define opciones"
+
+capacitaciones ||--o{ sumativas : "dictamina cierre"
+
+@enduml

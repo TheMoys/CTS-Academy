@@ -1,0 +1,170 @@
+@startuml derGeneral
+!theme plain
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam classAttributeIconSize 0
+
+package "MotorEquipos" #FAFAFA {
+    entity "usuarios" as eq_usuarios {
+        * id : uuid <<PK>>
+        --
+        * email : varchar(255)
+        * rol : varchar(30)
+    }
+
+    entity "equipos" as eq_equipos {
+        * id : uuid <<PK>>
+        --
+        * codigo : varchar(20)
+        * nombre : varchar(100)
+    }
+
+    entity "alumnos_profer" as eq_alumnos {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK>>
+        * equipo_id : uuid <<FK>>
+        candidato_origen_id : uuid <<FK>>
+    }
+
+    entity "lideres_equipo" as eq_lideres {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK>>
+        * equipo_id : uuid <<FK>>
+    }
+
+    entity "gestores_profer" as eq_gestores {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK>>
+    }
+}
+
+package "MotorEvaluacion" #F0F7FF {
+    entity "convocatorias" as ev_convocatorias {
+        * id : uuid <<PK>>
+        --
+        * estado : varchar(30)
+    }
+
+    entity "candidatos" as ev_candidatos {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK>>
+        * convocatoria_id : uuid <<FK>>
+        * estado_postulacion : varchar(40)
+    }
+
+    entity "cupos_equipo_convocatoria" as ev_cupos {
+        * id : uuid <<PK>>
+        --
+        * convocatoria_id : uuid <<FK>>
+        * equipo_id : uuid <<FK>>
+    }
+
+    entity "tests" as ev_tests {
+        * id : uuid <<PK>>
+        --
+        candidato_id : uuid <<FK>>
+        alumno_id : uuid <<FK>>
+        * tipo_bateria : varchar(30)
+    }
+
+    entity "respuestas_evaluacion" as ev_respuestas {
+        * id : uuid <<PK>>
+        --
+        * test_id : uuid <<FK>>
+        * pregunta_id : uuid <<FK>>
+    }
+
+    entity "entrevistas" as ev_entrevistas {
+        * id : uuid <<PK>>
+        --
+        * candidato_id : uuid <<FK>>
+        * gestor_id : uuid <<FK>>
+    }
+
+    entity "informes_corte" as ev_informes {
+        * id : uuid <<PK>>
+        --
+        * convocatoria_id : uuid <<FK>>
+        * gestor_id : uuid <<FK>>
+    }
+}
+
+package "MotorFormacion" #F9FFF0 {
+    entity "capacitaciones" as fm_capacitaciones {
+        * id : uuid <<PK>>
+        --
+        * track_especialidad : varchar(50)
+    }
+
+    entity "modulos" as fm_modulos {
+        * id : uuid <<PK>>
+        --
+        * capacitacion_id : uuid <<FK>>
+        * equipo_propietario_id : uuid <<FK>>
+    }
+
+    entity "materiales" as fm_materiales {
+        * id : uuid <<PK>>
+        --
+        * modulo_id : uuid <<FK>>
+    }
+
+    entity "lecturas_material" as fm_lecturas {
+        * id : uuid <<PK>>
+        --
+        * material_id : uuid <<FK>>
+        * alumno_id : uuid <<FK>>
+    }
+
+    entity "entregas_laboratorio" as fm_entregas {
+        * id : uuid <<PK>>
+        --
+        * laboratorio_id : uuid <<FK>>
+        * alumno_id : uuid <<FK>>
+        * estado : varchar(30)
+    }
+
+    entity "revisiones_codigo" as fm_revisiones {
+        * id : uuid <<PK>>
+        --
+        * entrega_laboratorio_id : uuid <<FK>>
+        * tech_leader_id : uuid <<FK>>
+    }
+
+    entity "preguntas" as fm_preguntas {
+        * id : uuid <<PK>>
+        --
+        * modulo_id : uuid <<FK>>
+        * tipo_pregunta : varchar(20)
+    }
+
+    entity "evaluaciones_sumativas" as fm_sumativas {
+        * id : uuid <<PK>>
+        --
+        * alumno_id : uuid <<FK>>
+        * tech_leader_id : uuid <<FK>>
+    }
+}
+
+' Relaciones Inter-Microservicios
+eq_usuarios ||..o{ ev_candidatos : "credenciales"
+ev_candidatos |o..o| eq_alumnos : "transiciona al admitir [ADR-010]"
+eq_equipos ||..o{ ev_cupos : "cuotas autorizadas"
+eq_gestores ||..o{ ev_entrevistas : "conduce [ADR-009]"
+eq_gestores ||..o{ ev_informes : "formaliza cierre"
+
+eq_equipos ||..o{ fm_modulos : "propiedad técnica [RN-LEAD-01]"
+eq_alumnos ||..o{ ev_tests : "rinde nivelación"
+fm_preguntas ||..o{ ev_respuestas : "reactivos de examen"
+
+eq_alumnos ||..o{ fm_lecturas : "tracking formativo"
+eq_alumnos ||..o{ fm_entregas : "remite PRs"
+eq_lideres ||..o{ fm_revisiones : "audita código"
+eq_alumnos ||..o{ fm_sumativas : "evaluación final"
+eq_lideres ||..o{ fm_sumativas : "emite veredicto"
+
+@enduml

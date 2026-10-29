@@ -1,0 +1,95 @@
+@startuml derMotorEquipos
+!theme plain
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam classAttributeIconSize 0
+
+package "motor_equipos" {
+
+    entity "usuarios" as usuarios {
+        * id : uuid <<PK>>
+        --
+        * email : varchar(255) <<UNIQUE>>
+        * password_hash : varchar(255)
+        * nombre : varchar(100)
+        * apellidos : varchar(150)
+        * rol : varchar(30)
+        * activo : boolean
+        * creado_en : timestamptz
+        * actualizado_en : timestamptz
+        eliminado_en : timestamptz
+    }
+
+    entity "sesiones" as sesiones {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK>>
+        * token_hash : varchar(255)
+        ip_origen : inet
+        user_agent : text
+        * expira_en : timestamptz
+        * activa : boolean
+        * creado_en : timestamptz
+    }
+
+    entity "programas_profer" as programas {
+        * id : uuid <<PK>>
+        --
+        * denominacion : varchar(150)
+        * convenio_universidad : varchar(255)
+        * activo : boolean
+        * creado_en : timestamptz
+    }
+
+    entity "equipos" as equipos {
+        * id : uuid <<PK>>
+        --
+        * programa_id : uuid <<FK>>
+        * codigo : varchar(20) <<UNIQUE>>
+        * nombre : varchar(100)
+        * especialidad : varchar(50)
+        * cupo_maximo : integer
+        * creado_en : timestamptz
+    }
+
+    entity "lideres_equipo" as lideres {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK, UNIQUE>>
+        * equipo_id : uuid <<FK>>
+        * especialidad_tecnica : varchar(100)
+        * activo : boolean
+    }
+
+    entity "gestores_profer" as gestores {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK, UNIQUE>>
+        * departamento : varchar(100)
+        * cargo : varchar(100)
+    }
+
+    entity "alumnos_profer" as alumnos {
+        * id : uuid <<PK>>
+        --
+        * usuario_id : uuid <<FK, UNIQUE>>
+        * equipo_id : uuid <<FK>>
+        * expediente_id : varchar(50) <<UNIQUE>>
+        candidato_origen_id : uuid <<UNIQUE>>
+        * rol_tecnico : varchar(50)
+        * estado_formacion : varchar(30)
+        * fecha_incorporacion : date
+        * creado_en : timestamptz
+    }
+}
+
+usuarios ||--o{ sesiones : "mantiene"
+usuarios ||--o| lideres : "perfila"
+usuarios ||--o| gestores : "perfila"
+usuarios ||--o| alumnos : "perfila"
+
+programas ||--|{ equipos : "estructura"
+equipos ||--o{ lideres : "dirige"
+equipos ||--o{ alumnos : "adscribe"
+
+@enduml
